@@ -2,6 +2,8 @@
 ### THE PROJECT IS UNDER PROGRESS AND IS NOT READY YET
 ---
 
+[![PHP](https://img.shields.io/badge/PHP-8.1%2B-blue.svg)](https://php.net/migration81)
+
 ## What is eTraxis
 
 eTraxis is an issue tracking system with ability to set up an unlimited number of customizable workflows.

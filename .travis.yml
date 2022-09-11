@@ -1,0 +1,10 @@
+language: php
+
+php:
+    - 8.1
+
+install:
+    - composer --optimize-autoloader --no-interaction install
+
+script:
+    - ./bin/phpunit

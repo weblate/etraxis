@@ -3,6 +3,7 @@ SHELL=/bin/bash
 .PHONY: help
 .PHONY: build
 .PHONY: run
+.PHONY: check
 .PHONY: cloc
 .PHONY: test
 .PHONY: coverage
@@ -11,6 +12,7 @@ SHELL=/bin/bash
 help:
 	@echo "make build	Builds the project from scratch"
 	@echo "make run	Runs the project"
+	@echo "make check	Checks the project for coding standards"
 	@echo "make cloc	Count lines of source code in the project"
 	@echo "make test	Executes PHPUnit tests"
 	@echo "make coverage	Executes PHPUnit tests with code coverage"
@@ -21,6 +23,9 @@ build:
 
 run:
 	symfony serve
+
+check:
+	./vendor/bin/php-cs-fixer fix
 
 cloc:
 	cloc ./src ./tests

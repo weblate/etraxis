@@ -6,9 +6,21 @@ php:
 env:
     global:
         - XDEBUG_MODE=coverage
+    jobs:
+        - DB=mysql
+        - DB=postgresql
+
+services:
+    - mysql
+    - postgresql
 
 install:
+    - cp config/travis/.env.$DB .env.local
     - composer --optimize-autoloader --no-interaction install
+
+before_script:
+    - ./bin/console --no-interaction doctrine:database:create
+    - ./bin/console --no-interaction doctrine:schema:create
 
 script:
     - ./bin/phpunit --coverage-clover=coverage.clover

@@ -46,7 +46,14 @@ return (new PhpCsFixer\Config())
                 '=>'  => 'align',
             ],
         ],
+        'blank_line_before_statement' => [
+            'statements' => [
+                'break', 'continue', 'declare', 'default', 'exit', 'for', 'foreach', 'goto', 'if', 'include', 'include_once',
+                'phpdoc', 'require', 'require_once', 'return', 'switch', 'throw', 'try', 'yield', 'yield_from',
+            ],
+        ],
         'declare_strict_types'        => false,
+        'native_function_invocation'  => false,
         'self_static_accessor'        => true,
         'single_line_comment_spacing' => false,
     ])

@@ -18,9 +18,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Default controller.
+ * Default public area controller.
  */
-class DefaultController extends AbstractController
+class DefaultPublicController extends AbstractController
 {
     #[Route('/')]
     public function index(): Response

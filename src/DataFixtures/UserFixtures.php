@@ -18,12 +18,20 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
  * Test fixtures for 'User' entity.
  */
 class UserFixtures extends Fixture implements FixtureInterface, DependentFixtureInterface
 {
+    /**
+     * @codeCoverageIgnore Dependency Injection constructor
+     */
+    public function __construct(protected UserPasswordHasherInterface $hasher)
+    {
+    }
+
     /**
      * @see DependentFixtureInterface
      */
@@ -43,7 +51,7 @@ class UserFixtures extends Fixture implements FixtureInterface, DependentFixture
 
         $user
             ->setEmail('artem@example.com')
-            ->setPassword('secret')
+            ->setPassword($this->hasher->hashPassword($user, 'secret'))
             ->setFullname('Artem Rodygin')
             ->setAdmin(false)
         ;

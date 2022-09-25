@@ -20,6 +20,8 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Uid\Uuid;
 
 /**
@@ -29,8 +31,12 @@ use Symfony\Component\Uid\Uuid;
 #[ORM\Table(name: 'users')]
 #[ORM\UniqueConstraint(fields: ['email'])]
 #[ORM\UniqueConstraint(fields: ['accountProvider', 'accountUid'])]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    // Roles.
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
+    public const ROLE_USER  = 'ROLE_USER';
+
     // Constraints.
     public const MAX_EMAIL       = 254;
     public const MAX_FULLNAME    = 50;
@@ -120,6 +126,33 @@ class User
     }
 
     /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        return [
+            $this->admin ? self::ROLE_ADMIN : self::ROLE_USER,
+        ];
+    }
+
+    /**
+     * @see UserInterface
+     *
+     * @codeCoverageIgnore Empty implementation
+     */
+    public function eraseCredentials(): void
+    {
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
+    }
+
+    /**
      * Property getter.
      */
     public function getId(): int
@@ -147,6 +180,8 @@ class User
 
     /**
      * Property getter.
+     *
+     * @see PasswordAuthenticatedUserInterface
      */
     public function getPassword(): ?string
     {

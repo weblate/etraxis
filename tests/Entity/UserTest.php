@@ -45,6 +45,29 @@ final class UserTest extends TestCase
     }
 
     /**
+     * @covers ::getUserIdentifier
+     */
+    public function testUserIdentifier(): void
+    {
+        $user = new User();
+
+        $user->setEmail('anna@example.com');
+        self::assertSame('anna@example.com', $user->getUserIdentifier());
+    }
+
+    /**
+     * @covers ::getRoles
+     */
+    public function testRoles(): void
+    {
+        $user = new User();
+        self::assertSame([User::ROLE_USER], $user->getRoles());
+
+        $user->setAdmin(true);
+        self::assertSame([User::ROLE_ADMIN], $user->getRoles());
+    }
+
+    /**
      * @covers ::getId
      */
     public function testId(): void

@@ -23,6 +23,7 @@ build:
 	./bin/console doctrine:database:drop --force --quiet || true
 	./bin/console doctrine:database:create
 	./bin/console doctrine:schema:create
+	./bin/console doctrine:fixtures:load --group=prod -n
 
 run:
 	symfony serve
@@ -34,9 +35,11 @@ cloc:
 	cloc ./src ./tests
 
 test:
+	./bin/console doctrine:fixtures:load -n
 	./bin/phpunit
 
 coverage:
+	./bin/console doctrine:fixtures:load -n
 	XDEBUG_MODE=coverage ./bin/phpunit --coverage-html=var/coverage
 
 update:

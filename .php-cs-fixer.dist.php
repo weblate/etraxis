@@ -3,7 +3,9 @@
 $finder = (new PhpCsFixer\Finder())
     ->in(__DIR__.'/src')
     ->in(__DIR__.'/tests')
-    ->notPath(['Kernel.php', 'bootstrap.php'])
+    ->notPath([
+        'Entity/Enums',
+    ])
 ;
 
 return (new PhpCsFixer\Config())
@@ -44,12 +46,6 @@ return (new PhpCsFixer\Config())
                 '.='  => 'align',
                 '??=' => 'align',
                 '=>'  => 'align',
-            ],
-        ],
-        'blank_line_before_statement' => [
-            'statements' => [
-                'break', 'continue', 'declare', 'default', 'exit', 'for', 'foreach', 'goto', 'if', 'include', 'include_once',
-                'phpdoc', 'require', 'require_once', 'return', 'switch', 'throw', 'try', 'yield', 'yield_from',
             ],
         ],
         'declare_strict_types'        => false,

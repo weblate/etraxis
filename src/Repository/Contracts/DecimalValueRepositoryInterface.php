@@ -31,4 +31,12 @@ interface DecimalValueRepositoryInterface extends ObjectRepository, Selectable
      * @see \Doctrine\Persistence\ObjectManager::remove()
      */
     public function remove(DecimalValue $entity, bool $flush = false): void;
+
+    /**
+     * Finds specified decimal value entity.
+     * If the value doesn't exist yet, creates it.
+     *
+     * @param string $value Decimal value
+     */
+    public function get(string $value): DecimalValue;
 }

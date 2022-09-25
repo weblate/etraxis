@@ -31,4 +31,12 @@ interface TextValueRepositoryInterface extends ObjectRepository, Selectable
      * @see \Doctrine\Persistence\ObjectManager::remove()
      */
     public function remove(TextValue $entity, bool $flush = false): void;
+
+    /**
+     * Finds specified text value entity.
+     * If the value doesn't exist yet, creates it.
+     *
+     * @param string $value Text value
+     */
+    public function get(string $value): TextValue;
 }

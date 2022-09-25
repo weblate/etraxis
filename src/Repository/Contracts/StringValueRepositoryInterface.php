@@ -31,4 +31,12 @@ interface StringValueRepositoryInterface extends ObjectRepository, Selectable
      * @see \Doctrine\Persistence\ObjectManager::remove()
      */
     public function remove(StringValue $entity, bool $flush = false): void;
+
+    /**
+     * Finds specified string value entity.
+     * If the value doesn't exist yet, creates it.
+     *
+     * @param string $value String value
+     */
+    public function get(string $value): StringValue;
 }

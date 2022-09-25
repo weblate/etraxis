@@ -53,4 +53,24 @@ class TextValueRepository extends ServiceEntityRepository implements Contracts\T
             $this->getEntityManager()->flush();
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function get(string $value): TextValue
+    {
+        $entity = $this->findOneBy([
+            'hash' => md5($value),
+        ]);
+
+        // If value doesn't exist yet, create it.
+        if (null === $entity) {
+            $entity = new TextValue($value);
+
+            $this->getEntityManager()->persist($entity);
+            $this->getEntityManager()->flush();
+        }
+
+        return $entity;
+    }
 }

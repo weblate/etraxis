@@ -53,4 +53,24 @@ class DecimalValueRepository extends ServiceEntityRepository implements Contract
             $this->getEntityManager()->flush();
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function get(string $value): DecimalValue
+    {
+        $entity = $this->findOneBy([
+            'value' => $value,
+        ]);
+
+        // If value doesn't exist yet, create it.
+        if (null === $entity) {
+            $entity = new DecimalValue($value);
+
+            $this->getEntityManager()->persist($entity);
+            $this->getEntityManager()->flush();
+        }
+
+        return $entity;
+    }
 }

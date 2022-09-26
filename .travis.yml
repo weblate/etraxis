@@ -21,7 +21,7 @@ install:
 
 before_script:
     - ./bin/console --no-interaction doctrine:database:create
-    - ./bin/console --no-interaction doctrine:schema:create
+    - ./bin/console --no-interaction doctrine:migrations:migrate
     - ./bin/console --no-interaction doctrine:fixtures:load
 
 script:

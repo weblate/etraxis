@@ -22,7 +22,7 @@ build:
 	composer install
 	./bin/console doctrine:database:drop --force --quiet || true
 	./bin/console doctrine:database:create
-	./bin/console doctrine:schema:create
+	./bin/console doctrine:migrations:migrate -n
 	./bin/console doctrine:fixtures:load --group=prod -n
 
 run:

@@ -23,7 +23,7 @@ It can be used to track almost anything, though the most popular cases are a *bu
 * Authentication through Azure and Google
 * Authentication through Active Directory (LDAP)
 * API with JWT authorization
-* MySQL and PostgreSQL support
+* MariaDB, MySQL, and PostgreSQL support
 * Localization and multilingual support
 * Mobile-friendly web interface
 * and more...

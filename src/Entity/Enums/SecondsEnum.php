@@ -18,5 +18,6 @@ namespace App\Entity\Enums;
  */
 enum SecondsEnum: int
 {
-    case OneDay = 86400;
+    case OneDay    = 86400;
+    case OneMinute = 60;
 }

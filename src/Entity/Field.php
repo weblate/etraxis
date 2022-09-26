@@ -32,6 +32,12 @@ class Field
     public const MAX_NAME        = 50;
     public const MAX_DESCRIPTION = 1000;
 
+    // Field parameters.
+    public const DEFAULT = 'default';
+    public const LENGTH  = 'length';
+    public const MINIMUM = 'minimum';
+    public const MAXIMUM = 'maximum';
+
     /**
      * Unique ID.
      */

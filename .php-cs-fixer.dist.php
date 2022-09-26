@@ -48,10 +48,11 @@ return (new PhpCsFixer\Config())
                 '=>'  => 'align',
             ],
         ],
-        'declare_strict_types'        => false,
-        'native_function_invocation'  => false,
-        'self_static_accessor'        => true,
-        'single_line_comment_spacing' => false,
+        'declare_strict_types'            => false,
+        'native_function_invocation'      => false,
+        'self_static_accessor'            => true,
+        'single_line_comment_spacing'     => false,
+        'whitespace_after_comma_in_array' => true,
     ])
     ->setFinder($finder)
 ;

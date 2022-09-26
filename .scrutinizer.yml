@@ -10,6 +10,7 @@ filter:
         - bin/
         - config/
         - public/
+        - src/DataFixtures/
         - src/Kernel.php
         - tests/
         - var/

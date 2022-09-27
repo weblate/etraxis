@@ -54,19 +54,6 @@ final class ListItemTest extends TestCase
     }
 
     /**
-     * @covers ::getId
-     */
-    public function testId(): void
-    {
-        $state = new State(new Template(new Project()), StateTypeEnum::Intermediate);
-        $field = new Field($state, FieldTypeEnum::List);
-        $item  = new ListItem($field);
-
-        $this->setProperty($item, 'id', 1);
-        self::assertSame(1, $item->getId());
-    }
-
-    /**
      * @covers ::getField
      */
     public function testField(): void

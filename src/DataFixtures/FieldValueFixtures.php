@@ -18,7 +18,6 @@ use App\Entity\Enums\FieldTypeEnum;
 use App\Entity\Enums\SecondsEnum;
 use App\Entity\Event;
 use App\Entity\FieldValue;
-use App\Entity\ListItem;
 use App\Entity\StringValue;
 use App\Entity\TextValue;
 use App\Entity\Transition;
@@ -223,6 +222,7 @@ class FieldValueFixtures extends Fixture implements FixtureInterface, DependentF
                         if (null !== $value) {
                             switch ($field->getType()) {
                                 case FieldTypeEnum::Duration:
+                                case FieldTypeEnum::List:
                                 case FieldTypeEnum::Number:
                                     break;
 
@@ -247,12 +247,6 @@ class FieldValueFixtures extends Fixture implements FixtureInterface, DependentF
                                     /** @var \App\Entity\Issue $entity */
                                     $entity = $this->getReference(sprintf($vref, $pref));
                                     $value  = $entity->getId();
-
-                                    break;
-
-                                case FieldTypeEnum::List:
-                                    $repository = $manager->getRepository(ListItem::class);
-                                    $value      = $repository->findOneBy(['field' => $field, 'itemValue' => $vref])->getId();
 
                                     break;
 

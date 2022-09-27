@@ -67,7 +67,7 @@ class FieldValue
      *     Decimal  - decimal value (foreign key to @see DecimalValue entity)
      *     Duration - duration value (total number of minutes from 0:00 to 999999:59)
      *     Issue    - issue ID (foreign key to @see Issue entity)
-     *     List     - integer value (foreign key to @see ListItem entity)
+     *     List     - integer value (@see ListItem::$itemValue property)
      *     Number   - integer value (from -1000000000 to +1000000000)
      *     String   - string value (foreign key to @see StringValue entity)
      *     Text     - text value (foreign key to @see TextValue entity)

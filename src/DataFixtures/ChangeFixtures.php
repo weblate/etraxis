@@ -18,7 +18,6 @@ use App\Entity\Enums\EventTypeEnum;
 use App\Entity\Enums\FieldTypeEnum;
 use App\Entity\Enums\SecondsEnum;
 use App\Entity\Event;
-use App\Entity\ListItem;
 use App\Entity\StringValue;
 use App\Entity\TextValue;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -114,10 +113,8 @@ class ChangeFixtures extends Fixture implements FixtureInterface, DependentFixtu
                                     break;
 
                                 case FieldTypeEnum::List:
-                                    $repository = $manager->getRepository(ListItem::class);
-
-                                    $oldValue = $repository->findOneBy(['field' => $field, 'itemValue' => $values[0]])->getId();
-                                    $newValue = $repository->findOneBy(['field' => $field, 'itemValue' => $values[1]])->getId();
+                                    $oldValue = $values[0];
+                                    $newValue = $values[1];
 
                                     break;
 

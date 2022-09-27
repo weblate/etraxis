@@ -22,7 +22,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 #[ORM\Entity(repositoryClass: ListItemRepository::class)]
 #[ORM\Table(name: 'list_items')]
-#[ORM\UniqueConstraint(fields: ['field', 'itemValue'])]
 #[ORM\UniqueConstraint(fields: ['field', 'itemText'])]
 class ListItem
 {
@@ -30,16 +29,9 @@ class ListItem
     public const MAX_TEXT = 50;
 
     /**
-     * Unique ID.
-     */
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    protected int $id;
-
-    /**
      * Field.
      */
+    #[ORM\Id]
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     protected Field $field;
@@ -47,6 +39,7 @@ class ListItem
     /**
      * Value of the item.
      */
+    #[ORM\Id]
     #[ORM\Column]
     protected int $itemValue;
 
@@ -66,14 +59,6 @@ class ListItem
         }
 
         $this->field = $field;
-    }
-
-    /**
-     * Property getter.
-     */
-    public function getId(): int
-    {
-        return $this->id;
     }
 
     /**

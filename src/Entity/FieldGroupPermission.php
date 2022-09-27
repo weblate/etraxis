@@ -42,7 +42,6 @@ class FieldGroupPermission
     /**
      * Permission granted to the group for this field.
      */
-    #[ORM\Id]
     #[ORM\Column(length: 10)]
     protected string $permission;
 

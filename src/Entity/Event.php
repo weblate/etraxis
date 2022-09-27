@@ -22,7 +22,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 #[ORM\Table(name: 'events')]
-#[ORM\UniqueConstraint(fields: ['issue', 'user', 'type', 'createdAt'])]
 class Event
 {
     // Constraints.
@@ -73,7 +72,7 @@ class Event
      *     IssueClosed         - New state of the closed issue (state name)
      *     IssueAssigned       - Responsible user (user's full name)
      *     IssueReassigned     - Responsible user (user's full name)
-     *     IssueSuspended      - NULL (not used)
+     *     IssueSuspended      - Unix Epoch timestamp when the issue was supposed to resume
      *     IssueResumed        - NULL (not used)
      *     PublicComment       - NULL (not used)
      *     PrivateComment      - NULL (not used)

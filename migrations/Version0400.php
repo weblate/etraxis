@@ -26,6 +26,27 @@ final class Version0400 extends AbstractExtendedMigration
     /**
      * {@inheritDoc}
      */
+    public function preUp(Schema $schema): void
+    {
+        if ($this->sm->tablesExist('tbl_sys_vars')) {
+            $version = $this->connection->fetchOne('SELECT var_value FROM tbl_sys_vars WHERE var_name = \'FEATURE_LEVEL\'');
+            $this->abortIf('3.10' !== $version, 'Current version of eTraxis should be 3.10 or later to import the existing data');
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function postUp(Schema $schema): void
+    {
+        if ($this->sm->tablesExist('tbl_sys_vars')) {
+            $this->write('Run "./bin/console etraxis:migrate-data" to import the existing data from eTraxis 3');
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     protected function getVersion(): string
     {
         return '4.0';

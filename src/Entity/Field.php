@@ -33,10 +33,13 @@ class Field
     public const MAX_DESCRIPTION = 1000;
 
     // Field parameters.
-    public const DEFAULT = 'default';
-    public const LENGTH  = 'length';
-    public const MINIMUM = 'minimum';
-    public const MAXIMUM = 'maximum';
+    public const DEFAULT      = 'default';
+    public const LENGTH       = 'length';
+    public const MINIMUM      = 'minimum';
+    public const MAXIMUM      = 'maximum';
+    public const PCRE_CHECK   = 'pcre-check';
+    public const PCRE_SEARCH  = 'pcre-search';
+    public const PCRE_REPLACE = 'pcre-replace';
 
     /**
      * Unique ID.

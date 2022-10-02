@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
 
+    env(ETRAXIS_LOCALE): en
+
     env(MAILER_DSN):   null://null
     env(MAILER_FROM):  noreply@example.com
     env(MAILER_DEBUG): debug@example.com
@@ -26,8 +28,14 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\DataFixtures\ProductionFixtures:
+        $locale: '%env(ETRAXIS_LOCALE)%'
+
     App\EventSubscriber\EmailMessageSubscriber:
         $sender: '%env(MAILER_FROM)%'
+
+    App\EventSubscriber\LocaleSubscriber:
+        $locale: '%env(ETRAXIS_LOCALE)%'
 
 when@dev:
     services:

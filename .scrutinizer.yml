@@ -14,6 +14,7 @@ filter:
         - src/DataFixtures/
         - src/Kernel.php
         - tests/
+        - translations/
         - var/
     dependency_paths:
         - vendor/

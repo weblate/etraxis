@@ -13,6 +13,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Enums\LocaleEnum;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
@@ -28,7 +29,7 @@ class ProductionFixtures extends Fixture implements FixtureInterface, FixtureGro
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(protected UserPasswordHasherInterface $hasher)
+    public function __construct(protected UserPasswordHasherInterface $hasher, protected string $locale)
     {
     }
 
@@ -53,6 +54,7 @@ class ProductionFixtures extends Fixture implements FixtureInterface, FixtureGro
             ->setFullname('eTraxis Admin')
             ->setDescription('Built-in administrator')
             ->setAdmin(true)
+            ->setLocale(LocaleEnum::tryFrom($this->locale) ?? LocaleEnum::FALLBACK)
         ;
 
         $manager->persist($user);

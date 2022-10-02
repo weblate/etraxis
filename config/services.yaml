@@ -5,6 +5,10 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
 
+    env(MAILER_DSN):   null://null
+    env(MAILER_FROM):  noreply@example.com
+    env(MAILER_DEBUG): debug@example.com
+
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -22,3 +26,14 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\EventSubscriber\EmailMessageSubscriber:
+        $sender: '%env(MAILER_FROM)%'
+
+when@dev:
+    services:
+        mailer.dev.set_recipients:
+            class: Symfony\Component\Mailer\EventListener\EnvelopeListener
+            tags: ['kernel.event_subscriber']
+            arguments:
+                $sender:     null
+                $recipients: ['%env(MAILER_DEBUG)%']

@@ -1,0 +1,25 @@
+framework:
+    messenger:
+        default_bus: command.bus
+        buses:
+            command.bus:
+                middleware:
+                    - App\MessageBus\Middleware\HttpExceptionMiddleware
+                    - App\MessageBus\Middleware\ValidationExceptionMiddleware
+                    - App\MessageBus\Middleware\TimingMiddleware
+                    - validation
+                    - doctrine_transaction
+            query.bus:
+                middleware:
+                    - App\MessageBus\Middleware\HttpExceptionMiddleware
+                    - App\MessageBus\Middleware\ValidationExceptionMiddleware
+                    - App\MessageBus\Middleware\TimingMiddleware
+                    - validation
+            event.bus:
+                default_middleware: allow_no_handlers
+                middleware:
+                    - App\MessageBus\Middleware\HttpExceptionMiddleware
+                    - App\MessageBus\Middleware\ValidationExceptionMiddleware
+                    - App\MessageBus\Middleware\TimingMiddleware
+                    - validation
+                    - doctrine_transaction

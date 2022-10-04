@@ -13,7 +13,8 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
+use App\LoginTrait;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,15 +26,25 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class DefaultAdminControllerTest extends WebTestCase
 {
+    use LoginTrait;
+
+    private KernelBrowser $client;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->client = self::createClient();
+    }
+
     /**
      * @covers ::index
      */
     public function testIndexAnonymous(): void
     {
-        $client = self::createClient();
-        $client->request(Request::METHOD_GET, '/admin');
+        $this->client->request(Request::METHOD_GET, '/admin');
 
-        self::assertSame(Response::HTTP_UNAUTHORIZED, $client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_UNAUTHORIZED, $this->client->getResponse()->getStatusCode());
     }
 
     /**
@@ -41,17 +52,11 @@ final class DefaultAdminControllerTest extends WebTestCase
      */
     public function testIndexUser(): void
     {
-        $client = self::createClient();
+        $this->loginUser('artem@example.com');
 
-        /** @var \Doctrine\Persistence\ManagerRegistry $doctrine */
-        $doctrine = self::getContainer()->get('doctrine');
+        $this->client->request(Request::METHOD_GET, '/admin');
 
-        $user = $doctrine->getRepository(User::class)->findOneBy(['email' => 'artem@example.com']);
-
-        $client->loginUser($user);
-        $client->request(Request::METHOD_GET, '/admin');
-
-        self::assertTrue($client->getResponse()->isForbidden());
+        self::assertTrue($this->client->getResponse()->isForbidden());
     }
 
     /**
@@ -59,16 +64,10 @@ final class DefaultAdminControllerTest extends WebTestCase
      */
     public function testIndexAdmin(): void
     {
-        $client = self::createClient();
+        $this->loginUser('admin@example.com');
 
-        /** @var \Doctrine\Persistence\ManagerRegistry $doctrine */
-        $doctrine = self::getContainer()->get('doctrine');
+        $this->client->request(Request::METHOD_GET, '/admin');
 
-        $user = $doctrine->getRepository(User::class)->findOneBy(['email' => 'admin@example.com']);
-
-        $client->loginUser($user);
-        $client->request(Request::METHOD_GET, '/admin');
-
-        self::assertTrue($client->getResponse()->isOk());
+        self::assertTrue($this->client->getResponse()->isOk());
     }
 }

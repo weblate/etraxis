@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html lang="{{ app.user.locale.value ?? locale }}">
+    <body>
+        {% apply inky_to_html | inline_css %}
+            {% block message %}{% endblock %}
+        {% endapply %}
+    </body>
+</html>

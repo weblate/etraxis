@@ -91,6 +91,20 @@ final class UserTest extends TestCase
     }
 
     /**
+     * @covers ::getEmailAddress
+     */
+    public function testEmailAddress(): void
+    {
+        $user = new User();
+
+        $user->setEmail('anna@example.com');
+        $user->setFullname('Anna Rodygina');
+
+        self::assertSame('anna@example.com', $user->getEmailAddress()->getAddress());
+        self::assertSame('Anna Rodygina', $user->getEmailAddress()->getName());
+    }
+
+    /**
      * @covers ::getPassword
      * @covers ::setPassword
      */

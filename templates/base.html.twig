@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="{{ app.user.locale.value ?? locale }}">
+    <head>
+        <meta charset="utf-8">
+        <title>{{ title ?? 'eTraxis' }}</title>
+        <link rel="icon" href="{{ asset('favicon.ico') }}">
+        {% block styles %}{% endblock %}
+    </head>
+    <body>
+        {% block content %}{% endblock %}
+        {% block scripts %}{% endblock %}
+    </body>
+</html>

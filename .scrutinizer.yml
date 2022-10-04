@@ -13,6 +13,7 @@ filter:
         - public/
         - src/DataFixtures/
         - src/Kernel.php
+        - templates/
         - tests/
         - translations/
         - var/

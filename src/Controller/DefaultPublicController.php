@@ -25,6 +25,6 @@ class DefaultPublicController extends AbstractController
     #[Route('/')]
     public function index(): Response
     {
-        return new Response();
+        return $this->render('base.html.twig');
     }
 }

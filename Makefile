@@ -32,7 +32,7 @@ check:
 	./vendor/bin/php-cs-fixer fix
 
 cloc:
-	cloc ./src ./tests
+	cloc ./src ./templates ./tests
 
 test:
 	./bin/console doctrine:fixtures:load -n

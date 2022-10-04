@@ -31,4 +31,14 @@ interface UserRepositoryInterface extends ObjectRepository, Selectable
      * @see \Doctrine\Persistence\ObjectManager::remove()
      */
     public function remove(User $entity, bool $flush = false): void;
+
+    /**
+     * @see \Doctrine\Persistence\ObjectManager::refresh()
+     */
+    public function refresh(User $entity): void;
+
+    /**
+     * Finds an account by email.
+     */
+    public function findOneByEmail(string $email): ?User;
 }

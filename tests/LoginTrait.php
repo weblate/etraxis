@@ -31,9 +31,11 @@ trait LoginTrait
     protected function loginUser(string $email): KernelBrowser
     {
         /** @var \Doctrine\Persistence\ManagerRegistry $doctrine */
-        $doctrine   = self::getContainer()->get('doctrine');
+        $doctrine = self::getContainer()->get('doctrine');
+
+        /** @var \App\Repository\Contracts\UserRepositoryInterface $repository */
         $repository = $doctrine->getRepository(User::class);
-        $user       = $repository->findOneBy(['email' => $email]);
+        $user       = $repository->findOneByEmail($email);
 
         return $this->client->loginUser($user);
     }

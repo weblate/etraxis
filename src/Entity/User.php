@@ -20,6 +20,7 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -32,6 +33,7 @@ use Symfony\Component\Uid\Uuid;
 #[ORM\Table(name: 'users')]
 #[ORM\UniqueConstraint(fields: ['email'])]
 #[ORM\UniqueConstraint(fields: ['accountProvider', 'accountUid'])]
+#[Assert\UniqueEntity(fields: ['email'], message: 'user.conflict.email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     // Roles.

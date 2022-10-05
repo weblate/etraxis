@@ -27,6 +27,7 @@ use Symfony\Component\PasswordHasher\Exception\InvalidPasswordException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Command handler.
@@ -40,6 +41,7 @@ final class SetPasswordCommandHandler implements CommandHandlerInterface
         private readonly AuthorizationCheckerInterface $security,
         private readonly TokenStorageInterface $tokenStorage,
         private readonly UserPasswordHasherInterface $hasher,
+        private readonly TranslatorInterface $translator,
         private readonly MailerInterface $mailer,
         private readonly UserRepositoryInterface $repository
     ) {
@@ -66,27 +68,31 @@ final class SetPasswordCommandHandler implements CommandHandlerInterface
             throw new AccessDeniedHttpException('You are not allowed to set new password.');
         }
 
-        /** @var null|\App\Entity\User $currentUser */
+        /** @var \App\Entity\User $currentUser */
         $currentUser = $this->tokenStorage->getToken()->getUser();
 
         try {
             $user->setPassword($this->hasher->hashPassword($user, $command->getPassword()));
+        } catch (InvalidPasswordException $exception) {
+            throw new BadRequestHttpException($exception->getMessage());
+        }
 
+        if (!$user->isDisabled()) {
             $message = new TemplatedEmail();
+            $subject = $this->translator->trans('email.password_changed.subject', locale: $user->getLocale()->value);
 
             $message
                 ->from($currentUser->getEmailAddress())
                 ->to($user->getEmailAddress())
-                ->subject('Your password has been changed')
+                ->subject($subject)
                 ->htmlTemplate('security/password-changed.html.twig')
                 ->context([
+                    'locale'   => $user->getLocale()->value,
                     'password' => $command->getPassword(),
                 ])
             ;
 
             $this->mailer->send($message);
-        } catch (InvalidPasswordException $exception) {
-            throw new BadRequestHttpException($exception->getMessage());
         }
 
         $this->repository->persist($user);

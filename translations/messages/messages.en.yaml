@@ -1,0 +1,2 @@
+email.password_changed.line1: 'Your password has been set to the following:'
+email.password_changed.subject: 'Your password has been changed'

@@ -1,0 +1,2 @@
+email.password_changed.line1: 'Ваш пароль был изменен на нижеследующий:'
+email.password_changed.subject: 'Ваш пароль был изменен'

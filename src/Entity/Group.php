@@ -140,4 +140,26 @@ class Group
     {
         return $this->members;
     }
+
+    /**
+     * Adds user to the group.
+     */
+    public function addMember(User $user): self
+    {
+        if (!$this->members->contains($user)) {
+            $this->members[] = $user;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Removes user from the group.
+     */
+    public function removeMember(User $user): self
+    {
+        $this->members->removeElement($user);
+
+        return $this;
+    }
 }

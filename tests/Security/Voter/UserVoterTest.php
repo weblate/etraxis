@@ -19,7 +19,6 @@ use App\ReflectionTrait;
 use App\Repository\Contracts\UserRepositoryInterface;
 use App\TransactionalTestCase;
 use Doctrine\Persistence\ObjectRepository;
-//use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
@@ -61,7 +60,10 @@ final class UserVoterTest extends TransactionalTestCase
      */
     public function testAnonymous(): void
     {
-        $voter = new UserVoter();
+        /** @var \Doctrine\ORM\EntityManagerInterface $manager */
+        $manager = $this->doctrine->getManager();
+
+        $voter = new UserVoter($manager);
 
         $token = $this->createMock(TokenInterface::class);
         $token
@@ -71,7 +73,100 @@ final class UserVoterTest extends TransactionalTestCase
 
         $nhills = $this->repository->findOneByEmail('nhills@example.com');
 
+        self::assertSame(VoterInterface::ACCESS_DENIED, $voter->vote($token, null, [UserVoter::CREATE_USER]));
+        self::assertSame(VoterInterface::ACCESS_DENIED, $voter->vote($token, $nhills, [UserVoter::UPDATE_USER]));
+        self::assertSame(VoterInterface::ACCESS_DENIED, $voter->vote($token, $nhills, [UserVoter::DELETE_USER]));
+        self::assertSame(VoterInterface::ACCESS_DENIED, $voter->vote($token, $nhills, [UserVoter::DISABLE_USER]));
+        self::assertSame(VoterInterface::ACCESS_DENIED, $voter->vote($token, $nhills, [UserVoter::ENABLE_USER]));
         self::assertSame(VoterInterface::ACCESS_DENIED, $voter->vote($token, $nhills, [UserVoter::SET_PASSWORD]));
+        self::assertSame(VoterInterface::ACCESS_DENIED, $voter->vote($token, $nhills, [UserVoter::MANAGE_USER_GROUPS]));
+    }
+
+    /**
+     * @covers ::isCreateGranted
+     * @covers ::voteOnAttribute
+     */
+    public function testCreate(): void
+    {
+        $this->loginUser('admin@example.com');
+        self::assertTrue($this->security->isGranted(UserVoter::CREATE_USER));
+
+        $this->loginUser('artem@example.com');
+        self::assertFalse($this->security->isGranted(UserVoter::CREATE_USER));
+    }
+
+    /**
+     * @covers ::isUpdateGranted
+     * @covers ::voteOnAttribute
+     */
+    public function testUpdate(): void
+    {
+        $nhills = $this->repository->findOneByEmail('nhills@example.com');
+
+        $this->loginUser('admin@example.com');
+        self::assertTrue($this->security->isGranted(UserVoter::UPDATE_USER, $nhills));
+
+        $this->loginUser('artem@example.com');
+        self::assertFalse($this->security->isGranted(UserVoter::UPDATE_USER, $nhills));
+    }
+
+    /**
+     * @covers ::isDeleteGranted
+     * @covers ::voteOnAttribute
+     */
+    public function testDelete(): void
+    {
+        $amarvin = $this->repository->findOneByEmail('amarvin@example.com');
+        $nhills  = $this->repository->findOneByEmail('nhills@example.com');
+        $admin   = $this->repository->findOneByEmail('admin@example.com');
+
+        $this->loginUser('admin@example.com');
+        self::assertTrue($this->security->isGranted(UserVoter::DELETE_USER, $amarvin));
+        self::assertFalse($this->security->isGranted(UserVoter::DELETE_USER, $nhills));
+        self::assertFalse($this->security->isGranted(UserVoter::DELETE_USER, $admin));
+
+        $this->loginUser('artem@example.com');
+        self::assertFalse($this->security->isGranted(UserVoter::DELETE_USER, $amarvin));
+    }
+
+    /**
+     * @covers ::isDisableGranted
+     * @covers ::voteOnAttribute
+     */
+    public function testDisable(): void
+    {
+        $nhills = $this->repository->findOneByEmail('nhills@example.com');
+        $tberge = $this->repository->findOneByEmail('tberge@example.com');
+        $admin  = $this->repository->findOneByEmail('admin@example.com');
+
+        $this->loginUser('admin@example.com');
+        self::assertTrue($this->security->isGranted(UserVoter::DISABLE_USER, $nhills));
+        self::assertFalse($this->security->isGranted(UserVoter::DISABLE_USER, $tberge));
+        self::assertFalse($this->security->isGranted(UserVoter::DISABLE_USER, $admin));
+
+        $this->loginUser('artem@example.com');
+        self::assertFalse($this->security->isGranted(UserVoter::DISABLE_USER, $nhills));
+        self::assertFalse($this->security->isGranted(UserVoter::DISABLE_USER, $tberge));
+    }
+
+    /**
+     * @covers ::isEnableGranted
+     * @covers ::voteOnAttribute
+     */
+    public function testEnable(): void
+    {
+        $nhills = $this->repository->findOneByEmail('nhills@example.com');
+        $tberge = $this->repository->findOneByEmail('tberge@example.com');
+        $admin  = $this->repository->findOneByEmail('admin@example.com');
+
+        $this->loginUser('admin@example.com');
+        self::assertFalse($this->security->isGranted(UserVoter::ENABLE_USER, $nhills));
+        self::assertTrue($this->security->isGranted(UserVoter::ENABLE_USER, $tberge));
+        self::assertFalse($this->security->isGranted(UserVoter::ENABLE_USER, $admin));
+
+        $this->loginUser('artem@example.com');
+        self::assertFalse($this->security->isGranted(UserVoter::ENABLE_USER, $nhills));
+        self::assertFalse($this->security->isGranted(UserVoter::ENABLE_USER, $tberge));
     }
 
     /**
@@ -95,5 +190,20 @@ final class UserVoterTest extends TransactionalTestCase
 
         $this->loginUser('einstein@ldap.forumsys.com');
         self::assertFalse($this->security->isGranted(UserVoter::SET_PASSWORD, $einstein));
+    }
+
+    /**
+     * @covers ::isManageMembershipGranted
+     * @covers ::voteOnAttribute
+     */
+    public function testManageMembership(): void
+    {
+        $nhills = $this->repository->findOneByEmail('nhills@example.com');
+
+        $this->loginUser('admin@example.com');
+        self::assertTrue($this->security->isGranted(UserVoter::MANAGE_USER_GROUPS, $nhills));
+
+        $this->loginUser('artem@example.com');
+        self::assertFalse($this->security->isGranted(UserVoter::MANAGE_USER_GROUPS, $nhills));
     }
 }

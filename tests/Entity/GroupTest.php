@@ -106,18 +106,26 @@ final class GroupTest extends TestCase
     }
 
     /**
+     * @covers ::addMember
      * @covers ::getMembers
+     * @covers ::removeMember
      */
     public function testMembers(): void
     {
         $group = new Group();
         self::assertEmpty($group->getMembers());
 
-        /** @var \Doctrine\Common\Collections\Collection $members */
-        $members = $this->getProperty($group, 'members');
-        $members->add('User A');
-        $members->add('User B');
+        $user1 = new User();
+        $user2 = new User();
 
-        self::assertSame(['User A', 'User B'], $group->getMembers()->getValues());
+        $this->setProperty($user1, 'id', 1);
+        $this->setProperty($user2, 'id', 2);
+
+        $group->addMember($user1);
+        $group->addMember($user2);
+        self::assertSame([$user1, $user2], $group->getMembers()->getValues());
+
+        $group->removeMember($user1);
+        self::assertSame([$user2], $group->getMembers()->getValues());
     }
 }

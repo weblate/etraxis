@@ -1,2 +1,7 @@
+email.account_created.line1: 'Для вас была создана новая учетная запись в eTraxis.'
+email.account_created.line2: 'Пожалуйста, используйте для входа свой электронный почтовый адрес и указанный ниже пароль.'
+email.account_created.subject: 'Ваша новая учетная запись в eTraxis'
+email.login_changed.line1: 'Электронный почтовый адрес вашей учетной записи в eTraxis был изменен на %email%.'
+email.login_changed.subject: 'Ваша учетная запись в eTraxis была изменена'
 email.password_changed.line1: 'Ваш пароль был изменен на нижеследующий:'
 email.password_changed.subject: 'Ваш пароль был изменен'

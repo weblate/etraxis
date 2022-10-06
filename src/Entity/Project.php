@@ -17,6 +17,7 @@ use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
 
 /**
  * Project.
@@ -24,6 +25,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 #[ORM\Table(name: 'projects')]
 #[ORM\UniqueConstraint(fields: ['name'])]
+#[Assert\UniqueEntity(fields: ['name'], message: 'project.conflict.name')]
 class Project
 {
     // Constraints.

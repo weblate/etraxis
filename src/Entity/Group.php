@@ -17,6 +17,7 @@ use App\Repository\GroupRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
 
 /**
  * Group.
@@ -24,6 +25,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: GroupRepository::class)]
 #[ORM\Table(name: 'groups')]
 #[ORM\UniqueConstraint(fields: ['project', 'name'])]
+#[Assert\UniqueEntity(fields: ['project', 'name'], message: 'group.conflict.name', ignoreNull: false)]
 class Group
 {
     // Constraints.

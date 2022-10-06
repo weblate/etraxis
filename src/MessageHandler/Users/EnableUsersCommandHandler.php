@@ -67,12 +67,13 @@ final class EnableUsersCommandHandler implements CommandHandlerInterface
 
         $query = $this->manager->createQuery('
             UPDATE App:User u
-            SET u.disabled = 0
+            SET u.disabled = :state
             WHERE u.id IN (:ids)
         ');
 
         $query->execute([
-            'ids' => $ids,
+            'ids'   => $ids,
+            'state' => false,
         ]);
     }
 }

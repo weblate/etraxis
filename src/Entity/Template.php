@@ -18,6 +18,7 @@ use App\Repository\TemplateRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
 
 /**
  * Template.
@@ -26,6 +27,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'templates')]
 #[ORM\UniqueConstraint(fields: ['project', 'name'])]
 #[ORM\UniqueConstraint(fields: ['project', 'prefix'])]
+#[Assert\UniqueEntity(fields: ['project', 'name'], message: 'template.conflict.name')]
+#[Assert\UniqueEntity(fields: ['project', 'prefix'], message: 'template.conflict.prefix')]
 class Template
 {
     // Constraints.

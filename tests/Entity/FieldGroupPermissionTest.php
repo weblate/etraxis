@@ -43,6 +43,29 @@ final class FieldGroupPermissionTest extends TestCase
     }
 
     /**
+     * @covers ::__construct
+     */
+    public function testConstructorExceptionGroup(): void
+    {
+        $this->expectException(\UnexpectedValueException::class);
+        $this->expectExceptionMessage('Unknown group: foo');
+
+        $project1 = new Project();
+        $project2 = new Project();
+        $group    = new Group($project1);
+        $state    = new State(new Template($project2), StateTypeEnum::Intermediate);
+        $field    = new Field($state, FieldTypeEnum::List);
+
+        $group->setName('foo');
+
+        $permission = new FieldGroupPermission($field, $group, FieldPermissionEnum::ReadAndWrite);
+
+        self::assertSame($field, $permission->getField());
+        self::assertSame($group, $permission->getGroup());
+        self::assertSame(FieldPermissionEnum::ReadAndWrite, $permission->getPermission());
+    }
+
+    /**
      * @covers ::getField
      */
     public function testField(): void

@@ -51,6 +51,10 @@ class TemplateGroupPermission
      */
     public function __construct(Template $template, Group $group, TemplatePermissionEnum $permission)
     {
+        if (!$group->isGlobal() && $group->getProject() !== $template->getProject()) {
+            throw new \UnexpectedValueException('Unknown group: '.$group->getName());
+        }
+
         $this->template   = $template;
         $this->group      = $group;
         $this->permission = $permission->value;

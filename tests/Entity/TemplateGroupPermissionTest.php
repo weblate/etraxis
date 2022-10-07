@@ -40,6 +40,28 @@ final class TemplateGroupPermissionTest extends TestCase
     }
 
     /**
+     * @covers ::__construct
+     */
+    public function testConstructorExceptionGroup(): void
+    {
+        $this->expectException(\UnexpectedValueException::class);
+        $this->expectExceptionMessage('Unknown group: foo');
+
+        $project1 = new Project();
+        $project2 = new Project();
+        $template = new Template($project1);
+        $group    = new Group($project2);
+
+        $group->setName('foo');
+
+        $permission = new TemplateGroupPermission($template, $group, TemplatePermissionEnum::EditIssues);
+
+        self::assertSame($template, $permission->getTemplate());
+        self::assertSame($group, $permission->getGroup());
+        self::assertSame(TemplatePermissionEnum::EditIssues, $permission->getPermission());
+    }
+
+    /**
      * @covers ::getTemplate
      */
     public function testTemplate(): void

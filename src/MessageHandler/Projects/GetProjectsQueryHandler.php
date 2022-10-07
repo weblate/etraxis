@@ -100,7 +100,7 @@ final class GetProjectsQueryHandler implements QueryHandlerInterface
     /**
      * Alters query to filter by the specified property.
      */
-    private function queryFilter(QueryBuilder $dql, string $property, mixed $value = null): QueryBuilder
+    private function queryFilter(QueryBuilder $dql, string $property, null|bool|int|string $value = null): QueryBuilder
     {
         switch ($property) {
             case GetProjectsQuery::PROJECT_NAME:

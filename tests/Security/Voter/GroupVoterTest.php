@@ -33,8 +33,8 @@ final class GroupVoterTest extends TransactionalTestCase
     use LoginTrait;
     use ReflectionTrait;
 
-    private ?AuthorizationCheckerInterface                 $security;
-    private ObjectRepository|GroupRepositoryInterface      $repository;
+    private ?AuthorizationCheckerInterface            $security;
+    private ObjectRepository|GroupRepositoryInterface $repository;
 
     protected function setUp(): void
     {

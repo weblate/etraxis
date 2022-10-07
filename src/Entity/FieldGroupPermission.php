@@ -50,6 +50,10 @@ class FieldGroupPermission
      */
     public function __construct(Field $field, Group $group, FieldPermissionEnum $permission)
     {
+        if (!$group->isGlobal() && $group->getProject() !== $field->getState()->getTemplate()->getProject()) {
+            throw new \UnexpectedValueException('Unknown group: '.$group->getName());
+        }
+
         $this->field      = $field;
         $this->group      = $group;
         $this->permission = $permission->value;

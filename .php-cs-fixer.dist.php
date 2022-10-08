@@ -50,6 +50,7 @@ return (new PhpCsFixer\Config())
             ],
         ],
         'declare_strict_types'            => false,
+        'increment_style'                 => ['style' => 'post'],
         'native_function_invocation'      => false,
         'self_static_accessor'            => true,
         'single_line_comment_spacing'     => false,

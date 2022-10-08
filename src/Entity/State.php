@@ -19,6 +19,7 @@ use App\Repository\StateRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
 
 /**
  * State.
@@ -26,6 +27,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: StateRepository::class)]
 #[ORM\Table(name: 'states')]
 #[ORM\UniqueConstraint(fields: ['template', 'name'])]
+#[Assert\UniqueEntity(fields: ['name'], message: 'state.conflict.name')]
 class State
 {
     // Constraints.

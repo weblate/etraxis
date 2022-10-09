@@ -13,6 +13,7 @@
 
 namespace App\Repository\Contracts;
 
+use App\Entity\Field;
 use App\Entity\ListItem;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\Persistence\ObjectRepository;
@@ -31,4 +32,11 @@ interface ListItemRepositoryInterface extends ObjectRepository, Selectable
      * @see \Doctrine\Persistence\ObjectManager::remove()
      */
     public function remove(ListItem $entity, bool $flush = false): void;
+
+    /**
+     * Finds all list items of the specified field.
+     *
+     * @return ListItem[]
+     */
+    public function findAllByField(Field $field): array;
 }

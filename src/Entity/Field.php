@@ -18,6 +18,7 @@ use App\Repository\FieldRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
 
 /**
  * Field.
@@ -26,11 +27,13 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'fields')]
 #[ORM\UniqueConstraint(fields: ['state', 'name', 'removedAt'])]
 #[ORM\UniqueConstraint(fields: ['state', 'position', 'removedAt'])]
+#[Assert\UniqueEntity(fields: ['state', 'name', 'removedAt'], message: 'field.conflict.name', ignoreNull: false)]
 class Field
 {
     // Constraints.
     public const MAX_NAME        = 50;
     public const MAX_DESCRIPTION = 1000;
+    public const MAX_PCRE        = 500;
 
     // Field parameters.
     public const DEFAULT      = 'default';
@@ -283,5 +286,23 @@ class Field
     public function getGroupPermissions(): Collection
     {
         return $this->groupPermissions;
+    }
+
+    /**
+     * Returns strategy for this field.
+     */
+    public function getStrategy(): FieldStrategy\FieldStrategyInterface
+    {
+        return match ($this->getType()) {
+            FieldTypeEnum::Checkbox => new FieldStrategy\CheckboxStrategy($this),
+            FieldTypeEnum::Date     => new FieldStrategy\DateStrategy($this),
+            FieldTypeEnum::Decimal  => new FieldStrategy\DecimalStrategy($this),
+            FieldTypeEnum::Duration => new FieldStrategy\DurationStrategy($this),
+            FieldTypeEnum::Issue    => new FieldStrategy\IssueStrategy($this),
+            FieldTypeEnum::List     => new FieldStrategy\ListStrategy($this),
+            FieldTypeEnum::Number   => new FieldStrategy\NumberStrategy($this),
+            FieldTypeEnum::String   => new FieldStrategy\StringStrategy($this),
+            FieldTypeEnum::Text     => new FieldStrategy\TextStrategy($this),
+        };
     }
 }

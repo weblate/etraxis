@@ -13,6 +13,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Field;
 use App\Entity\ListItem;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -52,5 +53,17 @@ class ListItemRepository extends ServiceEntityRepository implements Contracts\Li
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findAllByField(Field $field): array
+    {
+        return $this->findBy([
+            'field' => $field,
+        ], [
+            'itemValue' => 'ASC',
+        ]);
     }
 }

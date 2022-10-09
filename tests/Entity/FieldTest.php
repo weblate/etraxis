@@ -223,4 +223,30 @@ final class FieldTest extends WebTestCase
 
         self::assertSame(['Permission A', 'Permission B'], $field->getGroupPermissions()->getValues());
     }
+
+    /**
+     * @covers ::getStrategy
+     */
+    public function testGetStrategy(): void
+    {
+        $fields = [
+            'New feature'   => FieldStrategy\CheckboxStrategy::class,
+            'Due date'      => FieldStrategy\DateStrategy::class,
+            'Test coverage' => FieldStrategy\DecimalStrategy::class,
+            'Effort'        => FieldStrategy\DurationStrategy::class,
+            'Issue ID'      => FieldStrategy\IssueStrategy::class,
+            'Priority'      => FieldStrategy\ListStrategy::class,
+            'Delta'         => FieldStrategy\NumberStrategy::class,
+            'Commit ID'     => FieldStrategy\StringStrategy::class,
+            'Description'   => FieldStrategy\TextStrategy::class,
+        ];
+
+        $repository = self::getContainer()->get('doctrine')->getRepository(Field::class);
+
+        foreach ($fields as $name => $class) {
+            /** @var Field $field */
+            [$field] = $repository->findBy(['name' => $name], ['id' => 'ASC']);
+            self::assertInstanceOf($class, $field->getStrategy());
+        }
+    }
 }

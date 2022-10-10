@@ -39,4 +39,9 @@ interface ListItemRepositoryInterface extends ObjectRepository, Selectable
      * @return ListItem[]
      */
     public function findAllByField(Field $field): array;
+
+    /**
+     * Finds list item by its field and value.
+     */
+    public function findOneByValue(Field $field, int $value): ?ListItem;
 }

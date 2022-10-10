@@ -39,9 +39,7 @@ final class Version0400 extends AbstractExtendedMigration
      */
     public function postUp(Schema $schema): void
     {
-        if ($this->sm->tablesExist('tbl_sys_vars')) {
-            $this->write('Run "./bin/console etraxis:migrate-data" to import the existing data from eTraxis 3');
-        }
+        $this->warnIf($this->sm->tablesExist('tbl_sys_vars'), 'Run "./bin/console etraxis:migrate-data" to import the existing data from eTraxis 3');
     }
 
     /**
@@ -71,7 +69,7 @@ final class Version0400 extends AbstractExtendedMigration
         $this->addSql('CREATE TABLE fields (id INT AUTO_INCREMENT NOT NULL, state_id INT NOT NULL, name VARCHAR(50) NOT NULL, type VARCHAR(10) NOT NULL, description VARCHAR(1000) DEFAULT NULL, position INT NOT NULL, required TINYINT(1) NOT NULL, removed_at INT DEFAULT NULL, parameters LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:json)\', INDEX IDX_7EE5E3885D83CC1 (state_id), UNIQUE INDEX UNIQ_7EE5E3885D83CC15E237E06455180A5 (state_id, name, removed_at), UNIQUE INDEX UNIQ_7EE5E3885D83CC1462CE4F5455180A5 (state_id, position, removed_at), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE field_role_permissions (role VARCHAR(20) NOT NULL, permission VARCHAR(10) NOT NULL, field_id INT NOT NULL, INDEX IDX_5D341D45443707B0 (field_id), PRIMARY KEY(field_id, role)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE field_group_permissions (permission VARCHAR(10) NOT NULL, field_id INT NOT NULL, group_id INT NOT NULL, INDEX IDX_47C8AF75443707B0 (field_id), INDEX IDX_47C8AF75FE54D947 (group_id), PRIMARY KEY(field_id, group_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE list_items (field_id INT NOT NULL, item_value INT NOT NULL, item_text VARCHAR(50) NOT NULL, INDEX IDX_388D7D4E443707B0 (field_id), UNIQUE INDEX UNIQ_388D7D4E443707B0F3BBE33C (field_id, item_text), PRIMARY KEY(field_id, item_value)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE list_items (id INT AUTO_INCREMENT NOT NULL, field_id INT NOT NULL, value INT NOT NULL, text VARCHAR(50) NOT NULL, INDEX IDX_388D7D4E443707B0 (field_id), UNIQUE INDEX UNIQ_388D7D4E443707B037D043E4 (field_id, value), UNIQUE INDEX UNIQ_388D7D4E443707B0F3BBE33C (field_id, text), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE decimal_values (id INT AUTO_INCREMENT NOT NULL, value NUMERIC(20, 10) NOT NULL, UNIQUE INDEX UNIQ_95FEDD351D775834 (value), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE string_values (id INT AUTO_INCREMENT NOT NULL, hash VARCHAR(32) NOT NULL, value VARCHAR(250) NOT NULL, UNIQUE INDEX UNIQ_B4CDAF44D1B862B8 (hash), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE text_values (id INT AUTO_INCREMENT NOT NULL, hash VARCHAR(32) NOT NULL, value VARCHAR(10000) NOT NULL, UNIQUE INDEX UNIQ_2F2BD515D1B862B8 (hash), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -150,7 +148,7 @@ final class Version0400 extends AbstractExtendedMigration
         $this->addSql('CREATE TABLE fields (id INT AUTO_INCREMENT NOT NULL, state_id INT NOT NULL, name VARCHAR(50) NOT NULL, type VARCHAR(10) NOT NULL, description VARCHAR(1000) DEFAULT NULL, position INT NOT NULL, required TINYINT(1) NOT NULL, removed_at INT DEFAULT NULL, parameters JSON DEFAULT NULL, INDEX IDX_7EE5E3885D83CC1 (state_id), UNIQUE INDEX UNIQ_7EE5E3885D83CC15E237E06455180A5 (state_id, name, removed_at), UNIQUE INDEX UNIQ_7EE5E3885D83CC1462CE4F5455180A5 (state_id, position, removed_at), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE field_role_permissions (role VARCHAR(20) NOT NULL, permission VARCHAR(10) NOT NULL, field_id INT NOT NULL, INDEX IDX_5D341D45443707B0 (field_id), PRIMARY KEY(field_id, role)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE field_group_permissions (permission VARCHAR(10) NOT NULL, field_id INT NOT NULL, group_id INT NOT NULL, INDEX IDX_47C8AF75443707B0 (field_id), INDEX IDX_47C8AF75FE54D947 (group_id), PRIMARY KEY(field_id, group_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE list_items (field_id INT NOT NULL, item_value INT NOT NULL, item_text VARCHAR(50) NOT NULL, INDEX IDX_388D7D4E443707B0 (field_id), UNIQUE INDEX UNIQ_388D7D4E443707B0F3BBE33C (field_id, item_text), PRIMARY KEY(field_id, item_value)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE list_items (id INT AUTO_INCREMENT NOT NULL, field_id INT NOT NULL, value INT NOT NULL, text VARCHAR(50) NOT NULL, INDEX IDX_388D7D4E443707B0 (field_id), UNIQUE INDEX UNIQ_388D7D4E443707B037D043E4 (field_id, value), UNIQUE INDEX UNIQ_388D7D4E443707B0F3BBE33C (field_id, text), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE decimal_values (id INT AUTO_INCREMENT NOT NULL, value NUMERIC(20, 10) NOT NULL, UNIQUE INDEX UNIQ_95FEDD351D775834 (value), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE string_values (id INT AUTO_INCREMENT NOT NULL, hash VARCHAR(32) NOT NULL, value VARCHAR(250) NOT NULL, UNIQUE INDEX UNIQ_B4CDAF44D1B862B8 (hash), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE text_values (id INT AUTO_INCREMENT NOT NULL, hash VARCHAR(32) NOT NULL, value VARCHAR(10000) NOT NULL, UNIQUE INDEX UNIQ_2F2BD515D1B862B8 (hash), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -277,9 +275,10 @@ final class Version0400 extends AbstractExtendedMigration
         $this->addSql('CREATE TABLE field_group_permissions (permission VARCHAR(10) NOT NULL, field_id INT NOT NULL, group_id INT NOT NULL, PRIMARY KEY(field_id, group_id))');
         $this->addSql('CREATE INDEX IDX_47C8AF75443707B0 ON field_group_permissions (field_id)');
         $this->addSql('CREATE INDEX IDX_47C8AF75FE54D947 ON field_group_permissions (group_id)');
-        $this->addSql('CREATE TABLE list_items (field_id INT NOT NULL, item_value INT NOT NULL, item_text VARCHAR(50) NOT NULL, PRIMARY KEY(field_id, item_value))');
+        $this->addSql('CREATE TABLE list_items (id INT NOT NULL, field_id INT NOT NULL, value INT NOT NULL, text VARCHAR(50) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_388D7D4E443707B0 ON list_items (field_id)');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_388D7D4E443707B0F3BBE33C ON list_items (field_id, item_text)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_388D7D4E443707B037D043E4 ON list_items (field_id, value)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_388D7D4E443707B0F3BBE33C ON list_items (field_id, text)');
         $this->addSql('CREATE TABLE decimal_values (id INT NOT NULL, value NUMERIC(20, 10) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_95FEDD351D775834 ON decimal_values (value)');
         $this->addSql('CREATE TABLE string_values (id INT NOT NULL, hash VARCHAR(32) NOT NULL, value VARCHAR(250) NOT NULL, PRIMARY KEY(id))');

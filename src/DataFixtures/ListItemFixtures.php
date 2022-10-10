@@ -54,8 +54,8 @@ class ListItemFixtures extends Fixture implements FixtureInterface, DependentFix
                 $item = new ListItem($field);
 
                 $item
-                    ->setItemValue($value)
-                    ->setItemText($text)
+                    ->setValue($value)
+                    ->setText($text)
                 ;
 
                 $manager->persist($item);

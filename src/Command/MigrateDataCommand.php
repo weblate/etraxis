@@ -1126,7 +1126,7 @@ class MigrateDataCommand extends Command
         $this->progressStart('list_items', $count);
 
         $sql =
-            'INSERT INTO list_items (field_id, item_value, item_text) '.
+            'INSERT INTO list_items (field_id, value, text) '.
             'SELECT field_id, int_value, str_value '.
             'FROM tbl_list_values ORDER BY field_id, int_value';
 
@@ -1447,10 +1447,7 @@ class MigrateDataCommand extends Command
      */
     private function migrateFieldValues(): void
     {
-        $count = $this->entityManager->getConnection()->fetchOne('SELECT COUNT(*) FROM tbl_field_values') ?: 1;
-
-        $this->progressStart('field_values', $count);
-
+        // Migrate field values.
         $sql =
             'INSERT INTO field_values (transition_id, field_id, value) '.
             'SELECT transitions.id, tbl_field_values.field_id, tbl_field_values.value_id '.
@@ -1460,7 +1457,37 @@ class MigrateDataCommand extends Command
 
         $this->entityManager->getConnection()->executeStatement($sql);
 
-        $this->progressAdvance($count);
+        // Build a map of existing list items.
+        $map     = [];
+        $results = $this->entityManager->getConnection()->fetchAllAssociative('SELECT * FROM list_items ORDER BY field_id, value');
+
+        foreach ($results as $row) {
+            $map[$row['field_id']][$row['value']] = $row['id'];
+        }
+
+        // Update "List" field values with items' primary key.
+        $sql =
+            'SELECT field_values.* '.
+            'FROM field_values '.
+            'JOIN fields ON fields.id = field_values.field_id '.
+            'WHERE fields.type = \'list\' AND field_values.value IS NOT NULL '.
+            'ORDER BY id';
+
+        $results = $this->entityManager->getConnection()->fetchAllAssociative($sql);
+
+        $this->progressStart('field_values', count($results));
+
+        foreach ($results as $row) {
+            $sql = 'UPDATE field_values SET value = :value WHERE id = :id';
+
+            $this->entityManager->getConnection()->executeStatement($sql, [
+                'id'    => $row['id'],
+                'value' => $map[$row['field_id']][$row['value']],
+            ]);
+
+            $this->progressAdvance();
+        }
+
         $this->progressFinish();
     }
 
@@ -1469,10 +1496,8 @@ class MigrateDataCommand extends Command
      */
     private function migrateChanges(): void
     {
+        // Migrate changes.
         $this->entityManager->getConnection()->executeStatement('ALTER TABLE changes DISABLE KEYS');
-        $count = $this->entityManager->getConnection()->fetchOne('SELECT COUNT(*) FROM tbl_changes') ?: 1;
-
-        $this->progressStart('changes', $count);
 
         $sql =
             'INSERT INTO changes (id, event_id, field_id, old_value, new_value) '.
@@ -1481,7 +1506,48 @@ class MigrateDataCommand extends Command
 
         $this->entityManager->getConnection()->executeStatement($sql);
 
-        $this->progressAdvance($count);
+        // Build a map of existing list items.
+        $map     = [];
+        $results = $this->entityManager->getConnection()->fetchAllAssociative('SELECT * FROM list_items ORDER BY field_id, value');
+
+        foreach ($results as $row) {
+            $map[$row['field_id']][$row['value']] = $row['id'];
+        }
+
+        // Update "List" changes with items' primary key.
+        $sql =
+            'SELECT changes.* '.
+            'FROM changes '.
+            'JOIN fields ON fields.id = changes.field_id '.
+            'WHERE fields.type = \'list\' '.
+            'ORDER BY id';
+
+        $results = $this->entityManager->getConnection()->fetchAllAssociative($sql);
+
+        $this->progressStart('changes', count($results));
+
+        foreach ($results as $row) {
+            if (null !== $row['old_value']) {
+                $sql = 'UPDATE changes SET old_value = :value WHERE id = :id';
+
+                $this->entityManager->getConnection()->executeStatement($sql, [
+                    'id'    => $row['id'],
+                    'value' => $map[$row['field_id']][$row['old_value']],
+                ]);
+            }
+
+            if (null !== $row['new_value']) {
+                $sql = 'UPDATE changes SET new_value = :value WHERE id = :id';
+
+                $this->entityManager->getConnection()->executeStatement($sql, [
+                    'id'    => $row['id'],
+                    'value' => $map[$row['field_id']][$row['new_value']],
+                ]);
+            }
+
+            $this->progressAdvance();
+        }
+
         $this->progressFinish();
 
         $this->entityManager->getConnection()->executeStatement('ALTER TABLE changes ENABLE KEYS');

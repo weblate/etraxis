@@ -54,6 +54,19 @@ final class ListItemTest extends TestCase
     }
 
     /**
+     * @covers ::getId
+     */
+    public function testId(): void
+    {
+        $state = new State(new Template(new Project()), StateTypeEnum::Intermediate);
+        $field = new Field($state, FieldTypeEnum::List);
+        $item  = new ListItem($field);
+
+        $this->setProperty($item, 'id', 1);
+        self::assertSame(1, $item->getId());
+    }
+
+    /**
      * @covers ::getField
      */
     public function testField(): void
@@ -66,8 +79,8 @@ final class ListItemTest extends TestCase
     }
 
     /**
-     * @covers ::getItemValue
-     * @covers ::setItemValue
+     * @covers ::getValue
+     * @covers ::setValue
      */
     public function testValue(): void
     {
@@ -75,13 +88,13 @@ final class ListItemTest extends TestCase
         $field = new Field($state, FieldTypeEnum::List);
         $item  = new ListItem($field);
 
-        $item->setItemValue(7);
-        self::assertSame(7, $item->getItemValue());
+        $item->setValue(7);
+        self::assertSame(7, $item->getValue());
     }
 
     /**
-     * @covers ::getItemText
-     * @covers ::setItemText
+     * @covers ::getText
+     * @covers ::setText
      */
     public function testText(): void
     {
@@ -89,7 +102,7 @@ final class ListItemTest extends TestCase
         $field = new Field($state, FieldTypeEnum::List);
         $item  = new ListItem($field);
 
-        $item->setItemText('July');
-        self::assertSame('July', $item->getItemText());
+        $item->setText('July');
+        self::assertSame('July', $item->getText());
     }
 }

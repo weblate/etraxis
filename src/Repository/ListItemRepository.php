@@ -63,7 +63,18 @@ class ListItemRepository extends ServiceEntityRepository implements Contracts\Li
         return $this->findBy([
             'field' => $field,
         ], [
-            'itemValue' => 'ASC',
+            'value' => 'ASC',
+        ]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findOneByValue(Field $field, int $value): ?ListItem
+    {
+        return $this->findOneBy([
+            'field' => $field,
+            'value' => $value,
         ]);
     }
 }

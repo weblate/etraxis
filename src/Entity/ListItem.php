@@ -16,22 +16,33 @@ namespace App\Entity;
 use App\Entity\Enums\FieldTypeEnum;
 use App\Repository\ListItemRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
 
 /**
  * List item.
  */
 #[ORM\Entity(repositoryClass: ListItemRepository::class)]
 #[ORM\Table(name: 'list_items')]
-#[ORM\UniqueConstraint(fields: ['field', 'itemText'])]
+#[ORM\UniqueConstraint(fields: ['field', 'value'])]
+#[ORM\UniqueConstraint(fields: ['field', 'text'])]
+#[Assert\UniqueEntity(fields: ['field', 'value'], message: 'listitem.conflict.value')]
+#[Assert\UniqueEntity(fields: ['field', 'text'], message: 'listitem.conflict.text')]
 class ListItem
 {
     // Constraints.
     public const MAX_TEXT = 50;
 
     /**
-     * Field.
+     * Unique ID.
      */
     #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    protected int $id;
+
+    /**
+     * Field.
+     */
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     protected Field $field;
@@ -39,15 +50,14 @@ class ListItem
     /**
      * Value of the item.
      */
-    #[ORM\Id]
     #[ORM\Column]
-    protected int $itemValue;
+    protected int $value;
 
     /**
      * Text of the item.
      */
     #[ORM\Column(length: 50)]
-    protected string $itemText;
+    protected string $text;
 
     /**
      * Adds new item to specified field of "List" type.
@@ -64,6 +74,14 @@ class ListItem
     /**
      * Property getter.
      */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * Property getter.
+     */
     public function getField(): Field
     {
         return $this->field;
@@ -72,17 +90,17 @@ class ListItem
     /**
      * Property getter.
      */
-    public function getItemValue(): int
+    public function getValue(): int
     {
-        return $this->itemValue;
+        return $this->value;
     }
 
     /**
      * Property setter.
      */
-    public function setItemValue(int $itemValue): self
+    public function setValue(int $value): self
     {
-        $this->itemValue = $itemValue;
+        $this->value = $value;
 
         return $this;
     }
@@ -90,17 +108,17 @@ class ListItem
     /**
      * Property getter.
      */
-    public function getItemText(): string
+    public function getText(): string
     {
-        return $this->itemText;
+        return $this->text;
     }
 
     /**
      * Property setter.
      */
-    public function setItemText(string $itemText): self
+    public function setText(string $text): self
     {
-        $this->itemText = $itemText;
+        $this->text = $text;
 
         return $this;
     }

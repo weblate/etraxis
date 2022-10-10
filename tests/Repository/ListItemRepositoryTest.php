@@ -50,9 +50,49 @@ final class ListItemRepositoryTest extends TransactionalTestCase
             'low',
         ];
 
-        $actual = array_map(fn (ListItem $item) => $item->getItemText(), $items);
+        $actual = array_map(fn (ListItem $item) => $item->getText(), $items);
 
         self::assertCount(3, $items);
         self::assertSame($expected, $actual);
+    }
+
+    /**
+     * @covers ::findOneByValue
+     */
+    public function testFindOneByValueSuccess(): void
+    {
+        /** @var Field $field */
+        [$field] = $this->doctrine->getRepository(Field::class)->findBy(['name' => 'Priority', 'removedAt' => null], ['id' => 'ASC']);
+
+        $item = $this->repository->findOneByValue($field, 2);
+
+        self::assertInstanceOf(ListItem::class, $item);
+        self::assertSame('normal', $item->getText());
+    }
+
+    /**
+     * @covers ::findOneByValue
+     */
+    public function testFindOneByValueUnknown(): void
+    {
+        /** @var Field $field */
+        [$field] = $this->doctrine->getRepository(Field::class)->findBy(['name' => 'Priority', 'removedAt' => null], ['id' => 'ASC']);
+
+        $item = $this->repository->findOneByValue($field, 4);
+
+        self::assertNull($item);
+    }
+
+    /**
+     * @covers ::findOneByValue
+     */
+    public function testFindOneByValueWrongField(): void
+    {
+        /** @var Field $field */
+        [$field] = $this->doctrine->getRepository(Field::class)->findBy(['name' => 'Description', 'removedAt' => null], ['id' => 'ASC']);
+
+        $item = $this->repository->findOneByValue($field, 2);
+
+        self::assertNull($item);
     }
 }

@@ -27,7 +27,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: StateRepository::class)]
 #[ORM\Table(name: 'states')]
 #[ORM\UniqueConstraint(fields: ['template', 'name'])]
-#[Assert\UniqueEntity(fields: ['name'], message: 'state.conflict.name')]
+#[Assert\UniqueEntity(fields: ['template', 'name'], message: 'state.conflict.name')]
 class State
 {
     // Constraints.

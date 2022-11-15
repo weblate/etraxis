@@ -53,4 +53,15 @@ class StateRepository extends ServiceEntityRepository implements Contracts\State
             $this->getEntityManager()->flush();
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findOneByName(int $template, string $name): ?State
+    {
+        return $this->findOneBy([
+            'template' => $template,
+            'name'     => $name,
+        ]);
+    }
 }

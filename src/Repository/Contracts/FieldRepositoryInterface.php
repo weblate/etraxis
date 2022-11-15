@@ -31,4 +31,9 @@ interface FieldRepositoryInterface extends ObjectRepository, Selectable
      * @see \Doctrine\Persistence\ObjectManager::remove()
      */
     public function remove(Field $entity, bool $flush = false): void;
+
+    /**
+     * Finds field by name.
+     */
+    public function findOneByName(int $state, string $name): ?Field;
 }

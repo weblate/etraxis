@@ -53,4 +53,15 @@ class TemplateRepository extends ServiceEntityRepository implements Contracts\Te
             $this->getEntityManager()->flush();
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findOneByName(int $project, string $name): ?Template
+    {
+        return $this->findOneBy([
+            'project' => $project,
+            'name'    => $name,
+        ]);
+    }
 }

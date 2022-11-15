@@ -53,4 +53,15 @@ class FieldRepository extends ServiceEntityRepository implements Contracts\Field
             $this->getEntityManager()->flush();
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findOneByName(int $state, string $name): ?Field
+    {
+        return $this->findOneBy([
+            'state' => $state,
+            'name'  => $name,
+        ]);
+    }
 }

@@ -31,4 +31,9 @@ interface StateRepositoryInterface extends ObjectRepository, Selectable
      * @see \Doctrine\Persistence\ObjectManager::remove()
      */
     public function remove(State $entity, bool $flush = false): void;
+
+    /**
+     * Finds state by name.
+     */
+    public function findOneByName(int $template, string $name): ?State;
 }

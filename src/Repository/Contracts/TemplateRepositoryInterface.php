@@ -31,4 +31,9 @@ interface TemplateRepositoryInterface extends ObjectRepository, Selectable
      * @see \Doctrine\Persistence\ObjectManager::remove()
      */
     public function remove(Template $entity, bool $flush = false): void;
+
+    /**
+     * Finds template by name.
+     */
+    public function findOneByName(int $project, string $name): ?Template;
 }

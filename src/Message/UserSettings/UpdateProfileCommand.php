@@ -13,6 +13,9 @@
 
 namespace App\Message\UserSettings;
 
+use App\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Updates profile info of the current user.
  */
@@ -21,8 +24,13 @@ final class UpdateProfileCommand
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(private readonly string $email, private readonly string $fullname)
-    {
+    public function __construct(
+        #[Assert\Length(max: User::MAX_EMAIL)]
+        #[Assert\Email]
+        private readonly string $email,
+        #[Assert\Length(max: User::MAX_FULLNAME)]
+        private readonly string $fullname
+    ) {
     }
 
     /**

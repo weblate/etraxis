@@ -13,6 +13,8 @@
 
 namespace App\Message\States;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Sets state transition for the specified groups.
  */
@@ -24,6 +26,9 @@ final class SetGroupsTransitionCommand
     public function __construct(
         private readonly int $fromState,
         private readonly int $toState,
+        #[Assert\All([
+            new Assert\Regex('/^\d+$/'),
+        ])]
         private readonly array $groups
     ) {
     }

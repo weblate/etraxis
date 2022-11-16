@@ -13,7 +13,9 @@
 
 namespace App\Message\Templates;
 
+use App\Entity\Enums\SystemRoleEnum;
 use App\Entity\Enums\TemplatePermissionEnum;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Sets specified roles permission for the template.
@@ -26,6 +28,9 @@ final class SetRolesPermissionCommand
     public function __construct(
         private readonly int $template,
         private readonly TemplatePermissionEnum $permission,
+        #[Assert\All([
+            new Assert\Choice(callback: [SystemRoleEnum::class, 'cases'], strict: true),
+        ])]
         private readonly array $roles
     ) {
     }
@@ -47,7 +52,7 @@ final class SetRolesPermissionCommand
     }
 
     /**
-     * @return \App\Entity\Enums\SystemRoleEnum[] Granted system roles
+     * @return SystemRoleEnum[] Granted system roles
      */
     public function getRoles(): array
     {

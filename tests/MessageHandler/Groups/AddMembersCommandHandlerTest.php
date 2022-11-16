@@ -22,6 +22,7 @@ use App\Repository\Contracts\GroupRepositoryInterface;
 use App\TransactionalTestCase;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 /**
  * @internal
@@ -90,6 +91,48 @@ final class AddMembersCommandHandlerTest extends TransactionalTestCase
 
         sort($members);
         self::assertSame($after, $members);
+    }
+
+    public function testValidationUsersCount(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var Group $group */
+        [$group] = $this->repository->findBy(['name' => 'Developers'], ['id' => 'ASC']);
+
+        $command = new AddMembersCommand($group->getId(), []);
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This collection should contain 1 element or more.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
+    public function testValidationInvalidUsers(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var Group $group */
+        [$group] = $this->repository->findBy(['name' => 'Developers'], ['id' => 'ASC']);
+
+        $command = new AddMembersCommand($group->getId(), [
+            'foo',
+        ]);
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is not valid.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
     }
 
     public function testAccessDenied(): void

@@ -24,6 +24,7 @@ use App\TransactionalTestCase;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
+use Symfony\Component\Messenger\Exception\ValidationFailedException;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 /**
@@ -79,6 +80,136 @@ final class CreateUserCommandHandlerTest extends TransactionalTestCase
         self::assertTrue($user->isAdmin());
         self::assertSame(LocaleEnum::Russian, $user->getLocale());
         self::assertSame('Pacific/Auckland', $user->getTimezone());
+    }
+
+    public function testValidationEmailLength(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        $command = new CreateUserCommand(
+            str_pad('@example.com', User::MAX_EMAIL + 1, 'a', STR_PAD_LEFT),
+            'secret',
+            'Anna Rodygina',
+            'Very lovely Daughter',
+            true,
+            false,
+            LocaleEnum::Russian,
+            'Pacific/Auckland'
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is too long. It should have 254 characters or less.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
+    public function testValidationInvalidEmail(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        $command = new CreateUserCommand(
+            'anna@example',
+            'secret',
+            'Anna Rodygina',
+            'Very lovely Daughter',
+            true,
+            false,
+            LocaleEnum::Russian,
+            'Pacific/Auckland'
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is not a valid email address.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
+    public function testValidationFullnameLength(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        $command = new CreateUserCommand(
+            'anna@example.com',
+            'secret',
+            str_pad('', User::MAX_FULLNAME + 1),
+            'Very lovely Daughter',
+            true,
+            false,
+            LocaleEnum::Russian,
+            'Pacific/Auckland'
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is too long. It should have 50 characters or less.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
+    public function testValidationDescriptionLength(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        $command = new CreateUserCommand(
+            'anna@example.com',
+            'secret',
+            'Anna Rodygina',
+            str_pad('', User::MAX_DESCRIPTION + 1),
+            true,
+            false,
+            LocaleEnum::Russian,
+            'Pacific/Auckland'
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is too long. It should have 100 characters or less.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
+    public function testValidationInvalidTimezone(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        $command = new CreateUserCommand(
+            'anna@example.com',
+            'secret',
+            'Anna Rodygina',
+            'Very lovely Daughter',
+            true,
+            false,
+            LocaleEnum::Russian,
+            'Invalid/Timezone'
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('The value you selected is not a valid choice.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
     }
 
     public function testAccessDenied(): void

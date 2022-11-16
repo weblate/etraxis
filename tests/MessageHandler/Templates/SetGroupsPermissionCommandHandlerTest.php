@@ -26,6 +26,7 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
+use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 /**
  * @internal
@@ -87,6 +88,28 @@ final class SetGroupsPermissionCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($template);
         self::assertSame($after, $this->permissionsToArray($template->getGroupPermissions(), $group->getId()));
+    }
+
+    public function testValidationInvalidGroups(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var Template $template */
+        [$template] = $this->repository->findBy(['name' => 'Development'], ['id' => 'ASC']);
+
+        $command = new SetGroupsPermissionCommand($template->getId(), TemplatePermissionEnum::DeleteFiles, [
+            'foo',
+        ]);
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is not valid.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
     }
 
     public function testAccessDenied(): void

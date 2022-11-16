@@ -14,6 +14,8 @@
 namespace App\Message\Fields;
 
 use App\Entity\Enums\FieldPermissionEnum;
+use App\Entity\Enums\SystemRoleEnum;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Sets specified roles permission for the field.
@@ -26,6 +28,9 @@ final class SetRolesPermissionCommand
     public function __construct(
         private readonly int $field,
         private readonly FieldPermissionEnum $permission,
+        #[Assert\All([
+            new Assert\Choice(callback: [SystemRoleEnum::class, 'cases'], strict: true),
+        ])]
         private readonly array $roles
     ) {
     }

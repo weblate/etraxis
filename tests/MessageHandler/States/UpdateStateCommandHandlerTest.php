@@ -23,6 +23,7 @@ use App\TransactionalTestCase;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 /**
  * @internal
@@ -64,6 +65,30 @@ final class UpdateStateCommandHandlerTest extends TransactionalTestCase
 
         self::assertSame('Forwarded', $state->getName());
         self::assertSame(StateResponsibleEnum::Keep, $state->getResponsible());
+    }
+
+    public function testValidationNameLength(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var State $state */
+        [/* skipping */ , $state] = $this->repository->findBy(['name' => 'Assigned'], ['id' => 'ASC']);
+
+        $command = new UpdateStateCommand(
+            $state->getId(),
+            str_pad('', State::MAX_NAME + 1),
+            StateResponsibleEnum::Keep
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is too long. It should have 50 characters or less.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
     }
 
     public function testAccessDenied(): void

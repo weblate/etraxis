@@ -22,6 +22,7 @@ use App\TransactionalTestCase;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 /**
  * @internal
@@ -77,6 +78,54 @@ final class UpdateGroupCommandHandlerTest extends TransactionalTestCase
 
         self::assertSame('All my slaves', $group->getName());
         self::assertSame('Human beings', $group->getDescription());
+    }
+
+    public function testValidationNameLength(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var Group $group */
+        $group = $this->repository->findOneBy(['name' => 'Company Staff']);
+
+        $command = new UpdateGroupCommand(
+            $group->getId(),
+            str_pad('', Group::MAX_NAME + 1),
+            'Software Engineers'
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is too long. It should have 25 characters or less.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
+    public function testValidationDescriptionLength(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var Group $group */
+        $group = $this->repository->findOneBy(['name' => 'Company Staff']);
+
+        $command = new UpdateGroupCommand(
+            $group->getId(),
+            'Programmers',
+            str_pad('', Group::MAX_DESCRIPTION + 1)
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is too long. It should have 100 characters or less.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
     }
 
     public function testAccessDenied(): void

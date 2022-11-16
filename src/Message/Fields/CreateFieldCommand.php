@@ -14,6 +14,8 @@
 namespace App\Message\Fields;
 
 use App\Entity\Enums\FieldTypeEnum;
+use App\Entity\Field;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Creates new field.
@@ -25,8 +27,10 @@ final class CreateFieldCommand
      */
     public function __construct(
         private readonly int $state,
+        #[Assert\Length(max: Field::MAX_NAME)]
         private readonly string $name,
         private readonly FieldTypeEnum $type,
+        #[Assert\Length(max: Field::MAX_DESCRIPTION)]
         private readonly ?string $description,
         private readonly bool $required,
         private readonly ?array $parameters

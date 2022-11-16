@@ -13,6 +13,9 @@
 
 namespace App\Message\Projects;
 
+use App\Entity\Project;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Updates specified project.
  */
@@ -23,7 +26,9 @@ final class UpdateProjectCommand
      */
     public function __construct(
         private readonly int $project,
+        #[Assert\Length(max: Project::MAX_NAME)]
         private readonly string $name,
+        #[Assert\Length(max: Project::MAX_DESCRIPTION)]
         private readonly ?string $description,
         private readonly bool $suspended
     ) {

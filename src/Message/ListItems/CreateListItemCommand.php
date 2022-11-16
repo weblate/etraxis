@@ -13,6 +13,9 @@
 
 namespace App\Message\ListItems;
 
+use App\Entity\ListItem;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Creates new list item.
  */
@@ -24,6 +27,7 @@ final class CreateListItemCommand
     public function __construct(
         private readonly int $field,
         private readonly int $value,
+        #[Assert\Length(max: ListItem::MAX_TEXT)]
         private readonly string $text
     ) {
     }

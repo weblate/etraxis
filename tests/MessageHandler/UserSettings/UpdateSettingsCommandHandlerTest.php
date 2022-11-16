@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 /**
  * @internal
@@ -72,6 +73,23 @@ final class UpdateSettingsCommandHandlerTest extends TransactionalTestCase
         self::assertSame(LocaleEnum::Russian, $user->getLocale());
         self::assertSame(ThemeEnum::Emerald, $user->getTheme());
         self::assertSame('Pacific/Auckland', $user->getTimezone());
+    }
+
+    public function testValidationInvalidTimezone(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('artem@example.com');
+
+        $command = new UpdateSettingsCommand(LocaleEnum::Russian, ThemeEnum::Emerald, 'Invalid/Timezone');
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('The value you selected is not a valid choice.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
     }
 
     public function testAccessDenied(): void

@@ -26,6 +26,7 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
+use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 /**
  * @internal
@@ -79,6 +80,28 @@ final class SetGroupsPermissionCommandHandlerTest extends TransactionalTestCase
         self::assertSame(FieldPermissionEnum::ReadOnly, $this->getPermissionByGroup($field->getGroupPermissions(), $managers->getId()));
         self::assertNull($this->getPermissionByGroup($field->getGroupPermissions(), $developers->getId()));
         self::assertSame(FieldPermissionEnum::ReadOnly, $this->getPermissionByGroup($field->getGroupPermissions(), $support->getId()));
+    }
+
+    public function testValidationInvalidGroups(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->repository->findBy(['name' => 'Priority'], ['id' => 'ASC']);
+
+        $command = new SetGroupsPermissionCommand($field->getId(), FieldPermissionEnum::ReadOnly, [
+            'foo',
+        ]);
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is not valid.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
     }
 
     public function testAccessDenied(): void

@@ -13,6 +13,9 @@
 
 namespace App\Message\Templates;
 
+use App\Entity\Template;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Updates specified template.
  */
@@ -23,10 +26,15 @@ final class UpdateTemplateCommand
      */
     public function __construct(
         private readonly int $template,
+        #[Assert\Length(max: Template::MAX_NAME)]
         private readonly string $name,
+        #[Assert\Length(max: Template::MAX_PREFIX)]
         private readonly string $prefix,
+        #[Assert\Length(max: Template::MAX_DESCRIPTION)]
         private readonly ?string $description,
+        #[Assert\Range(min: 1)]
         private readonly ?int $criticalAge,
+        #[Assert\Range(min: 1)]
         private readonly ?int $frozenTime
     ) {
     }

@@ -15,6 +15,7 @@ namespace App\Message\UserSettings;
 
 use App\Entity\Enums\LocaleEnum;
 use App\Entity\Enums\ThemeEnum;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Updates profile info of the current user.
@@ -24,8 +25,12 @@ final class UpdateSettingsCommand
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(private readonly LocaleEnum $locale, private readonly ThemeEnum $theme, private readonly string $timezone)
-    {
+    public function __construct(
+        private readonly LocaleEnum $locale,
+        private readonly ThemeEnum $theme,
+        #[Assert\Choice(callback: 'timezone_identifiers_list', strict: true)]
+        private readonly string $timezone
+    ) {
     }
 
     /**

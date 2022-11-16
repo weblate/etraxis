@@ -23,6 +23,7 @@ use App\TransactionalTestCase;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 /**
  * @internal
@@ -87,6 +88,48 @@ final class CreateGroupCommandHandlerTest extends TransactionalTestCase
         self::assertNull($group->getProject());
         self::assertSame('Testers', $group->getName());
         self::assertSame('Test Engineers', $group->getDescription());
+    }
+
+    public function testValidationNameLength(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        $command = new CreateGroupCommand(
+            null,
+            str_pad('', Group::MAX_NAME + 1),
+            'Test Engineers'
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is too long. It should have 25 characters or less.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
+    public function testValidationDescriptionLength(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        $command = new CreateGroupCommand(
+            null,
+            'Testers',
+            str_pad('', Group::MAX_DESCRIPTION + 1)
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is too long. It should have 100 characters or less.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
     }
 
     public function testUnknownProject(): void

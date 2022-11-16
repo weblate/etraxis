@@ -14,6 +14,8 @@
 namespace App\Message\States;
 
 use App\Entity\Enums\StateResponsibleEnum;
+use App\Entity\State;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Updates specified state.
@@ -25,6 +27,7 @@ final class UpdateStateCommand
      */
     public function __construct(
         private readonly int $state,
+        #[Assert\Length(max: State::MAX_NAME)]
         private readonly string $name,
         private readonly StateResponsibleEnum $responsible
     ) {

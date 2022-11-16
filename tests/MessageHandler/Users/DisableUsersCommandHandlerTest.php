@@ -21,6 +21,7 @@ use App\Repository\Contracts\UserRepositoryInterface;
 use App\TransactionalTestCase;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 /**
  * @internal
@@ -64,6 +65,42 @@ final class DisableUsersCommandHandlerTest extends TransactionalTestCase
 
         self::assertTrue($nhills->isDisabled());
         self::assertTrue($tberge->isDisabled());
+    }
+
+    public function testValidationGroupsCount(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        $command = new DisableUsersCommand([]);
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This collection should contain 1 element or more.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
+    public function testValidationInvalidGroups(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        $command = new DisableUsersCommand([
+            'foo',
+        ]);
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is not valid.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
     }
 
     public function testAccessDenied(): void

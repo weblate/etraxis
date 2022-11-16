@@ -13,6 +13,9 @@
 
 namespace App\Message\Groups;
 
+use App\Entity\Group;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Updates specified group.
  */
@@ -21,8 +24,13 @@ final class UpdateGroupCommand
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(private readonly int $group, private readonly string $name, private readonly ?string $description)
-    {
+    public function __construct(
+        private readonly int $group,
+        #[Assert\Length(max: Group::MAX_NAME)]
+        private readonly string $name,
+        #[Assert\Length(max: Group::MAX_DESCRIPTION)]
+        private readonly ?string $description
+    ) {
     }
 
     /**

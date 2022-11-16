@@ -21,6 +21,7 @@ use App\Repository\Contracts\UserRepositoryInterface;
 use App\TransactionalTestCase;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
+use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 /**
  * @internal
@@ -59,6 +60,57 @@ final class UpdateProfileCommandHandlerTest extends TransactionalTestCase
 
         self::assertSame('chaim.willms@example.com', $user->getEmail());
         self::assertSame('Chaim Willms', $user->getFullname());
+    }
+
+    public function testValidationEmailLength(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('nhills@example.com');
+
+        $command = new UpdateProfileCommand(str_pad('@example.com', User::MAX_EMAIL + 1, 'a', STR_PAD_LEFT), 'Chaim Willms');
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is too long. It should have 254 characters or less.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
+    public function testValidationInvalidEmail(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('nhills@example.com');
+
+        $command = new UpdateProfileCommand('chaim.willms@example', 'Chaim Willms');
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is not a valid email address.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
+    public function testValidationFullnameLength(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('nhills@example.com');
+
+        $command = new UpdateProfileCommand('chaim.willms@example.com', str_pad('', User::MAX_FULLNAME + 1));
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is too long. It should have 50 characters or less.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
     }
 
     public function testAccessDenied(): void

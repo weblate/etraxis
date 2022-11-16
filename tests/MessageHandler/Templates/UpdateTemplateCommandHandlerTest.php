@@ -22,6 +22,7 @@ use App\TransactionalTestCase;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 /**
  * @internal
@@ -62,6 +63,127 @@ final class UpdateTemplateCommandHandlerTest extends TransactionalTestCase
         self::assertSame('Error reports', $template->getDescription());
         self::assertSame(5, $template->getCriticalAge());
         self::assertSame(10, $template->getFrozenTime());
+    }
+
+    public function testValidationNameLength(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var Template $template */
+        [$template] = $this->repository->findBy(['name' => 'Development'], ['id' => 'ASC']);
+
+        $command = new UpdateTemplateCommand(
+            $template->getId(),
+            str_pad('', Template::MAX_NAME + 1),
+            'bug',
+            'Error reports',
+            5,
+            10
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is too long. It should have 50 characters or less.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
+    public function testValidationPrefixLength(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var Template $template */
+        [$template] = $this->repository->findBy(['name' => 'Development'], ['id' => 'ASC']);
+
+        $command = new UpdateTemplateCommand(
+            $template->getId(),
+            'Bugfix',
+            str_pad('', Template::MAX_PREFIX + 1),
+            'Error reports',
+            5,
+            10
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is too long. It should have 5 characters or less.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
+    public function testValidationDescriptionLength(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var Template $template */
+        [$template] = $this->repository->findBy(['name' => 'Development'], ['id' => 'ASC']);
+
+        $command = new UpdateTemplateCommand(
+            $template->getId(),
+            'Bugfix',
+            'bug',
+            str_pad('', Template::MAX_DESCRIPTION + 1),
+            5,
+            10
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is too long. It should have 100 characters or less.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
+    public function testValidationCriticalAge(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var Template $template */
+        [$template] = $this->repository->findBy(['name' => 'Development'], ['id' => 'ASC']);
+
+        $command = new UpdateTemplateCommand($template->getId(), 'Bugfix', 'bug', 'Error reports', 0, 10);
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should be 1 or more.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
+    public function testValidationFrozenTime(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var Template $template */
+        [$template] = $this->repository->findBy(['name' => 'Development'], ['id' => 'ASC']);
+
+        $command = new UpdateTemplateCommand($template->getId(), 'Bugfix', 'bug', 'Error reports', 5, 0);
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should be 1 or more.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
     }
 
     public function testAccessDenied(): void

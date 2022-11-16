@@ -25,6 +25,7 @@ use App\TransactionalTestCase;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 /**
  * @internal
@@ -86,6 +87,28 @@ final class SetRolesPermissionCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($template);
         self::assertSame($after, $this->permissionsToArray($template->getRolePermissions(), SystemRoleEnum::Author));
+    }
+
+    public function testValidationInvalidRoles(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var Template $template */
+        [$template] = $this->repository->findBy(['name' => 'Support'], ['id' => 'ASC']);
+
+        $command = new SetRolesPermissionCommand($template->getId(), TemplatePermissionEnum::PrivateComments, [
+            'foo',
+        ]);
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('The value you selected is not a valid choice.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
     }
 
     public function testAccessDenied(): void

@@ -24,6 +24,7 @@ use App\TransactionalTestCase;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 /**
  * @internal
@@ -70,6 +71,60 @@ final class CreateFieldCommandHandlerTest extends TransactionalTestCase
         self::assertSame('ID of the duplicating task.', $field->getDescription());
         self::assertSame(2, $field->getPosition());
         self::assertTrue($field->isRequired());
+    }
+
+    public function testValidationNameLength(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var State $state */
+        [/* skipping */ , $state] = $this->doctrine->getRepository(State::class)->findBy(['name' => 'Duplicated'], ['id' => 'ASC']);
+
+        $command = new CreateFieldCommand(
+            $state->getId(),
+            str_pad('', Field::MAX_NAME + 1),
+            FieldTypeEnum::Issue,
+            'ID of the duplicating task.',
+            true,
+            null
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is too long. It should have 50 characters or less.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
+    public function testValidationDescriptionLength(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var State $state */
+        [/* skipping */ , $state] = $this->doctrine->getRepository(State::class)->findBy(['name' => 'Duplicated'], ['id' => 'ASC']);
+
+        $command = new CreateFieldCommand(
+            $state->getId(),
+            'Task ID',
+            FieldTypeEnum::Issue,
+            str_pad('', Field::MAX_DESCRIPTION + 1),
+            true,
+            null
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is too long. It should have 1000 characters or less.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
     }
 
     public function testUnknownState(): void

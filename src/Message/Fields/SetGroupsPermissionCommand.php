@@ -14,6 +14,7 @@
 namespace App\Message\Fields;
 
 use App\Entity\Enums\FieldPermissionEnum;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Sets specified groups permission for the field.
@@ -26,6 +27,9 @@ final class SetGroupsPermissionCommand
     public function __construct(
         private readonly int $field,
         private readonly FieldPermissionEnum $permission,
+        #[Assert\All([
+            new Assert\Regex('/^\d+$/'),
+        ])]
         private readonly array $groups
     ) {
     }

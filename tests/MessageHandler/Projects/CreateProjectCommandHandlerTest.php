@@ -21,6 +21,7 @@ use App\Repository\Contracts\ProjectRepositoryInterface;
 use App\TransactionalTestCase;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
+use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 /**
  * @internal
@@ -61,6 +62,48 @@ final class CreateProjectCommandHandlerTest extends TransactionalTestCase
         self::assertSame('Awesome Express', $project->getName());
         self::assertSame('Newspaper-delivery company', $project->getDescription());
         self::assertTrue($project->isSuspended());
+    }
+
+    public function testValidationNameLength(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        $command = new CreateProjectCommand(
+            str_pad('', Project::MAX_NAME + 1),
+            'Newspaper-delivery company',
+            true
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is too long. It should have 25 characters or less.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
+    public function testValidationDescriptionLength(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        $command = new CreateProjectCommand(
+            'Awesome Express',
+            str_pad('', Project::MAX_DESCRIPTION + 1),
+            true
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is too long. It should have 100 characters or less.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
     }
 
     public function testAccessDenied(): void

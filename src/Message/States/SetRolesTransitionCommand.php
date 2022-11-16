@@ -13,6 +13,9 @@
 
 namespace App\Message\States;
 
+use App\Entity\Enums\SystemRoleEnum;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Sets state transition for the specified roles.
  */
@@ -24,6 +27,9 @@ final class SetRolesTransitionCommand
     public function __construct(
         private readonly int $fromState,
         private readonly int $toState,
+        #[Assert\All([
+            new Assert\Choice(callback: [SystemRoleEnum::class, 'cases'], strict: true),
+        ])]
         private readonly array $roles
     ) {
     }
@@ -45,7 +51,7 @@ final class SetRolesTransitionCommand
     }
 
     /**
-     * @return \App\Entity\Enums\SystemRoleEnum[] Granted system roles
+     * @return SystemRoleEnum[] Granted system roles
      */
     public function getRoles(): array
     {

@@ -13,6 +13,9 @@
 
 namespace App\Message\Fields;
 
+use App\Entity\Field;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Updates specified field.
  */
@@ -23,7 +26,9 @@ final class UpdateFieldCommand
      */
     public function __construct(
         private readonly int $field,
+        #[Assert\Length(max: Field::MAX_NAME)]
         private readonly string $name,
+        #[Assert\Length(max: Field::MAX_DESCRIPTION)]
         private readonly ?string $description,
         private readonly bool $required,
         private readonly ?array $parameters

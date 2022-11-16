@@ -13,6 +13,8 @@
 
 namespace App\Message\States;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Sets specified responsible groups for the state.
  */
@@ -21,8 +23,13 @@ final class SetResponsibleGroupsCommand
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(private readonly int $state, private readonly array $groups)
-    {
+    public function __construct(
+        private readonly int $state,
+        #[Assert\All([
+            new Assert\Regex('/^\d+$/'),
+        ])]
+        private readonly array $groups
+    ) {
     }
 
     /**

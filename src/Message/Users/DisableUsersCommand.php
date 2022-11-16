@@ -13,6 +13,8 @@
 
 namespace App\Message\Users;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Disables specified accounts.
  */
@@ -21,8 +23,13 @@ final class DisableUsersCommand
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(private readonly array $users)
-    {
+    public function __construct(
+        #[Assert\Count(min: 1)]
+        #[Assert\All([
+            new Assert\Regex('/^\d+$/'),
+        ])]
+        private readonly array $users
+    ) {
     }
 
     /**

@@ -25,6 +25,7 @@ use App\TransactionalTestCase;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 /**
  * @internal
@@ -118,6 +119,28 @@ final class SetRolesPermissionCommandHandlerTest extends TransactionalTestCase
         self::assertNull($this->getPermissionByRole($field->getRolePermissions(), SystemRoleEnum::Anyone));
         self::assertSame(FieldPermissionEnum::ReadAndWrite, $this->getPermissionByRole($field->getRolePermissions(), SystemRoleEnum::Author));
         self::assertSame(FieldPermissionEnum::ReadAndWrite, $this->getPermissionByRole($field->getRolePermissions(), SystemRoleEnum::Responsible));
+    }
+
+    public function testValidationInvalidRoles(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->repository->findBy(['name' => 'Priority'], ['id' => 'ASC']);
+
+        $command = new SetRolesPermissionCommand($field->getId(), FieldPermissionEnum::ReadAndWrite, [
+            'foo',
+        ]);
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('The value you selected is not a valid choice.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
     }
 
     public function testAccessDenied(): void

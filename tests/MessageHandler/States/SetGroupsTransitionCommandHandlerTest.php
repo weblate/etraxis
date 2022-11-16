@@ -25,6 +25,7 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
+use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 /**
  * @internal
@@ -86,6 +87,31 @@ final class SetGroupsTransitionCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($fromState);
         self::assertSame($after, $this->transitionsToArray($fromState->getGroupTransitions(), $toState));
+    }
+
+    public function testValidationInvalidGroups(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var State $fromState */
+        [$fromState] = $this->repository->findBy(['name' => 'Submitted'], ['id' => 'ASC']);
+
+        /** @var State $toState */
+        [$toState] = $this->repository->findBy(['name' => 'Opened'], ['id' => 'ASC']);
+
+        $command = new SetGroupsTransitionCommand($fromState->getId(), $toState->getId(), [
+            'foo',
+        ]);
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is not valid.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
     }
 
     public function testAccessDenied(): void

@@ -25,6 +25,7 @@ use App\TransactionalTestCase;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 /**
  * @internal
@@ -112,6 +113,31 @@ final class CreateStateCommandHandlerTest extends TransactionalTestCase
         $this->doctrine->getManager()->refresh($initial);
 
         self::assertSame(StateTypeEnum::Intermediate, $initial->getType());
+    }
+
+    public function testValidationNameLength(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var Template $template */
+        [/* skipping */ , $template] = $this->doctrine->getRepository(Template::class)->findBy(['name' => 'Development'], ['id' => 'ASC']);
+
+        $command = new CreateStateCommand(
+            $template->getId(),
+            str_pad('', State::MAX_NAME + 1),
+            StateTypeEnum::Intermediate,
+            StateResponsibleEnum::Keep
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value is too long. It should have 50 characters or less.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
     }
 
     public function testUnknownTemplate(): void

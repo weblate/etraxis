@@ -15,6 +15,8 @@ namespace App\Message\States;
 
 use App\Entity\Enums\StateResponsibleEnum;
 use App\Entity\Enums\StateTypeEnum;
+use App\Entity\State;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Creates new state.
@@ -26,6 +28,7 @@ final class CreateStateCommand
      */
     public function __construct(
         private readonly int $template,
+        #[Assert\Length(max: State::MAX_NAME)]
         private readonly string $name,
         private readonly StateTypeEnum $type,
         private readonly StateResponsibleEnum $responsible

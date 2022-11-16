@@ -14,6 +14,7 @@
 namespace App\Message\Templates;
 
 use App\Entity\Enums\TemplatePermissionEnum;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Sets specified groups permission for the template.
@@ -26,6 +27,9 @@ final class SetGroupsPermissionCommand
     public function __construct(
         private readonly int $template,
         private readonly TemplatePermissionEnum $permission,
+        #[Assert\All([
+            new Assert\Regex('/^\d+$/'),
+        ])]
         private readonly array $groups
     ) {
     }

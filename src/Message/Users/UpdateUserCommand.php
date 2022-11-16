@@ -14,6 +14,8 @@
 namespace App\Message\Users;
 
 use App\Entity\Enums\LocaleEnum;
+use App\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Updates specified account.
@@ -25,12 +27,17 @@ final class UpdateUserCommand
      */
     public function __construct(
         private readonly int $user,
+        #[Assert\Length(max: User::MAX_EMAIL)]
+        #[Assert\Email]
         private readonly string $email,
+        #[Assert\Length(max: User::MAX_FULLNAME)]
         private readonly string $fullname,
+        #[Assert\Length(max: User::MAX_DESCRIPTION)]
         private readonly ?string $description,
         private readonly bool $admin,
         private readonly bool $disabled,
         private readonly LocaleEnum $locale,
+        #[Assert\Choice(callback: 'timezone_identifiers_list', strict: true)]
         private readonly string $timezone
     ) {
     }

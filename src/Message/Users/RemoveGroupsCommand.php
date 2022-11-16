@@ -13,6 +13,8 @@
 
 namespace App\Message\Users;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Removes account from specified groups.
  */
@@ -21,8 +23,14 @@ final class RemoveGroupsCommand
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(private readonly int $user, private readonly array $groups)
-    {
+    public function __construct(
+        private readonly int $user,
+        #[Assert\Count(min: 1)]
+        #[Assert\All([
+            new Assert\Regex('/^\d+$/'),
+        ])]
+        private readonly array $groups
+    ) {
     }
 
     /**

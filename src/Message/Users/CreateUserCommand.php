@@ -14,6 +14,8 @@
 namespace App\Message\Users;
 
 use App\Entity\Enums\LocaleEnum;
+use App\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Creates new account.
@@ -24,13 +26,18 @@ final class CreateUserCommand
      * @codeCoverageIgnore Dependency Injection constructor
      */
     public function __construct(
+        #[Assert\Length(max: User::MAX_EMAIL)]
+        #[Assert\Email]
         private readonly string $email,
         private readonly string $password,
+        #[Assert\Length(max: User::MAX_FULLNAME)]
         private readonly string $fullname,
+        #[Assert\Length(max: User::MAX_DESCRIPTION)]
         private readonly ?string $description,
         private readonly bool $admin,
         private readonly bool $disabled,
         private readonly LocaleEnum $locale,
+        #[Assert\Choice(callback: 'timezone_identifiers_list', strict: true)]
         private readonly string $timezone
     ) {
     }

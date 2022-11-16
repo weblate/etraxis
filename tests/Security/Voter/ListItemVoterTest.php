@@ -19,7 +19,6 @@ use App\LoginTrait;
 use App\ReflectionTrait;
 use App\Repository\Contracts\ListItemRepositoryInterface;
 use App\TransactionalTestCase;
-use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
@@ -34,8 +33,8 @@ final class ListItemVoterTest extends TransactionalTestCase
     use LoginTrait;
     use ReflectionTrait;
 
-    private ?AuthorizationCheckerInterface               $security;
-    private ObjectRepository|ListItemRepositoryInterface $repository;
+    private AuthorizationCheckerInterface $security;
+    private ListItemRepositoryInterface   $repository;
 
     protected function setUp(): void
     {

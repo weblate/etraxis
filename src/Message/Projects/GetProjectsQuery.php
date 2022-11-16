@@ -21,9 +21,9 @@ use App\Message\AbstractCollectionQuery;
 final class GetProjectsQuery extends AbstractCollectionQuery
 {
     // Properties available for filters and order.
-    public const PROJECT_ID          = 'id';
-    public const PROJECT_NAME        = 'name';
-    public const PROJECT_DESCRIPTION = 'description';
-    public const PROJECT_CREATED     = 'created';
-    public const PROJECT_SUSPENDED   = 'suspended';
+    public const PROJECT_ID           = 'id';
+    public const PROJECT_NAME         = 'name';
+    public const PROJECT_DESCRIPTION  = 'description';
+    public const PROJECT_CREATED_AT   = 'created_at';
+    public const PROJECT_IS_SUSPENDED = 'is_suspended';
 }

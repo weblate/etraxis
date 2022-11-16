@@ -19,7 +19,6 @@ use App\Message\Users\DeleteUserCommand;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\Repository\Contracts\UserRepositoryInterface;
 use App\TransactionalTestCase;
-use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
@@ -31,8 +30,8 @@ final class DeleteUserCommandHandlerTest extends TransactionalTestCase
 {
     use LoginTrait;
 
-    private ?CommandBusInterface                     $commandBus;
-    private ObjectRepository|UserRepositoryInterface $repository;
+    private CommandBusInterface     $commandBus;
+    private UserRepositoryInterface $repository;
 
     protected function setUp(): void
     {

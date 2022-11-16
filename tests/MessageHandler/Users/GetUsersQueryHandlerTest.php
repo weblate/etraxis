@@ -32,8 +32,8 @@ final class GetUsersQueryHandlerTest extends WebTestCase
 {
     use LoginTrait;
 
-    private KernelBrowser      $client;
-    private ?QueryBusInterface $queryBus;
+    private KernelBrowser     $client;
+    private QueryBusInterface $queryBus;
 
     protected function setUp(): void
     {
@@ -292,7 +292,7 @@ final class GetUsersQueryHandlerTest extends WebTestCase
         $this->loginUser('admin@example.com');
 
         $filters = [
-            GetUsersQuery::USER_ADMIN => User::ROLE_ADMIN,
+            GetUsersQuery::USER_IS_ADMIN => User::ROLE_ADMIN,
         ];
 
         $order = [
@@ -324,7 +324,7 @@ final class GetUsersQueryHandlerTest extends WebTestCase
         $this->loginUser('admin@example.com');
 
         $filters = [
-            GetUsersQuery::USER_DISABLED => true,
+            GetUsersQuery::USER_IS_DISABLED => true,
         ];
 
         $order = [
@@ -615,7 +615,7 @@ final class GetUsersQueryHandlerTest extends WebTestCase
         $this->loginUser('admin@example.com');
 
         $order = [
-            GetUsersQuery::USER_ADMIN    => AbstractCollectionQuery::SORT_DESC,
+            GetUsersQuery::USER_IS_ADMIN => AbstractCollectionQuery::SORT_DESC,
             GetUsersQuery::USER_FULLNAME => AbstractCollectionQuery::SORT_ASC,
         ];
 

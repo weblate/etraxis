@@ -19,7 +19,6 @@ use App\Message\Projects\DeleteProjectCommand;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\Repository\Contracts\ProjectRepositoryInterface;
 use App\TransactionalTestCase;
-use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
@@ -31,8 +30,8 @@ final class DeleteProjectCommandHandlerTest extends TransactionalTestCase
 {
     use LoginTrait;
 
-    private ?CommandBusInterface                        $commandBus;
-    private ObjectRepository|ProjectRepositoryInterface $repository;
+    private CommandBusInterface        $commandBus;
+    private ProjectRepositoryInterface $repository;
 
     protected function setUp(): void
     {

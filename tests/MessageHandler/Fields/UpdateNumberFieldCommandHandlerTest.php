@@ -19,7 +19,6 @@ use App\Message\Fields\UpdateFieldCommand;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\Repository\Contracts\FieldRepositoryInterface;
 use App\TransactionalTestCase;
-use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 /**
@@ -31,8 +30,8 @@ final class UpdateNumberFieldCommandHandlerTest extends TransactionalTestCase
 {
     use LoginTrait;
 
-    private ?CommandBusInterface                      $commandBus;
-    private ObjectRepository|FieldRepositoryInterface $repository;
+    private CommandBusInterface      $commandBus;
+    private FieldRepositoryInterface $repository;
 
     protected function setUp(): void
     {

@@ -29,5 +29,5 @@ final class GetFieldsQuery extends AbstractCollectionQuery
     public const FIELD_TYPE        = 'type';
     public const FIELD_DESCRIPTION = 'description';
     public const FIELD_POSITION    = 'position';
-    public const FIELD_REQUIRED    = 'required';
+    public const FIELD_IS_REQUIRED = 'is_required';
 }

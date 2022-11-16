@@ -144,7 +144,7 @@ final class GetTemplatesQueryHandler implements QueryHandlerInterface
 
                 break;
 
-            case GetTemplatesQuery::TEMPLATE_CRITICAL:
+            case GetTemplatesQuery::TEMPLATE_CRITICAL_AGE:
                 if (0 === mb_strlen((string) $value)) {
                     $dql->andWhere('template.criticalAge IS NULL');
                 } else {
@@ -154,7 +154,7 @@ final class GetTemplatesQueryHandler implements QueryHandlerInterface
 
                 break;
 
-            case GetTemplatesQuery::TEMPLATE_FROZEN:
+            case GetTemplatesQuery::TEMPLATE_FROZEN_TIME:
                 if (0 === mb_strlen((string) $value)) {
                     $dql->andWhere('template.frozenTime IS NULL');
                 } else {
@@ -164,7 +164,7 @@ final class GetTemplatesQueryHandler implements QueryHandlerInterface
 
                 break;
 
-            case GetTemplatesQuery::TEMPLATE_LOCKED:
+            case GetTemplatesQuery::TEMPLATE_IS_LOCKED:
                 $dql->andWhere('template.locked = :locked');
                 $dql->setParameter('locked', (bool) $value);
 
@@ -180,14 +180,14 @@ final class GetTemplatesQueryHandler implements QueryHandlerInterface
     private function queryOrder(QueryBuilder $dql, string $property, ?string $direction): QueryBuilder
     {
         $map = [
-            GetTemplatesQuery::TEMPLATE_ID          => 'template.id',
-            GetTemplatesQuery::TEMPLATE_PROJECT     => 'project.name',
-            GetTemplatesQuery::TEMPLATE_NAME        => 'template.name',
-            GetTemplatesQuery::TEMPLATE_PREFIX      => 'template.prefix',
-            GetTemplatesQuery::TEMPLATE_DESCRIPTION => 'template.description',
-            GetTemplatesQuery::TEMPLATE_CRITICAL    => 'template.criticalAge',
-            GetTemplatesQuery::TEMPLATE_FROZEN      => 'template.frozenTime',
-            GetTemplatesQuery::TEMPLATE_LOCKED      => 'template.locked',
+            GetTemplatesQuery::TEMPLATE_ID           => 'template.id',
+            GetTemplatesQuery::TEMPLATE_PROJECT      => 'project.name',
+            GetTemplatesQuery::TEMPLATE_NAME         => 'template.name',
+            GetTemplatesQuery::TEMPLATE_PREFIX       => 'template.prefix',
+            GetTemplatesQuery::TEMPLATE_DESCRIPTION  => 'template.description',
+            GetTemplatesQuery::TEMPLATE_CRITICAL_AGE => 'template.criticalAge',
+            GetTemplatesQuery::TEMPLATE_FROZEN_TIME  => 'template.frozenTime',
+            GetTemplatesQuery::TEMPLATE_IS_LOCKED    => 'template.locked',
         ];
 
         if (isset($map[$property])) {

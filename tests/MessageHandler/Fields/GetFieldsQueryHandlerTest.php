@@ -35,8 +35,8 @@ final class GetFieldsQueryHandlerTest extends WebTestCase
 {
     use LoginTrait;
 
-    private KernelBrowser      $client;
-    private ?QueryBusInterface $queryBus;
+    private KernelBrowser     $client;
+    private QueryBusInterface $queryBus;
 
     protected function setUp(): void
     {
@@ -748,7 +748,7 @@ final class GetFieldsQueryHandlerTest extends WebTestCase
         $this->loginUser('admin@example.com');
 
         $filters = [
-            GetFieldsQuery::FIELD_REQUIRED => true,
+            GetFieldsQuery::FIELD_IS_REQUIRED => true,
         ];
 
         $order = [
@@ -1125,9 +1125,9 @@ final class GetFieldsQueryHandlerTest extends WebTestCase
         $this->loginUser('admin@example.com');
 
         $order = [
-            GetFieldsQuery::FIELD_REQUIRED => AbstractCollectionQuery::SORT_ASC,
-            GetFieldsQuery::FIELD_NAME     => AbstractCollectionQuery::SORT_ASC,
-            GetFieldsQuery::FIELD_PROJECT  => AbstractCollectionQuery::SORT_ASC,
+            GetFieldsQuery::FIELD_IS_REQUIRED => AbstractCollectionQuery::SORT_ASC,
+            GetFieldsQuery::FIELD_NAME        => AbstractCollectionQuery::SORT_ASC,
+            GetFieldsQuery::FIELD_PROJECT     => AbstractCollectionQuery::SORT_ASC,
         ];
 
         $query = new GetFieldsQuery(0, 15, null, [], $order);

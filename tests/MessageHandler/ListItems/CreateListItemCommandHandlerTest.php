@@ -20,7 +20,6 @@ use App\Message\ListItems\CreateListItemCommand;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\Repository\Contracts\ListItemRepositoryInterface;
 use App\TransactionalTestCase;
-use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -34,8 +33,8 @@ final class CreateListItemCommandHandlerTest extends TransactionalTestCase
 {
     use LoginTrait;
 
-    private ?CommandBusInterface                         $commandBus;
-    private ObjectRepository|ListItemRepositoryInterface $repository;
+    private CommandBusInterface         $commandBus;
+    private ListItemRepositoryInterface $repository;
 
     protected function setUp(): void
     {

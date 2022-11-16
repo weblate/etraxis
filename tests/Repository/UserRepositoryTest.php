@@ -15,7 +15,6 @@ namespace App\Repository;
 
 use App\Entity\User;
 use App\TransactionalTestCase;
-use Doctrine\Persistence\ObjectRepository;
 
 /**
  * @internal
@@ -24,7 +23,7 @@ use Doctrine\Persistence\ObjectRepository;
  */
 final class UserRepositoryTest extends TransactionalTestCase
 {
-    private ObjectRepository|Contracts\UserRepositoryInterface $repository;
+    private Contracts\UserRepositoryInterface $repository;
 
     protected function setUp(): void
     {

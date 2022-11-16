@@ -20,7 +20,6 @@ use App\Message\Templates\CreateTemplateCommand;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\Repository\Contracts\TemplateRepositoryInterface;
 use App\TransactionalTestCase;
-use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -34,8 +33,8 @@ final class CreateTemplateCommandHandlerTest extends TransactionalTestCase
 {
     use LoginTrait;
 
-    private ?CommandBusInterface                         $commandBus;
-    private ObjectRepository|TemplateRepositoryInterface $repository;
+    private CommandBusInterface         $commandBus;
+    private TemplateRepositoryInterface $repository;
 
     protected function setUp(): void
     {

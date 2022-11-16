@@ -19,7 +19,6 @@ use App\Message\ListItems\DeleteListItemCommand;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\Repository\Contracts\ListItemRepositoryInterface;
 use App\TransactionalTestCase;
-use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
@@ -31,8 +30,8 @@ final class DeleteListItemCommandHandlerTest extends TransactionalTestCase
 {
     use LoginTrait;
 
-    private ?CommandBusInterface                         $commandBus;
-    private ObjectRepository|ListItemRepositoryInterface $repository;
+    private CommandBusInterface         $commandBus;
+    private ListItemRepositoryInterface $repository;
 
     protected function setUp(): void
     {

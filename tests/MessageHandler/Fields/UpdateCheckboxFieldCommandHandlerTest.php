@@ -19,7 +19,6 @@ use App\Message\Fields\UpdateFieldCommand;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\Repository\Contracts\FieldRepositoryInterface;
 use App\TransactionalTestCase;
-use Doctrine\Persistence\ObjectRepository;
 
 /**
  * @internal
@@ -30,8 +29,8 @@ final class UpdateCheckboxFieldCommandHandlerTest extends TransactionalTestCase
 {
     use LoginTrait;
 
-    private ?CommandBusInterface                      $commandBus;
-    private ObjectRepository|FieldRepositoryInterface $repository;
+    private CommandBusInterface      $commandBus;
+    private FieldRepositoryInterface $repository;
 
     protected function setUp(): void
     {

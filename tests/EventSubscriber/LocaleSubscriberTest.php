@@ -35,7 +35,7 @@ use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
 final class LocaleSubscriberTest extends WebTestCase
 {
     private ?ManagerRegistry $doctrine;
-    private ?RequestStack    $requestStack;
+    private RequestStack     $requestStack;
 
     protected function setUp(): void
     {

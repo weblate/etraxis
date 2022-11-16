@@ -22,7 +22,6 @@ use App\MessageBus\Contracts\CommandBusInterface;
 use App\Repository\Contracts\StateRepositoryInterface;
 use App\TransactionalTestCase;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
@@ -36,8 +35,8 @@ final class SetGroupsTransitionCommandHandlerTest extends TransactionalTestCase
 {
     use LoginTrait;
 
-    private ?CommandBusInterface                      $commandBus;
-    private ObjectRepository|StateRepositoryInterface $repository;
+    private CommandBusInterface      $commandBus;
+    private StateRepositoryInterface $repository;
 
     protected function setUp(): void
     {

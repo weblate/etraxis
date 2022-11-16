@@ -16,7 +16,6 @@ namespace App\Repository;
 use App\Entity\State;
 use App\Entity\Template;
 use App\TransactionalTestCase;
-use Doctrine\Persistence\ObjectRepository;
 
 /**
  * @internal
@@ -25,7 +24,7 @@ use Doctrine\Persistence\ObjectRepository;
  */
 final class StateRepositoryTest extends TransactionalTestCase
 {
-    private ObjectRepository|Contracts\StateRepositoryInterface $repository;
+    private Contracts\StateRepositoryInterface $repository;
 
     protected function setUp(): void
     {

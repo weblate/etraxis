@@ -19,7 +19,6 @@ use App\Message\States\DeleteStateCommand;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\Repository\Contracts\StateRepositoryInterface;
 use App\TransactionalTestCase;
-use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
@@ -31,8 +30,8 @@ final class DeleteStateCommandHandlerTest extends TransactionalTestCase
 {
     use LoginTrait;
 
-    private ?CommandBusInterface                      $commandBus;
-    private ObjectRepository|StateRepositoryInterface $repository;
+    private CommandBusInterface      $commandBus;
+    private StateRepositoryInterface $repository;
 
     protected function setUp(): void
     {

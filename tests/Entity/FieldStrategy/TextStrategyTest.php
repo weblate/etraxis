@@ -25,10 +25,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class TextStrategyTest extends TransactionalTestCase
 {
-    private ?TranslatorInterface $translator;
-    private ?ValidatorInterface  $validator;
-    private Field                $field;
-    private TextStrategy         $strategy;
+    private TranslatorInterface $translator;
+    private ValidatorInterface  $validator;
+    private Field               $field;
+    private TextStrategy        $strategy;
 
     protected function setUp(): void
     {

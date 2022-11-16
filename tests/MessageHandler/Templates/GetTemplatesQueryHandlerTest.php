@@ -32,8 +32,8 @@ final class GetTemplatesQueryHandlerTest extends WebTestCase
 {
     use LoginTrait;
 
-    private KernelBrowser      $client;
-    private ?QueryBusInterface $queryBus;
+    private KernelBrowser     $client;
+    private QueryBusInterface $queryBus;
 
     protected function setUp(): void
     {
@@ -458,7 +458,7 @@ final class GetTemplatesQueryHandlerTest extends WebTestCase
         $this->loginUser('admin@example.com');
 
         $filters = [
-            GetTemplatesQuery::TEMPLATE_CRITICAL => 3,
+            GetTemplatesQuery::TEMPLATE_CRITICAL_AGE => 3,
         ];
 
         $order = [
@@ -497,7 +497,7 @@ final class GetTemplatesQueryHandlerTest extends WebTestCase
         $this->loginUser('admin@example.com');
 
         $filters = [
-            GetTemplatesQuery::TEMPLATE_CRITICAL => null,
+            GetTemplatesQuery::TEMPLATE_CRITICAL_AGE => null,
         ];
 
         $order = [
@@ -536,7 +536,7 @@ final class GetTemplatesQueryHandlerTest extends WebTestCase
         $this->loginUser('admin@example.com');
 
         $filters = [
-            GetTemplatesQuery::TEMPLATE_FROZEN => 7,
+            GetTemplatesQuery::TEMPLATE_FROZEN_TIME => 7,
         ];
 
         $order = [
@@ -575,7 +575,7 @@ final class GetTemplatesQueryHandlerTest extends WebTestCase
         $this->loginUser('admin@example.com');
 
         $filters = [
-            GetTemplatesQuery::TEMPLATE_FROZEN => null,
+            GetTemplatesQuery::TEMPLATE_FROZEN_TIME => null,
         ];
 
         $order = [
@@ -614,7 +614,7 @@ final class GetTemplatesQueryHandlerTest extends WebTestCase
         $this->loginUser('admin@example.com');
 
         $filters = [
-            GetTemplatesQuery::TEMPLATE_LOCKED => true,
+            GetTemplatesQuery::TEMPLATE_IS_LOCKED => true,
         ];
 
         $order = [
@@ -796,7 +796,7 @@ final class GetTemplatesQueryHandlerTest extends WebTestCase
      * @covers ::__invoke
      * @covers ::queryOrder
      */
-    public function testSortByCritical(): void
+    public function testSortByCriticalAge(): void
     {
         $expected = [
             ['Development', 'Development Task A'],
@@ -812,8 +812,8 @@ final class GetTemplatesQueryHandlerTest extends WebTestCase
         $this->loginUser('admin@example.com');
 
         $order = [
-            GetTemplatesQuery::TEMPLATE_CRITICAL    => AbstractCollectionQuery::SORT_ASC,
-            GetTemplatesQuery::TEMPLATE_DESCRIPTION => AbstractCollectionQuery::SORT_ASC,
+            GetTemplatesQuery::TEMPLATE_CRITICAL_AGE => AbstractCollectionQuery::SORT_ASC,
+            GetTemplatesQuery::TEMPLATE_DESCRIPTION  => AbstractCollectionQuery::SORT_ASC,
         ];
 
         $query = new GetTemplatesQuery(0, AbstractCollectionQuery::MAX_LIMIT, null, [], $order);
@@ -835,7 +835,7 @@ final class GetTemplatesQueryHandlerTest extends WebTestCase
      * @covers ::__invoke
      * @covers ::queryOrder
      */
-    public function testSortByFrozen(): void
+    public function testSortByFrozenTime(): void
     {
         $expected = [
             ['Development', 'Development Task A'],
@@ -851,7 +851,7 @@ final class GetTemplatesQueryHandlerTest extends WebTestCase
         $this->loginUser('admin@example.com');
 
         $order = [
-            GetTemplatesQuery::TEMPLATE_FROZEN      => AbstractCollectionQuery::SORT_ASC,
+            GetTemplatesQuery::TEMPLATE_FROZEN_TIME => AbstractCollectionQuery::SORT_ASC,
             GetTemplatesQuery::TEMPLATE_DESCRIPTION => AbstractCollectionQuery::SORT_ASC,
         ];
 
@@ -890,7 +890,7 @@ final class GetTemplatesQueryHandlerTest extends WebTestCase
         $this->loginUser('admin@example.com');
 
         $order = [
-            GetTemplatesQuery::TEMPLATE_LOCKED      => AbstractCollectionQuery::SORT_ASC,
+            GetTemplatesQuery::TEMPLATE_IS_LOCKED   => AbstractCollectionQuery::SORT_ASC,
             GetTemplatesQuery::TEMPLATE_DESCRIPTION => AbstractCollectionQuery::SORT_ASC,
         ];
 

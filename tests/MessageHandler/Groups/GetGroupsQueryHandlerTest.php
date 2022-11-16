@@ -32,8 +32,8 @@ final class GetGroupsQueryHandlerTest extends WebTestCase
 {
     use LoginTrait;
 
-    private KernelBrowser      $client;
-    private ?QueryBusInterface $queryBus;
+    private KernelBrowser     $client;
+    private QueryBusInterface $queryBus;
 
     protected function setUp(): void
     {
@@ -448,7 +448,7 @@ final class GetGroupsQueryHandlerTest extends WebTestCase
         $this->loginUser('admin@example.com');
 
         $filters = [
-            GetGroupsQuery::GROUP_GLOBAL => false,
+            GetGroupsQuery::GROUP_IS_GLOBAL => false,
         ];
 
         $order = [
@@ -649,7 +649,7 @@ final class GetGroupsQueryHandlerTest extends WebTestCase
         $this->loginUser('admin@example.com');
 
         $order = [
-            GetGroupsQuery::GROUP_GLOBAL      => AbstractCollectionQuery::SORT_ASC,
+            GetGroupsQuery::GROUP_IS_GLOBAL   => AbstractCollectionQuery::SORT_ASC,
             GetGroupsQuery::GROUP_NAME        => AbstractCollectionQuery::SORT_ASC,
             GetGroupsQuery::GROUP_DESCRIPTION => AbstractCollectionQuery::SORT_ASC,
         ];

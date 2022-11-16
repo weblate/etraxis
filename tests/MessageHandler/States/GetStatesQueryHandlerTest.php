@@ -35,8 +35,8 @@ final class GetStatesQueryHandlerTest extends WebTestCase
 {
     use LoginTrait;
 
-    private KernelBrowser      $client;
-    private ?QueryBusInterface $queryBus;
+    private KernelBrowser     $client;
+    private QueryBusInterface $queryBus;
 
     protected function setUp(): void
     {

@@ -130,13 +130,13 @@ final class GetUsersQueryHandler implements QueryHandlerInterface
 
                 break;
 
-            case GetUsersQuery::USER_ADMIN:
+            case GetUsersQuery::USER_IS_ADMIN:
                 $dql->andWhere('user.admin = :admin');
                 $dql->setParameter('admin', (bool) $value);
 
                 break;
 
-            case GetUsersQuery::USER_DISABLED:
+            case GetUsersQuery::USER_IS_DISABLED:
                 $dql->andWhere('user.disabled = :disabled');
                 $dql->setParameter('disabled', (bool) $value);
 
@@ -164,7 +164,7 @@ final class GetUsersQueryHandler implements QueryHandlerInterface
             GetUsersQuery::USER_EMAIL       => 'user.email',
             GetUsersQuery::USER_FULLNAME    => 'user.fullname',
             GetUsersQuery::USER_DESCRIPTION => 'user.description',
-            GetUsersQuery::USER_ADMIN       => 'user.admin',
+            GetUsersQuery::USER_IS_ADMIN    => 'user.admin',
             GetUsersQuery::USER_PROVIDER    => 'user.accountProvider',
         ];
 

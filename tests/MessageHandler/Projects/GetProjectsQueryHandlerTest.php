@@ -31,8 +31,8 @@ final class GetProjectsQueryHandlerTest extends WebTestCase
 {
     use LoginTrait;
 
-    private KernelBrowser      $client;
-    private ?QueryBusInterface $queryBus;
+    private KernelBrowser     $client;
+    private QueryBusInterface $queryBus;
 
     protected function setUp(): void
     {
@@ -285,7 +285,7 @@ final class GetProjectsQueryHandlerTest extends WebTestCase
         $this->loginUser('admin@example.com');
 
         $filters = [
-            GetProjectsQuery::PROJECT_SUSPENDED => false,
+            GetProjectsQuery::PROJECT_IS_SUSPENDED => false,
         ];
 
         $order = [
@@ -318,8 +318,8 @@ final class GetProjectsQueryHandlerTest extends WebTestCase
         $this->loginUser('admin@example.com');
 
         $filters = [
-            GetProjectsQuery::PROJECT_NAME      => 'R',
-            GetProjectsQuery::PROJECT_SUSPENDED => false,
+            GetProjectsQuery::PROJECT_NAME         => 'R',
+            GetProjectsQuery::PROJECT_IS_SUSPENDED => false,
         ];
 
         $order = [
@@ -416,7 +416,7 @@ final class GetProjectsQueryHandlerTest extends WebTestCase
         $this->loginUser('admin@example.com');
 
         $order = [
-            GetProjectsQuery::PROJECT_CREATED => AbstractCollectionQuery::SORT_DESC,
+            GetProjectsQuery::PROJECT_CREATED_AT => AbstractCollectionQuery::SORT_DESC,
         ];
 
         $query = new GetProjectsQuery(0, AbstractCollectionQuery::MAX_LIMIT, null, [], $order);
@@ -447,8 +447,8 @@ final class GetProjectsQueryHandlerTest extends WebTestCase
         $this->loginUser('admin@example.com');
 
         $order = [
-            GetProjectsQuery::PROJECT_SUSPENDED => AbstractCollectionQuery::SORT_ASC,
-            GetProjectsQuery::PROJECT_NAME      => AbstractCollectionQuery::SORT_ASC,
+            GetProjectsQuery::PROJECT_IS_SUSPENDED => AbstractCollectionQuery::SORT_ASC,
+            GetProjectsQuery::PROJECT_NAME         => AbstractCollectionQuery::SORT_ASC,
         ];
 
         $query = new GetProjectsQuery(0, AbstractCollectionQuery::MAX_LIMIT, null, [], $order);

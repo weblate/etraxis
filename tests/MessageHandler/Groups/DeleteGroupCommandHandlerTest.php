@@ -19,7 +19,6 @@ use App\Message\Groups\DeleteGroupCommand;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\Repository\Contracts\GroupRepositoryInterface;
 use App\TransactionalTestCase;
-use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
@@ -31,8 +30,8 @@ final class DeleteGroupCommandHandlerTest extends TransactionalTestCase
 {
     use LoginTrait;
 
-    private ?CommandBusInterface                      $commandBus;
-    private ObjectRepository|GroupRepositoryInterface $repository;
+    private CommandBusInterface      $commandBus;
+    private GroupRepositoryInterface $repository;
 
     protected function setUp(): void
     {

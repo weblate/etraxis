@@ -19,7 +19,6 @@ use App\Message\UserSettings\SetPasswordCommand;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\Repository\Contracts\UserRepositoryInterface;
 use App\TransactionalTestCase;
-use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -34,8 +33,8 @@ final class SetPasswordCommandHandlerTest extends TransactionalTestCase
 {
     use LoginTrait;
 
-    private ?CommandBusInterface                     $commandBus;
-    private ObjectRepository|UserRepositoryInterface $repository;
+    private CommandBusInterface     $commandBus;
+    private UserRepositoryInterface $repository;
 
     protected function setUp(): void
     {

@@ -25,10 +25,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class DurationStrategyTest extends WebTestCase
 {
-    private ?TranslatorInterface $translator;
-    private ?ValidatorInterface  $validator;
-    private Field                $field;
-    private DurationStrategy     $strategy;
+    private TranslatorInterface $translator;
+    private ValidatorInterface  $validator;
+    private Field               $field;
+    private DurationStrategy    $strategy;
 
     protected function setUp(): void
     {

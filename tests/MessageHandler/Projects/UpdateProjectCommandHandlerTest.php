@@ -19,7 +19,6 @@ use App\Message\Projects\UpdateProjectCommand;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\Repository\Contracts\ProjectRepositoryInterface;
 use App\TransactionalTestCase;
-use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -33,8 +32,8 @@ final class UpdateProjectCommandHandlerTest extends TransactionalTestCase
 {
     use LoginTrait;
 
-    private ?CommandBusInterface                        $commandBus;
-    private ObjectRepository|ProjectRepositoryInterface $repository;
+    private CommandBusInterface        $commandBus;
+    private ProjectRepositoryInterface $repository;
 
     protected function setUp(): void
     {

@@ -23,7 +23,6 @@ use App\MessageBus\Contracts\CommandBusInterface;
 use App\Repository\Contracts\FieldRepositoryInterface;
 use App\TransactionalTestCase;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
@@ -37,8 +36,8 @@ final class SetGroupsPermissionCommandHandlerTest extends TransactionalTestCase
 {
     use LoginTrait;
 
-    private ?CommandBusInterface                      $commandBus;
-    private ObjectRepository|FieldRepositoryInterface $repository;
+    private CommandBusInterface      $commandBus;
+    private FieldRepositoryInterface $repository;
 
     protected function setUp(): void
     {

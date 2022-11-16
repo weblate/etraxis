@@ -19,7 +19,6 @@ use App\Message\Templates\DeleteTemplateCommand;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\Repository\Contracts\TemplateRepositoryInterface;
 use App\TransactionalTestCase;
-use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
@@ -31,8 +30,8 @@ final class DeleteTemplateCommandHandlerTest extends TransactionalTestCase
 {
     use LoginTrait;
 
-    private ?CommandBusInterface                         $commandBus;
-    private ObjectRepository|TemplateRepositoryInterface $repository;
+    private CommandBusInterface         $commandBus;
+    private TemplateRepositoryInterface $repository;
 
     protected function setUp(): void
     {

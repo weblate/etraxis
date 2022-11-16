@@ -123,7 +123,7 @@ final class GetProjectsQueryHandler implements QueryHandlerInterface
 
                 break;
 
-            case GetProjectsQuery::PROJECT_SUSPENDED:
+            case GetProjectsQuery::PROJECT_IS_SUSPENDED:
                 $dql->andWhere('project.suspended = :suspended');
                 $dql->setParameter('suspended', (bool) $value);
 
@@ -139,11 +139,11 @@ final class GetProjectsQueryHandler implements QueryHandlerInterface
     private function queryOrder(QueryBuilder $dql, string $property, ?string $direction): QueryBuilder
     {
         $map = [
-            GetProjectsQuery::PROJECT_ID          => 'project.id',
-            GetProjectsQuery::PROJECT_NAME        => 'project.name',
-            GetProjectsQuery::PROJECT_DESCRIPTION => 'project.description',
-            GetProjectsQuery::PROJECT_CREATED     => 'project.createdAt',
-            GetProjectsQuery::PROJECT_SUSPENDED   => 'project.suspended',
+            GetProjectsQuery::PROJECT_ID           => 'project.id',
+            GetProjectsQuery::PROJECT_NAME         => 'project.name',
+            GetProjectsQuery::PROJECT_DESCRIPTION  => 'project.description',
+            GetProjectsQuery::PROJECT_CREATED_AT   => 'project.createdAt',
+            GetProjectsQuery::PROJECT_IS_SUSPENDED => 'project.suspended',
         ];
 
         if (isset($map[$property])) {

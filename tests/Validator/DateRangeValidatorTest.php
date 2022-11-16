@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 final class DateRangeValidatorTest extends WebTestCase
 {
-    private ?ValidatorInterface $validator;
+    private ValidatorInterface $validator;
 
     protected function setUp(): void
     {

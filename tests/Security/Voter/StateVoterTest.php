@@ -19,7 +19,6 @@ use App\LoginTrait;
 use App\ReflectionTrait;
 use App\Repository\Contracts\StateRepositoryInterface;
 use App\TransactionalTestCase;
-use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
@@ -34,8 +33,8 @@ final class StateVoterTest extends TransactionalTestCase
     use LoginTrait;
     use ReflectionTrait;
 
-    private ?AuthorizationCheckerInterface            $security;
-    private ObjectRepository|StateRepositoryInterface $repository;
+    private AuthorizationCheckerInterface $security;
+    private StateRepositoryInterface      $repository;
 
     protected function setUp(): void
     {

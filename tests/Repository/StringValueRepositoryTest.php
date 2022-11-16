@@ -15,7 +15,6 @@ namespace App\Repository;
 
 use App\Entity\StringValue;
 use App\TransactionalTestCase;
-use Doctrine\Persistence\ObjectRepository;
 
 /**
  * @internal
@@ -24,7 +23,7 @@ use Doctrine\Persistence\ObjectRepository;
  */
 final class StringValueRepositoryTest extends TransactionalTestCase
 {
-    private ObjectRepository|Contracts\StringValueRepositoryInterface $repository;
+    private Contracts\StringValueRepositoryInterface $repository;
 
     protected function setUp(): void
     {

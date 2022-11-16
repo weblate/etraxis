@@ -172,7 +172,7 @@ final class GetFieldsQueryHandler implements QueryHandlerInterface
 
                 break;
 
-            case GetFieldsQuery::FIELD_REQUIRED:
+            case GetFieldsQuery::FIELD_IS_REQUIRED:
                 $dql->andWhere('field.required = :required');
                 $dql->setParameter('required', (bool) $value);
 
@@ -196,7 +196,7 @@ final class GetFieldsQueryHandler implements QueryHandlerInterface
             GetFieldsQuery::FIELD_TYPE        => 'field.type',
             GetFieldsQuery::FIELD_DESCRIPTION => 'field.description',
             GetFieldsQuery::FIELD_POSITION    => 'field.position',
-            GetFieldsQuery::FIELD_REQUIRED    => 'field.required',
+            GetFieldsQuery::FIELD_IS_REQUIRED => 'field.required',
         ];
 
         if (isset($map[$property])) {

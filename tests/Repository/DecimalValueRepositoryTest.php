@@ -15,7 +15,6 @@ namespace App\Repository;
 
 use App\Entity\DecimalValue;
 use App\TransactionalTestCase;
-use Doctrine\Persistence\ObjectRepository;
 
 /**
  * @internal
@@ -24,7 +23,7 @@ use Doctrine\Persistence\ObjectRepository;
  */
 final class DecimalValueRepositoryTest extends TransactionalTestCase
 {
-    private ObjectRepository|Contracts\DecimalValueRepositoryInterface $repository;
+    private Contracts\DecimalValueRepositoryInterface $repository;
 
     protected function setUp(): void
     {

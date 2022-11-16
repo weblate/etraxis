@@ -21,7 +21,6 @@ use App\Message\UserSettings\UpdateSettingsCommand;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\Repository\Contracts\UserRepositoryInterface;
 use App\TransactionalTestCase;
-use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
@@ -36,8 +35,8 @@ final class UpdateSettingsCommandHandlerTest extends TransactionalTestCase
 {
     use LoginTrait;
 
-    private ?CommandBusInterface                     $commandBus;
-    private ObjectRepository|UserRepositoryInterface $repository;
+    private CommandBusInterface     $commandBus;
+    private UserRepositoryInterface $repository;
 
     protected function setUp(): void
     {

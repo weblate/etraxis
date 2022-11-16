@@ -28,10 +28,10 @@ final class DecimalStrategyTest extends TransactionalTestCase
 {
     use ReflectionTrait;
 
-    private ?TranslatorInterface $translator;
-    private ?ValidatorInterface  $validator;
-    private Field                $field;
-    private DecimalStrategy      $strategy;
+    private TranslatorInterface $translator;
+    private ValidatorInterface  $validator;
+    private Field               $field;
+    private DecimalStrategy     $strategy;
 
     protected function setUp(): void
     {

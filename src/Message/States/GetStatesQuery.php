@@ -27,5 +27,4 @@ final class GetStatesQuery extends AbstractCollectionQuery
     public const STATE_NAME        = 'name';
     public const STATE_TYPE        = 'type';
     public const STATE_RESPONSIBLE = 'responsible';
-    public const STATE_NEXT        = 'next';
 }

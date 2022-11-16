@@ -137,7 +137,7 @@ final class GetGroupsQueryHandler implements QueryHandlerInterface
 
                 break;
 
-            case GetGroupsQuery::GROUP_GLOBAL:
+            case GetGroupsQuery::GROUP_IS_GLOBAL:
                 $dql->andWhere($value ? 'grp.project IS NULL' : 'grp.project IS NOT NULL');
 
                 break;
@@ -156,7 +156,7 @@ final class GetGroupsQueryHandler implements QueryHandlerInterface
             GetGroupsQuery::GROUP_PROJECT     => 'project.name',
             GetGroupsQuery::GROUP_NAME        => 'grp.name',
             GetGroupsQuery::GROUP_DESCRIPTION => 'grp.description',
-            GetGroupsQuery::GROUP_GLOBAL      => 'project.id - project.id',
+            GetGroupsQuery::GROUP_IS_GLOBAL   => 'project.id - project.id',
         ];
 
         if (isset($map[$property])) {

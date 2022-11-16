@@ -19,7 +19,6 @@ use App\Message\Fields\UpdateFieldCommand;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\Repository\Contracts\FieldRepositoryInterface;
 use App\TransactionalTestCase;
-use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -33,8 +32,8 @@ final class UpdateFieldCommandHandlerTest extends TransactionalTestCase
 {
     use LoginTrait;
 
-    private ?CommandBusInterface                      $commandBus;
-    private ObjectRepository|FieldRepositoryInterface $repository;
+    private CommandBusInterface      $commandBus;
+    private FieldRepositoryInterface $repository;
 
     protected function setUp(): void
     {

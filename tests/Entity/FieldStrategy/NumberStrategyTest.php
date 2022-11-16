@@ -25,10 +25,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class NumberStrategyTest extends WebTestCase
 {
-    private ?TranslatorInterface $translator;
-    private ?ValidatorInterface  $validator;
-    private Field                $field;
-    private NumberStrategy       $strategy;
+    private TranslatorInterface $translator;
+    private ValidatorInterface  $validator;
+    private Field               $field;
+    private NumberStrategy      $strategy;
 
     protected function setUp(): void
     {

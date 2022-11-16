@@ -16,7 +16,6 @@ namespace App\Repository;
 use App\Entity\Field;
 use App\Entity\ListItem;
 use App\TransactionalTestCase;
-use Doctrine\Persistence\ObjectRepository;
 
 /**
  * @internal
@@ -25,7 +24,7 @@ use Doctrine\Persistence\ObjectRepository;
  */
 final class ListItemRepositoryTest extends TransactionalTestCase
 {
-    private ObjectRepository|Contracts\ListItemRepositoryInterface $repository;
+    private Contracts\ListItemRepositoryInterface $repository;
 
     protected function setUp(): void
     {

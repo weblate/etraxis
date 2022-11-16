@@ -205,6 +205,8 @@ final class CloneTemplateCommandHandler implements CommandHandlerInterface
     /**
      * Clones specified field into another state.
      *
+     * @noinspection PhpReturnValueOfMethodIsNeverUsedInspection
+     *
      * @param Field $sourceField Original field
      * @param State $clonedState Target state
      *

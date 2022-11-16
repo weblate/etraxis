@@ -20,7 +20,6 @@ use App\Message\Groups\CreateGroupCommand;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\Repository\Contracts\GroupRepositoryInterface;
 use App\TransactionalTestCase;
-use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -34,8 +33,8 @@ final class CreateGroupCommandHandlerTest extends TransactionalTestCase
 {
     use LoginTrait;
 
-    private ?CommandBusInterface                      $commandBus;
-    private ObjectRepository|GroupRepositoryInterface $repository;
+    private CommandBusInterface      $commandBus;
+    private GroupRepositoryInterface $repository;
 
     protected function setUp(): void
     {

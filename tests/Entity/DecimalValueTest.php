@@ -30,26 +30,8 @@ final class DecimalValueTest extends TestCase
      */
     public function testConstruct(): void
     {
-        $decimal = new DecimalValue('0');
-        self::assertSame('0', $decimal->getValue());
-
         $decimal = new DecimalValue('1234567890.0987654321');
         self::assertSame('1234567890.0987654321', $decimal->getValue());
-
-        $decimal = new DecimalValue('0100');
-        self::assertSame('100', $decimal->getValue());
-
-        $decimal = new DecimalValue('03.1415000000');
-        self::assertSame('3.1415', $decimal->getValue());
-
-        $decimal = new DecimalValue('00.1415000000');
-        self::assertSame('0.1415', $decimal->getValue());
-
-        $decimal = new DecimalValue('03.0000000000');
-        self::assertSame('3', $decimal->getValue());
-
-        $decimal = new DecimalValue('00.0000000000');
-        self::assertSame('0', $decimal->getValue());
     }
 
     /**
@@ -65,11 +47,29 @@ final class DecimalValueTest extends TestCase
 
     /**
      * @covers ::getValue
+     * @covers ::trim
      */
     public function testValue(): void
     {
         $decimal = new DecimalValue('1234567890.0987654321');
-
         self::assertSame('1234567890.0987654321', $decimal->getValue());
+
+        $decimal = new DecimalValue('0');
+        self::assertSame('0', $decimal->getValue());
+
+        $decimal = new DecimalValue('0100');
+        self::assertSame('100', $decimal->getValue());
+
+        $decimal = new DecimalValue('03.1415000000');
+        self::assertSame('3.1415', $decimal->getValue());
+
+        $decimal = new DecimalValue('00.1415000000');
+        self::assertSame('0.1415', $decimal->getValue());
+
+        $decimal = new DecimalValue('03.0000000000');
+        self::assertSame('3', $decimal->getValue());
+
+        $decimal = new DecimalValue('00.0000000000');
+        self::assertSame('0', $decimal->getValue());
     }
 }

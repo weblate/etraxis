@@ -104,7 +104,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * User's settings.
      */
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(nullable: true, options: ['jsonb' => true])]
     protected array $settings = [];
 
     /**

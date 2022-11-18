@@ -118,7 +118,7 @@ final class DurationStrategy extends AbstractFieldStrategy
     /**
      * Converts specified number of minutes to its string representation in format "hh:mm" (e.g. "2:07" for 127).
      */
-    private static function int2hhmm(?int $value): ?string
+    public static function int2hhmm(?int $value): ?string
     {
         if (null === $value) {
             return null;
@@ -132,7 +132,7 @@ final class DurationStrategy extends AbstractFieldStrategy
     /**
      * Converts specified string representation of amount of minutes to an integer number (e.g. 127 for "2:07").
      */
-    private static function hhmm2int(?string $value): ?int
+    public static function hhmm2int(?string $value): ?int
     {
         if (null === $value) {
             return null;

@@ -51,17 +51,7 @@ class DecimalValue
      */
     public function __construct(string $value)
     {
-        $value = str_contains($value, '.')
-            ? trim($value, '0')
-            : ltrim($value, '0');
-
-        if ('' === $value) {
-            $value = '0';
-        } elseif ('.' === $value[0]) {
-            $value = '0'.$value;
-        }
-
-        $this->value = rtrim($value, '.');
+        $this->value = self::trim($value);
     }
 
     /**
@@ -77,6 +67,24 @@ class DecimalValue
      */
     public function getValue(): string
     {
-        return $this->value;
+        return self::trim($this->value);
+    }
+
+    /**
+     * Trims leading and trailing extra zeros from the specified number.
+     */
+    protected static function trim(string $value): string
+    {
+        $value = str_contains($value, '.')
+            ? trim($value, '0')
+            : ltrim($value, '0');
+
+        if ('' === $value) {
+            $value = '0';
+        } elseif ('.' === $value[0]) {
+            $value = '0'.$value;
+        }
+
+        return rtrim($value, '.');
     }
 }

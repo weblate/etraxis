@@ -98,7 +98,7 @@ class Issue
     /**
      * List of issue events.
      */
-    #[ORM\OneToMany(mappedBy: 'issue', targetEntity: Event::class)]
+    #[ORM\OneToMany(mappedBy: 'issue', targetEntity: Event::class, cascade: ['persist'])]
     #[ORM\OrderBy(['createdAt' => 'ASC', 'id' => 'ASC'])]
     protected Collection $events;
 

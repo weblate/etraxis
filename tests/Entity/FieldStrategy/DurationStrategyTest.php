@@ -183,17 +183,11 @@ final class DurationStrategyTest extends WebTestCase
      */
     public function testIntToHHMM(): void
     {
-        $int2hhmm = function (?int $value): ?string {
-            $reflection = new \ReflectionMethod(DurationStrategy::class, 'int2hhmm');
-
-            return $reflection->invokeArgs(null, [$value]);
-        };
-
-        self::assertNull($int2hhmm(null));
-        self::assertSame('0:00', $int2hhmm(DurationStrategy::MIN_VALUE - 1));
-        self::assertSame('999999:59', $int2hhmm(DurationStrategy::MAX_VALUE + 1));
-        self::assertSame('0:00', $int2hhmm(0));
-        self::assertSame('14:26', $int2hhmm(866));
+        self::assertNull(DurationStrategy::int2hhmm(null));
+        self::assertSame('0:00', DurationStrategy::int2hhmm(DurationStrategy::MIN_VALUE - 1));
+        self::assertSame('999999:59', DurationStrategy::int2hhmm(DurationStrategy::MAX_VALUE + 1));
+        self::assertSame('0:00', DurationStrategy::int2hhmm(0));
+        self::assertSame('14:26', DurationStrategy::int2hhmm(866));
     }
 
     /**
@@ -201,14 +195,8 @@ final class DurationStrategyTest extends WebTestCase
      */
     public function testHHMMToInt(): void
     {
-        $hhmm2int = function (?string $value): ?int {
-            $reflection = new \ReflectionMethod(DurationStrategy::class, 'hhmm2int');
-
-            return $reflection->invokeArgs(null, [$value]);
-        };
-
-        self::assertNull($hhmm2int(null));
-        self::assertNull($hhmm2int('0:99'));
-        self::assertSame(866, $hhmm2int('14:26'));
+        self::assertNull(DurationStrategy::hhmm2int(null));
+        self::assertNull(DurationStrategy::hhmm2int('0:99'));
+        self::assertSame(866, DurationStrategy::hhmm2int('14:26'));
     }
 }

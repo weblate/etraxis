@@ -25,6 +25,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\UniqueConstraint(fields: ['event'])]
 class Comment
 {
+    // Constraints.
+    public const MAX_BODY = 10000;
+
     /**
      * Unique ID.
      */

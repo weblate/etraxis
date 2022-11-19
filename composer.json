@@ -29,6 +29,7 @@
         "symfony/google-mailer": "6.1.*",
         "symfony/mailer": "6.1.*",
         "symfony/messenger": "6.1.*",
+        "symfony/mime": "6.1.*",
         "symfony/monolog-bundle": "^3.0",
         "symfony/runtime": "6.1.*",
         "symfony/security-bundle": "6.1.*",

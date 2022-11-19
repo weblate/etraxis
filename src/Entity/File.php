@@ -27,6 +27,9 @@ use Symfony\Component\Uid\Uuid;
 #[ORM\UniqueConstraint(fields: ['uid'])]
 class File
 {
+    // A fallback MIME type.
+    public const DEFAULT_MIMETYPE = 'application/octet-stream';
+
     /**
      * Unique ID.
      */

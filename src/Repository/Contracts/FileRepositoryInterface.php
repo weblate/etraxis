@@ -31,4 +31,9 @@ interface FileRepositoryInterface extends ObjectRepository, Selectable
      * @see \Doctrine\Persistence\ObjectManager::remove()
      */
     public function remove(File $entity, bool $flush = false): void;
+
+    /**
+     * Returns absolute path including filename to the specified attachment.
+     */
+    public function getFullPath(File $file): string;
 }

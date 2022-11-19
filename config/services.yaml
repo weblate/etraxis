@@ -56,6 +56,15 @@ services:
     App\EventSubscriber\LocaleSubscriber:
         $locale: '%env(ETRAXIS_LOCALE)%'
 
+    App\MessageHandler\Files\AttachFileCommandHandler:
+        $maxsize: '%env(FILES_MAXSIZE)%'
+
+    App\Repository\FileRepository:
+        $storage: '%env(FILES_STORAGE)%'
+
+    App\Security\Voter\FileVoter:
+        $maxsize: '%env(FILES_MAXSIZE)%'
+
 when@dev:
     services:
         mailer.dev.set_recipients:

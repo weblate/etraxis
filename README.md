@@ -2,7 +2,7 @@
 ### THE PROJECT IS UNDER PROGRESS AND IS NOT READY YET
 ---
 
-[![PHP](https://img.shields.io/badge/PHP-7.4%2B-blue.svg)](https://php.net/migration74)
+[![PHP](https://img.shields.io/badge/PHP-8.1%2B-blue.svg)](https://php.net/migration81)
 [![Build Status](https://travis-ci.com/etraxis/etraxis.svg?branch=master)](https://travis-ci.com/github/etraxis/etraxis)
 [![Code Coverage](https://scrutinizer-ci.com/g/etraxis/etraxis/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/etraxis/etraxis/?branch=master)
 [![Code Quality](https://scrutinizer-ci.com/g/etraxis/etraxis/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/etraxis/etraxis/?branch=master)

@@ -175,7 +175,7 @@ final class GetUsersQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByEmail
      */
     public function testFilterByEmail(): void
     {
@@ -208,7 +208,7 @@ final class GetUsersQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByFullname
      */
     public function testFilterByFullname(): void
     {
@@ -241,7 +241,7 @@ final class GetUsersQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByDescription
      */
     public function testFilterByDescription(): void
     {
@@ -281,7 +281,7 @@ final class GetUsersQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByIsAdmin
      */
     public function testFilterByAdmin(): void
     {
@@ -313,7 +313,7 @@ final class GetUsersQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByIsDisabled
      */
     public function testFilterByDisabled(): void
     {
@@ -345,7 +345,7 @@ final class GetUsersQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByProvider
      */
     public function testFilterByProvider(): void
     {
@@ -377,7 +377,9 @@ final class GetUsersQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByDescription
+     * @covers ::queryFilterByEmail
+     * @covers ::queryFilterByFullname
      */
     public function testCombinedFilter(): void
     {
@@ -410,6 +412,25 @@ final class GetUsersQueryHandlerTest extends WebTestCase
         $actual = array_map(fn (User $user) => $user->getFullname(), $collection->getItems());
 
         self::assertSame($expected, $actual);
+    }
+
+    /**
+     * @covers ::__invoke
+     */
+    public function testFilterByUnknown(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        $filters = [
+            'unknown' => null,
+        ];
+
+        $query = new GetUsersQuery(0, AbstractCollectionQuery::MAX_LIMIT, null, $filters);
+
+        /** @var \App\Message\Collection $collection */
+        $collection = $this->queryBus->execute($query);
+
+        self::assertSame(34, $collection->getTotal());
     }
 
     /**
@@ -688,6 +709,26 @@ final class GetUsersQueryHandlerTest extends WebTestCase
         ], $collection->getItems());
 
         self::assertSame($expected, $actual);
+    }
+
+    /**
+     * @covers ::__invoke
+     * @covers ::queryOrder
+     */
+    public function testSortByUnknown(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        $order = [
+            'unknown' => AbstractCollectionQuery::SORT_ASC,
+        ];
+
+        $query = new GetUsersQuery(0, AbstractCollectionQuery::MAX_LIMIT, null, [], $order);
+
+        /** @var \App\Message\Collection $collection */
+        $collection = $this->queryBus->execute($query);
+
+        self::assertSame(34, $collection->getTotal());
     }
 
     /**

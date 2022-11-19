@@ -61,7 +61,13 @@ final class GetGroupsQueryHandler implements QueryHandlerInterface
 
         // Filter.
         foreach ($query->getFilters() as $property => $value) {
-            $dql = $this->queryFilter($dql, $property, $value);
+            $dql = match ($property) {
+                GetGroupsQuery::GROUP_PROJECT     => $this->queryFilterByProjectId($dql, $value),
+                GetGroupsQuery::GROUP_NAME        => $this->queryFilterByName($dql, $value),
+                GetGroupsQuery::GROUP_DESCRIPTION => $this->queryFilterByDescription($dql, $value),
+                GetGroupsQuery::GROUP_IS_GLOBAL   => $this->queryFilterByIsGlobal($dql, $value),
+                default                           => $dql,
+            };
         }
 
         // Total number of entities.
@@ -102,46 +108,56 @@ final class GetGroupsQueryHandler implements QueryHandlerInterface
     }
 
     /**
-     * Alters query to filter by the specified property.
+     * Alters query to filter by group's project.
      */
-    private function queryFilter(QueryBuilder $dql, string $property, null|bool|int|string $value = null): QueryBuilder
+    private function queryFilterByProjectId(QueryBuilder $dql, ?int $value): QueryBuilder
     {
-        switch ($property) {
-            case GetGroupsQuery::GROUP_PROJECT:
-                if (0 === mb_strlen((string) $value)) {
-                    $dql->andWhere('grp.project IS NULL');
-                } else {
-                    $dql->andWhere('grp.project = :project');
-                    $dql->setParameter('project', (int) $value);
-                }
-
-                break;
-
-            case GetGroupsQuery::GROUP_NAME:
-                if (0 === mb_strlen((string) $value)) {
-                    $dql->andWhere('grp.name IS NULL');
-                } else {
-                    $dql->andWhere('LOWER(grp.name) LIKE LOWER(:name)');
-                    $dql->setParameter('name', "%{$value}%");
-                }
-
-                break;
-
-            case GetGroupsQuery::GROUP_DESCRIPTION:
-                if (0 === mb_strlen((string) $value)) {
-                    $dql->andWhere('grp.description IS NULL');
-                } else {
-                    $dql->andWhere('LOWER(grp.description) LIKE LOWER(:description)');
-                    $dql->setParameter('description', "%{$value}%");
-                }
-
-                break;
-
-            case GetGroupsQuery::GROUP_IS_GLOBAL:
-                $dql->andWhere($value ? 'grp.project IS NULL' : 'grp.project IS NOT NULL');
-
-                break;
+        if (null === $value) {
+            $dql->andWhere('grp.project IS NULL');
+        } else {
+            $dql->andWhere('grp.project = :project');
+            $dql->setParameter('project', $value);
         }
+
+        return $dql;
+    }
+
+    /**
+     * Alters query to filter by group name.
+     */
+    private function queryFilterByName(QueryBuilder $dql, ?string $value): QueryBuilder
+    {
+        if (0 === mb_strlen($value ?? '')) {
+            $dql->andWhere('grp.name IS NULL');
+        } else {
+            $dql->andWhere('LOWER(grp.name) LIKE LOWER(:name)');
+            $dql->setParameter('name', "%{$value}%");
+        }
+
+        return $dql;
+    }
+
+    /**
+     * Alters query to filter by group description.
+     */
+    private function queryFilterByDescription(QueryBuilder $dql, ?string $value): QueryBuilder
+    {
+        if (0 === mb_strlen($value ?? '')) {
+            $dql->andWhere('grp.description IS NULL');
+        } else {
+            $dql->andWhere('LOWER(grp.description) LIKE LOWER(:description)');
+            $dql->setParameter('description', "%{$value}%");
+        }
+
+        return $dql;
+    }
+
+    /**
+     * Alters query to filter by group type.
+     */
+    private function queryFilterByIsGlobal(QueryBuilder $dql, bool $value): QueryBuilder
+    {
+        $dql->andWhere($value ? 'grp.project IS NULL' : 'grp.project IS NOT NULL');
 
         return $dql;
     }
@@ -151,20 +167,19 @@ final class GetGroupsQueryHandler implements QueryHandlerInterface
      */
     private function queryOrder(QueryBuilder $dql, string $property, ?string $direction): QueryBuilder
     {
-        $map = [
+        $order = match ($property) {
             GetGroupsQuery::GROUP_ID          => 'grp.id',
             GetGroupsQuery::GROUP_PROJECT     => 'project.name',
             GetGroupsQuery::GROUP_NAME        => 'grp.name',
             GetGroupsQuery::GROUP_DESCRIPTION => 'grp.description',
             GetGroupsQuery::GROUP_IS_GLOBAL   => 'project.id - project.id',
-        ];
+            default                           => null,
+        };
 
-        if (isset($map[$property])) {
-            if (AbstractCollectionQuery::SORT_DESC === mb_strtoupper($direction ?? '')) {
-                $dql->addOrderBy($map[$property], AbstractCollectionQuery::SORT_DESC);
-            } else {
-                $dql->addOrderBy($map[$property], AbstractCollectionQuery::SORT_ASC);
-            }
+        if ($order) {
+            $dql->addOrderBy($order, AbstractCollectionQuery::SORT_DESC === mb_strtoupper($direction ?? '')
+                ? AbstractCollectionQuery::SORT_DESC
+                : AbstractCollectionQuery::SORT_ASC);
         }
 
         return $dql;

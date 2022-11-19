@@ -183,7 +183,7 @@ final class GetStatesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByProjectId
      */
     public function testFilterByProject(): void
     {
@@ -230,7 +230,7 @@ final class GetStatesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByProjectId
      */
     public function testFilterByProjectNull(): void
     {
@@ -256,7 +256,7 @@ final class GetStatesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByTemplateId
      */
     public function testFilterByTemplate(): void
     {
@@ -299,7 +299,7 @@ final class GetStatesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByTemplateId
      */
     public function testFilterByTemplateNull(): void
     {
@@ -325,7 +325,7 @@ final class GetStatesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByName
      */
     public function testFilterByName(): void
     {
@@ -372,7 +372,7 @@ final class GetStatesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByName
      */
     public function testFilterByNameNull(): void
     {
@@ -398,7 +398,7 @@ final class GetStatesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByType
      */
     public function testFilterByType(): void
     {
@@ -442,7 +442,7 @@ final class GetStatesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByType
      */
     public function testFilterByTypeNull(): void
     {
@@ -468,7 +468,7 @@ final class GetStatesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByResponsible
      */
     public function testFilterByResponsible(): void
     {
@@ -507,7 +507,7 @@ final class GetStatesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByResponsible
      */
     public function testFilterByResponsibleNull(): void
     {
@@ -529,6 +529,25 @@ final class GetStatesQueryHandlerTest extends WebTestCase
 
         self::assertSame(0, $collection->getTotal());
         self::assertCount(0, $collection->getItems());
+    }
+
+    /**
+     * @covers ::__invoke
+     */
+    public function testFilterByUnknown(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        $filters = [
+            'unknown' => null,
+        ];
+
+        $query = new GetStatesQuery(0, AbstractCollectionQuery::MAX_LIMIT, null, $filters);
+
+        /** @var \App\Message\Collection $collection */
+        $collection = $this->queryBus->execute($query);
+
+        self::assertSame(28, $collection->getTotal());
     }
 
     /**
@@ -738,6 +757,26 @@ final class GetStatesQueryHandlerTest extends WebTestCase
         ], $collection->getItems());
 
         self::assertSame($expected, $actual);
+    }
+
+    /**
+     * @covers ::__invoke
+     * @covers ::queryOrder
+     */
+    public function testSortByUnknown(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        $order = [
+            'unknown' => AbstractCollectionQuery::SORT_ASC,
+        ];
+
+        $query = new GetStatesQuery(0, AbstractCollectionQuery::MAX_LIMIT, null, [], $order);
+
+        /** @var \App\Message\Collection $collection */
+        $collection = $this->queryBus->execute($query);
+
+        self::assertSame(28, $collection->getTotal());
     }
 
     /**

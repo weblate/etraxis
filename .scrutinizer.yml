@@ -11,6 +11,7 @@ filter:
         - config/
         - migrations/
         - public/
+        - src/Command/MigrateDataCommand.php
         - src/DataFixtures/
         - src/Kernel.php
         - templates/

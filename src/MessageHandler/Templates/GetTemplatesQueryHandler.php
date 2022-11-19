@@ -61,7 +61,16 @@ final class GetTemplatesQueryHandler implements QueryHandlerInterface
 
         // Filter.
         foreach ($query->getFilters() as $property => $value) {
-            $dql = $this->queryFilter($dql, $property, $value);
+            $dql = match ($property) {
+                GetTemplatesQuery::TEMPLATE_PROJECT      => $this->queryFilterByProjectId($dql, $value),
+                GetTemplatesQuery::TEMPLATE_NAME         => $this->queryFilterByName($dql, $value),
+                GetTemplatesQuery::TEMPLATE_PREFIX       => $this->queryFilterByPrefix($dql, $value),
+                GetTemplatesQuery::TEMPLATE_DESCRIPTION  => $this->queryFilterByDescription($dql, $value),
+                GetTemplatesQuery::TEMPLATE_CRITICAL_AGE => $this->queryFilterByCriticalAge($dql, $value),
+                GetTemplatesQuery::TEMPLATE_FROZEN_TIME  => $this->queryFilterByFrozenTime($dql, $value),
+                GetTemplatesQuery::TEMPLATE_IS_LOCKED    => $this->queryFilterByIsLocked($dql, $value),
+                default                                  => $dql,
+            };
         }
 
         // Total number of entities.
@@ -103,73 +112,98 @@ final class GetTemplatesQueryHandler implements QueryHandlerInterface
     }
 
     /**
-     * Alters query to filter by the specified property.
+     * Alters query to filter by template's project.
      */
-    private function queryFilter(QueryBuilder $dql, string $property, null|bool|int|string $value = null): QueryBuilder
+    private function queryFilterByProjectId(QueryBuilder $dql, ?int $value): QueryBuilder
     {
-        switch ($property) {
-            case GetTemplatesQuery::TEMPLATE_PROJECT:
-                $dql->andWhere('template.project = :project');
-                $dql->setParameter('project', (int) $value);
+        $dql->andWhere('template.project = :project');
+        $dql->setParameter('project', $value);
 
-                break;
+        return $dql;
+    }
 
-            case GetTemplatesQuery::TEMPLATE_NAME:
-                if (0 === mb_strlen((string) $value)) {
-                    $dql->andWhere('template.name IS NULL');
-                } else {
-                    $dql->andWhere('LOWER(template.name) LIKE LOWER(:name)');
-                    $dql->setParameter('name', "%{$value}%");
-                }
-
-                break;
-
-            case GetTemplatesQuery::TEMPLATE_PREFIX:
-                if (0 === mb_strlen((string) $value)) {
-                    $dql->andWhere('template.prefix IS NULL');
-                } else {
-                    $dql->andWhere('LOWER(template.prefix) LIKE LOWER(:prefix)');
-                    $dql->setParameter('prefix', "%{$value}%");
-                }
-
-                break;
-
-            case GetTemplatesQuery::TEMPLATE_DESCRIPTION:
-                if (0 === mb_strlen((string) $value)) {
-                    $dql->andWhere('template.description IS NULL');
-                } else {
-                    $dql->andWhere('LOWER(template.description) LIKE LOWER(:description)');
-                    $dql->setParameter('description', "%{$value}%");
-                }
-
-                break;
-
-            case GetTemplatesQuery::TEMPLATE_CRITICAL_AGE:
-                if (0 === mb_strlen((string) $value)) {
-                    $dql->andWhere('template.criticalAge IS NULL');
-                } else {
-                    $dql->andWhere('template.criticalAge = :criticalAge');
-                    $dql->setParameter('criticalAge', (int) $value);
-                }
-
-                break;
-
-            case GetTemplatesQuery::TEMPLATE_FROZEN_TIME:
-                if (0 === mb_strlen((string) $value)) {
-                    $dql->andWhere('template.frozenTime IS NULL');
-                } else {
-                    $dql->andWhere('template.frozenTime = :frozenTime');
-                    $dql->setParameter('frozenTime', (int) $value);
-                }
-
-                break;
-
-            case GetTemplatesQuery::TEMPLATE_IS_LOCKED:
-                $dql->andWhere('template.locked = :locked');
-                $dql->setParameter('locked', (bool) $value);
-
-                break;
+    /**
+     * Alters query to filter by template name.
+     */
+    private function queryFilterByName(QueryBuilder $dql, ?string $value): QueryBuilder
+    {
+        if (0 === mb_strlen($value ?? '')) {
+            $dql->andWhere('template.name IS NULL');
+        } else {
+            $dql->andWhere('LOWER(template.name) LIKE LOWER(:name)');
+            $dql->setParameter('name', "%{$value}%");
         }
+
+        return $dql;
+    }
+
+    /**
+     * Alters query to filter by template prefix.
+     */
+    private function queryFilterByPrefix(QueryBuilder $dql, ?string $value): QueryBuilder
+    {
+        if (0 === mb_strlen($value ?? '')) {
+            $dql->andWhere('template.prefix IS NULL');
+        } else {
+            $dql->andWhere('LOWER(template.prefix) LIKE LOWER(:prefix)');
+            $dql->setParameter('prefix', "%{$value}%");
+        }
+
+        return $dql;
+    }
+
+    /**
+     * Alters query to filter by template description.
+     */
+    private function queryFilterByDescription(QueryBuilder $dql, ?string $value): QueryBuilder
+    {
+        if (0 === mb_strlen($value ?? '')) {
+            $dql->andWhere('template.description IS NULL');
+        } else {
+            $dql->andWhere('LOWER(template.description) LIKE LOWER(:description)');
+            $dql->setParameter('description', "%{$value}%");
+        }
+
+        return $dql;
+    }
+
+    /**
+     * Alters query to filter by critical age.
+     */
+    private function queryFilterByCriticalAge(QueryBuilder $dql, ?int $value): QueryBuilder
+    {
+        if (null === $value) {
+            $dql->andWhere('template.criticalAge IS NULL');
+        } else {
+            $dql->andWhere('template.criticalAge = :criticalAge');
+            $dql->setParameter('criticalAge', $value);
+        }
+
+        return $dql;
+    }
+
+    /**
+     * Alters query to filter by frozen time.
+     */
+    private function queryFilterByFrozenTime(QueryBuilder $dql, ?int $value): QueryBuilder
+    {
+        if (null === $value) {
+            $dql->andWhere('template.frozenTime IS NULL');
+        } else {
+            $dql->andWhere('template.frozenTime = :frozenTime');
+            $dql->setParameter('frozenTime', $value);
+        }
+
+        return $dql;
+    }
+
+    /**
+     * Alters query to filter by template status.
+     */
+    private function queryFilterByIsLocked(QueryBuilder $dql, ?bool $value): QueryBuilder
+    {
+        $dql->andWhere('template.locked = :locked');
+        $dql->setParameter('locked', (bool) $value);
 
         return $dql;
     }
@@ -179,7 +213,7 @@ final class GetTemplatesQueryHandler implements QueryHandlerInterface
      */
     private function queryOrder(QueryBuilder $dql, string $property, ?string $direction): QueryBuilder
     {
-        $map = [
+        $order = match ($property) {
             GetTemplatesQuery::TEMPLATE_ID           => 'template.id',
             GetTemplatesQuery::TEMPLATE_PROJECT      => 'project.name',
             GetTemplatesQuery::TEMPLATE_NAME         => 'template.name',
@@ -188,14 +222,13 @@ final class GetTemplatesQueryHandler implements QueryHandlerInterface
             GetTemplatesQuery::TEMPLATE_CRITICAL_AGE => 'template.criticalAge',
             GetTemplatesQuery::TEMPLATE_FROZEN_TIME  => 'template.frozenTime',
             GetTemplatesQuery::TEMPLATE_IS_LOCKED    => 'template.locked',
-        ];
+            default                                  => null,
+        };
 
-        if (isset($map[$property])) {
-            if (AbstractCollectionQuery::SORT_DESC === mb_strtoupper($direction ?? '')) {
-                $dql->addOrderBy($map[$property], AbstractCollectionQuery::SORT_DESC);
-            } else {
-                $dql->addOrderBy($map[$property], AbstractCollectionQuery::SORT_ASC);
-            }
+        if ($order) {
+            $dql->addOrderBy($order, AbstractCollectionQuery::SORT_DESC === mb_strtoupper($direction ?? '')
+                ? AbstractCollectionQuery::SORT_DESC
+                : AbstractCollectionQuery::SORT_ASC);
         }
 
         return $dql;

@@ -11,16 +11,16 @@
 //
 //----------------------------------------------------------------------
 
-namespace App\MessageHandler\Issues;
+namespace App\MessageHandler\Comments;
 
 use App\Entity\Comment;
 use App\Entity\Enums\EventTypeEnum;
 use App\Entity\Event;
-use App\Message\Issues\AddCommentCommand;
+use App\Message\Comments\AddCommentCommand;
 use App\MessageBus\Contracts\CommandHandlerInterface;
 use App\Repository\Contracts\CommentRepositoryInterface;
 use App\Repository\Contracts\IssueRepositoryInterface;
-use App\Security\Voter\IssueVoter;
+use App\Security\Voter\CommentVoter;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -61,11 +61,11 @@ final class AddCommentCommandHandler implements CommandHandlerInterface
         }
 
         if ($command->isPrivate()) {
-            if (!$this->security->isGranted(IssueVoter::ADD_PRIVATE_COMMENT, $issue)) {
+            if (!$this->security->isGranted(CommentVoter::ADD_PRIVATE_COMMENT, $issue)) {
                 throw new AccessDeniedHttpException('You are not allowed to comment this issue privately.');
             }
         } else {
-            if (!$this->security->isGranted(IssueVoter::ADD_PUBLIC_COMMENT, $issue)) {
+            if (!$this->security->isGranted(CommentVoter::ADD_PUBLIC_COMMENT, $issue)) {
                 throw new AccessDeniedHttpException('You are not allowed to comment this issue.');
             }
         }

@@ -407,7 +407,7 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByFullId
      */
     public function testFilterByFullId(): void
     {
@@ -442,7 +442,7 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterBySubject
      */
     public function testFilterBySubject(): void
     {
@@ -484,7 +484,7 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByProjectId
      */
     public function testFilterByProjectId(): void
     {
@@ -535,7 +535,7 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByProjectName
      */
     public function testFilterByProjectName(): void
     {
@@ -589,7 +589,7 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByTemplateId
      */
     public function testFilterByTemplateId(): void
     {
@@ -632,7 +632,7 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByTemplateName
      */
     public function testFilterByTemplateName(): void
     {
@@ -674,7 +674,7 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByStateId
      */
     public function testFilterByStateId(): void
     {
@@ -714,7 +714,7 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByStateName
      */
     public function testFilterByStateName(): void
     {
@@ -756,7 +756,7 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByAuthorId
      */
     public function testFilterByAuthorId(): void
     {
@@ -796,7 +796,7 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByAuthorName
      */
     public function testFilterByAuthorName(): void
     {
@@ -839,7 +839,7 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByResponsibleId
      */
     public function testFilterByResponsibleId(): void
     {
@@ -879,7 +879,7 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByResponsibleId
      */
     public function testFilterByResponsibleNull(): void
     {
@@ -928,7 +928,7 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByResponsibleName
      */
     public function testFilterByResponsibleName(): void
     {
@@ -969,7 +969,7 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByIsCloned
      */
     public function testFilterByIsClonedYes(): void
     {
@@ -1004,7 +1004,7 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByIsCloned
      */
     public function testFilterByIsClonedNo(): void
     {
@@ -1063,7 +1063,7 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByIsCritical
      */
     public function testFilterByIsCriticalYes(): void
     {
@@ -1109,7 +1109,7 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByIsCritical
      */
     public function testFilterByIsCriticalNo(): void
     {
@@ -1157,7 +1157,7 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByIsSuspended
      */
     public function testFilterByIsSuspendedYes(): void
     {
@@ -1195,7 +1195,7 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByIsSuspended
      */
     public function testFilterByIsSuspendedNo(): void
     {
@@ -1251,7 +1251,7 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByIsClosed
      */
     public function testFilterByIsClosedYes(): void
     {
@@ -1295,7 +1295,7 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByIsClosed
      */
     public function testFilterByIsClosedNo(): void
     {
@@ -1345,7 +1345,7 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByAge
      */
     public function testFilterByAge(): void
     {
@@ -1385,6 +1385,25 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
         ], $collection->getItems());
 
         self::assertSame($expected, $actual);
+    }
+
+    /**
+     * @covers ::__invoke
+     */
+    public function testFilterByUnknown(): void
+    {
+        $this->loginUser('ldoyle@example.com');
+
+        $filters = [
+            'unknown' => null,
+        ];
+
+        $query = new GetIssuesQuery(0, AbstractCollectionQuery::MAX_LIMIT, null, $filters);
+
+        /** @var \App\Message\Collection $collection */
+        $collection = $this->queryBus->execute($query);
+
+        self::assertSame(42, $collection->getTotal());
     }
 
     /**
@@ -2017,6 +2036,26 @@ final class GetIssuesQueryHandlerTest extends WebTestCase
         ], $collection->getItems());
 
         self::assertSame($expected, $actual);
+    }
+
+    /**
+     * @covers ::__invoke
+     * @covers ::queryOrder
+     */
+    public function testSortByUnknown(): void
+    {
+        $this->loginUser('ldoyle@example.com');
+
+        $order = [
+            'unknown' => AbstractCollectionQuery::SORT_ASC,
+        ];
+
+        $query = new GetIssuesQuery(0, AbstractCollectionQuery::MAX_LIMIT, null, [], $order);
+
+        /** @var \App\Message\Collection $collection */
+        $collection = $this->queryBus->execute($query);
+
+        self::assertSame(42, $collection->getTotal());
     }
 
     /**

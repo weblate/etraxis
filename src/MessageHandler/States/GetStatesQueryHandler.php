@@ -65,7 +65,14 @@ final class GetStatesQueryHandler implements QueryHandlerInterface
 
         // Filter.
         foreach ($query->getFilters() as $property => $value) {
-            $dql = $this->queryFilter($dql, $property, $value);
+            $dql = match ($property) {
+                GetStatesQuery::STATE_PROJECT     => $this->queryFilterByProjectId($dql, $value),
+                GetStatesQuery::STATE_TEMPLATE    => $this->queryFilterByTemplateId($dql, $value),
+                GetStatesQuery::STATE_NAME        => $this->queryFilterByName($dql, $value),
+                GetStatesQuery::STATE_TYPE        => $this->queryFilterByType($dql, $value),
+                GetStatesQuery::STATE_RESPONSIBLE => $this->queryFilterByResponsible($dql, $value),
+                default                           => $dql,
+            };
         }
 
         // Total number of entities.
@@ -105,52 +112,67 @@ final class GetStatesQueryHandler implements QueryHandlerInterface
     }
 
     /**
-     * Alters query to filter by the specified property.
+     * Alters query to filter by state's project.
      */
-    private function queryFilter(QueryBuilder $dql, string $property, null|bool|int|string $value = null): QueryBuilder
+    private function queryFilterByProjectId(QueryBuilder $dql, ?int $value): QueryBuilder
     {
-        switch ($property) {
-            case GetStatesQuery::STATE_PROJECT:
-                $dql->andWhere('template.project = :project');
-                $dql->setParameter('project', (int) $value);
+        $dql->andWhere('template.project = :project');
+        $dql->setParameter('project', $value);
 
-                break;
+        return $dql;
+    }
 
-            case GetStatesQuery::STATE_TEMPLATE:
-                $dql->andWhere('state.template = :template');
-                $dql->setParameter('template', (int) $value);
+    /**
+     * Alters query to filter by state's template.
+     */
+    private function queryFilterByTemplateId(QueryBuilder $dql, ?int $value): QueryBuilder
+    {
+        $dql->andWhere('state.template = :template');
+        $dql->setParameter('template', $value);
 
-                break;
+        return $dql;
+    }
 
-            case GetStatesQuery::STATE_NAME:
-                if (0 === mb_strlen((string) $value)) {
-                    $dql->andWhere('state.name IS NULL');
-                } else {
-                    $dql->andWhere('LOWER(state.name) LIKE LOWER(:name)');
-                    $dql->setParameter('name', "%{$value}%");
-                }
+    /**
+     * Alters query to filter by state name.
+     */
+    private function queryFilterByName(QueryBuilder $dql, ?string $value): QueryBuilder
+    {
+        if (0 === mb_strlen($value ?? '')) {
+            $dql->andWhere('state.name IS NULL');
+        } else {
+            $dql->andWhere('LOWER(state.name) LIKE LOWER(:name)');
+            $dql->setParameter('name', "%{$value}%");
+        }
 
-                break;
+        return $dql;
+    }
 
-            case GetStatesQuery::STATE_TYPE:
-                if (0 === mb_strlen((string) $value)) {
-                    $dql->andWhere('state.type IS NULL');
-                } else {
-                    $dql->andWhere('LOWER(state.type) = LOWER(:type)');
-                    $dql->setParameter('type', $value);
-                }
+    /**
+     * Alters query to filter by state type.
+     */
+    private function queryFilterByType(QueryBuilder $dql, ?string $value): QueryBuilder
+    {
+        if (0 === mb_strlen($value ?? '')) {
+            $dql->andWhere('state.type IS NULL');
+        } else {
+            $dql->andWhere('LOWER(state.type) = LOWER(:type)');
+            $dql->setParameter('type', $value);
+        }
 
-                break;
+        return $dql;
+    }
 
-            case GetStatesQuery::STATE_RESPONSIBLE:
-                if (0 === mb_strlen((string) $value)) {
-                    $dql->andWhere('state.responsible IS NULL');
-                } else {
-                    $dql->andWhere('LOWER(state.responsible) = LOWER(:responsible)');
-                    $dql->setParameter('responsible', $value);
-                }
-
-                break;
+    /**
+     * Alters query to filter by type of responsibility management.
+     */
+    private function queryFilterByResponsible(QueryBuilder $dql, ?string $value): QueryBuilder
+    {
+        if (0 === mb_strlen($value ?? '')) {
+            $dql->andWhere('state.responsible IS NULL');
+        } else {
+            $dql->andWhere('LOWER(state.responsible) = LOWER(:responsible)');
+            $dql->setParameter('responsible', $value);
         }
 
         return $dql;
@@ -161,21 +183,20 @@ final class GetStatesQueryHandler implements QueryHandlerInterface
      */
     private function queryOrder(QueryBuilder $dql, string $property, ?string $direction): QueryBuilder
     {
-        $map = [
+        $order = match ($property) {
             GetStatesQuery::STATE_ID          => 'state.id',
             GetStatesQuery::STATE_PROJECT     => 'project.name',
             GetStatesQuery::STATE_TEMPLATE    => 'template.name',
             GetStatesQuery::STATE_NAME        => 'state.name',
             GetStatesQuery::STATE_TYPE        => 'state.type',
             GetStatesQuery::STATE_RESPONSIBLE => 'state.responsible',
-        ];
+            default                           => null,
+        };
 
-        if (isset($map[$property])) {
-            if (AbstractCollectionQuery::SORT_DESC === mb_strtoupper($direction ?? '')) {
-                $dql->addOrderBy($map[$property], AbstractCollectionQuery::SORT_DESC);
-            } else {
-                $dql->addOrderBy($map[$property], AbstractCollectionQuery::SORT_ASC);
-            }
+        if ($order) {
+            $dql->addOrderBy($order, AbstractCollectionQuery::SORT_DESC === mb_strtoupper($direction ?? '')
+                ? AbstractCollectionQuery::SORT_DESC
+                : AbstractCollectionQuery::SORT_ASC);
         }
 
         return $dql;

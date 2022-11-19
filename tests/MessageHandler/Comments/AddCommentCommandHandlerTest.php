@@ -11,14 +11,14 @@
 //
 //----------------------------------------------------------------------
 
-namespace App\MessageHandler\Issues;
+namespace App\MessageHandler\Comments;
 
 use App\Entity\Comment;
 use App\Entity\Enums\EventTypeEnum;
 use App\Entity\Issue;
 use App\Entity\User;
 use App\LoginTrait;
-use App\Message\Issues\AddCommentCommand;
+use App\Message\Comments\AddCommentCommand;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\Repository\Contracts\IssueRepositoryInterface;
 use App\TransactionalTestCase;
@@ -29,7 +29,7 @@ use Symfony\Component\Messenger\Exception\ValidationFailedException;
 /**
  * @internal
  *
- * @covers \App\MessageHandler\Issues\AddCommentCommandHandler::__invoke
+ * @covers \App\MessageHandler\Comments\AddCommentCommandHandler::__invoke
  */
 final class AddCommentCommandHandlerTest extends TransactionalTestCase
 {

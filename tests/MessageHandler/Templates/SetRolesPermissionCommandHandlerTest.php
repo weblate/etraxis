@@ -55,16 +55,12 @@ final class SetRolesPermissionCommandHandlerTest extends TransactionalTestCase
             TemplatePermissionEnum::AddComments,
             TemplatePermissionEnum::AttachFiles,
             TemplatePermissionEnum::EditIssues,
-            TemplatePermissionEnum::ManageDependencies,
-            TemplatePermissionEnum::ManageRelatedIssues,
         ];
 
         $after = [
             TemplatePermissionEnum::AddComments,
             TemplatePermissionEnum::PrivateComments,
             TemplatePermissionEnum::EditIssues,
-            TemplatePermissionEnum::ManageDependencies,
-            TemplatePermissionEnum::ManageRelatedIssues,
         ];
 
         /** @var Template $template */

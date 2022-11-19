@@ -102,8 +102,6 @@ class TemplatePermissionFixtures extends Fixture implements FixtureInterface, De
                     TemplatePermissionEnum::EditIssues,
                     TemplatePermissionEnum::AddComments,
                     TemplatePermissionEnum::AttachFiles,
-                    TemplatePermissionEnum::ManageDependencies,
-                    TemplatePermissionEnum::ManageRelatedIssues,
                 ],
                 SystemRoleEnum::Responsible->value => [
                     TemplatePermissionEnum::AddComments,

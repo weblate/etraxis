@@ -185,7 +185,7 @@ final class GetFieldsQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByProjectId
      */
     public function testFilterByProject(): void
     {
@@ -235,7 +235,7 @@ final class GetFieldsQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByProjectId
      */
     public function testFilterByProjectNull(): void
     {
@@ -261,7 +261,7 @@ final class GetFieldsQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByTemplateId
      */
     public function testFilterByTemplate(): void
     {
@@ -310,7 +310,7 @@ final class GetFieldsQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByTemplateId
      */
     public function testFilterByTemplateNull(): void
     {
@@ -336,7 +336,7 @@ final class GetFieldsQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByStateId
      */
     public function testFilterByState(): void
     {
@@ -379,7 +379,7 @@ final class GetFieldsQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByStateId
      */
     public function testFilterByStateNull(): void
     {
@@ -405,7 +405,7 @@ final class GetFieldsQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByName
      */
     public function testFilterByName(): void
     {
@@ -448,7 +448,7 @@ final class GetFieldsQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByName
      */
     public function testFilterByNameNull(): void
     {
@@ -474,7 +474,7 @@ final class GetFieldsQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByType
      */
     public function testFilterByType(): void
     {
@@ -517,7 +517,7 @@ final class GetFieldsQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByType
      */
     public function testFilterByTypeNull(): void
     {
@@ -543,7 +543,7 @@ final class GetFieldsQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByDescription
      */
     public function testFilterByDescription(): void
     {
@@ -582,7 +582,7 @@ final class GetFieldsQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByDescription
      */
     public function testFilterByDescriptionNull(): void
     {
@@ -649,7 +649,7 @@ final class GetFieldsQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByPosition
      */
     public function testFilterByPosition(): void
     {
@@ -692,7 +692,7 @@ final class GetFieldsQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByPosition
      */
     public function testFilterByPositionNull(): void
     {
@@ -718,7 +718,7 @@ final class GetFieldsQueryHandlerTest extends WebTestCase
 
     /**
      * @covers ::__invoke
-     * @covers ::queryFilter
+     * @covers ::queryFilterByIsRequired
      */
     public function testFilterByRequired(): void
     {
@@ -769,6 +769,25 @@ final class GetFieldsQueryHandlerTest extends WebTestCase
         ], $collection->getItems());
 
         self::assertSame($expected, $actual);
+    }
+
+    /**
+     * @covers ::__invoke
+     */
+    public function testFilterByUnknown(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        $filters = [
+            'unknown' => null,
+        ];
+
+        $query = new GetFieldsQuery(0, AbstractCollectionQuery::MAX_LIMIT, null, $filters);
+
+        /** @var \App\Message\Collection $collection */
+        $collection = $this->queryBus->execute($query);
+
+        self::assertSame(40, $collection->getTotal());
     }
 
     /**
@@ -1143,6 +1162,26 @@ final class GetFieldsQueryHandlerTest extends WebTestCase
         ], $collection->getItems());
 
         self::assertSame($expected, $actual);
+    }
+
+    /**
+     * @covers ::__invoke
+     * @covers ::queryOrder
+     */
+    public function testSortByUnknown(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        $order = [
+            'unknown' => AbstractCollectionQuery::SORT_ASC,
+        ];
+
+        $query = new GetFieldsQuery(0, AbstractCollectionQuery::MAX_LIMIT, null, [], $order);
+
+        /** @var \App\Message\Collection $collection */
+        $collection = $this->queryBus->execute($query);
+
+        self::assertSame(40, $collection->getTotal());
     }
 
     /**

@@ -11,7 +11,7 @@
 //
 //----------------------------------------------------------------------
 
-namespace App\Message\Issues;
+namespace App\Message\Comments;
 
 use App\Entity\Comment;
 use Symfony\Component\Validator\Constraints as Assert;

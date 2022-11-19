@@ -57,7 +57,12 @@ final class GetProjectsQueryHandler implements QueryHandlerInterface
 
         // Filter.
         foreach ($query->getFilters() as $property => $value) {
-            $dql = $this->queryFilter($dql, $property, $value);
+            $dql = match ($property) {
+                GetProjectsQuery::PROJECT_NAME         => $this->queryFilterByName($dql, $value),
+                GetProjectsQuery::PROJECT_DESCRIPTION  => $this->queryFilterByDescription($dql, $value),
+                GetProjectsQuery::PROJECT_IS_SUSPENDED => $this->queryFilterByIsSuspended($dql, $value),
+                default                                => $dql,
+            };
         }
 
         // Total number of entities.
@@ -98,37 +103,42 @@ final class GetProjectsQueryHandler implements QueryHandlerInterface
     }
 
     /**
-     * Alters query to filter by the specified property.
+     * Alters query to filter by project name.
      */
-    private function queryFilter(QueryBuilder $dql, string $property, null|bool|int|string $value = null): QueryBuilder
+    private function queryFilterByName(QueryBuilder $dql, ?string $value): QueryBuilder
     {
-        switch ($property) {
-            case GetProjectsQuery::PROJECT_NAME:
-                if (0 === mb_strlen((string) $value)) {
-                    $dql->andWhere('project.name IS NULL');
-                } else {
-                    $dql->andWhere('LOWER(project.name) LIKE LOWER(:name)');
-                    $dql->setParameter('name', "%{$value}%");
-                }
-
-                break;
-
-            case GetProjectsQuery::PROJECT_DESCRIPTION:
-                if (0 === mb_strlen((string) $value)) {
-                    $dql->andWhere('project.description IS NULL');
-                } else {
-                    $dql->andWhere('LOWER(project.description) LIKE LOWER(:description)');
-                    $dql->setParameter('description', "%{$value}%");
-                }
-
-                break;
-
-            case GetProjectsQuery::PROJECT_IS_SUSPENDED:
-                $dql->andWhere('project.suspended = :suspended');
-                $dql->setParameter('suspended', (bool) $value);
-
-                break;
+        if (0 === mb_strlen($value ?? '')) {
+            $dql->andWhere('project.name IS NULL');
+        } else {
+            $dql->andWhere('LOWER(project.name) LIKE LOWER(:name)');
+            $dql->setParameter('name', "%{$value}%");
         }
+
+        return $dql;
+    }
+
+    /**
+     * Alters query to filter by project description.
+     */
+    private function queryFilterByDescription(QueryBuilder $dql, ?string $value): QueryBuilder
+    {
+        if (0 === mb_strlen($value ?? '')) {
+            $dql->andWhere('project.description IS NULL');
+        } else {
+            $dql->andWhere('LOWER(project.description) LIKE LOWER(:description)');
+            $dql->setParameter('description', "%{$value}%");
+        }
+
+        return $dql;
+    }
+
+    /**
+     * Alters query to filter by project status.
+     */
+    private function queryFilterByIsSuspended(QueryBuilder $dql, ?bool $value): QueryBuilder
+    {
+        $dql->andWhere('project.suspended = :suspended');
+        $dql->setParameter('suspended', (bool) $value);
 
         return $dql;
     }
@@ -138,20 +148,19 @@ final class GetProjectsQueryHandler implements QueryHandlerInterface
      */
     private function queryOrder(QueryBuilder $dql, string $property, ?string $direction): QueryBuilder
     {
-        $map = [
+        $order = match ($property) {
             GetProjectsQuery::PROJECT_ID           => 'project.id',
             GetProjectsQuery::PROJECT_NAME         => 'project.name',
             GetProjectsQuery::PROJECT_DESCRIPTION  => 'project.description',
             GetProjectsQuery::PROJECT_CREATED_AT   => 'project.createdAt',
             GetProjectsQuery::PROJECT_IS_SUSPENDED => 'project.suspended',
-        ];
+            default                                => null,
+        };
 
-        if (isset($map[$property])) {
-            if (AbstractCollectionQuery::SORT_DESC === mb_strtoupper($direction ?? '')) {
-                $dql->addOrderBy($map[$property], AbstractCollectionQuery::SORT_DESC);
-            } else {
-                $dql->addOrderBy($map[$property], AbstractCollectionQuery::SORT_ASC);
-            }
+        if ($order) {
+            $dql->addOrderBy($order, AbstractCollectionQuery::SORT_DESC === mb_strtoupper($direction ?? '')
+                ? AbstractCollectionQuery::SORT_DESC
+                : AbstractCollectionQuery::SORT_ASC);
         }
 
         return $dql;

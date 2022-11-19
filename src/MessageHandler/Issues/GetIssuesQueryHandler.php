@@ -105,7 +105,26 @@ final class GetIssuesQueryHandler implements QueryHandlerInterface
 
         // Filter.
         foreach ($query->getFilters() as $property => $value) {
-            $dql = $this->queryFilter($dql, $property, $value);
+            $dql = match ($property) {
+                GetIssuesQuery::ISSUE_ID               => $this->queryFilterByFullId($dql, $value),
+                GetIssuesQuery::ISSUE_SUBJECT          => $this->queryFilterBySubject($dql, $value),
+                GetIssuesQuery::ISSUE_PROJECT          => $this->queryFilterByProjectId($dql, $value),
+                GetIssuesQuery::ISSUE_PROJECT_NAME     => $this->queryFilterByProjectName($dql, $value),
+                GetIssuesQuery::ISSUE_TEMPLATE         => $this->queryFilterByTemplateId($dql, $value),
+                GetIssuesQuery::ISSUE_TEMPLATE_NAME    => $this->queryFilterByTemplateName($dql, $value),
+                GetIssuesQuery::ISSUE_STATE            => $this->queryFilterByStateId($dql, $value),
+                GetIssuesQuery::ISSUE_STATE_NAME       => $this->queryFilterByStateName($dql, $value),
+                GetIssuesQuery::ISSUE_AUTHOR           => $this->queryFilterByAuthorId($dql, $value),
+                GetIssuesQuery::ISSUE_AUTHOR_NAME      => $this->queryFilterByAuthorName($dql, $value),
+                GetIssuesQuery::ISSUE_RESPONSIBLE      => $this->queryFilterByResponsibleId($dql, $value),
+                GetIssuesQuery::ISSUE_RESPONSIBLE_NAME => $this->queryFilterByResponsibleName($dql, $value),
+                GetIssuesQuery::ISSUE_IS_CLONED        => $this->queryFilterByIsCloned($dql, $value),
+                GetIssuesQuery::ISSUE_IS_CRITICAL      => $this->queryFilterByIsCritical($dql, $value),
+                GetIssuesQuery::ISSUE_IS_SUSPENDED     => $this->queryFilterByIsSuspended($dql, $value),
+                GetIssuesQuery::ISSUE_IS_CLOSED        => $this->queryFilterByIsClosed($dql, $value),
+                GetIssuesQuery::ISSUE_AGE              => $this->queryFilterByAge($dql, $value),
+                default                                => $dql,
+            };
         }
 
         // Total number of entities.
@@ -168,158 +187,233 @@ final class GetIssuesQueryHandler implements QueryHandlerInterface
     }
 
     /**
-     * Alters query to filter by the specified property.
+     * Alters query to filter by human-readable issue ID.
      */
-    private function queryFilter(QueryBuilder $dql, string $property, null|bool|int|string $value = null): QueryBuilder
+    private function queryFilterByFullId(QueryBuilder $dql, ?string $value): QueryBuilder
     {
-        switch ($property) {
-            case GetIssuesQuery::ISSUE_ID:
-                if (0 !== mb_strlen((string) $value)) {
-                    // Issues human-readable ID.
-                    $dql->andWhere("LOWER(CONCAT(template.prefix, '-', LPAD(CONCAT('', issue.id), GREATEST(3, LENGTH(CONCAT('', issue.id))), '0'))) LIKE LOWER(:full_id)");
-                    $dql->setParameter('full_id', "%{$value}%");
-                }
+        if (0 !== mb_strlen($value ?? '')) {
+            // Issues human-readable ID.
+            $dql->andWhere("LOWER(CONCAT(template.prefix, '-', LPAD(CONCAT('', issue.id), GREATEST(3, LENGTH(CONCAT('', issue.id))), '0'))) LIKE LOWER(:full_id)");
+            $dql->setParameter('full_id', "%{$value}%");
+        }
 
-                break;
+        return $dql;
+    }
 
-            case GetIssuesQuery::ISSUE_SUBJECT:
-                if (0 !== mb_strlen((string) $value)) {
-                    $dql->andWhere('LOWER(issue.subject) LIKE LOWER(:subject)');
-                    $dql->setParameter('subject', "%{$value}%");
-                }
+    /**
+     * Alters query to filter by issue subject.
+     */
+    private function queryFilterBySubject(QueryBuilder $dql, ?string $value): QueryBuilder
+    {
+        if (0 !== mb_strlen($value ?? '')) {
+            $dql->andWhere('LOWER(issue.subject) LIKE LOWER(:subject)');
+            $dql->setParameter('subject', "%{$value}%");
+        }
 
-                break;
+        return $dql;
+    }
 
-            case GetIssuesQuery::ISSUE_PROJECT:
-                $dql->andWhere('template.project = :project');
-                $dql->setParameter('project', (int) $value);
+    /**
+     * Alters query to filter by issue's project.
+     */
+    private function queryFilterByProjectId(QueryBuilder $dql, ?int $value): QueryBuilder
+    {
+        $dql->andWhere('template.project = :project');
+        $dql->setParameter('project', $value);
 
-                break;
+        return $dql;
+    }
 
-            case GetIssuesQuery::ISSUE_PROJECT_NAME:
-                if (0 !== mb_strlen((string) $value)) {
-                    $dql->andWhere('LOWER(project.name) LIKE LOWER(:project_name)');
-                    $dql->setParameter('project_name', "%{$value}%");
-                }
+    /**
+     * Alters query to filter by project name.
+     */
+    private function queryFilterByProjectName(QueryBuilder $dql, ?string $value): QueryBuilder
+    {
+        if (0 !== mb_strlen($value ?? '')) {
+            $dql->andWhere('LOWER(project.name) LIKE LOWER(:project_name)');
+            $dql->setParameter('project_name', "%{$value}%");
+        }
 
-                break;
+        return $dql;
+    }
 
-            case GetIssuesQuery::ISSUE_TEMPLATE:
-                $dql->andWhere('state.template = :template');
-                $dql->setParameter('template', (int) $value);
+    /**
+     * Alters query to filter by issue's template.
+     */
+    private function queryFilterByTemplateId(QueryBuilder $dql, ?int $value): QueryBuilder
+    {
+        $dql->andWhere('state.template = :template');
+        $dql->setParameter('template', $value);
 
-                break;
+        return $dql;
+    }
 
-            case GetIssuesQuery::ISSUE_TEMPLATE_NAME:
-                if (0 !== mb_strlen((string) $value)) {
-                    $dql->andWhere('LOWER(template.name) LIKE LOWER(:template_name)');
-                    $dql->setParameter('template_name', "%{$value}%");
-                }
+    /**
+     * Alters query to filter by template name.
+     */
+    private function queryFilterByTemplateName(QueryBuilder $dql, ?string $value): QueryBuilder
+    {
+        if (0 !== mb_strlen($value ?? '')) {
+            $dql->andWhere('LOWER(template.name) LIKE LOWER(:template_name)');
+            $dql->setParameter('template_name', "%{$value}%");
+        }
 
-                break;
+        return $dql;
+    }
 
-            case GetIssuesQuery::ISSUE_STATE:
-                $dql->andWhere('issue.state = :state');
-                $dql->setParameter('state', (int) $value);
+    /**
+     * Alters query to filter by issue's state.
+     */
+    private function queryFilterByStateId(QueryBuilder $dql, ?int $value): QueryBuilder
+    {
+        $dql->andWhere('issue.state = :state');
+        $dql->setParameter('state', $value);
 
-                break;
+        return $dql;
+    }
 
-            case GetIssuesQuery::ISSUE_STATE_NAME:
-                if (0 !== mb_strlen((string) $value)) {
-                    $dql->andWhere('LOWER(state.name) LIKE LOWER(:state_name)');
-                    $dql->setParameter('state_name', "%{$value}%");
-                }
+    /**
+     * Alters query to filter by state name.
+     */
+    private function queryFilterByStateName(QueryBuilder $dql, ?string $value): QueryBuilder
+    {
+        if (0 !== mb_strlen($value ?? '')) {
+            $dql->andWhere('LOWER(state.name) LIKE LOWER(:state_name)');
+            $dql->setParameter('state_name', "%{$value}%");
+        }
 
-                break;
+        return $dql;
+    }
 
-            case GetIssuesQuery::ISSUE_AUTHOR:
-                $dql->andWhere('issue.author = :author');
-                $dql->setParameter('author', (int) $value);
+    /**
+     * Alters query to filter by issue's author.
+     */
+    private function queryFilterByAuthorId(QueryBuilder $dql, ?int $value): QueryBuilder
+    {
+        $dql->andWhere('issue.author = :author');
+        $dql->setParameter('author', $value);
 
-                break;
+        return $dql;
+    }
 
-            case GetIssuesQuery::ISSUE_AUTHOR_NAME:
-                if (0 !== mb_strlen((string) $value)) {
-                    $dql->andWhere('LOWER(author.fullname) LIKE LOWER(:author_name)');
-                    $dql->setParameter('author_name', "%{$value}%");
-                }
+    /**
+     * Alters query to filter by author full name.
+     */
+    private function queryFilterByAuthorName(QueryBuilder $dql, ?string $value): QueryBuilder
+    {
+        if (0 !== mb_strlen($value ?? '')) {
+            $dql->andWhere('LOWER(author.fullname) LIKE LOWER(:author_name)');
+            $dql->setParameter('author_name', "%{$value}%");
+        }
 
-                break;
+        return $dql;
+    }
 
-            case GetIssuesQuery::ISSUE_RESPONSIBLE:
-                if (null === $value) {
-                    $dql->andWhere('issue.responsible IS NULL');
-                } else {
-                    $dql->andWhere('issue.responsible = :responsible');
-                    $dql->setParameter('responsible', (int) $value);
-                }
+    /**
+     * Alters query to filter by issue's responsible.
+     */
+    private function queryFilterByResponsibleId(QueryBuilder $dql, ?int $value): QueryBuilder
+    {
+        if (null === $value) {
+            $dql->andWhere('issue.responsible IS NULL');
+        } else {
+            $dql->andWhere('issue.responsible = :responsible');
+            $dql->setParameter('responsible', $value);
+        }
 
-                break;
+        return $dql;
+    }
 
-            case GetIssuesQuery::ISSUE_RESPONSIBLE_NAME:
-                if (0 !== mb_strlen((string) $value)) {
-                    $dql->andWhere('LOWER(responsible.fullname) LIKE LOWER(:responsible_name)');
-                    $dql->setParameter('responsible_name', "%{$value}%");
-                }
+    /**
+     * Alters query to filter by responsible full name.
+     */
+    private function queryFilterByResponsibleName(QueryBuilder $dql, ?string $value): QueryBuilder
+    {
+        if (0 !== mb_strlen($value ?? '')) {
+            $dql->andWhere('LOWER(responsible.fullname) LIKE LOWER(:responsible_name)');
+            $dql->setParameter('responsible_name', "%{$value}%");
+        }
 
-                break;
+        return $dql;
+    }
 
-            case GetIssuesQuery::ISSUE_IS_CLONED:
-                $dql->andWhere($value ? 'issue.origin IS NOT NULL' : 'issue.origin IS NULL');
+    /**
+     * Alters query to filter by cloned issues.
+     */
+    private function queryFilterByIsCloned(QueryBuilder $dql, ?bool $value): QueryBuilder
+    {
+        $dql->andWhere($value ? 'issue.origin IS NOT NULL' : 'issue.origin IS NULL');
 
-                break;
+        return $dql;
+    }
 
-            case GetIssuesQuery::ISSUE_IS_CRITICAL:
-                if ($value) {
-                    $expr = $dql->expr()->andX(
-                        'template.criticalAge IS NOT NULL',
-                        'issue.closedAt IS NULL',
-                        'template.criticalAge < CEIL(CAST(COALESCE(issue.closedAt, :now) - issue.createdAt AS DECIMAL) / 86400)'
-                    );
-                } else {
-                    $expr = $dql->expr()->orX(
-                        'template.criticalAge IS NULL',
-                        'issue.closedAt IS NOT NULL',
-                        'template.criticalAge >= CEIL(CAST(COALESCE(issue.closedAt, :now) - issue.createdAt AS DECIMAL) / 86400)'
-                    );
-                }
+    /**
+     * Alters query to filter by critical issues.
+     */
+    private function queryFilterByIsCritical(QueryBuilder $dql, ?bool $value): QueryBuilder
+    {
+        if ($value) {
+            $expr = $dql->expr()->andX(
+                'template.criticalAge IS NOT NULL',
+                'issue.closedAt IS NULL',
+                'template.criticalAge < CEIL(CAST(COALESCE(issue.closedAt, :now) - issue.createdAt AS DECIMAL) / 86400)'
+            );
+        } else {
+            $expr = $dql->expr()->orX(
+                'template.criticalAge IS NULL',
+                'issue.closedAt IS NOT NULL',
+                'template.criticalAge >= CEIL(CAST(COALESCE(issue.closedAt, :now) - issue.createdAt AS DECIMAL) / 86400)'
+            );
+        }
 
-                $dql->andWhere($expr);
-                $dql->setParameter('now', time());
+        $dql->andWhere($expr);
+        $dql->setParameter('now', time());
 
-                break;
+        return $dql;
+    }
 
-            case GetIssuesQuery::ISSUE_IS_SUSPENDED:
-                if ($value) {
-                    $expr = $dql->expr()->andX(
-                        'issue.resumesAt IS NOT NULL',
-                        'issue.resumesAt > :now'
-                    );
-                } else {
-                    $expr = $dql->expr()->orX(
-                        'issue.resumesAt IS NULL',
-                        'issue.resumesAt <= :now'
-                    );
-                }
+    /**
+     * Alters query to filter by suspended issues.
+     */
+    private function queryFilterByIsSuspended(QueryBuilder $dql, ?bool $value): QueryBuilder
+    {
+        if ($value) {
+            $expr = $dql->expr()->andX(
+                'issue.resumesAt IS NOT NULL',
+                'issue.resumesAt > :now'
+            );
+        } else {
+            $expr = $dql->expr()->orX(
+                'issue.resumesAt IS NULL',
+                'issue.resumesAt <= :now'
+            );
+        }
 
-                $dql->andWhere($expr);
-                $dql->setParameter('now', time());
+        $dql->andWhere($expr);
+        $dql->setParameter('now', time());
 
-                break;
+        return $dql;
+    }
 
-            case GetIssuesQuery::ISSUE_IS_CLOSED:
-                $dql->andWhere($value ? 'issue.closedAt IS NOT NULL' : 'issue.closedAt IS NULL');
+    /**
+     * Alters query to filter by closed issues.
+     */
+    private function queryFilterByIsClosed(QueryBuilder $dql, ?bool $value): QueryBuilder
+    {
+        $dql->andWhere($value ? 'issue.closedAt IS NOT NULL' : 'issue.closedAt IS NULL');
 
-                break;
+        return $dql;
+    }
 
-            case GetIssuesQuery::ISSUE_AGE:
-                if (null !== $value) {
-                    $dql->andWhere('CEIL(CAST(COALESCE(issue.closedAt, :now) - issue.createdAt AS DECIMAL) / 86400) = :age');
-                    $dql->setParameter('age', (int) $value);
-                    $dql->setParameter('now', time());
-                }
-
-                break;
+    /**
+     * Alters query to filter by issue's age.
+     */
+    private function queryFilterByAge(QueryBuilder $dql, ?int $value): QueryBuilder
+    {
+        if (null !== $value) {
+            $dql->andWhere('CEIL(CAST(COALESCE(issue.closedAt, :now) - issue.createdAt AS DECIMAL) / 86400) = :age');
+            $dql->setParameter('age', $value);
+            $dql->setParameter('now', time());
         }
 
         return $dql;
@@ -330,7 +424,7 @@ final class GetIssuesQueryHandler implements QueryHandlerInterface
      */
     private function queryOrder(QueryBuilder $dql, string $property, ?string $direction): QueryBuilder
     {
-        $map = [
+        $order = match ($property) {
             GetIssuesQuery::ISSUE_ID          => 'issue.id',
             GetIssuesQuery::ISSUE_SUBJECT     => 'issue.subject',
             GetIssuesQuery::ISSUE_PROJECT     => 'project.name',
@@ -342,14 +436,13 @@ final class GetIssuesQueryHandler implements QueryHandlerInterface
             GetIssuesQuery::ISSUE_CHANGED_AT  => 'issue.changedAt',
             GetIssuesQuery::ISSUE_CLOSED_AT   => 'issue.closedAt',
             GetIssuesQuery::ISSUE_AGE         => 'age',
-        ];
+            default                           => null,
+        };
 
-        if (isset($map[$property])) {
-            if (AbstractCollectionQuery::SORT_DESC === mb_strtoupper($direction ?? '')) {
-                $dql->addOrderBy($map[$property], AbstractCollectionQuery::SORT_DESC);
-            } else {
-                $dql->addOrderBy($map[$property], AbstractCollectionQuery::SORT_ASC);
-            }
+        if ($order) {
+            $dql->addOrderBy($order, AbstractCollectionQuery::SORT_DESC === mb_strtoupper($direction ?? '')
+                ? AbstractCollectionQuery::SORT_DESC
+                : AbstractCollectionQuery::SORT_ASC);
         }
 
         return $dql;

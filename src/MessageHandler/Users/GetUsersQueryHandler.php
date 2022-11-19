@@ -58,7 +58,15 @@ final class GetUsersQueryHandler implements QueryHandlerInterface
 
         // Filter.
         foreach ($query->getFilters() as $property => $value) {
-            $dql = $this->queryFilter($dql, $property, $value);
+            $dql = match ($property) {
+                GetUsersQuery::USER_EMAIL       => $this->queryFilterByEmail($dql, $value),
+                GetUsersQuery::USER_FULLNAME    => $this->queryFilterByFullname($dql, $value),
+                GetUsersQuery::USER_DESCRIPTION => $this->queryFilterByDescription($dql, $value),
+                GetUsersQuery::USER_IS_ADMIN    => $this->queryFilterByIsAdmin($dql, $value),
+                GetUsersQuery::USER_IS_DISABLED => $this->queryFilterByIsDisabled($dql, $value),
+                GetUsersQuery::USER_PROVIDER    => $this->queryFilterByProvider($dql, $value),
+                default                         => $dql,
+            };
         }
 
         // Total number of entities.
@@ -101,54 +109,74 @@ final class GetUsersQueryHandler implements QueryHandlerInterface
     }
 
     /**
-     * Alters query to filter by the specified property.
+     * Alters query to filter by user's email.
      */
-    private function queryFilter(QueryBuilder $dql, string $property, null|bool|int|string $value = null): QueryBuilder
+    private function queryFilterByEmail(QueryBuilder $dql, ?string $value): QueryBuilder
     {
-        switch ($property) {
-            case GetUsersQuery::USER_EMAIL:
-                if (0 !== mb_strlen((string) $value)) {
-                    $dql->andWhere('LOWER(user.email) LIKE LOWER(:email)');
-                    $dql->setParameter('email', "%{$value}%");
-                }
+        if (0 !== mb_strlen($value ?? '')) {
+            $dql->andWhere('LOWER(user.email) LIKE LOWER(:email)');
+            $dql->setParameter('email', "%{$value}%");
+        }
 
-                break;
+        return $dql;
+    }
 
-            case GetUsersQuery::USER_FULLNAME:
-                if (0 !== mb_strlen((string) $value)) {
-                    $dql->andWhere('LOWER(user.fullname) LIKE LOWER(:fullname)');
-                    $dql->setParameter('fullname', "%{$value}%");
-                }
+    /**
+     * Alters query to filter by user's full name.
+     */
+    private function queryFilterByFullname(QueryBuilder $dql, ?string $value): QueryBuilder
+    {
+        if (0 !== mb_strlen($value ?? '')) {
+            $dql->andWhere('LOWER(user.fullname) LIKE LOWER(:fullname)');
+            $dql->setParameter('fullname', "%{$value}%");
+        }
 
-                break;
+        return $dql;
+    }
 
-            case GetUsersQuery::USER_DESCRIPTION:
-                if (0 !== mb_strlen((string) $value)) {
-                    $dql->andWhere('LOWER(user.description) LIKE LOWER(:description)');
-                    $dql->setParameter('description', "%{$value}%");
-                }
+    /**
+     * Alters query to filter by user description.
+     */
+    private function queryFilterByDescription(QueryBuilder $dql, ?string $value): QueryBuilder
+    {
+        if (0 !== mb_strlen($value ?? '')) {
+            $dql->andWhere('LOWER(user.description) LIKE LOWER(:description)');
+            $dql->setParameter('description', "%{$value}%");
+        }
 
-                break;
+        return $dql;
+    }
 
-            case GetUsersQuery::USER_IS_ADMIN:
-                $dql->andWhere('user.admin = :admin');
-                $dql->setParameter('admin', (bool) $value);
+    /**
+     * Alters query to filter by user role.
+     */
+    private function queryFilterByIsAdmin(QueryBuilder $dql, ?bool $value): QueryBuilder
+    {
+        $dql->andWhere('user.admin = :admin');
+        $dql->setParameter('admin', (bool) $value);
 
-                break;
+        return $dql;
+    }
 
-            case GetUsersQuery::USER_IS_DISABLED:
-                $dql->andWhere('user.disabled = :disabled');
-                $dql->setParameter('disabled', (bool) $value);
+    /**
+     * Alters query to filter by user status.
+     */
+    private function queryFilterByIsDisabled(QueryBuilder $dql, ?bool $value): QueryBuilder
+    {
+        $dql->andWhere('user.disabled = :disabled');
+        $dql->setParameter('disabled', (bool) $value);
 
-                break;
+        return $dql;
+    }
 
-            case GetUsersQuery::USER_PROVIDER:
-                if (AccountProviderEnum::tryFrom($value)) {
-                    $dql->andWhere('LOWER(user.accountProvider) = LOWER(:provider)');
-                    $dql->setParameter('provider', $value);
-                }
-
-                break;
+    /**
+     * Alters query to filter by account provider.
+     */
+    private function queryFilterByProvider(QueryBuilder $dql, ?string $value): QueryBuilder
+    {
+        if (AccountProviderEnum::tryFrom($value ?? '')) {
+            $dql->andWhere('LOWER(user.accountProvider) = LOWER(:provider)');
+            $dql->setParameter('provider', $value);
         }
 
         return $dql;
@@ -159,21 +187,20 @@ final class GetUsersQueryHandler implements QueryHandlerInterface
      */
     private function queryOrder(QueryBuilder $dql, string $property, ?string $direction): QueryBuilder
     {
-        $map = [
+        $order = match ($property) {
             GetUsersQuery::USER_ID          => 'user.id',
             GetUsersQuery::USER_EMAIL       => 'user.email',
             GetUsersQuery::USER_FULLNAME    => 'user.fullname',
             GetUsersQuery::USER_DESCRIPTION => 'user.description',
             GetUsersQuery::USER_IS_ADMIN    => 'user.admin',
             GetUsersQuery::USER_PROVIDER    => 'user.accountProvider',
-        ];
+            default                         => null,
+        };
 
-        if (isset($map[$property])) {
-            if (AbstractCollectionQuery::SORT_DESC === mb_strtoupper($direction ?? '')) {
-                $dql->addOrderBy($map[$property], AbstractCollectionQuery::SORT_DESC);
-            } else {
-                $dql->addOrderBy($map[$property], AbstractCollectionQuery::SORT_ASC);
-            }
+        if ($order) {
+            $dql->addOrderBy($order, AbstractCollectionQuery::SORT_DESC === mb_strtoupper($direction ?? '')
+                ? AbstractCollectionQuery::SORT_DESC
+                : AbstractCollectionQuery::SORT_ASC);
         }
 
         return $dql;

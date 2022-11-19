@@ -72,7 +72,17 @@ final class GetFieldsQueryHandler implements QueryHandlerInterface
 
         // Filter.
         foreach ($query->getFilters() as $property => $value) {
-            $dql = $this->queryFilter($dql, $property, $value);
+            $dql = match ($property) {
+                GetFieldsQuery::FIELD_PROJECT     => $this->queryFilterByProjectId($dql, $value),
+                GetFieldsQuery::FIELD_TEMPLATE    => $this->queryFilterByTemplateId($dql, $value),
+                GetFieldsQuery::FIELD_STATE       => $this->queryFilterByStateId($dql, $value),
+                GetFieldsQuery::FIELD_NAME        => $this->queryFilterByName($dql, $value),
+                GetFieldsQuery::FIELD_TYPE        => $this->queryFilterByType($dql, $value),
+                GetFieldsQuery::FIELD_DESCRIPTION => $this->queryFilterByDescription($dql, $value),
+                GetFieldsQuery::FIELD_POSITION    => $this->queryFilterByPosition($dql, $value),
+                GetFieldsQuery::FIELD_IS_REQUIRED => $this->queryFilterByIsRequired($dql, $value),
+                default                           => $dql,
+            };
         }
 
         // Total number of entities.
@@ -113,71 +123,101 @@ final class GetFieldsQueryHandler implements QueryHandlerInterface
     }
 
     /**
-     * Alters query to filter by the specified property.
+     * Alters query to filter by field's project.
      */
-    private function queryFilter(QueryBuilder $dql, string $property, null|bool|int|string $value = null): QueryBuilder
+    private function queryFilterByProjectId(QueryBuilder $dql, ?int $value): QueryBuilder
     {
-        switch ($property) {
-            case GetFieldsQuery::FIELD_PROJECT:
-                $dql->andWhere('template.project = :project');
-                $dql->setParameter('project', (int) $value);
+        $dql->andWhere('template.project = :project');
+        $dql->setParameter('project', $value);
 
-                break;
+        return $dql;
+    }
 
-            case GetFieldsQuery::FIELD_TEMPLATE:
-                $dql->andWhere('state.template = :template');
-                $dql->setParameter('template', (int) $value);
+    /**
+     * Alters query to filter by field's template.
+     */
+    private function queryFilterByTemplateId(QueryBuilder $dql, ?int $value): QueryBuilder
+    {
+        $dql->andWhere('state.template = :template');
+        $dql->setParameter('template', $value);
 
-                break;
+        return $dql;
+    }
 
-            case GetFieldsQuery::FIELD_STATE:
-                $dql->andWhere('field.state= :state');
-                $dql->setParameter('state', (int) $value);
+    /**
+     * Alters query to filter by field's state.
+     */
+    private function queryFilterByStateId(QueryBuilder $dql, ?int $value): QueryBuilder
+    {
+        $dql->andWhere('field.state= :state');
+        $dql->setParameter('state', $value);
 
-                break;
+        return $dql;
+    }
 
-            case GetFieldsQuery::FIELD_NAME:
-                if (0 === mb_strlen((string) $value)) {
-                    $dql->andWhere('field.name IS NULL');
-                } else {
-                    $dql->andWhere('LOWER(field.name) LIKE LOWER(:name)');
-                    $dql->setParameter('name', "%{$value}%");
-                }
-
-                break;
-
-            case GetFieldsQuery::FIELD_TYPE:
-                if (0 === mb_strlen((string) $value)) {
-                    $dql->andWhere('field.type IS NULL');
-                } else {
-                    $dql->andWhere('LOWER(field.type) = LOWER(:type)');
-                    $dql->setParameter('type', $value);
-                }
-
-                break;
-
-            case GetFieldsQuery::FIELD_DESCRIPTION:
-                if (0 === mb_strlen((string) $value)) {
-                    $dql->andWhere('field.description IS NULL');
-                } else {
-                    $dql->andWhere('LOWER(field.description) LIKE LOWER(:description)');
-                    $dql->setParameter('description', "%{$value}%");
-                }
-
-                break;
-
-            case GetFieldsQuery::FIELD_POSITION:
-                $dql->andWhere('field.position = :position');
-                $dql->setParameter('position', (int) $value);
-
-                break;
-
-            case GetFieldsQuery::FIELD_IS_REQUIRED:
-                $dql->andWhere('field.required = :required');
-                $dql->setParameter('required', (bool) $value);
-
-                break;
+    /**
+     * Alters query to filter by field name.
+     */
+    private function queryFilterByName(QueryBuilder $dql, ?string $value): QueryBuilder
+    {
+        if (0 === mb_strlen($value ?? '')) {
+            $dql->andWhere('field.name IS NULL');
+        } else {
+            $dql->andWhere('LOWER(field.name) LIKE LOWER(:name)');
+            $dql->setParameter('name', "%{$value}%");
         }
+
+        return $dql;
+    }
+
+    /**
+     * Alters query to filter by field type.
+     */
+    private function queryFilterByType(QueryBuilder $dql, ?string $value): QueryBuilder
+    {
+        if (0 === mb_strlen($value ?? '')) {
+            $dql->andWhere('field.type IS NULL');
+        } else {
+            $dql->andWhere('LOWER(field.type) = LOWER(:type)');
+            $dql->setParameter('type', $value);
+        }
+
+        return $dql;
+    }
+
+    /**
+     * Alters query to filter by field description.
+     */
+    private function queryFilterByDescription(QueryBuilder $dql, ?string $value): QueryBuilder
+    {
+        if (0 === mb_strlen($value ?? '')) {
+            $dql->andWhere('field.description IS NULL');
+        } else {
+            $dql->andWhere('LOWER(field.description) LIKE LOWER(:description)');
+            $dql->setParameter('description', "%{$value}%");
+        }
+
+        return $dql;
+    }
+
+    /**
+     * Alters query to filter by field position.
+     */
+    private function queryFilterByPosition(QueryBuilder $dql, ?int $value): QueryBuilder
+    {
+        $dql->andWhere('field.position = :position');
+        $dql->setParameter('position', $value);
+
+        return $dql;
+    }
+
+    /**
+     * Alters query to filter by required flag.
+     */
+    private function queryFilterByIsRequired(QueryBuilder $dql, ?bool $value): QueryBuilder
+    {
+        $dql->andWhere('field.required = :required');
+        $dql->setParameter('required', (bool) $value);
 
         return $dql;
     }
@@ -187,7 +227,7 @@ final class GetFieldsQueryHandler implements QueryHandlerInterface
      */
     private function queryOrder(QueryBuilder $dql, string $property, ?string $direction): QueryBuilder
     {
-        $map = [
+        $order = match ($property) {
             GetFieldsQuery::FIELD_ID          => 'field.id',
             GetFieldsQuery::FIELD_PROJECT     => 'project.name',
             GetFieldsQuery::FIELD_TEMPLATE    => 'template.name',
@@ -197,14 +237,13 @@ final class GetFieldsQueryHandler implements QueryHandlerInterface
             GetFieldsQuery::FIELD_DESCRIPTION => 'field.description',
             GetFieldsQuery::FIELD_POSITION    => 'field.position',
             GetFieldsQuery::FIELD_IS_REQUIRED => 'field.required',
-        ];
+            default                           => null,
+        };
 
-        if (isset($map[$property])) {
-            if (AbstractCollectionQuery::SORT_DESC === mb_strtoupper($direction ?? '')) {
-                $dql->addOrderBy($map[$property], AbstractCollectionQuery::SORT_DESC);
-            } else {
-                $dql->addOrderBy($map[$property], AbstractCollectionQuery::SORT_ASC);
-            }
+        if ($order) {
+            $dql->addOrderBy($order, AbstractCollectionQuery::SORT_DESC === mb_strtoupper($direction ?? '')
+                ? AbstractCollectionQuery::SORT_DESC
+                : AbstractCollectionQuery::SORT_ASC);
         }
 
         return $dql;

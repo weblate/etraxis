@@ -17,7 +17,6 @@ use App\Entity\Enums\SecondsEnum;
 use App\Entity\Issue;
 use App\Entity\Template;
 use App\LoginTrait;
-use App\ReflectionTrait;
 use App\Repository\Contracts\IssueRepositoryInterface;
 use App\TransactionalTestCase;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -32,7 +31,6 @@ use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 final class IssueVoterTest extends TransactionalTestCase
 {
     use LoginTrait;
-    use ReflectionTrait;
 
     private AuthorizationCheckerInterface $security;
     private IssueRepositoryInterface      $repository;
@@ -87,14 +85,9 @@ final class IssueVoterTest extends TransactionalTestCase
         self::assertSame(VoterInterface::ACCESS_DENIED, $voter->vote($token, $issue2, [IssueVoter::REASSIGN_ISSUE]));
         self::assertSame(VoterInterface::ACCESS_DENIED, $voter->vote($token, $issue6, [IssueVoter::SUSPEND_ISSUE]));
         self::assertSame(VoterInterface::ACCESS_DENIED, $voter->vote($token, $issue5, [IssueVoter::RESUME_ISSUE]));
-        self::assertSame(VoterInterface::ACCESS_DENIED, $voter->vote($token, $issue2, [IssueVoter::ADD_PUBLIC_COMMENT]));
-        self::assertSame(VoterInterface::ACCESS_DENIED, $voter->vote($token, $issue2, [IssueVoter::ADD_PRIVATE_COMMENT]));
-        self::assertSame(VoterInterface::ACCESS_DENIED, $voter->vote($token, $issue2, [IssueVoter::READ_PRIVATE_COMMENT]));
     }
 
     /**
-     * @covers ::hasGroupPermission
-     * @covers ::hasRolePermission
      * @covers ::isViewGranted
      * @covers ::voteOnAttribute
      */
@@ -109,8 +102,6 @@ final class IssueVoterTest extends TransactionalTestCase
     }
 
     /**
-     * @covers ::hasGroupPermission
-     * @covers ::hasRolePermission
      * @covers ::isViewGranted
      * @covers ::voteOnAttribute
      */
@@ -126,8 +117,6 @@ final class IssueVoterTest extends TransactionalTestCase
     }
 
     /**
-     * @covers ::hasGroupPermission
-     * @covers ::hasRolePermission
      * @covers ::isViewGranted
      * @covers ::voteOnAttribute
      */
@@ -143,8 +132,6 @@ final class IssueVoterTest extends TransactionalTestCase
     }
 
     /**
-     * @covers ::hasGroupPermission
-     * @covers ::hasRolePermission
      * @covers ::isViewGranted
      * @covers ::voteOnAttribute
      */
@@ -160,8 +147,6 @@ final class IssueVoterTest extends TransactionalTestCase
     }
 
     /**
-     * @covers ::hasGroupPermission
-     * @covers ::hasRolePermission
      * @covers ::isCreateGranted
      * @covers ::voteOnAttribute
      */
@@ -185,7 +170,6 @@ final class IssueVoterTest extends TransactionalTestCase
     }
 
     /**
-     * @covers ::hasPermission
      * @covers ::isUpdateGranted
      * @covers ::voteOnAttribute
      */
@@ -218,7 +202,6 @@ final class IssueVoterTest extends TransactionalTestCase
     }
 
     /**
-     * @covers ::hasPermission
      * @covers ::isDeleteGranted
      * @covers ::voteOnAttribute
      */
@@ -309,7 +292,6 @@ final class IssueVoterTest extends TransactionalTestCase
     }
 
     /**
-     * @covers ::hasPermission
      * @covers ::isReassignGranted
      * @covers ::voteOnAttribute
      */
@@ -345,7 +327,6 @@ final class IssueVoterTest extends TransactionalTestCase
     }
 
     /**
-     * @covers ::hasPermission
      * @covers ::isSuspendGranted
      * @covers ::voteOnAttribute
      */
@@ -379,7 +360,6 @@ final class IssueVoterTest extends TransactionalTestCase
     }
 
     /**
-     * @covers ::hasPermission
      * @covers ::isResumeGranted
      * @covers ::voteOnAttribute
      */
@@ -417,105 +397,5 @@ final class IssueVoterTest extends TransactionalTestCase
         self::assertFalse($this->security->isGranted(IssueVoter::RESUME_ISSUE, $issueC));
         self::assertFalse($this->security->isGranted(IssueVoter::RESUME_ISSUE, $createdByDev2));
         self::assertTrue($this->security->isGranted(IssueVoter::RESUME_ISSUE, $assignedToDev3));
-    }
-
-    /**
-     * @covers ::hasPermission
-     * @covers ::isAddPublicCommentGranted
-     * @covers ::voteOnAttribute
-     */
-    public function testAddPublicComment(): void
-    {
-        // Template B is locked, template C is not.
-        // Template A is not locked, too, but the project is suspended.
-        [$issueA, $issueB, $issueC] = $this->repository->findBy(['subject' => 'Development task 6'], ['id' => 'ASC']);
-
-        [/* skipping */ , /* skipping */ , $suspended] = $this->repository->findBy(['subject' => 'Development task 5'], ['id' => 'ASC']);
-
-        /** @var Issue $closed */
-        [/* skipping */ , /* skipping */ , $closed] = $this->repository->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
-
-        [/* skipping */ , /* skipping */ , $createdByDev3]  = $this->repository->findBy(['subject' => 'Development task 3'], ['id' => 'ASC']);
-        [/* skipping */ , /* skipping */ , $assignedToDev3] = $this->repository->findBy(['subject' => 'Development task 2'], ['id' => 'ASC']);
-
-        $this->loginUser('ldoyle@example.com');
-        self::assertFalse($this->security->isGranted(IssueVoter::ADD_PUBLIC_COMMENT, $issueA));
-        self::assertFalse($this->security->isGranted(IssueVoter::ADD_PUBLIC_COMMENT, $issueB));
-        self::assertTrue($this->security->isGranted(IssueVoter::ADD_PUBLIC_COMMENT, $issueC));
-        self::assertFalse($this->security->isGranted(IssueVoter::ADD_PUBLIC_COMMENT, $suspended));
-
-        $this->loginUser('akoepp@example.com');
-        self::assertFalse($this->security->isGranted(IssueVoter::ADD_PUBLIC_COMMENT, $issueC));
-        self::assertTrue($this->security->isGranted(IssueVoter::ADD_PUBLIC_COMMENT, $createdByDev3));
-        self::assertTrue($this->security->isGranted(IssueVoter::ADD_PUBLIC_COMMENT, $assignedToDev3));
-
-        $this->loginUser('ldoyle@example.com');
-        self::assertTrue($this->security->isGranted(IssueVoter::ADD_PUBLIC_COMMENT, $closed));
-        $closed->getTemplate()->setFrozenTime(1);
-        self::assertFalse($this->security->isGranted(IssueVoter::ADD_PUBLIC_COMMENT, $closed));
-    }
-
-    /**
-     * @covers ::hasPermission
-     * @covers ::isAddPrivateCommentGranted
-     * @covers ::voteOnAttribute
-     */
-    public function testAddPrivateComment(): void
-    {
-        // Template B is locked, template C is not.
-        // Template A is not locked, too, but the project is suspended.
-        [$issueA, $issueB, $issueC] = $this->repository->findBy(['subject' => 'Development task 6'], ['id' => 'ASC']);
-
-        [/* skipping */ , /* skipping */ , $suspended] = $this->repository->findBy(['subject' => 'Development task 5'], ['id' => 'ASC']);
-
-        /** @var Issue $closed */
-        [/* skipping */ , /* skipping */ , $closed] = $this->repository->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
-
-        [/* skipping */ , /* skipping */ , $createdByDev3]  = $this->repository->findBy(['subject' => 'Development task 3'], ['id' => 'ASC']);
-        [/* skipping */ , /* skipping */ , $assignedToDev3] = $this->repository->findBy(['subject' => 'Development task 2'], ['id' => 'ASC']);
-
-        $this->loginUser('ldoyle@example.com');
-        self::assertFalse($this->security->isGranted(IssueVoter::ADD_PRIVATE_COMMENT, $issueA));
-        self::assertFalse($this->security->isGranted(IssueVoter::ADD_PRIVATE_COMMENT, $issueB));
-        self::assertTrue($this->security->isGranted(IssueVoter::ADD_PRIVATE_COMMENT, $issueC));
-        self::assertFalse($this->security->isGranted(IssueVoter::ADD_PRIVATE_COMMENT, $suspended));
-
-        $this->loginUser('akoepp@example.com');
-        self::assertFalse($this->security->isGranted(IssueVoter::ADD_PRIVATE_COMMENT, $issueC));
-        self::assertTrue($this->security->isGranted(IssueVoter::ADD_PRIVATE_COMMENT, $createdByDev3));
-        self::assertTrue($this->security->isGranted(IssueVoter::ADD_PRIVATE_COMMENT, $assignedToDev3));
-
-        $this->loginUser('ldoyle@example.com');
-        self::assertTrue($this->security->isGranted(IssueVoter::ADD_PRIVATE_COMMENT, $closed));
-        $closed->getTemplate()->setFrozenTime(1);
-        self::assertFalse($this->security->isGranted(IssueVoter::ADD_PRIVATE_COMMENT, $closed));
-    }
-
-    /**
-     * @covers ::hasGroupPermission
-     * @covers ::hasRolePermission
-     * @covers ::isReadPrivateCommentGranted
-     * @covers ::voteOnAttribute
-     */
-    public function testReadPrivateComment(): void
-    {
-        // Template B is locked, template C is not.
-        // Template A is not locked, too, but the project is suspended.
-        [$issueA, $issueB, $issueC] = $this->repository->findBy(['subject' => 'Development task 6'], ['id' => 'ASC']);
-
-        [/* skipping */ , /* skipping */ , $suspended]      = $this->repository->findBy(['subject' => 'Development task 5'], ['id' => 'ASC']);
-        [/* skipping */ , /* skipping */ , $createdByDev3]  = $this->repository->findBy(['subject' => 'Development task 3'], ['id' => 'ASC']);
-        [/* skipping */ , /* skipping */ , $assignedToDev3] = $this->repository->findBy(['subject' => 'Development task 2'], ['id' => 'ASC']);
-
-        $this->loginUser('ldoyle@example.com');
-        self::assertTrue($this->security->isGranted(IssueVoter::READ_PRIVATE_COMMENT, $issueA));
-        self::assertTrue($this->security->isGranted(IssueVoter::READ_PRIVATE_COMMENT, $issueB));
-        self::assertTrue($this->security->isGranted(IssueVoter::READ_PRIVATE_COMMENT, $issueC));
-        self::assertTrue($this->security->isGranted(IssueVoter::READ_PRIVATE_COMMENT, $suspended));
-
-        $this->loginUser('akoepp@example.com');
-        self::assertFalse($this->security->isGranted(IssueVoter::READ_PRIVATE_COMMENT, $issueC));
-        self::assertTrue($this->security->isGranted(IssueVoter::READ_PRIVATE_COMMENT, $createdByDev3));
-        self::assertTrue($this->security->isGranted(IssueVoter::READ_PRIVATE_COMMENT, $assignedToDev3));
     }
 }

@@ -11,14 +11,14 @@
 //
 //----------------------------------------------------------------------
 
-namespace App\Message\Issues;
+namespace App\Message\Comments;
 
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
  *
- * @coversDefaultClass \App\Message\Issues\AddCommentCommand
+ * @coversDefaultClass \App\Message\Comments\AddCommentCommand
  */
 final class AddCommentCommandTest extends TestCase
 {

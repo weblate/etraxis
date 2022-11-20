@@ -110,17 +110,17 @@ final class IssueRepositoryTest extends TransactionalTestCase
      */
     public function testHasOpenedDependencies(): void
     {
+        /** @var Issue $issue2 This issue has one closed dependency. */
+        [$issue2] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Support request 2'], ['id' => 'ASC']);
+
         /** @var Issue $issue4 This issue has no dependencies at all. */
         [$issue4] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Support request 4'], ['id' => 'ASC']);
-
-        /** @var Issue $issue5 This issue has one closed dependency. */
-        [$issue5] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Support request 5'], ['id' => 'ASC']);
 
         /** @var Issue $issue6 This issue has two dependencies, and one of them is still active. */
         [$issue6] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Support request 6'], ['id' => 'ASC']);
 
         self::assertFalse($this->repository->hasOpenedDependencies($issue4));
-        self::assertFalse($this->repository->hasOpenedDependencies($issue5));
+        self::assertFalse($this->repository->hasOpenedDependencies($issue2));
         self::assertTrue($this->repository->hasOpenedDependencies($issue6));
     }
 

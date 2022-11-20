@@ -117,9 +117,10 @@ class EventFixtures extends Fixture implements FixtureInterface, DependentFixtur
             ],
 
             'task:%s:8' => [
-                [EventTypeEnum::IssueCreated,  $this->developer2, 0, 0, 'new'],
-                [EventTypeEnum::StateChanged,  $this->manager1,   3, 0, 'assigned'],
-                [EventTypeEnum::IssueAssigned, $this->manager1,   3, 0, $this->developer2],
+                [EventTypeEnum::IssueCreated,    $this->developer2, 0, 0, 'new'],
+                [EventTypeEnum::StateChanged,    $this->manager1,   3, 0, 'assigned'],
+                [EventTypeEnum::IssueAssigned,   $this->manager1,   3, 0, $this->developer2],
+                [EventTypeEnum::DependencyAdded, $this->manager1,   3, 5, 'task:%s:3'],
             ],
 
             'req:%s:1' => [
@@ -153,7 +154,7 @@ class EventFixtures extends Fixture implements FixtureInterface, DependentFixtur
                 [EventTypeEnum::IssueCreated,    $this->client2,  0, 0, 'submitted'],
                 [EventTypeEnum::StateChanged,    $this->support3, 0, 5, 'opened'],
                 [EventTypeEnum::IssueAssigned,   $this->support3, 0, 5, $this->support3],
-                [EventTypeEnum::DependencyAdded, $this->support3, 1, 0, 'req:%s:3'],
+                [EventTypeEnum::DependencyAdded, $this->support3, 1, 0, 'req:%s:2'],
             ],
 
             'req:%s:6' => [

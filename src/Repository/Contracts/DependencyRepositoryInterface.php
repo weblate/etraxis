@@ -14,6 +14,7 @@
 namespace App\Repository\Contracts;
 
 use App\Entity\Dependency;
+use App\Entity\Issue;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\Persistence\ObjectRepository;
 
@@ -31,4 +32,11 @@ interface DependencyRepositoryInterface extends ObjectRepository, Selectable
      * @see \Doctrine\Persistence\ObjectManager::remove()
      */
     public function remove(Dependency $entity, bool $flush = false): void;
+
+    /**
+     * Returns all dependencies of the specified issue.
+     *
+     * @return Issue[]
+     */
+    public function getDependencies(Issue $issue): array;
 }

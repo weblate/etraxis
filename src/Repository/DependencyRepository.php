@@ -14,6 +14,7 @@
 namespace App\Repository;
 
 use App\Entity\Dependency;
+use App\Entity\Issue;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -52,5 +53,45 @@ class DependencyRepository extends ServiceEntityRepository implements Contracts\
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getDependencies(Issue $issue): array
+    {
+        $query = $this->createQueryBuilder('dependency')
+            ->select('dependency')
+
+            ->innerJoin('dependency.event', 'event')
+            ->addSelect('event')
+
+            ->innerJoin('dependency.issue', 'issue')
+            ->addSelect('issue')
+
+            ->innerJoin('issue.state', 'state')
+            ->addSelect('state')
+
+            ->innerJoin('state.template', 'template')
+            ->addSelect('template')
+
+            ->innerJoin('template.project', 'project')
+            ->addSelect('project')
+
+            ->innerJoin('issue.author', 'author')
+            ->addSelect('author')
+
+            ->leftJoin('issue.responsible', 'responsible')
+            ->addSelect('responsible')
+
+            ->where('event.issue = :issue')
+            ->addOrderBy('event.createdAt')
+            ->setParameter('issue', $issue)
+        ;
+
+        /** @var Dependency[] $dependencies */
+        $dependencies = $query->getQuery()->getResult();
+
+        return array_map(fn (Dependency $dependency) => $dependency->getIssue(), $dependencies);
     }
 }

@@ -5,6 +5,7 @@ email.login_changed.line1: 'The email address of your eTraxis account has been c
 email.login_changed.subject: 'Your eTraxis account has been changed'
 email.password_changed.line1: 'Your password has been set to the following:'
 email.password_changed.subject: 'Your password has been changed'
+error.cross_dependency: 'These issues already depend on each other.'
 field.error.default_value_length: 'Default value should not be longer than %maximum% characters.'
 field.error.default_value_range: 'Default value should be in range from %minimum% to %maximum%.'
 field.error.min_max_values: 'Maximum value should not be less then minimum one.'

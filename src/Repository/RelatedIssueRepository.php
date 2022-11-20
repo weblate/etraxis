@@ -13,6 +13,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Issue;
 use App\Entity\RelatedIssue;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -52,5 +53,45 @@ class RelatedIssueRepository extends ServiceEntityRepository implements Contract
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRelatedIssues(Issue $issue): array
+    {
+        $query = $this->createQueryBuilder('relatedIssue')
+            ->select('relatedIssue')
+
+            ->innerJoin('relatedIssue.event', 'event')
+            ->addSelect('event')
+
+            ->innerJoin('relatedIssue.issue', 'issue')
+            ->addSelect('issue')
+
+            ->innerJoin('issue.state', 'state')
+            ->addSelect('state')
+
+            ->innerJoin('state.template', 'template')
+            ->addSelect('template')
+
+            ->innerJoin('template.project', 'project')
+            ->addSelect('project')
+
+            ->innerJoin('issue.author', 'author')
+            ->addSelect('author')
+
+            ->leftJoin('issue.responsible', 'responsible')
+            ->addSelect('responsible')
+
+            ->where('event.issue = :issue')
+            ->addOrderBy('event.createdAt')
+            ->setParameter('issue', $issue)
+        ;
+
+        /** @var RelatedIssue[] $relatedIssues */
+        $relatedIssues = $query->getQuery()->getResult();
+
+        return array_map(fn (RelatedIssue $relatedIssue) => $relatedIssue->getIssue(), $relatedIssues);
     }
 }

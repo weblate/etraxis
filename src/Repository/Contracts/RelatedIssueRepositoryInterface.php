@@ -13,6 +13,7 @@
 
 namespace App\Repository\Contracts;
 
+use App\Entity\Issue;
 use App\Entity\RelatedIssue;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\Persistence\ObjectRepository;
@@ -31,4 +32,11 @@ interface RelatedIssueRepositoryInterface extends ObjectRepository, Selectable
      * @see \Doctrine\Persistence\ObjectManager::remove()
      */
     public function remove(RelatedIssue $entity, bool $flush = false): void;
+
+    /**
+     * Returns all related issues of the specified issue.
+     *
+     * @return Issue[]
+     */
+    public function getRelatedIssues(Issue $issue): array;
 }

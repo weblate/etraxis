@@ -80,6 +80,7 @@ final class UpdateIssueCommandHandler implements CommandHandlerInterface
             $issue->getEvents()->add($event);
             $issue->touch();
 
+            // Change the subject.
             if (0 !== mb_strlen($subject) && $issue->getSubject() !== $subject) {
                 $oldValue = $this->stringRepository->get($issue->getSubject())->getId();
                 $newValue = $this->stringRepository->get($subject)->getId();
@@ -90,6 +91,7 @@ final class UpdateIssueCommandHandler implements CommandHandlerInterface
                 $this->changeRepository->persist($change);
             }
 
+            // Change the fields.
             if (0 !== count($values)) {
                 $fieldValues = array_filter(
                     $this->issueRepository->getLatestValues($issue),

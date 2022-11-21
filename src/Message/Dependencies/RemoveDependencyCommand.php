@@ -14,7 +14,7 @@
 namespace App\Message\Dependencies;
 
 /**
- * Removes existing dependency from specified issues.
+ * Removes existing dependency from specified issue.
  */
 final class RemoveDependencyCommand
 {

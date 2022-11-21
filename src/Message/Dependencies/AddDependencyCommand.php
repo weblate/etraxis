@@ -14,7 +14,7 @@
 namespace App\Message\Dependencies;
 
 /**
- * Adds new dependency to specified issues.
+ * Adds new dependency to specified issue.
  */
 final class AddDependencyCommand
 {

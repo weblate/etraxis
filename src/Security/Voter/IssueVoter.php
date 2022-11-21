@@ -190,13 +190,13 @@ class IssueVoter extends Voter implements VoterInterface
      */
     protected function isChangeStateGranted(Issue $subject, User $user): bool
     {
-        // Issue must not be suspended or frozen.
-        if ($subject->isSuspended() || $subject->isFrozen()) {
+        // Template must not be locked and project must not be suspended.
+        if ($subject->getTemplate()->isLocked() || $subject->getProject()->isSuspended()) {
             return false;
         }
 
-        // Template must not be locked and project must not be suspended.
-        if ($subject->getTemplate()->isLocked() || $subject->getProject()->isSuspended()) {
+        // Issue must not be suspended or frozen.
+        if ($subject->isSuspended() || $subject->isFrozen()) {
             return false;
         }
 

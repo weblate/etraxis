@@ -36,7 +36,7 @@ final class DependencyRepositoryTest extends TransactionalTestCase
     /**
      * @covers ::findAllByIssue
      */
-    public function testGetDependencies(): void
+    public function testFindAllByIssue(): void
     {
         /** @var Issue $issue */
         [$issue] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Support request 6'], ['id' => 'ASC']);
@@ -57,7 +57,7 @@ final class DependencyRepositoryTest extends TransactionalTestCase
     /**
      * @covers ::findAllByIssue
      */
-    public function testGetDependenciesEmpty(): void
+    public function testFindAllByIssueEmpty(): void
     {
         /** @var Issue $issue */
         [$issue] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Support request 4'], ['id' => 'ASC']);

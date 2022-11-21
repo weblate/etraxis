@@ -36,7 +36,7 @@ final class RelatedIssueRepositoryTest extends TransactionalTestCase
     /**
      * @covers ::findAllByIssue
      */
-    public function testGetRelatedIssues(): void
+    public function testFindAllByIssue(): void
     {
         /** @var Issue $issue */
         [$issue] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Development task 8'], ['id' => 'ASC']);
@@ -56,7 +56,7 @@ final class RelatedIssueRepositoryTest extends TransactionalTestCase
     /**
      * @covers ::findAllByIssue
      */
-    public function testGetRelatedIssuesEmpty(): void
+    public function testFindAllByIssueEmpty(): void
     {
         /** @var Issue $issue */
         [$issue] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Development task 7'], ['id' => 'ASC']);

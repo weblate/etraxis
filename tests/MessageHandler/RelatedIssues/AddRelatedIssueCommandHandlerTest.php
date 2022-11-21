@@ -53,7 +53,7 @@ final class AddRelatedIssueCommandHandlerTest extends TransactionalTestCase
         /** @var Issue $relatedIssue */
         [/* skipping */ , /* skipping */ , $relatedIssue] = $this->repository->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
 
-        $count = count($this->doctrine->getRepository(RelatedIssue::class)->getRelatedIssues($issue));
+        $count = count($this->doctrine->getRepository(RelatedIssue::class)->findAllByIssue($issue));
 
         $command = new AddRelatedIssueCommand($issue->getId(), $relatedIssue->getId());
 
@@ -61,7 +61,7 @@ final class AddRelatedIssueCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($issue);
 
-        self::assertCount($count + 1, $this->doctrine->getRepository(RelatedIssue::class)->getRelatedIssues($issue));
+        self::assertCount($count + 1, $this->doctrine->getRepository(RelatedIssue::class)->findAllByIssue($issue));
     }
 
     public function testSuccessExisting(): void
@@ -74,7 +74,7 @@ final class AddRelatedIssueCommandHandlerTest extends TransactionalTestCase
         /** @var Issue $existing */
         [/* skipping */ , /* skipping */ , $existing] = $this->repository->findBy(['subject' => 'Development task 2'], ['id' => 'ASC']);
 
-        $count = count($this->doctrine->getRepository(RelatedIssue::class)->getRelatedIssues($issue));
+        $count = count($this->doctrine->getRepository(RelatedIssue::class)->findAllByIssue($issue));
 
         $command = new AddRelatedIssueCommand($issue->getId(), $existing->getId());
 
@@ -82,7 +82,7 @@ final class AddRelatedIssueCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($issue);
 
-        self::assertCount($count, $this->doctrine->getRepository(RelatedIssue::class)->getRelatedIssues($issue));
+        self::assertCount($count, $this->doctrine->getRepository(RelatedIssue::class)->findAllByIssue($issue));
     }
 
     public function testUnknownIssue(): void

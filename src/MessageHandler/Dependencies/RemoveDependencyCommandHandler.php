@@ -78,7 +78,7 @@ final class RemoveDependencyCommandHandler implements CommandHandlerInterface
             throw new NotFoundHttpException('Unknown dependency.');
         }
 
-        $dependencies = $this->dependencyRepository->getDependencies($issue);
+        $dependencies = $this->dependencyRepository->findAllByIssue($issue);
 
         if (in_array($dependency, $dependencies, true)) {
             $event = new Event($issue, $user, EventTypeEnum::DependencyRemoved, $dependency->getFullId());

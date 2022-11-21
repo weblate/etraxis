@@ -34,14 +34,14 @@ final class DependencyRepositoryTest extends TransactionalTestCase
     }
 
     /**
-     * @covers ::getDependencies
+     * @covers ::findAllByIssue
      */
     public function testGetDependencies(): void
     {
         /** @var Issue $issue */
         [$issue] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Support request 6'], ['id' => 'ASC']);
 
-        $dependencies = $this->repository->getDependencies($issue);
+        $dependencies = $this->repository->findAllByIssue($issue);
 
         $expected = [
             ['Distinctio', 'Support request 1'],
@@ -55,14 +55,14 @@ final class DependencyRepositoryTest extends TransactionalTestCase
     }
 
     /**
-     * @covers ::getDependencies
+     * @covers ::findAllByIssue
      */
     public function testGetDependenciesEmpty(): void
     {
         /** @var Issue $issue */
         [$issue] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Support request 4'], ['id' => 'ASC']);
 
-        $dependencies = $this->repository->getDependencies($issue);
+        $dependencies = $this->repository->findAllByIssue($issue);
 
         self::assertEmpty($dependencies);
     }

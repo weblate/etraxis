@@ -77,7 +77,7 @@ final class AddRelatedIssueCommandHandler implements CommandHandlerInterface
             throw new NotFoundHttpException('Unknown related issue.');
         }
 
-        $relatedIssues = $this->relatedIssueRepository->getRelatedIssues($issue);
+        $relatedIssues = $this->relatedIssueRepository->findAllByIssue($issue);
 
         if (!in_array($relatedIssue, $relatedIssues, true)) {
             $event = new Event($issue, $user, EventTypeEnum::RelatedIssueAdded, $relatedIssue->getFullId());

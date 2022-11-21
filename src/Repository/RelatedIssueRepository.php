@@ -58,7 +58,7 @@ class RelatedIssueRepository extends ServiceEntityRepository implements Contract
     /**
      * {@inheritDoc}
      */
-    public function getRelatedIssues(Issue $issue): array
+    public function findAllByIssue(Issue $issue): array
     {
         $query = $this->createQueryBuilder('relatedIssue')
             ->select('relatedIssue')

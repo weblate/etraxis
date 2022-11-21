@@ -46,7 +46,6 @@ final class IssueTest extends TestCase
         self::assertLessThanOrEqual(2, time() - $issue->getCreatedAt());
         self::assertSame($issue->getCreatedAt(), $issue->getChangedAt());
         self::assertEmpty($issue->getEvents());
-        self::assertEmpty($issue->getWatchers());
     }
 
     /**
@@ -514,31 +513,5 @@ final class IssueTest extends TestCase
         $events->add('Event B');
 
         self::assertSame(['Event A', 'Event B'], $issue->getEvents()->getValues());
-    }
-
-    /**
-     * @covers ::getWatchers
-     */
-    public function testWatchers(): void
-    {
-        $template = new Template(new Project());
-        $state    = new State($template, StateTypeEnum::Initial);
-
-        /** @var \Doctrine\Common\Collections\Collection $states */
-        $states = $this->getProperty($template, 'states');
-        $states->add($state);
-
-        $issue = new Issue($template, new User());
-        self::assertEmpty($issue->getEvents());
-
-        $user1 = new User();
-        $user2 = new User();
-
-        /** @var \Doctrine\Common\Collections\Collection $events */
-        $events = $this->getProperty($issue, 'watchers');
-        $events->add(new Watcher($issue, $user1));
-        $events->add(new Watcher($issue, $user2));
-
-        self::assertSame([$user1, $user2], $issue->getWatchers()->getValues());
     }
 }

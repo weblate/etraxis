@@ -103,12 +103,6 @@ class Issue
     protected Collection $events;
 
     /**
-     * List of issue watchers.
-     */
-    #[ORM\OneToMany(mappedBy: 'issue', targetEntity: Watcher::class)]
-    protected Collection $watchers;
-
-    /**
      * Creates new issue using specified template.
      */
     public function __construct(Template $template, User $author)
@@ -124,8 +118,7 @@ class Issue
 
         $this->createdAt = $this->changedAt = time();
 
-        $this->events   = new ArrayCollection();
-        $this->watchers = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     /**
@@ -365,13 +358,5 @@ class Issue
     public function getEvents(): Collection
     {
         return $this->events;
-    }
-
-    /**
-     * Property getter.
-     */
-    public function getWatchers(): Collection
-    {
-        return $this->watchers->map(fn (Watcher $watcher) => $watcher->getUser());
     }
 }

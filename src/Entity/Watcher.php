@@ -27,7 +27,7 @@ class Watcher
      * Watched issue.
      */
     #[ORM\Id]
-    #[ORM\ManyToOne(inversedBy: 'watchers')]
+    #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     protected Issue $issue;
 

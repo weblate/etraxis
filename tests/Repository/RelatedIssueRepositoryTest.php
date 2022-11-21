@@ -34,14 +34,14 @@ final class RelatedIssueRepositoryTest extends TransactionalTestCase
     }
 
     /**
-     * @covers ::getRelatedIssues
+     * @covers ::findAllByIssue
      */
     public function testGetRelatedIssues(): void
     {
         /** @var Issue $issue */
         [$issue] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Development task 8'], ['id' => 'ASC']);
 
-        $relatedIssues = $this->repository->getRelatedIssues($issue);
+        $relatedIssues = $this->repository->findAllByIssue($issue);
 
         $expected = [
             ['Distinctio', 'Development task 2'],
@@ -54,14 +54,14 @@ final class RelatedIssueRepositoryTest extends TransactionalTestCase
     }
 
     /**
-     * @covers ::getRelatedIssues
+     * @covers ::findAllByIssue
      */
     public function testGetRelatedIssuesEmpty(): void
     {
         /** @var Issue $issue */
         [$issue] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Development task 7'], ['id' => 'ASC']);
 
-        $relatedIssues = $this->repository->getRelatedIssues($issue);
+        $relatedIssues = $this->repository->findAllByIssue($issue);
 
         self::assertEmpty($relatedIssues);
     }

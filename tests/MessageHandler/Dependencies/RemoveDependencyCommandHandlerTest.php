@@ -53,7 +53,7 @@ final class RemoveDependencyCommandHandlerTest extends TransactionalTestCase
         /** @var Issue $dependency */
         [/* skipping */ , /* skipping */ , $dependency] = $this->repository->findBy(['subject' => 'Support request 3'], ['id' => 'ASC']);
 
-        $count = count($this->doctrine->getRepository(Dependency::class)->getDependencies($issue));
+        $count = count($this->doctrine->getRepository(Dependency::class)->findAllByIssue($issue));
 
         $command = new RemoveDependencyCommand($issue->getId(), $dependency->getId());
 
@@ -61,7 +61,7 @@ final class RemoveDependencyCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($issue);
 
-        self::assertCount($count - 1, $this->doctrine->getRepository(Dependency::class)->getDependencies($issue));
+        self::assertCount($count - 1, $this->doctrine->getRepository(Dependency::class)->findAllByIssue($issue));
     }
 
     public function testSuccessMissing(): void
@@ -74,7 +74,7 @@ final class RemoveDependencyCommandHandlerTest extends TransactionalTestCase
         /** @var Issue $dependency */
         [/* skipping */ , /* skipping */ , $dependency] = $this->repository->findBy(['subject' => 'Support request 5'], ['id' => 'ASC']);
 
-        $count = count($this->doctrine->getRepository(Dependency::class)->getDependencies($issue));
+        $count = count($this->doctrine->getRepository(Dependency::class)->findAllByIssue($issue));
 
         $command = new RemoveDependencyCommand($issue->getId(), $dependency->getId());
 
@@ -82,7 +82,7 @@ final class RemoveDependencyCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($issue);
 
-        self::assertCount($count, $this->doctrine->getRepository(Dependency::class)->getDependencies($issue));
+        self::assertCount($count, $this->doctrine->getRepository(Dependency::class)->findAllByIssue($issue));
     }
 
     public function testUnknownIssue(): void

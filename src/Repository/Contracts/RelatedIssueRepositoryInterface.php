@@ -34,9 +34,9 @@ interface RelatedIssueRepositoryInterface extends ObjectRepository, Selectable
     public function remove(RelatedIssue $entity, bool $flush = false): void;
 
     /**
-     * Returns all related issues of the specified issue.
+     * Finds all related issues of the specified issue.
      *
      * @return Issue[]
      */
-    public function getRelatedIssues(Issue $issue): array;
+    public function findAllByIssue(Issue $issue): array;
 }

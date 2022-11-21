@@ -58,7 +58,7 @@ class DependencyRepository extends ServiceEntityRepository implements Contracts\
     /**
      * {@inheritDoc}
      */
-    public function getDependencies(Issue $issue): array
+    public function findAllByIssue(Issue $issue): array
     {
         $query = $this->createQueryBuilder('dependency')
             ->select('dependency')

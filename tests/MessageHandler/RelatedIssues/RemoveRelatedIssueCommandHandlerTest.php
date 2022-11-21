@@ -53,7 +53,7 @@ final class RemoveRelatedIssueCommandHandlerTest extends TransactionalTestCase
         /** @var Issue $relatedIssue */
         [/* skipping */ , /* skipping */ , $relatedIssue] = $this->repository->findBy(['subject' => 'Development task 2'], ['id' => 'ASC']);
 
-        $count = count($this->doctrine->getRepository(RelatedIssue::class)->getRelatedIssues($issue));
+        $count = count($this->doctrine->getRepository(RelatedIssue::class)->findAllByIssue($issue));
 
         $command = new RemoveRelatedIssueCommand($issue->getId(), $relatedIssue->getId());
 
@@ -61,7 +61,7 @@ final class RemoveRelatedIssueCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($issue);
 
-        self::assertCount($count - 1, $this->doctrine->getRepository(RelatedIssue::class)->getRelatedIssues($issue));
+        self::assertCount($count - 1, $this->doctrine->getRepository(RelatedIssue::class)->findAllByIssue($issue));
     }
 
     public function testSuccessMissing(): void
@@ -74,7 +74,7 @@ final class RemoveRelatedIssueCommandHandlerTest extends TransactionalTestCase
         /** @var Issue $relatedIssue */
         [/* skipping */ , /* skipping */ , $relatedIssue] = $this->repository->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
 
-        $count = count($this->doctrine->getRepository(RelatedIssue::class)->getRelatedIssues($issue));
+        $count = count($this->doctrine->getRepository(RelatedIssue::class)->findAllByIssue($issue));
 
         $command = new RemoveRelatedIssueCommand($issue->getId(), $relatedIssue->getId());
 
@@ -82,7 +82,7 @@ final class RemoveRelatedIssueCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($issue);
 
-        self::assertCount($count, $this->doctrine->getRepository(RelatedIssue::class)->getRelatedIssues($issue));
+        self::assertCount($count, $this->doctrine->getRepository(RelatedIssue::class)->findAllByIssue($issue));
     }
 
     public function testUnknownIssue(): void

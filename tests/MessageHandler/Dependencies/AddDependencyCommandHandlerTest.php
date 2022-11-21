@@ -54,7 +54,7 @@ final class AddDependencyCommandHandlerTest extends TransactionalTestCase
         /** @var Issue $dependency */
         [/* skipping */ , /* skipping */ , $dependency] = $this->repository->findBy(['subject' => 'Support request 4'], ['id' => 'ASC']);
 
-        $count = count($this->doctrine->getRepository(Dependency::class)->getDependencies($issue));
+        $count = count($this->doctrine->getRepository(Dependency::class)->findAllByIssue($issue));
 
         $command = new AddDependencyCommand($issue->getId(), $dependency->getId());
 
@@ -62,7 +62,7 @@ final class AddDependencyCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($issue);
 
-        self::assertCount($count + 1, $this->doctrine->getRepository(Dependency::class)->getDependencies($issue));
+        self::assertCount($count + 1, $this->doctrine->getRepository(Dependency::class)->findAllByIssue($issue));
     }
 
     public function testSuccessExisting(): void
@@ -75,7 +75,7 @@ final class AddDependencyCommandHandlerTest extends TransactionalTestCase
         /** @var Issue $existing */
         [/* skipping */ , /* skipping */ , $existing] = $this->repository->findBy(['subject' => 'Support request 3'], ['id' => 'ASC']);
 
-        $count = count($this->doctrine->getRepository(Dependency::class)->getDependencies($issue));
+        $count = count($this->doctrine->getRepository(Dependency::class)->findAllByIssue($issue));
 
         $command = new AddDependencyCommand($issue->getId(), $existing->getId());
 
@@ -83,7 +83,7 @@ final class AddDependencyCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($issue);
 
-        self::assertCount($count, $this->doctrine->getRepository(Dependency::class)->getDependencies($issue));
+        self::assertCount($count, $this->doctrine->getRepository(Dependency::class)->findAllByIssue($issue));
     }
 
     public function testUnknownIssue(): void

@@ -80,11 +80,11 @@ final class AddDependencyCommandHandler implements CommandHandlerInterface
             throw new NotFoundHttpException('Unknown dependency.');
         }
 
-        if (in_array($issue, $this->dependencyRepository->getDependencies($dependency), true)) {
+        if (in_array($issue, $this->dependencyRepository->findAllByIssue($dependency), true)) {
             throw new BadRequestHttpException($this->translator->trans('error.cross_dependency', locale: $user->getLocale()->value));
         }
 
-        $dependencies = $this->dependencyRepository->getDependencies($issue);
+        $dependencies = $this->dependencyRepository->findAllByIssue($issue);
 
         if (!in_array($dependency, $dependencies, true)) {
             $event = new Event($issue, $user, EventTypeEnum::DependencyAdded, $dependency->getFullId());

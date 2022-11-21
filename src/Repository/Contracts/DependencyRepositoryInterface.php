@@ -34,9 +34,9 @@ interface DependencyRepositoryInterface extends ObjectRepository, Selectable
     public function remove(Dependency $entity, bool $flush = false): void;
 
     /**
-     * Returns all dependencies of the specified issue.
+     * Finds all dependencies of the specified issue.
      *
      * @return Issue[]
      */
-    public function getDependencies(Issue $issue): array;
+    public function findAllByIssue(Issue $issue): array;
 }

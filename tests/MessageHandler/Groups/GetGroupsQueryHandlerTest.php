@@ -494,6 +494,54 @@ final class GetGroupsQueryHandlerTest extends WebTestCase
      * @covers ::__invoke
      * @covers ::queryOrder
      */
+    public function testSortById(): void
+    {
+        $expected = [
+            ['Managers',          'Managers A'],
+            ['Developers',        'Developers A'],
+            ['Clients',           'Clients A'],
+            ['Support Engineers', 'Support Engineers A'],
+            ['Managers',          'Managers B'],
+            ['Developers',        'Developers B'],
+            ['Clients',           'Clients B'],
+            ['Support Engineers', 'Support Engineers B'],
+            ['Managers',          'Managers C'],
+            ['Developers',        'Developers C'],
+            ['Clients',           'Clients C'],
+            ['Support Engineers', 'Support Engineers C'],
+            ['Managers',          'Managers D'],
+            ['Developers',        'Developers D'],
+            ['Clients',           'Clients D'],
+            ['Support Engineers', 'Support Engineers D'],
+            ['Company Staff',     null],
+            ['Company Clients',   null],
+        ];
+
+        $this->loginUser('admin@example.com');
+
+        $order = [
+            GetGroupsQuery::GROUP_ID => AbstractCollectionQuery::SORT_ASC,
+        ];
+
+        $query = new GetGroupsQuery(0, AbstractCollectionQuery::MAX_LIMIT, null, [], $order);
+
+        /** @var \App\Message\Collection $collection */
+        $collection = $this->queryBus->execute($query);
+
+        self::assertSame(18, $collection->getTotal());
+
+        $actual = array_map(fn (Group $group) => [
+            $group->getName(),
+            $group->getDescription(),
+        ], $collection->getItems());
+
+        self::assertSame($expected, $actual);
+    }
+
+    /**
+     * @covers ::__invoke
+     * @covers ::queryOrder
+     */
     public function testSortByProject(): void
     {
         $expected = [

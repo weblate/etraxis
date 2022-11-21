@@ -437,6 +437,61 @@ final class GetUsersQueryHandlerTest extends WebTestCase
      * @covers ::__invoke
      * @covers ::queryOrder
      */
+    public function testSortById(): void
+    {
+        $expected = [
+            ['eTraxis Admin',       'Built-in administrator'],
+            ['Artem Rodygin',       null],
+            ['Albert Einstein',     null],
+            ['Ted Berge',           'Disabled account'],
+            ['Lucas O\'Connell',    'Client A+B+C'],
+            ['Carson Legros',       'Client A+B'],
+            ['Jeramy Mueller',      'Client A+C'],
+            ['Derrick Tillman',     'Client B+C'],
+            ['Hunter Stroman',      'Client A'],
+            ['Alyson Schinner',     'Client B'],
+            ['Denis Murazik',       'Client C'],
+            ['Leland Doyle',        'Manager A+B+C+D'],
+            ['Dorcas Ernser',       'Manager A+B'],
+            ['Berenice O\'Connell', 'Manager A+C'],
+            ['Carolyn Hill',        'Manager B+C'],
+            ['Dangelo Hill',        'Manager A'],
+            ['Emmanuelle Bartell',  'Manager B'],
+            ['Juanita Goodwin',     'Manager C'],
+            ['Francesca Dooley',    'Developer A+B+C'],
+            ['Lola Abshire',        'Developer A+B'],
+            ['Dennis Quigley',      'Developer A+C'],
+            ['Ansel Koepp',         'Developer B+C'],
+            ['Christy McDermott',   'Developer A'],
+            ['Anissa Marvin',       'Developer B'],
+            ['Millie Bogisich',     'Developer C'],
+        ];
+
+        $this->loginUser('admin@example.com');
+
+        $order = [
+            GetUsersQuery::USER_ID => AbstractCollectionQuery::SORT_ASC,
+        ];
+
+        $query = new GetUsersQuery(0, 25, null, [], $order);
+
+        /** @var \App\Message\Collection $collection */
+        $collection = $this->queryBus->execute($query);
+
+        self::assertSame(34, $collection->getTotal());
+
+        $actual = array_map(fn (User $user) => [
+            $user->getFullname(),
+            $user->getDescription(),
+        ], $collection->getItems());
+
+        self::assertSame($expected, $actual);
+    }
+
+    /**
+     * @covers ::__invoke
+     * @covers ::queryOrder
+     */
     public function testSortByEmail(): void
     {
         $expected = [

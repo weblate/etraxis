@@ -660,6 +660,44 @@ final class GetTemplatesQueryHandlerTest extends WebTestCase
      * @covers ::__invoke
      * @covers ::queryOrder
      */
+    public function testSortById(): void
+    {
+        $expected = [
+            ['Development', 'Development Task A'],
+            ['Support',     'Support Request A'],
+            ['Development', 'Development Task B'],
+            ['Support',     'Support Request B'],
+            ['Development', 'Development Task C'],
+            ['Support',     'Support Request C'],
+            ['Development', 'Development Task D'],
+            ['Support',     'Support Request D'],
+        ];
+
+        $this->loginUser('admin@example.com');
+
+        $order = [
+            GetTemplatesQuery::TEMPLATE_ID => AbstractCollectionQuery::SORT_ASC,
+        ];
+
+        $query = new GetTemplatesQuery(0, AbstractCollectionQuery::MAX_LIMIT, null, [], $order);
+
+        /** @var \App\Message\Collection $collection */
+        $collection = $this->queryBus->execute($query);
+
+        self::assertSame(8, $collection->getTotal());
+
+        $actual = array_map(fn (Template $template) => [
+            $template->getName(),
+            $template->getDescription(),
+        ], $collection->getItems());
+
+        self::assertSame($expected, $actual);
+    }
+
+    /**
+     * @covers ::__invoke
+     * @covers ::queryOrder
+     */
     public function testSortByProject(): void
     {
         $expected = [

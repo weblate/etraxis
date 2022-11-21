@@ -362,6 +362,37 @@ final class GetProjectsQueryHandlerTest extends WebTestCase
      * @covers ::__invoke
      * @covers ::queryOrder
      */
+    public function testSortById(): void
+    {
+        $expected = [
+            'Distinctio',
+            'Molestiae',
+            'Excepturi',
+            'Presto',
+        ];
+
+        $this->loginUser('admin@example.com');
+
+        $order = [
+            GetProjectsQuery::PROJECT_ID => AbstractCollectionQuery::SORT_ASC,
+        ];
+
+        $query = new GetProjectsQuery(0, AbstractCollectionQuery::MAX_LIMIT, null, [], $order);
+
+        /** @var \App\Message\Collection $collection */
+        $collection = $this->queryBus->execute($query);
+
+        self::assertSame(4, $collection->getTotal());
+
+        $actual = array_map(fn (Project $project) => $project->getName(), $collection->getItems());
+
+        self::assertSame($expected, $actual);
+    }
+
+    /**
+     * @covers ::__invoke
+     * @covers ::queryOrder
+     */
     public function testSortByName(): void
     {
         $expected = [

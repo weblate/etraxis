@@ -794,6 +794,51 @@ final class GetFieldsQueryHandlerTest extends WebTestCase
      * @covers ::__invoke
      * @covers ::queryOrder
      */
+    public function testSortById(): void
+    {
+        $expected = [
+            ['Priority',      'Distinctio'],
+            ['Description',   'Distinctio'],
+            ['New feature',   'Distinctio'],
+            ['Due date',      'Distinctio'],
+            ['Commit ID',     'Distinctio'],
+            ['Delta',         'Distinctio'],
+            ['Effort',        'Distinctio'],
+            ['Test coverage', 'Distinctio'],
+            ['Issue ID',      'Distinctio'],
+            ['Details',       'Distinctio'],
+            ['Priority',      'Molestiae'],
+            ['Description',   'Molestiae'],
+            ['New feature',   'Molestiae'],
+            ['Due date',      'Molestiae'],
+            ['Commit ID',     'Molestiae'],
+        ];
+
+        $this->loginUser('admin@example.com');
+
+        $order = [
+            GetFieldsQuery::FIELD_ID => AbstractCollectionQuery::SORT_ASC,
+        ];
+
+        $query = new GetFieldsQuery(0, 15, null, [], $order);
+
+        /** @var \App\Message\Collection $collection */
+        $collection = $this->queryBus->execute($query);
+
+        self::assertSame(40, $collection->getTotal());
+
+        $actual = array_map(fn (Field $field) => [
+            $field->getName(),
+            $field->getState()->getTemplate()->getProject()->getName(),
+        ], $collection->getItems());
+
+        self::assertSame($expected, $actual);
+    }
+
+    /**
+     * @covers ::__invoke
+     * @covers ::queryOrder
+     */
     public function testSortByProject(): void
     {
         $expected = [

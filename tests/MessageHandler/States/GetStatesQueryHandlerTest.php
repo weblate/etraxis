@@ -554,6 +554,46 @@ final class GetStatesQueryHandlerTest extends WebTestCase
      * @covers ::__invoke
      * @covers ::queryOrder
      */
+    public function testSortById(): void
+    {
+        $expected = [
+            ['Assigned',   'Distinctio'],
+            ['New',        'Distinctio'],
+            ['Completed',  'Distinctio'],
+            ['Duplicated', 'Distinctio'],
+            ['Submitted',  'Distinctio'],
+            ['Opened',     'Distinctio'],
+            ['Resolved',   'Distinctio'],
+            ['Assigned', 'Molestiae'],
+            ['New',        'Molestiae'],
+            ['Completed',  'Molestiae'],
+        ];
+
+        $this->loginUser('admin@example.com');
+
+        $order = [
+            GetStatesQuery::STATE_ID => AbstractCollectionQuery::SORT_ASC,
+        ];
+
+        $query = new GetStatesQuery(0, 10, null, [], $order);
+
+        /** @var \App\Message\Collection $collection */
+        $collection = $this->queryBus->execute($query);
+
+        self::assertSame(28, $collection->getTotal());
+
+        $actual = array_map(fn (State $state) => [
+            $state->getName(),
+            $state->getTemplate()->getProject()->getName(),
+        ], $collection->getItems());
+
+        self::assertSame($expected, $actual);
+    }
+
+    /**
+     * @covers ::__invoke
+     * @covers ::queryOrder
+     */
     public function testSortByProject(): void
     {
         $expected = [

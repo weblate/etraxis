@@ -80,6 +80,8 @@ final class UpdateIssueCommandHandler implements CommandHandlerInterface
             $issue->getEvents()->add($event);
             $issue->touch();
 
+            $isChanged = false;
+
             // Change the subject.
             if (0 !== mb_strlen($subject) && $issue->getSubject() !== $subject) {
                 $oldValue = $this->stringRepository->get($issue->getSubject())->getId();
@@ -89,6 +91,7 @@ final class UpdateIssueCommandHandler implements CommandHandlerInterface
                 $issue->setSubject($subject);
 
                 $this->changeRepository->persist($change);
+                $isChanged = true;
             }
 
             // Change the fields.
@@ -116,16 +119,23 @@ final class UpdateIssueCommandHandler implements CommandHandlerInterface
 
                 foreach ($fieldValues as $fieldValue) {
                     $oldValue = $fieldValue->getValue();
-
                     $this->valueRepository->setFieldValue($fieldValue, $values[$fieldValue->getField()->getId()]);
-                    $this->valueRepository->persist($fieldValue);
+                    $newValue = $fieldValue->getValue();
 
-                    $change = new Change($event, $fieldValue->getField(), $oldValue, $fieldValue->getValue());
-                    $this->changeRepository->persist($change);
+                    if ($oldValue !== $newValue) {
+                        $change = new Change($event, $fieldValue->getField(), $oldValue, $newValue);
+                        $this->valueRepository->persist($fieldValue);
+                        $this->changeRepository->persist($change);
+                        $isChanged = true;
+                    }
                 }
             }
 
-            $this->issueRepository->persist($issue);
+            if ($isChanged) {
+                $this->issueRepository->persist($issue);
+            } else {
+                $this->issueRepository->refresh($issue);
+            }
         }
     }
 }

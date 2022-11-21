@@ -68,6 +68,14 @@ class IssueRepository extends ServiceEntityRepository implements Contracts\Issue
     }
 
     /**
+     * @codeCoverageIgnore Proxy method
+     */
+    public function refresh(Issue $entity): void
+    {
+        $this->getEntityManager()->refresh($entity);
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function getAllValues(Issue $issue): array

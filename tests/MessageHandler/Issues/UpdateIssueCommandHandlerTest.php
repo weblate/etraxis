@@ -150,6 +150,77 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
         self::assertNull($event->getParameter());
     }
 
+    public function testSuccessNoChanges(): void
+    {
+        $this->loginUser('ldoyle@example.com');
+
+        $index = [
+            'Commit ID'     => 0,
+            'Delta'         => 1,
+            'Description'   => 2,
+            'Due date'      => 3,
+            'Effort'        => 4,
+            'Error'         => 5,
+            'Priority'      => 6,
+            'Test coverage' => 7,
+        ];
+
+        /** @var \App\Repository\Contracts\DecimalValueRepositoryInterface $decimalRepository */
+        $decimalRepository = $this->doctrine->getRepository(DecimalValue::class);
+
+        /** @var \App\Repository\Contracts\TextValueRepositoryInterface $textRepository */
+        $textRepository = $this->doctrine->getRepository(TextValue::class);
+
+        /** @var \App\Repository\Contracts\ListItemRepositoryInterface $listRepository */
+        $listRepository = $this->doctrine->getRepository(ListItem::class);
+
+        /** @var Issue $issue */
+        [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
+        self::assertNotNull($issue);
+
+        $values = $this->repository->getLatestValues($issue);
+
+        usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
+
+        self::assertGreaterThan(2, time() - $issue->getChangedAt());
+        self::assertSame('Development task 1', $issue->getSubject());
+        self::assertSame('normal', $listRepository->find($values[$index['Priority']]->getValue())->getText());
+        self::assertSame('Quas sunt reprehenderit vero accusantium.', $textRepository->find($values[$index['Description']]->getValue())->getValue());
+        self::assertSame(0, $values[$index['Error']]->getValue());
+        self::assertNull($values[$index['Due date']]->getValue());
+        self::assertNull($values[$index['Commit ID']]->getValue());
+        self::assertSame(5173, $values[$index['Delta']]->getValue());
+        self::assertSame(1440, $values[$index['Effort']]->getValue());
+        self::assertSame('98.49', $decimalRepository->find($values[$index['Test coverage']]->getValue())->getValue());
+
+        $events  = count($issue->getEvents());
+        $changes = count($this->doctrine->getRepository(Change::class)->findAll());
+
+        $command = new UpdateIssueCommand($issue->getId(), 'Development task 1', null);
+
+        $this->commandBus->handle($command);
+
+        $this->doctrine->getManager()->refresh($issue);
+
+        $values = $this->repository->getLatestValues($issue);
+
+        usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
+
+        self::assertGreaterThan(2, time() - $issue->getChangedAt());
+        self::assertSame('Development task 1', $issue->getSubject());
+        self::assertSame('normal', $listRepository->find($values[$index['Priority']]->getValue())->getText());
+        self::assertSame('Quas sunt reprehenderit vero accusantium.', $textRepository->find($values[$index['Description']]->getValue())->getValue());
+        self::assertSame(0, $values[$index['Error']]->getValue());
+        self::assertNull($values[$index['Due date']]->getValue());
+        self::assertNull($values[$index['Commit ID']]->getValue());
+        self::assertSame(5173, $values[$index['Delta']]->getValue());
+        self::assertSame(1440, $values[$index['Effort']]->getValue());
+        self::assertSame('98.49', $decimalRepository->find($values[$index['Test coverage']]->getValue())->getValue());
+
+        self::assertCount($events, $issue->getEvents());
+        self::assertCount($changes, $this->doctrine->getRepository(Change::class)->findAll());
+    }
+
     public function testSuccessOnlySubject(): void
     {
         $this->loginUser('ldoyle@example.com');

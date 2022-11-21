@@ -35,6 +35,11 @@ interface IssueRepositoryInterface extends ObjectRepository, Selectable
     public function remove(Issue $entity, bool $flush = false): void;
 
     /**
+     * @see \Doctrine\Persistence\ObjectManager::refresh()
+     */
+    public function refresh(Issue $entity): void;
+
+    /**
      * Returns all field values of the specified issue.
      *
      * @return \App\Entity\FieldValue[]

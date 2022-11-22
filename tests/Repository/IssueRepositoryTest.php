@@ -14,6 +14,7 @@
 namespace App\Repository;
 
 use App\Entity\Enums\EventTypeEnum;
+use App\Entity\Enums\FieldPermissionEnum;
 use App\Entity\Enums\SecondsEnum;
 use App\Entity\FieldValue;
 use App\Entity\Issue;
@@ -51,7 +52,7 @@ final class IssueRepositoryTest extends TransactionalTestCase
         $textValue   = $this->doctrine->getRepository(TextValue::class)->get('Velit voluptatem rerum nulla quos soluta excepturi omnis.');
         [$listItem]  = $this->doctrine->getRepository(ListItem::class)->findBy(['text' => 'high'], ['id' => 'ASC']);
 
-        $values = $this->repository->getAllValues($issue);
+        $values = $this->repository->getAllValues($issue, null);
 
         $expected = [
             ['Priority', $listItem->getId()],
@@ -75,6 +76,141 @@ final class IssueRepositoryTest extends TransactionalTestCase
     }
 
     /**
+     * @covers ::getAllValues
+     */
+    public function testGetAllValuesByManagerToRead(): void
+    {
+        /** @var Issue $issue */
+        [$issue] = $this->repository->findBy(['subject' => 'Development task 8'], ['id' => 'ASC']);
+
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('ldoyle@example.com');
+
+        $textValue   = $this->doctrine->getRepository(TextValue::class)->get('Esse labore et ducimus consequuntur labore voluptatem atque.');
+        [$listItem]  = $this->doctrine->getRepository(ListItem::class)->findBy(['text' => 'high'], ['id' => 'ASC']);
+
+        $values = $this->repository->getAllValues($issue, $user);
+
+        $expected = [
+            ['Priority', $listItem->getId()],
+            ['Description', $textValue->getId()],
+            ['New feature', 0],
+            ['Due date', $issue->getCreatedAt() + 6 * SecondsEnum::OneDay->value],
+        ];
+
+        $actual = array_map(fn (FieldValue $fieldValue) => [$fieldValue->getField()->getName(), $fieldValue->getValue()], $values);
+
+        self::assertCount(4, $values);
+        self::assertSame($expected, $actual);
+    }
+
+    /**
+     * @covers ::getAllValues
+     */
+    public function testGetAllValuesByManagerToWrite(): void
+    {
+        /** @var Issue $issue */
+        [$issue] = $this->repository->findBy(['subject' => 'Development task 8'], ['id' => 'ASC']);
+
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('ldoyle@example.com');
+
+        $textValue   = $this->doctrine->getRepository(TextValue::class)->get('Esse labore et ducimus consequuntur labore voluptatem atque.');
+        [$listItem]  = $this->doctrine->getRepository(ListItem::class)->findBy(['text' => 'high'], ['id' => 'ASC']);
+
+        $values = $this->repository->getAllValues($issue, $user, FieldPermissionEnum::ReadAndWrite);
+
+        $expected = [
+            ['Priority', $listItem->getId()],
+            ['Description', $textValue->getId()],
+            ['New feature', 0],
+            ['Due date', $issue->getCreatedAt() + 6 * SecondsEnum::OneDay->value],
+        ];
+
+        $actual = array_map(fn (FieldValue $fieldValue) => [$fieldValue->getField()->getName(), $fieldValue->getValue()], $values);
+
+        self::assertCount(4, $values);
+        self::assertSame($expected, $actual);
+    }
+
+    /**
+     * @covers ::getAllValues
+     */
+    public function testGetAllValuesByDeveloperToRead(): void
+    {
+        /** @var Issue $issue */
+        [$issue] = $this->repository->findBy(['subject' => 'Development task 8'], ['id' => 'ASC']);
+
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('fdooley@example.com');
+
+        $textValue   = $this->doctrine->getRepository(TextValue::class)->get('Esse labore et ducimus consequuntur labore voluptatem atque.');
+        [$listItem]  = $this->doctrine->getRepository(ListItem::class)->findBy(['text' => 'high'], ['id' => 'ASC']);
+
+        $values = $this->repository->getAllValues($issue, $user);
+
+        $expected = [
+            ['Priority', $listItem->getId()],
+            ['Description', $textValue->getId()],
+            ['New feature', 0],
+        ];
+
+        $actual = array_map(fn (FieldValue $fieldValue) => [$fieldValue->getField()->getName(), $fieldValue->getValue()], $values);
+
+        self::assertCount(3, $values);
+        self::assertSame($expected, $actual);
+    }
+
+    /**
+     * @covers ::getAllValues
+     */
+    public function testGetAllValuesByDeveloperToWrite(): void
+    {
+        /** @var Issue $issue */
+        [$issue] = $this->repository->findBy(['subject' => 'Development task 8'], ['id' => 'ASC']);
+
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('fdooley@example.com');
+
+        $values = $this->repository->getAllValues($issue, $user, FieldPermissionEnum::ReadAndWrite);
+
+        self::assertEmpty($values);
+    }
+
+    /**
+     * @covers ::getAllValues
+     */
+    public function testGetAllValuesByResponsibleToRead(): void
+    {
+        /** @var Issue $issue */
+        [$issue] = $this->repository->findBy(['subject' => 'Development task 8'], ['id' => 'ASC']);
+
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('nhills@example.com');
+
+        $values = $this->repository->getAllValues($issue, $user);
+
+        $expected = [
+            ['Due date', $issue->getCreatedAt() + 6 * SecondsEnum::OneDay->value],
+        ];
+
+        $actual = array_map(fn (FieldValue $fieldValue) => [$fieldValue->getField()->getName(), $fieldValue->getValue()], $values);
+
+        self::assertCount(1, $values);
+        self::assertSame($expected, $actual);
+    }
+
+    /**
+     * @covers ::getAllValues
+     */
+    public function testGetAllValuesByResponsibleToWrite(): void
+    {
+        /** @var Issue $issue */
+        [$issue] = $this->repository->findBy(['subject' => 'Development task 8'], ['id' => 'ASC']);
+
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('nhills@example.com');
+
+        $values = $this->repository->getAllValues($issue, $user, FieldPermissionEnum::ReadAndWrite);
+
+        self::assertEmpty($values);
+    }
+
+    /**
      * @covers ::getLatestValues
      */
     public function testGetLatestValues(): void
@@ -86,7 +222,7 @@ final class IssueRepositoryTest extends TransactionalTestCase
         $textValue   = $this->doctrine->getRepository(TextValue::class)->get('Velit voluptatem rerum nulla quos soluta excepturi omnis.');
         [$listItem]  = $this->doctrine->getRepository(ListItem::class)->findBy(['text' => 'high'], ['id' => 'ASC']);
 
-        $values = $this->repository->getLatestValues($issue);
+        $values = $this->repository->getLatestValues($issue, null);
 
         $expected = [
             ['Commit ID', $stringValue->getId()],

@@ -86,7 +86,7 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
         [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
         self::assertNotNull($issue);
 
-        $values = $this->repository->getLatestValues($issue);
+        $values = $this->repository->getLatestValues($issue, null);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -119,7 +119,7 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($issue);
 
-        $values = $this->repository->getLatestValues($issue);
+        $values = $this->repository->getLatestValues($issue, null);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -178,7 +178,7 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
         [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
         self::assertNotNull($issue);
 
-        $values = $this->repository->getLatestValues($issue);
+        $values = $this->repository->getLatestValues($issue, null);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -202,7 +202,7 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($issue);
 
-        $values = $this->repository->getLatestValues($issue);
+        $values = $this->repository->getLatestValues($issue, null);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -252,7 +252,7 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
         [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
         self::assertNotNull($issue);
 
-        $values = $this->repository->getLatestValues($issue);
+        $values = $this->repository->getLatestValues($issue, null);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -276,7 +276,7 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($issue);
 
-        $values = $this->repository->getLatestValues($issue);
+        $values = $this->repository->getLatestValues($issue, null);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -335,7 +335,7 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
         [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
         self::assertNotNull($issue);
 
-        $values = $this->repository->getLatestValues($issue);
+        $values = $this->repository->getLatestValues($issue, null);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -362,7 +362,7 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($issue);
 
-        $values = $this->repository->getLatestValues($issue);
+        $values = $this->repository->getLatestValues($issue, null);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -388,6 +388,199 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
         self::assertSame($user, $event->getUser());
         self::assertLessThanOrEqual(2, time() - $event->getCreatedAt());
         self::assertNull($event->getParameter());
+    }
+
+    public function testSuccessAsManager(): void
+    {
+        // Manager can edit all 4 existing field values.
+        $this->loginUser('ldoyle@example.com');
+
+        $index = [
+            'Description' => 0,
+            'Due date'    => 1,
+            'New feature' => 2,
+            'Priority'    => 3,
+        ];
+
+        /** @var \App\Repository\Contracts\TextValueRepositoryInterface $textRepository */
+        $textRepository = $this->doctrine->getRepository(TextValue::class);
+
+        /** @var \App\Repository\Contracts\ListItemRepositoryInterface $listRepository */
+        $listRepository = $this->doctrine->getRepository(ListItem::class);
+
+        /** @var User $user */
+        $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'ldoyle@example.com']);
+
+        /** @var Issue $issue */
+        [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 8'], ['id' => 'ASC']);
+
+        $values = $this->repository->getLatestValues($issue, null);
+
+        usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
+
+        $date = date_create();
+        $date->setTimezone(timezone_open($user->getTimezone()));
+
+        self::assertGreaterThan(2, time() - $issue->getChangedAt());
+        self::assertSame('Development task 8', $issue->getSubject());
+        self::assertSame('high', $listRepository->find($values[$index['Priority']]->getValue())->getText());
+        self::assertSame('Esse labore et ducimus consequuntur labore voluptatem atque.', $textRepository->find($values[$index['Description']]->getValue())->getValue());
+        self::assertSame(0, $values[$index['New feature']]->getValue());
+        self::assertSame('2017-09-22', $date->setTimestamp($values[$index['Due date']]->getValue())->format('Y-m-d'));
+
+        $events  = count($issue->getEvents());
+        $changes = count($this->doctrine->getRepository(Change::class)->findAll());
+
+        $command = new UpdateIssueCommand($issue->getId(), 'Test issue', [
+            $values[$index['Priority']]->getField()->getId()    => 2,
+            $values[$index['Description']]->getField()->getId() => 'Est dolorum omnis accusantium hic veritatis ut.',
+            $values[$index['New feature']]->getField()->getId() => true,
+            $values[$index['Due date']]->getField()->getId()    => '2017-10-01',
+        ]);
+
+        $this->commandBus->handle($command);
+
+        $this->doctrine->getManager()->refresh($issue);
+
+        $values = $this->repository->getLatestValues($issue, null);
+
+        usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
+
+        $date = date_create();
+        $date->setTimezone(timezone_open($user->getTimezone()));
+
+        self::assertLessThanOrEqual(2, time() - $issue->getChangedAt());
+        self::assertSame('Test issue', $issue->getSubject());
+        self::assertSame('normal', $listRepository->find($values[$index['Priority']]->getValue())->getText());
+        self::assertSame('Est dolorum omnis accusantium hic veritatis ut.', $textRepository->find($values[$index['Description']]->getValue())->getValue());
+        self::assertSame(1, $values[$index['New feature']]->getValue());
+        self::assertSame('2017-10-01', $date->setTimestamp($values[$index['Due date']]->getValue())->format('Y-m-d'));
+
+        self::assertCount($events + 1, $issue->getEvents());
+        self::assertCount($changes + 5, $this->doctrine->getRepository(Change::class)->findAll());
+
+        /** @var \App\Entity\Event $event */
+        $event = $issue->getEvents()->last();
+
+        self::assertSame(EventTypeEnum::IssueEdited, $event->getType());
+        self::assertSame($issue, $event->getIssue());
+        self::assertSame($user, $event->getUser());
+        self::assertLessThanOrEqual(2, time() - $event->getCreatedAt());
+        self::assertNull($event->getParameter());
+    }
+
+    public function testSuccessAsAuthor(): void
+    {
+        $this->loginUser('dquigley@example.com');
+
+        $index = [
+            'Description' => 0,
+            'Due date'    => 1, // can't read or write this field
+            'New feature' => 2,
+            'Priority'    => 3, // can't write this field
+        ];
+
+        /** @var \App\Repository\Contracts\TextValueRepositoryInterface $textRepository */
+        $textRepository = $this->doctrine->getRepository(TextValue::class);
+
+        /** @var \App\Repository\Contracts\ListItemRepositoryInterface $listRepository */
+        $listRepository = $this->doctrine->getRepository(ListItem::class);
+
+        /** @var User $user */
+        $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'dquigley@example.com']);
+
+        /** @var Issue $issue */
+        [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 8'], ['id' => 'ASC']);
+
+        $values = $this->repository->getLatestValues($issue, null);
+
+        usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
+
+        $date = date_create();
+        $date->setTimezone(timezone_open($user->getTimezone()));
+
+        self::assertGreaterThan(2, time() - $issue->getChangedAt());
+        self::assertSame('Development task 8', $issue->getSubject());
+        self::assertSame('high', $listRepository->find($values[$index['Priority']]->getValue())->getText());
+        self::assertSame('Esse labore et ducimus consequuntur labore voluptatem atque.', $textRepository->find($values[$index['Description']]->getValue())->getValue());
+        self::assertSame(0, $values[$index['New feature']]->getValue());
+        self::assertSame('2017-09-22', $date->setTimestamp($values[$index['Due date']]->getValue())->format('Y-m-d'));
+
+        $events  = count($issue->getEvents());
+        $changes = count($this->doctrine->getRepository(Change::class)->findAll());
+
+        $command = new UpdateIssueCommand($issue->getId(), 'Test issue', [
+            // we don't specify "Priority" as the author can't edit this field
+            $values[$index['Description']]->getField()->getId() => 'Est dolorum omnis accusantium hic veritatis ut.',
+            $values[$index['New feature']]->getField()->getId() => true,
+            // we don't specify "Due date" as the author can't edit this field
+        ]);
+
+        $this->commandBus->handle($command);
+
+        $this->doctrine->getManager()->refresh($issue);
+
+        $values = $this->repository->getLatestValues($issue, null);
+
+        usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
+
+        $date = date_create();
+        $date->setTimezone(timezone_open($user->getTimezone()));
+
+        self::assertLessThanOrEqual(2, time() - $issue->getChangedAt());
+        self::assertSame('Test issue', $issue->getSubject());
+        self::assertSame('high', $listRepository->find($values[$index['Priority']]->getValue())->getText());
+        self::assertSame('Est dolorum omnis accusantium hic veritatis ut.', $textRepository->find($values[$index['Description']]->getValue())->getValue());
+        self::assertSame(1, $values[$index['New feature']]->getValue());
+        self::assertSame('2017-09-22', $date->setTimestamp($values[$index['Due date']]->getValue())->format('Y-m-d'));
+
+        self::assertCount($events + 1, $issue->getEvents());
+        self::assertCount($changes + 3, $this->doctrine->getRepository(Change::class)->findAll());
+
+        /** @var \App\Entity\Event $event */
+        $event = $issue->getEvents()->last();
+
+        self::assertSame(EventTypeEnum::IssueEdited, $event->getType());
+        self::assertSame($issue, $event->getIssue());
+        self::assertSame($user, $event->getUser());
+        self::assertLessThanOrEqual(2, time() - $event->getCreatedAt());
+        self::assertNull($event->getParameter());
+    }
+
+    public function testFailedAsAuthor(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('dquigley@example.com');
+
+        $index = [
+            'Description' => 0,
+            'Due date'    => 1, // can't read or write this field
+            'New feature' => 2,
+            'Priority'    => 3,
+        ];
+
+        /** @var Issue $issue */
+        [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 8'], ['id' => 'ASC']);
+
+        $values = $this->repository->getLatestValues($issue, null);
+
+        usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
+
+        $command = new UpdateIssueCommand($issue->getId(), 'Test issue', [
+            $values[$index['Priority']]->getField()->getId()    => 2,
+            $values[$index['Description']]->getField()->getId() => 'Est dolorum omnis accusantium hic veritatis ut.',
+            $values[$index['New feature']]->getField()->getId() => true,
+            $values[$index['Due date']]->getField()->getId()    => '2017-10-01',
+        ]);
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This field was not expected.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
     }
 
     public function testValidationSubjectLength(): void
@@ -419,7 +612,7 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
         /** @var Issue $issue */
         [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
 
-        $values = $this->repository->getLatestValues($issue);
+        $values = $this->repository->getLatestValues($issue, null);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 

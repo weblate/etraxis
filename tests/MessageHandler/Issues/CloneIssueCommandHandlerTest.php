@@ -108,7 +108,7 @@ final class CloneIssueCommandHandlerTest extends TransactionalTestCase
 
         /** @var FieldValue[] $values */
         $values = array_filter(
-            $this->repository->getAllValues($issue),
+            $this->repository->getAllValues($issue, null),
             fn (FieldValue $value) => $value->getField()->getState() === $origin->getTemplate()->getInitialState()
         );
 
@@ -298,7 +298,7 @@ final class CloneIssueCommandHandlerTest extends TransactionalTestCase
 
         /** @var FieldValue[] $values */
         $values = array_filter(
-            $this->repository->getAllValues($issue),
+            $this->repository->getAllValues($issue, null),
             fn (FieldValue $value) => $value->getField()->getState() === $origin->getTemplate()->getInitialState()
         );
 

@@ -109,7 +109,7 @@ final class CreateIssueCommandHandlerTest extends TransactionalTestCase
 
         /** @var FieldValue[] $values */
         $values = array_filter(
-            $this->repository->getAllValues($issue),
+            $this->repository->getAllValues($issue, null),
             fn (FieldValue $value) => $value->getField()->getState() === $template->getInitialState()
         );
 
@@ -299,7 +299,7 @@ final class CreateIssueCommandHandlerTest extends TransactionalTestCase
 
         /** @var FieldValue[] $values */
         $values = array_filter(
-            $this->repository->getAllValues($issue),
+            $this->repository->getAllValues($issue, null),
             fn (FieldValue $value) => $value->getField()->getState() === $template->getInitialState()
         );
 

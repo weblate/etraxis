@@ -69,7 +69,7 @@ final class ChangeStateCommandHandlerTest extends TransactionalTestCase
         [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 6'], ['id' => 'ASC']);
         self::assertNotNull($issue);
 
-        $values = $this->repository->getAllValues($issue);
+        $values = $this->repository->getAllValues($issue, null);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -92,7 +92,7 @@ final class ChangeStateCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($issue);
 
-        $values = $this->repository->getAllValues($issue);
+        $values = $this->repository->getAllValues($issue, null);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -149,7 +149,7 @@ final class ChangeStateCommandHandlerTest extends TransactionalTestCase
         [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 8'], ['id' => 'ASC']);
         self::assertNotNull($issue);
 
-        $values = $this->repository->getAllValues($issue);
+        $values = $this->repository->getAllValues($issue, null);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -171,7 +171,7 @@ final class ChangeStateCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($issue);
 
-        $values = $this->repository->getAllValues($issue);
+        $values = $this->repository->getAllValues($issue, null);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -221,7 +221,7 @@ final class ChangeStateCommandHandlerTest extends TransactionalTestCase
         [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 3'], ['id' => 'ASC']);
         self::assertNotNull($issue);
         self::assertNotNull($issue->getClosedAt());
-        self::assertCount(8, $this->repository->getAllValues($issue));
+        self::assertCount(8, $this->repository->getAllValues($issue, null));
 
         $events = count($issue->getEvents());
 
@@ -238,7 +238,7 @@ final class ChangeStateCommandHandlerTest extends TransactionalTestCase
         self::assertNull($issue->getResponsible());
         self::assertLessThanOrEqual(2, time() - $issue->getChangedAt());
         self::assertNull($issue->getClosedAt());
-        self::assertCount(11, $this->repository->getAllValues($issue));
+        self::assertCount(11, $this->repository->getAllValues($issue, null));
         self::assertCount($events + 1, $issue->getEvents());
 
         /** @var \App\Entity\Event $event */
@@ -268,7 +268,7 @@ final class ChangeStateCommandHandlerTest extends TransactionalTestCase
         [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 6'], ['id' => 'ASC']);
         self::assertNotNull($issue);
 
-        $values = $this->repository->getAllValues($issue);
+        $values = $this->repository->getAllValues($issue, null);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -285,7 +285,7 @@ final class ChangeStateCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($issue);
 
-        $values = $this->repository->getAllValues($issue);
+        $values = $this->repository->getAllValues($issue, null);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -320,7 +320,7 @@ final class ChangeStateCommandHandlerTest extends TransactionalTestCase
         [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 8'], ['id' => 'ASC']);
         self::assertNotNull($issue);
 
-        $values = $this->repository->getAllValues($issue);
+        $values = $this->repository->getAllValues($issue, null);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -340,7 +340,7 @@ final class ChangeStateCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($issue);
 
-        $values = $this->repository->getAllValues($issue);
+        $values = $this->repository->getAllValues($issue, null);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 

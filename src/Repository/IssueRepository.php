@@ -15,6 +15,7 @@ namespace App\Repository;
 
 use App\Entity\Dependency;
 use App\Entity\Enums\EventTypeEnum;
+use App\Entity\Enums\FieldPermissionEnum;
 use App\Entity\Enums\StateTypeEnum;
 use App\Entity\Enums\SystemRoleEnum;
 use App\Entity\Enums\TemplatePermissionEnum;
@@ -78,7 +79,7 @@ class IssueRepository extends ServiceEntityRepository implements Contracts\Issue
     /**
      * {@inheritDoc}
      */
-    public function getAllValues(Issue $issue): array
+    public function getAllValues(Issue $issue, ?User $user, FieldPermissionEnum $permission = FieldPermissionEnum::ReadOnly): array
     {
         $query = $this->getEntityManager()->createQueryBuilder();
 
@@ -88,16 +89,56 @@ class IssueRepository extends ServiceEntityRepository implements Contracts\Issue
             ->addSelect('field')
             ->addSelect('event')
             ->addSelect('state')
+            ->addSelect('issue')
             ->from(FieldValue::class, 'value')
             ->innerJoin('value.transition', 'transition')
             ->innerJoin('value.field', 'field')
             ->innerJoin('transition.event', 'event')
             ->innerJoin('transition.state', 'state')
+            ->innerJoin('event.issue', 'issue')
             ->where('event.issue = :issue')
             ->addOrderBy('event.createdAt')
             ->addOrderBy('field.position')
             ->setParameter('issue', $issue)
         ;
+
+        // Retrieve only fields the user is allowed to access.
+        if (null !== $user) {
+            $query
+                ->leftJoin('field.rolePermissions', 'frp_anyone', Join::WITH, 'frp_anyone.role = :role_anyone')
+                ->leftJoin('field.rolePermissions', 'frp_author', Join::WITH, 'frp_author.role = :role_author')
+                ->leftJoin('field.rolePermissions', 'frp_responsible', Join::WITH, 'frp_responsible.role = :role_responsible')
+                ->leftJoin('field.groupPermissions', 'fgp')
+                ->andWhere($query->expr()->orX(
+                    $query->expr()->in('frp_anyone.permission', ':permissions'),
+                    $query->expr()->andX(
+                        'issue.author = :user',
+                        $query->expr()->in('frp_author.permission', ':permissions')
+                    ),
+                    $query->expr()->andX(
+                        'issue.responsible = :user',
+                        $query->expr()->in('frp_responsible.permission', ':permissions')
+                    ),
+                    $query->expr()->andX(
+                        $query->expr()->in('fgp.group', ':groups'),
+                        $query->expr()->in('fgp.permission', ':permissions')
+                    )
+                ))
+            ;
+
+            $query->setParameters([
+                'issue'            => $issue,
+                'user'             => $user,
+                'groups'           => $user->getGroups(),
+                'role_anyone'      => SystemRoleEnum::Anyone->value,
+                'role_author'      => SystemRoleEnum::Author->value,
+                'role_responsible' => SystemRoleEnum::Responsible->value,
+                'permissions'      => match ($permission) {
+                    FieldPermissionEnum::ReadOnly     => [FieldPermissionEnum::ReadOnly->value, FieldPermissionEnum::ReadAndWrite->value],
+                    FieldPermissionEnum::ReadAndWrite => [FieldPermissionEnum::ReadAndWrite->value],
+                },
+            ]);
+        }
 
         return $query->getQuery()->getResult();
     }
@@ -105,9 +146,9 @@ class IssueRepository extends ServiceEntityRepository implements Contracts\Issue
     /**
      * {@inheritDoc}
      */
-    public function getLatestValues(Issue $issue): array
+    public function getLatestValues(Issue $issue, ?User $user, FieldPermissionEnum $permission = FieldPermissionEnum::ReadOnly): array
     {
-        $fieldValues = $this->getAllValues($issue);
+        $fieldValues = $this->getAllValues($issue, $user, $permission);
 
         $transitions = [];
 

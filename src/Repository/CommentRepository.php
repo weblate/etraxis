@@ -14,6 +14,7 @@
 namespace App\Repository;
 
 use App\Entity\Comment;
+use App\Entity\Issue;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -52,5 +53,28 @@ class CommentRepository extends ServiceEntityRepository implements Contracts\Com
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findAllByIssue(Issue $issue, bool $hidePrivateComments): array
+    {
+        $query = $this->createQueryBuilder('comment')
+            ->innerJoin('comment.event', 'event')
+            ->addSelect('event')
+            ->innerJoin('event.user', 'user')
+            ->addSelect('user')
+            ->where('event.issue = :issue')
+            ->orderBy('event.createdAt', 'ASC')
+            ->setParameter('issue', $issue)
+        ;
+
+        if ($hidePrivateComments) {
+            $query->andWhere('comment.private = :private');
+            $query->setParameter('private', false);
+        }
+
+        return $query->getQuery()->getResult();
     }
 }

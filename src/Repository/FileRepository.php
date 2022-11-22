@@ -14,6 +14,7 @@
 namespace App\Repository;
 
 use App\Entity\File;
+use App\Entity\Issue;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -59,6 +60,25 @@ class FileRepository extends ServiceEntityRepository implements Contracts\FileRe
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findAllByIssue(Issue $issue): array
+    {
+        $query = $this->createQueryBuilder('file')
+            ->innerJoin('file.event', 'event')
+            ->addSelect('event')
+            ->innerJoin('event.user', 'user')
+            ->addSelect('user')
+            ->where('event.issue = :issue')
+            ->andWhere('file.removedAt IS NULL')
+            ->orderBy('event.createdAt', 'ASC')
+            ->setParameter('issue', $issue)
+        ;
+
+        return $query->getQuery()->getResult();
     }
 
     /**

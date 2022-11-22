@@ -14,6 +14,7 @@
 namespace App\Repository\Contracts;
 
 use App\Entity\Event;
+use App\Entity\Issue;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\Persistence\ObjectRepository;
 
@@ -31,4 +32,14 @@ interface EventRepositoryInterface extends ObjectRepository, Selectable
      * @see \Doctrine\Persistence\ObjectManager::remove()
      */
     public function remove(Event $entity, bool $flush = false): void;
+
+    /**
+     * Finds all events of the specified issue.
+     *
+     * @param Issue $issue               Target issue
+     * @param bool  $hidePrivateComments Whether to remove private commenting from the list
+     *
+     * @return Event[]
+     */
+    public function findAllByIssue(Issue $issue, bool $hidePrivateComments): array;
 }

@@ -13,6 +13,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Issue;
 use App\Entity\Watcher;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -52,5 +53,23 @@ class WatcherRepository extends ServiceEntityRepository implements Contracts\Wat
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findAllByIssue(Issue $issue): array
+    {
+        $query = $this->createQueryBuilder('watcher')
+            ->innerJoin('watcher.user', 'user')
+            ->addSelect('user')
+            ->where('watcher.issue = :issue')
+            ->setParameter('issue', $issue)
+        ;
+
+        /** @var Watcher[] $watchers */
+        $watchers = $query->getQuery()->getResult();
+
+        return array_map(fn (Watcher $watcher) => $watcher->getUser(), $watchers);
     }
 }

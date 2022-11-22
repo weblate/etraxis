@@ -14,6 +14,7 @@
 namespace App\Repository\Contracts;
 
 use App\Entity\File;
+use App\Entity\Issue;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\Persistence\ObjectRepository;
 
@@ -31,6 +32,13 @@ interface FileRepositoryInterface extends ObjectRepository, Selectable
      * @see \Doctrine\Persistence\ObjectManager::remove()
      */
     public function remove(File $entity, bool $flush = false): void;
+
+    /**
+     * Finds all files currently attached to the specified issue.
+     *
+     * @return File[]
+     */
+    public function findAllByIssue(Issue $issue): array;
 
     /**
      * Returns absolute path including filename to the specified attachment.

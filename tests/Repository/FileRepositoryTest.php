@@ -14,6 +14,7 @@
 namespace App\Repository;
 
 use App\Entity\File;
+use App\Entity\Issue;
 use App\TransactionalTestCase;
 
 /**
@@ -30,6 +31,25 @@ final class FileRepositoryTest extends TransactionalTestCase
         parent::setUp();
 
         $this->repository = $this->doctrine->getRepository(File::class);
+    }
+
+    /**
+     * @covers ::findAllByIssue
+     */
+    public function testFindAllByIssue(): void
+    {
+        $expected = [
+            'Beatae nesciunt natus suscipit iure assumenda commodi.docx',
+            'Nesciunt nulla sint amet.xslx',
+        ];
+
+        /** @var Issue $issue */
+        [$issue] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Development task 2'], ['id' => 'ASC']);
+
+        $files  = $this->repository->findAllByIssue($issue);
+        $actual = array_map(fn (File $file) => $file->getFileName(), $files);
+
+        self::assertSame($expected, $actual);
     }
 
     /**

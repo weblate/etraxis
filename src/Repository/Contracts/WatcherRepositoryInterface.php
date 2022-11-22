@@ -13,6 +13,8 @@
 
 namespace App\Repository\Contracts;
 
+use App\Entity\Issue;
+use App\Entity\User;
 use App\Entity\Watcher;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\Persistence\ObjectRepository;
@@ -31,4 +33,11 @@ interface WatcherRepositoryInterface extends ObjectRepository, Selectable
      * @see \Doctrine\Persistence\ObjectManager::remove()
      */
     public function remove(Watcher $entity, bool $flush = false): void;
+
+    /**
+     * Finds all watchers of the specified issue.
+     *
+     * @return User[]
+     */
+    public function findAllByIssue(Issue $issue): array;
 }

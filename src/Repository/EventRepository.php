@@ -13,7 +13,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Enums\EventTypeEnum;
 use App\Entity\Event;
+use App\Entity\Issue;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -52,5 +54,27 @@ class EventRepository extends ServiceEntityRepository implements Contracts\Event
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findAllByIssue(Issue $issue, bool $hidePrivateComments): array
+    {
+        $query = $this->createQueryBuilder('event')
+            ->innerJoin('event.user', 'user')
+            ->addSelect('user')
+            ->where('event.issue = :issue')
+            ->orderBy('event.createdAt', 'ASC')
+            ->addOrderBy('event.id', 'ASC')
+            ->setParameter('issue', $issue)
+        ;
+
+        if ($hidePrivateComments) {
+            $query->andWhere('event.type != :private');
+            $query->setParameter('private', EventTypeEnum::PrivateComment);
+        }
+
+        return $query->getQuery()->getResult();
     }
 }

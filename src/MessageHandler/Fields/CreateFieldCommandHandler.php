@@ -54,7 +54,7 @@ final class CreateFieldCommandHandler implements CommandHandlerInterface
      * @throws ConflictHttpException
      * @throws NotFoundHttpException
      */
-    public function __invoke(CreateFieldCommand $command): void
+    public function __invoke(CreateFieldCommand $command): Field
     {
         /** @var null|\App\Entity\State $state */
         $state = $this->stateRepository->find($command->getState());
@@ -99,5 +99,7 @@ final class CreateFieldCommandHandler implements CommandHandlerInterface
         }
 
         $this->fieldRepository->persist($field);
+
+        return $field;
     }
 }

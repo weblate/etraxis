@@ -65,11 +65,12 @@ final class CreateStateCommandHandlerTest extends TransactionalTestCase
             StateResponsibleEnum::Keep
         );
 
-        $this->commandBus->handle($command);
+        $result = $this->commandBus->handleWithResult($command);
 
         /** @var State $state */
         $state = $this->repository->findOneBy(['name' => 'Started']);
         self::assertInstanceOf(State::class, $state);
+        self::assertSame($state, $result);
 
         self::assertSame($template, $state->getTemplate());
         self::assertSame('Started', $state->getName());
@@ -99,11 +100,12 @@ final class CreateStateCommandHandlerTest extends TransactionalTestCase
             StateResponsibleEnum::Keep
         );
 
-        $this->commandBus->handle($command);
+        $result = $this->commandBus->handleWithResult($command);
 
         /** @var State $state */
         $state = $this->repository->findOneBy(['name' => 'Created']);
         self::assertInstanceOf(State::class, $state);
+        self::assertSame($state, $result);
 
         self::assertSame($template, $state->getTemplate());
         self::assertSame('Created', $state->getName());

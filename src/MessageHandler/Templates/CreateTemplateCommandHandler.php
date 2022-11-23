@@ -48,7 +48,7 @@ final class CreateTemplateCommandHandler implements CommandHandlerInterface
      * @throws ConflictHttpException
      * @throws NotFoundHttpException
      */
-    public function __invoke(CreateTemplateCommand $command): void
+    public function __invoke(CreateTemplateCommand $command): Template
     {
         /** @var null|\App\Entity\Project $project */
         $project = $this->projectRepository->find($command->getProject());
@@ -79,5 +79,7 @@ final class CreateTemplateCommandHandler implements CommandHandlerInterface
         }
 
         $this->templateRepository->persist($template);
+
+        return $template;
     }
 }

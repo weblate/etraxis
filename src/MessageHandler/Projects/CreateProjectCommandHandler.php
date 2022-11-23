@@ -44,7 +44,7 @@ final class CreateProjectCommandHandler implements CommandHandlerInterface
      * @throws AccessDeniedHttpException
      * @throws ConflictHttpException
      */
-    public function __invoke(CreateProjectCommand $command): void
+    public function __invoke(CreateProjectCommand $command): Project
     {
         if (!$this->security->isGranted(ProjectVoter::CREATE_PROJECT)) {
             throw new AccessDeniedHttpException('You are not allowed to create new project.');
@@ -65,5 +65,7 @@ final class CreateProjectCommandHandler implements CommandHandlerInterface
         }
 
         $this->repository->persist($project);
+
+        return $project;
     }
 }

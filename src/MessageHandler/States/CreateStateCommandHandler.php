@@ -51,7 +51,7 @@ final class CreateStateCommandHandler implements CommandHandlerInterface
      * @throws ConflictHttpException
      * @throws NotFoundHttpException
      */
-    public function __invoke(CreateStateCommand $command): void
+    public function __invoke(CreateStateCommand $command): State
     {
         /** @var null|\App\Entity\Template $template */
         $template = $this->templateRepository->find($command->getTemplate());
@@ -93,5 +93,7 @@ final class CreateStateCommandHandler implements CommandHandlerInterface
         }
 
         $this->stateRepository->persist($state);
+
+        return $state;
     }
 }

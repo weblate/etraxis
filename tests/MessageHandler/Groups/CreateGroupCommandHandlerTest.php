@@ -58,11 +58,12 @@ final class CreateGroupCommandHandlerTest extends TransactionalTestCase
 
         $command = new CreateGroupCommand($project->getId(), 'Testers', 'Test Engineers');
 
-        $this->commandBus->handle($command);
+        $result = $this->commandBus->handleWithResult($command);
 
         /** @var Group $group */
         $group = $this->repository->findOneBy(['name' => 'Testers']);
         self::assertInstanceOf(Group::class, $group);
+        self::assertSame($group, $result);
 
         self::assertSame($project, $group->getProject());
         self::assertSame('Testers', $group->getName());
@@ -79,11 +80,12 @@ final class CreateGroupCommandHandlerTest extends TransactionalTestCase
 
         $command = new CreateGroupCommand(null, 'Testers', 'Test Engineers');
 
-        $this->commandBus->handle($command);
+        $result = $this->commandBus->handleWithResult($command);
 
         /** @var Group $group */
         $group = $this->repository->findOneBy(['name' => 'Testers']);
         self::assertInstanceOf(Group::class, $group);
+        self::assertSame($group, $result);
 
         self::assertNull($group->getProject());
         self::assertSame('Testers', $group->getName());

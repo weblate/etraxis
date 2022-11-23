@@ -58,7 +58,7 @@ final class CreateUserCommandHandler implements CommandHandlerInterface
      * @throws ConflictHttpException
      * @throws TransportExceptionInterface
      */
-    public function __invoke(CreateUserCommand $command): void
+    public function __invoke(CreateUserCommand $command): User
     {
         if (!$this->security->isGranted(UserVoter::CREATE_USER)) {
             throw new AccessDeniedHttpException('You are not allowed to create new user.');
@@ -108,5 +108,7 @@ final class CreateUserCommandHandler implements CommandHandlerInterface
         $this->mailer->send($message);
 
         $this->repository->persist($user);
+
+        return $user;
     }
 }

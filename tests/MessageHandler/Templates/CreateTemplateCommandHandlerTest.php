@@ -58,11 +58,12 @@ final class CreateTemplateCommandHandlerTest extends TransactionalTestCase
 
         $command = new CreateTemplateCommand($project->getId(), 'Bugfix', 'bug', 'Error reports', 5, 10);
 
-        $this->commandBus->handle($command);
+        $result = $this->commandBus->handleWithResult($command);
 
         /** @var Template $template */
         $template = $this->repository->findOneBy(['name' => 'Bugfix']);
         self::assertInstanceOf(Template::class, $template);
+        self::assertSame($template, $result);
 
         self::assertSame($project, $template->getProject());
         self::assertSame('Bugfix', $template->getName());

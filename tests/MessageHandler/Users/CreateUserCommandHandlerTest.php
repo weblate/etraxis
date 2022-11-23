@@ -65,10 +65,11 @@ final class CreateUserCommandHandlerTest extends TransactionalTestCase
             'Pacific/Auckland'
         );
 
-        $this->commandBus->handle($command);
+        $result = $this->commandBus->handleWithResult($command);
 
         $user = $this->repository->findOneByEmail('anna@example.com');
         self::assertInstanceOf(User::class, $user);
+        self::assertSame($user, $result);
 
         $uuid_pattern = '/^([[:xdigit:]]{8}-[[:xdigit:]]{4}-[[:xdigit:]]{4}-[[:xdigit:]]{4}-[[:xdigit:]]{12})$/';
         self::assertSame(AccountProviderEnum::eTraxis, $user->getAccountProvider());

@@ -66,7 +66,7 @@ final class CloneTemplateCommandHandler implements CommandHandlerInterface
      * @throws ConflictHttpException
      * @throws NotFoundHttpException
      */
-    public function __invoke(CloneTemplateCommand $command): void
+    public function __invoke(CloneTemplateCommand $command): Template
     {
         /** @var null|Template $sourceTemplate */
         $sourceTemplate = $this->templateRepository->find($command->getTemplate());
@@ -85,10 +85,8 @@ final class CloneTemplateCommandHandler implements CommandHandlerInterface
             $command->getFrozenTime()
         );
 
-        $this->commandBus->handle($createTemplateCommand);
-
         /** @var Template $clonedTemplate */
-        $clonedTemplate = $this->templateRepository->findOneByName($command->getProject(), $command->getName());
+        $clonedTemplate = $this->commandBus->handleWithResult($createTemplateCommand);
 
         // Whether we clone to the same project.
         $isSameProject = $sourceTemplate->getProject() === $clonedTemplate->getProject();
@@ -124,6 +122,8 @@ final class CloneTemplateCommandHandler implements CommandHandlerInterface
         foreach ($sourceTemplate->getStates() as $sourceState) {
             $this->cloneStateStep2($sourceState, $clonedStates);
         }
+
+        return $clonedTemplate;
     }
 
     /**

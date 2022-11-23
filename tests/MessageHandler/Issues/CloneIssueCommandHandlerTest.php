@@ -80,11 +80,12 @@ final class CloneIssueCommandHandlerTest extends TransactionalTestCase
             $field3->getId() => true,
         ]);
 
-        $this->commandBus->handle($command);
+        $result = $this->commandBus->handleWithResult($command);
 
         /** @var Issue $issue */
         $issue = $this->repository->findOneBy(['subject' => 'Test issue']);
         self::assertInstanceOf(Issue::class, $issue);
+        self::assertSame($issue, $result);
 
         $this->doctrine->getManager()->refresh($issue);
 
@@ -173,11 +174,12 @@ final class CloneIssueCommandHandlerTest extends TransactionalTestCase
             $field3->getId() => true,
         ]);
 
-        $this->commandBus->handle($command);
+        $result = $this->commandBus->handleWithResult($command);
 
         /** @var Issue $issue */
         $issue = $this->repository->findOneBy(['subject' => 'Test issue']);
         self::assertInstanceOf(Issue::class, $issue);
+        self::assertSame($issue, $result);
 
         $this->doctrine->getManager()->refresh($issue);
 
@@ -270,11 +272,12 @@ final class CloneIssueCommandHandlerTest extends TransactionalTestCase
             $field1->getId() => 2,
         ]);
 
-        $this->commandBus->handle($command);
+        $result = $this->commandBus->handleWithResult($command);
 
         /** @var Issue $issue */
         $issue = $this->repository->findOneBy(['subject' => 'Test issue']);
         self::assertInstanceOf(Issue::class, $issue);
+        self::assertSame($issue, $result);
 
         $this->doctrine->getManager()->refresh($issue);
 

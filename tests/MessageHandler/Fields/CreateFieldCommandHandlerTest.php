@@ -59,11 +59,12 @@ final class CreateFieldCommandHandlerTest extends TransactionalTestCase
 
         $command = new CreateFieldCommand($state->getId(), 'Task ID', FieldTypeEnum::Issue, 'ID of the duplicating task.', true, null);
 
-        $this->commandBus->handle($command);
+        $result = $this->commandBus->handleWithResult($command);
 
         /** @var Field $field */
         $field = $this->repository->findOneBy(['name' => 'Task ID', 'removedAt' => null]);
         self::assertInstanceOf(Field::class, $field);
+        self::assertSame($field, $result);
 
         self::assertSame($state, $field->getState());
         self::assertSame('Task ID', $field->getName());

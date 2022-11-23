@@ -53,11 +53,12 @@ final class CreateProjectCommandHandlerTest extends TransactionalTestCase
 
         $command = new CreateProjectCommand('Awesome Express', 'Newspaper-delivery company', true);
 
-        $this->commandBus->handle($command);
+        $result = $this->commandBus->handleWithResult($command);
 
         /** @var Project $project */
         $project = $this->repository->findOneBy(['name' => 'Awesome Express']);
         self::assertInstanceOf(Project::class, $project);
+        self::assertSame($project, $result);
 
         self::assertSame('Awesome Express', $project->getName());
         self::assertSame('Newspaper-delivery company', $project->getDescription());

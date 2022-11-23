@@ -48,7 +48,7 @@ final class CreateGroupCommandHandler implements CommandHandlerInterface
      * @throws ConflictHttpException
      * @throws NotFoundHttpException
      */
-    public function __invoke(CreateGroupCommand $command): void
+    public function __invoke(CreateGroupCommand $command): Group
     {
         if (!$this->security->isGranted(GroupVoter::CREATE_GROUP)) {
             throw new AccessDeniedHttpException('You are not allowed to create new group.');
@@ -79,5 +79,7 @@ final class CreateGroupCommandHandler implements CommandHandlerInterface
         }
 
         $this->groupRepository->persist($group);
+
+        return $group;
     }
 }

@@ -23,7 +23,7 @@ class CommandBus implements Contracts\CommandBusInterface
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(protected MessageBusInterface $commandBus)
+    public function __construct(protected readonly MessageBusInterface $commandBus)
     {
     }
 

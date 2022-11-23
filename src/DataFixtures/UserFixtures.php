@@ -29,7 +29,7 @@ class UserFixtures extends Fixture implements FixtureInterface, DependentFixture
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(protected UserPasswordHasherInterface $hasher)
+    public function __construct(protected readonly UserPasswordHasherInterface $hasher)
     {
     }
 

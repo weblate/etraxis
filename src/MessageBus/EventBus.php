@@ -25,7 +25,7 @@ class EventBus implements Contracts\EventBusInterface
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(protected MessageBusInterface $eventBus)
+    public function __construct(protected readonly MessageBusInterface $eventBus)
     {
     }
 

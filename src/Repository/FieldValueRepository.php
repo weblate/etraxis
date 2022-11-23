@@ -38,8 +38,8 @@ class FieldValueRepository extends ServiceEntityRepository implements Contracts\
      */
     public function __construct(
         ManagerRegistry $registry,
-        private readonly TranslatorInterface $translator,
-        private readonly ValidatorInterface $validator
+        protected readonly TranslatorInterface $translator,
+        protected readonly ValidatorInterface $validator
     ) {
         parent::__construct($registry, FieldValue::class);
     }

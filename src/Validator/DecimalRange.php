@@ -55,7 +55,7 @@ class DecimalRange extends Constraint
      */
     public string $invalidMessage = 'This value is not valid.';
 
-    public function __construct($options = null)
+    public function __construct(?array $options = null)
     {
         parent::__construct($options);
 

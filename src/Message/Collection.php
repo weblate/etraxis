@@ -21,7 +21,7 @@ class Collection
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(protected int $total, protected array $items)
+    public function __construct(protected readonly int $total, protected readonly array $items)
     {
     }
 

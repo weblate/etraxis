@@ -54,7 +54,7 @@ class MigrateDataCommand extends Command
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(protected EntityManagerInterface $entityManager)
+    public function __construct(protected readonly EntityManagerInterface $entityManager)
     {
         parent::__construct();
     }

@@ -29,7 +29,7 @@ class ProductionFixtures extends Fixture implements FixtureInterface, FixtureGro
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(protected UserPasswordHasherInterface $hasher, protected string $locale)
+    public function __construct(protected readonly UserPasswordHasherInterface $hasher, protected readonly string $locale)
     {
     }
 

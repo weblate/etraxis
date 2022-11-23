@@ -24,7 +24,7 @@ class QueryBus implements Contracts\QueryBusInterface
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(protected MessageBusInterface $queryBus)
+    public function __construct(protected readonly MessageBusInterface $queryBus)
     {
     }
 

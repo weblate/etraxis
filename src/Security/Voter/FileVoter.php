@@ -34,7 +34,7 @@ class FileVoter extends Voter implements VoterInterface
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(protected EntityManagerInterface $manager, protected int $maxsize)
+    public function __construct(protected readonly EntityManagerInterface $manager, protected readonly int $maxsize)
     {
     }
 

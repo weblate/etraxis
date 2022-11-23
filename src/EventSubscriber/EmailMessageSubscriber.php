@@ -26,7 +26,7 @@ class EmailMessageSubscriber implements EventSubscriberInterface
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(protected string $sender)
+    public function __construct(protected readonly string $sender)
     {
     }
 

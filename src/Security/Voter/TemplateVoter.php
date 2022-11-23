@@ -38,7 +38,7 @@ class TemplateVoter extends Voter implements VoterInterface
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(protected EntityManagerInterface $manager)
+    public function __construct(protected readonly EntityManagerInterface $manager)
     {
     }
 

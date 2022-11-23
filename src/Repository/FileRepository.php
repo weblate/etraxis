@@ -24,18 +24,15 @@ use Doctrine\Persistence\ManagerRegistry;
 class FileRepository extends ServiceEntityRepository implements Contracts\FileRepositoryInterface
 {
     /**
-     * Path to files storage directory.
-     */
-    protected string $storage;
-
-    /**
      * @codeCoverageIgnore Dependency Injection constructor
+     *
+     * @param string $storage Path to files storage directory
      */
-    public function __construct(ManagerRegistry $registry, string $storage)
+    public function __construct(ManagerRegistry $registry, protected string $storage)
     {
         parent::__construct($registry, File::class);
 
-        $this->storage = realpath($storage) ?: $storage;
+        $this->storage = realpath($this->storage) ?: $this->storage;
     }
 
     /**

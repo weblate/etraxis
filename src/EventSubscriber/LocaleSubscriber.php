@@ -27,7 +27,7 @@ class LocaleSubscriber implements EventSubscriberInterface
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(protected RequestStack $requestStack, protected string $locale)
+    public function __construct(protected readonly RequestStack $requestStack, protected readonly string $locale)
     {
     }
 

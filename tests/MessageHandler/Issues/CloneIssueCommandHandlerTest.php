@@ -87,8 +87,6 @@ final class CloneIssueCommandHandlerTest extends TransactionalTestCase
         self::assertInstanceOf(Issue::class, $issue);
         self::assertSame($issue, $result);
 
-        $this->doctrine->getManager()->refresh($issue);
-
         self::assertSame('Test issue', $issue->getSubject());
         self::assertSame($origin->getTemplate()->getInitialState(), $issue->getState());
         self::assertSame('nhills@example.com', $issue->getAuthor()->getEmail());
@@ -180,8 +178,6 @@ final class CloneIssueCommandHandlerTest extends TransactionalTestCase
         $issue = $this->repository->findOneBy(['subject' => 'Test issue']);
         self::assertInstanceOf(Issue::class, $issue);
         self::assertSame($issue, $result);
-
-        $this->doctrine->getManager()->refresh($issue);
 
         self::assertSame('Test issue', $issue->getSubject());
         self::assertSame($origin->getTemplate()->getInitialState(), $issue->getState());
@@ -278,8 +274,6 @@ final class CloneIssueCommandHandlerTest extends TransactionalTestCase
         $issue = $this->repository->findOneBy(['subject' => 'Test issue']);
         self::assertInstanceOf(Issue::class, $issue);
         self::assertSame($issue, $result);
-
-        $this->doctrine->getManager()->refresh($issue);
 
         self::assertSame('Test issue', $issue->getSubject());
         self::assertSame($origin->getTemplate()->getInitialState(), $issue->getState());

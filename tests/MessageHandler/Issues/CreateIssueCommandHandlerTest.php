@@ -88,8 +88,6 @@ final class CreateIssueCommandHandlerTest extends TransactionalTestCase
         self::assertInstanceOf(Issue::class, $issue);
         self::assertSame($issue, $result);
 
-        $this->doctrine->getManager()->refresh($issue);
-
         self::assertSame('Test issue', $issue->getSubject());
         self::assertSame($template->getInitialState(), $issue->getState());
         self::assertSame('nhills@example.com', $issue->getAuthor()->getEmail());
@@ -181,8 +179,6 @@ final class CreateIssueCommandHandlerTest extends TransactionalTestCase
         $issue = $this->repository->findOneBy(['subject' => 'Test issue']);
         self::assertInstanceOf(Issue::class, $issue);
         self::assertSame($issue, $result);
-
-        $this->doctrine->getManager()->refresh($issue);
 
         self::assertSame('Test issue', $issue->getSubject());
         self::assertSame($template->getInitialState(), $issue->getState());
@@ -279,8 +275,6 @@ final class CreateIssueCommandHandlerTest extends TransactionalTestCase
         $issue = $this->repository->findOneBy(['subject' => 'Test issue']);
         self::assertInstanceOf(Issue::class, $issue);
         self::assertSame($issue, $result);
-
-        $this->doctrine->getManager()->refresh($issue);
 
         self::assertSame('Test issue', $issue->getSubject());
         self::assertSame($template->getInitialState(), $issue->getState());

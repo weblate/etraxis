@@ -69,7 +69,7 @@ final class DeleteFileCommandHandlerTest extends TransactionalTestCase
 
         $this->commandBus->handle($command);
 
-        $this->doctrine->getManager()->refresh($file->getEvent()->getIssue());
+        $this->doctrine->getManager()->refresh($file);
 
         self::assertCount($events + 1, $file->getEvent()->getIssue()->getEvents());
         self::assertCount($files, $this->repository->findAll());

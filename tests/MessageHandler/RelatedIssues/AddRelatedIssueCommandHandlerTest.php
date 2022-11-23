@@ -59,8 +59,6 @@ final class AddRelatedIssueCommandHandlerTest extends TransactionalTestCase
 
         $this->commandBus->handle($command);
 
-        $this->doctrine->getManager()->refresh($issue);
-
         self::assertCount($count + 1, $this->doctrine->getRepository(RelatedIssue::class)->findAllByIssue($issue));
     }
 
@@ -79,8 +77,6 @@ final class AddRelatedIssueCommandHandlerTest extends TransactionalTestCase
         $command = new AddRelatedIssueCommand($issue->getId(), $existing->getId());
 
         $this->commandBus->handle($command);
-
-        $this->doctrine->getManager()->refresh($issue);
 
         self::assertCount($count, $this->doctrine->getRepository(RelatedIssue::class)->findAllByIssue($issue));
     }

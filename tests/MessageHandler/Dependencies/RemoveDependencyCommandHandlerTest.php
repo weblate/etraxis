@@ -59,8 +59,6 @@ final class RemoveDependencyCommandHandlerTest extends TransactionalTestCase
 
         $this->commandBus->handle($command);
 
-        $this->doctrine->getManager()->refresh($issue);
-
         self::assertCount($count - 1, $this->doctrine->getRepository(Dependency::class)->findAllByIssue($issue));
     }
 
@@ -79,8 +77,6 @@ final class RemoveDependencyCommandHandlerTest extends TransactionalTestCase
         $command = new RemoveDependencyCommand($issue->getId(), $dependency->getId());
 
         $this->commandBus->handle($command);
-
-        $this->doctrine->getManager()->refresh($issue);
 
         self::assertCount($count, $this->doctrine->getRepository(Dependency::class)->findAllByIssue($issue));
     }

@@ -60,8 +60,6 @@ final class AddDependencyCommandHandlerTest extends TransactionalTestCase
 
         $this->commandBus->handle($command);
 
-        $this->doctrine->getManager()->refresh($issue);
-
         self::assertCount($count + 1, $this->doctrine->getRepository(Dependency::class)->findAllByIssue($issue));
     }
 
@@ -80,8 +78,6 @@ final class AddDependencyCommandHandlerTest extends TransactionalTestCase
         $command = new AddDependencyCommand($issue->getId(), $existing->getId());
 
         $this->commandBus->handle($command);
-
-        $this->doctrine->getManager()->refresh($issue);
 
         self::assertCount($count, $this->doctrine->getRepository(Dependency::class)->findAllByIssue($issue));
     }

@@ -13,8 +13,6 @@
 
 namespace App\MessageBus\Contracts;
 
-//use Symfony\Component\Messenger\Envelope;
-
 /**
  * Command bus interface.
  */
@@ -24,8 +22,15 @@ interface CommandBusInterface
      * Handles the given command.
      *
      * @param object $command The command or the command pre-wrapped in an envelope
-     *
-     * @see \Symfony\Component\Messenger\Envelope
      */
     public function handle(object $command): void;
+
+    /**
+     * Handles the given command and returns its result.
+     *
+     * @param object $command The command or the command pre-wrapped in an envelope
+     *
+     * @return mixed The result of command execution
+     */
+    public function handleWithResult(object $command): mixed;
 }

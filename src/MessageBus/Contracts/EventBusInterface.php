@@ -28,8 +28,6 @@ interface EventBusInterface
      * - if it's completed with success.
      *
      * @param object $event The event or the event pre-wrapped in an envelope
-     *
-     * @see \Symfony\Component\Messenger\Envelope
      */
     public function send(object $event): void;
 
@@ -40,8 +38,6 @@ interface EventBusInterface
      * independently on the message handler success.
      *
      * @param object $event The event or the event pre-wrapped in an envelope
-     *
-     * @see \Symfony\Component\Messenger\Envelope
      */
     public function sendAsync(object $event): void;
 }

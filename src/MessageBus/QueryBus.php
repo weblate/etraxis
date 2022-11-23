@@ -35,9 +35,6 @@ class QueryBus implements Contracts\QueryBusInterface
     {
         $envelope = $this->queryBus->dispatch($query);
 
-        /** @var HandledStamp $stamp */
-        $stamp = $envelope->last(HandledStamp::class);
-
-        return $stamp->getResult();
+        return $envelope->last(HandledStamp::class)->getResult();
     }
 }

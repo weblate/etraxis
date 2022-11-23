@@ -24,8 +24,6 @@ interface QueryBusInterface
      * @param object $query The query or the query pre-wrapped in an envelope
      *
      * @return mixed Query results
-     *
-     * @see \Symfony\Component\Messenger\Envelope
      */
     public function execute(object $query): mixed;
 }

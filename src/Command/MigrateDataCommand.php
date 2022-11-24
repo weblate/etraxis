@@ -60,7 +60,7 @@ class MigrateDataCommand extends Command
     }
 
     /**
-     * @see Command
+     * {@inheritDoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {

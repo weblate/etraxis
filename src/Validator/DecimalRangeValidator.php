@@ -25,7 +25,7 @@ class DecimalRangeValidator extends ConstraintValidator implements ConstraintVal
     protected const PRECISION = 0x7FFFFFFF;
 
     /**
-     * @see ConstraintValidatorInterface
+     * {@inheritDoc}
      *
      * @param null|mixed   $value
      * @param DecimalRange $constraint

@@ -28,7 +28,7 @@ use Doctrine\Persistence\ObjectManager;
 class FieldPermissionFixtures extends Fixture implements FixtureInterface, DependentFixtureInterface
 {
     /**
-     * @see DependentFixtureInterface
+     * {@inheritDoc}
      */
     public function getDependencies(): array
     {
@@ -39,7 +39,7 @@ class FieldPermissionFixtures extends Fixture implements FixtureInterface, Depen
     }
 
     /**
-     * @see FixtureInterface
+     * {@inheritDoc}
      */
     public function load(ObjectManager $manager): void
     {

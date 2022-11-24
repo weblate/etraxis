@@ -28,7 +28,7 @@ use Doctrine\Persistence\ObjectManager;
 class TemplatePermissionFixtures extends Fixture implements FixtureInterface, DependentFixtureInterface
 {
     /**
-     * @see DependentFixtureInterface
+     * {@inheritDoc}
      */
     public function getDependencies(): array
     {
@@ -39,7 +39,7 @@ class TemplatePermissionFixtures extends Fixture implements FixtureInterface, De
     }
 
     /**
-     * @see FixtureInterface
+     * {@inheritDoc}
      */
     public function load(ObjectManager $manager): void
     {

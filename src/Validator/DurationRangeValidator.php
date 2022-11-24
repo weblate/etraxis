@@ -24,7 +24,7 @@ use Symfony\Component\Validator\ConstraintValidatorInterface;
 class DurationRangeValidator extends ConstraintValidator implements ConstraintValidatorInterface
 {
     /**
-     * @see ConstraintValidatorInterface
+     * {@inheritDoc}
      *
      * @param null|mixed    $value
      * @param DurationRange $constraint

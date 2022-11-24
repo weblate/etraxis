@@ -30,7 +30,7 @@ class GroupVoter extends Voter implements VoterInterface
     public const MANAGE_GROUP_MEMBERS = 'MANAGE_GROUP_MEMBERS';
 
     /**
-     * @see Voter::supports
+     * {@inheritDoc}
      */
     protected function supports(string $attribute, mixed $subject): bool
     {
@@ -46,7 +46,7 @@ class GroupVoter extends Voter implements VoterInterface
     }
 
     /**
-     * @see Voter::voteOnAttribute
+     * {@inheritDoc}
      */
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {

@@ -30,7 +30,7 @@ class IssueFixtures extends Fixture implements FixtureInterface, DependentFixtur
     use UsersTrait;
 
     /**
-     * @see DependentFixtureInterface
+     * {@inheritDoc}
      */
     public function getDependencies(): array
     {
@@ -42,7 +42,7 @@ class IssueFixtures extends Fixture implements FixtureInterface, DependentFixtur
     }
 
     /**
-     * @see FixtureInterface
+     * {@inheritDoc}
      */
     public function load(ObjectManager $manager): void
     {

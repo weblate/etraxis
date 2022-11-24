@@ -41,7 +41,7 @@ class EventFixtures extends Fixture implements FixtureInterface, DependentFixtur
     protected const EVENT_PARAMETER = 4;
 
     /**
-     * @see DependentFixtureInterface
+     * {@inheritDoc}
      */
     public function getDependencies(): array
     {
@@ -53,7 +53,7 @@ class EventFixtures extends Fixture implements FixtureInterface, DependentFixtur
     }
 
     /**
-     * @see FixtureInterface
+     * {@inheritDoc}
      */
     public function load(ObjectManager $manager): void
     {

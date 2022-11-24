@@ -34,7 +34,7 @@ class ProductionFixtures extends Fixture implements FixtureInterface, FixtureGro
     }
 
     /**
-     * @see FixtureGroupInterface
+     * {@inheritDoc}
      */
     public static function getGroups(): array
     {
@@ -42,7 +42,7 @@ class ProductionFixtures extends Fixture implements FixtureInterface, FixtureGro
     }
 
     /**
-     * @see FixtureInterface
+     * {@inheritDoc}
      */
     public function load(ObjectManager $manager): void
     {

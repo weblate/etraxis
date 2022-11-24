@@ -36,7 +36,7 @@ class FileFixtures extends Fixture implements FixtureInterface, DependentFixture
     protected const FILE_REMOVED = 3;
 
     /**
-     * @see DependentFixtureInterface
+     * {@inheritDoc}
      */
     public function getDependencies(): array
     {
@@ -47,7 +47,7 @@ class FileFixtures extends Fixture implements FixtureInterface, DependentFixture
     }
 
     /**
-     * @see FixtureInterface
+     * {@inheritDoc}
      */
     public function load(ObjectManager $manager): void
     {

@@ -32,7 +32,7 @@ class LocaleSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @see EventSubscriberInterface
+     * {@inheritDoc}
      */
     public static function getSubscribedEvents(): array
     {

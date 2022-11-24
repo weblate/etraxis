@@ -23,7 +23,7 @@ use Doctrine\Migrations\Exception\AbortMigration;
 abstract class AbstractExtendedMigration extends AbstractMigration
 {
     /**
-     * @see AbstractMigration
+     * @see AbstractMigration::getDescription()
      */
     final public function getDescription(): string
     {
@@ -31,7 +31,7 @@ abstract class AbstractExtendedMigration extends AbstractMigration
     }
 
     /**
-     * @see AbstractMigration
+     * {@inheritDoc}
      */
     final public function up(Schema $schema): void
     {
@@ -50,7 +50,7 @@ abstract class AbstractExtendedMigration extends AbstractMigration
     }
 
     /**
-     * @see AbstractMigration
+     * {@inheritDoc}
      */
     final public function down(Schema $schema): void
     {

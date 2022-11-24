@@ -34,7 +34,7 @@ final class ValidationExceptionMiddleware implements MiddlewareInterface
     }
 
     /**
-     * @see MiddlewareInterface
+     * @see MiddlewareInterface::handle()
      */
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {

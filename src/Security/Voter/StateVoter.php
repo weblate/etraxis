@@ -45,7 +45,7 @@ class StateVoter extends Voter implements VoterInterface
     }
 
     /**
-     * @see Voter::supports
+     * {@inheritDoc}
      */
     protected function supports(string $attribute, mixed $subject): bool
     {
@@ -65,7 +65,7 @@ class StateVoter extends Voter implements VoterInterface
     }
 
     /**
-     * @see Voter::voteOnAttribute
+     * {@inheritDoc}
      */
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {

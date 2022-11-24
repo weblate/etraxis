@@ -129,7 +129,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @see UserInterface
+     * {@inheritDoc}
      */
     public function getRoles(): array
     {
@@ -139,7 +139,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @see UserInterface
+     * {@inheritDoc}
      *
      * @codeCoverageIgnore Empty implementation
      */
@@ -148,7 +148,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @see UserInterface
+     * {@inheritDoc}
      */
     public function getUserIdentifier(): string
     {
@@ -192,7 +192,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Property getter.
      *
-     * @see PasswordAuthenticatedUserInterface
+     * {@inheritDoc}
      */
     public function getPassword(): ?string
     {

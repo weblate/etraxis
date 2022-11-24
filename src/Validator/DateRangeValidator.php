@@ -23,7 +23,7 @@ use Symfony\Component\Validator\ConstraintValidatorInterface;
 class DateRangeValidator extends ConstraintValidator implements ConstraintValidatorInterface
 {
     /**
-     * @see ConstraintValidatorInterface
+     * {@inheritDoc}
      *
      * @param null|mixed $value
      * @param DateRange  $constraint

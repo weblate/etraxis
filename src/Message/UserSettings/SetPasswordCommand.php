@@ -13,6 +13,8 @@
 
 namespace App\Message\UserSettings;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Sets password for specified account.
  */
@@ -21,8 +23,11 @@ final class SetPasswordCommand
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(private readonly int $user, private readonly string $password)
-    {
+    public function __construct(
+        private readonly int $user,
+        #[Assert\NotBlank]
+        private readonly string $password
+    ) {
     }
 
     /**

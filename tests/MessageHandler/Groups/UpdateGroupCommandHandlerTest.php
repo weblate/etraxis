@@ -80,6 +80,30 @@ final class UpdateGroupCommandHandlerTest extends TransactionalTestCase
         self::assertSame('Human beings', $group->getDescription());
     }
 
+    public function testValidationEmptyName(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var Group $group */
+        $group = $this->repository->findOneBy(['name' => 'Company Staff']);
+
+        $command = new UpdateGroupCommand(
+            $group->getId(),
+            '',
+            'Software Engineers'
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
     public function testValidationNameLength(): void
     {
         $this->expectException(ValidationFailedException::class);

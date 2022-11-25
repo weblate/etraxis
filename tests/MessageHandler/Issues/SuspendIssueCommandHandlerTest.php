@@ -80,6 +80,26 @@ final class SuspendIssueCommandHandlerTest extends TransactionalTestCase
         self::assertLessThanOrEqual(2, time() - $event->getCreatedAt());
     }
 
+    public function testValidationEmptyDate(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('ldoyle@example.com');
+
+        /** @var Issue $issue */
+        [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 6'], ['id' => 'ASC']);
+
+        $command = new SuspendIssueCommand($issue->getId(), $this->date->format(''));
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
     public function testValidationInvalidDate(): void
     {
         $this->expectException(ValidationFailedException::class);

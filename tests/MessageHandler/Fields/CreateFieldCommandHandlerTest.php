@@ -74,6 +74,33 @@ final class CreateFieldCommandHandlerTest extends TransactionalTestCase
         self::assertTrue($field->isRequired());
     }
 
+    public function testValidationEmptyName(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var State $state */
+        [/* skipping */ , $state] = $this->doctrine->getRepository(State::class)->findBy(['name' => 'Duplicated'], ['id' => 'ASC']);
+
+        $command = new CreateFieldCommand(
+            $state->getId(),
+            '',
+            FieldTypeEnum::Issue,
+            'ID of the duplicating task.',
+            true,
+            null
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
     public function testValidationNameLength(): void
     {
         $this->expectException(ValidationFailedException::class);

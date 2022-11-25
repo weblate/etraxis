@@ -92,6 +92,27 @@ final class CreateGroupCommandHandlerTest extends TransactionalTestCase
         self::assertSame('Test Engineers', $group->getDescription());
     }
 
+    public function testValidationEmptyName(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        $command = new CreateGroupCommand(
+            null,
+            '',
+            'Test Engineers'
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
     public function testValidationNameLength(): void
     {
         $this->expectException(ValidationFailedException::class);

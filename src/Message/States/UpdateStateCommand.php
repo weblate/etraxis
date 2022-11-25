@@ -27,6 +27,7 @@ final class UpdateStateCommand
      */
     public function __construct(
         private readonly int $state,
+        #[Assert\NotBlank]
         #[Assert\Length(max: State::MAX_NAME)]
         private readonly string $name,
         private readonly StateResponsibleEnum $responsible

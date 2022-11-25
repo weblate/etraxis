@@ -25,9 +25,11 @@ final class UpdateProfileCommand
      * @codeCoverageIgnore Dependency Injection constructor
      */
     public function __construct(
+        #[Assert\NotBlank]
         #[Assert\Length(max: User::MAX_EMAIL)]
         #[Assert\Email]
         private readonly string $email,
+        #[Assert\NotBlank]
         #[Assert\Length(max: User::MAX_FULLNAME)]
         private readonly string $fullname
     ) {

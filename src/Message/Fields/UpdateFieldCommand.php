@@ -26,6 +26,7 @@ final class UpdateFieldCommand
      */
     public function __construct(
         private readonly int $field,
+        #[Assert\NotBlank]
         #[Assert\Length(max: Field::MAX_NAME)]
         private readonly string $name,
         #[Assert\Length(max: Field::MAX_DESCRIPTION)]

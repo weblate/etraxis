@@ -69,6 +69,26 @@ final class CreateListItemCommandHandlerTest extends TransactionalTestCase
         self::assertSame('typo', $item->getText());
     }
 
+    public function testValidationEmptyText(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->doctrine->getRepository(Field::class)->findBy(['name' => 'Priority'], ['id' => 'ASC']);
+
+        $command = new CreateListItemCommand($field->getId(), 4, '');
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
     public function testValidationTextLength(): void
     {
         $this->expectException(ValidationFailedException::class);

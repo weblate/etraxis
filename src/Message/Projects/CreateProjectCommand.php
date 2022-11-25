@@ -25,6 +25,7 @@ final class CreateProjectCommand
      * @codeCoverageIgnore Dependency Injection constructor
      */
     public function __construct(
+        #[Assert\NotBlank]
         #[Assert\Length(max: Project::MAX_NAME)]
         private readonly string $name,
         #[Assert\Length(max: Project::MAX_DESCRIPTION)]

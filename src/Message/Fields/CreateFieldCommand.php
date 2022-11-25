@@ -27,6 +27,7 @@ final class CreateFieldCommand
      */
     public function __construct(
         private readonly int $state,
+        #[Assert\NotBlank]
         #[Assert\Length(max: Field::MAX_NAME)]
         private readonly string $name,
         private readonly FieldTypeEnum $type,

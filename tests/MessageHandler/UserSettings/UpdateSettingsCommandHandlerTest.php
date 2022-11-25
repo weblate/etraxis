@@ -75,6 +75,23 @@ final class UpdateSettingsCommandHandlerTest extends TransactionalTestCase
         self::assertSame('Pacific/Auckland', $user->getTimezone());
     }
 
+    public function testValidationEmptyTimezone(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('artem@example.com');
+
+        $command = new UpdateSettingsCommand(LocaleEnum::Russian, ThemeEnum::Emerald, '');
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
     public function testValidationInvalidTimezone(): void
     {
         $this->expectException(ValidationFailedException::class);

@@ -85,6 +85,26 @@ final class AddCommentCommandHandlerTest extends TransactionalTestCase
         self::assertFalse($comment->isPrivate());
     }
 
+    public function testValidationEmptyBody(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('jmueller@example.com');
+
+        /** @var Issue $issue */
+        [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Support request 2'], ['id' => 'ASC']);
+
+        $command = new AddCommentCommand($issue->getId(), '', false);
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
     public function testValidationBodyLength(): void
     {
         $this->expectException(ValidationFailedException::class);

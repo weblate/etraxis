@@ -25,7 +25,7 @@ final class RemoveGroupsCommand
      */
     public function __construct(
         private readonly int $user,
-        #[Assert\Count(min: 1)]
+        #[Assert\NotBlank]
         #[Assert\All([
             new Assert\Regex('/^\d+$/'),
         ])]

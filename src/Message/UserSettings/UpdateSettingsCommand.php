@@ -28,6 +28,7 @@ final class UpdateSettingsCommand
     public function __construct(
         private readonly LocaleEnum $locale,
         private readonly ThemeEnum $theme,
+        #[Assert\NotBlank]
         #[Assert\Choice(callback: 'timezone_identifiers_list', strict: true)]
         private readonly string $timezone
     ) {

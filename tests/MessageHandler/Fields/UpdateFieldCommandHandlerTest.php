@@ -67,6 +67,32 @@ final class UpdateFieldCommandHandlerTest extends TransactionalTestCase
         self::assertFalse($field->isRequired());
     }
 
+    public function testValidationEmptyName(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->repository->findBy(['name' => 'Issue ID'], ['id' => 'ASC']);
+
+        $command = new UpdateFieldCommand(
+            $field->getId(),
+            '',
+            'ID of the duplicating task.',
+            false,
+            null
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
     public function testValidationNameLength(): void
     {
         $this->expectException(ValidationFailedException::class);

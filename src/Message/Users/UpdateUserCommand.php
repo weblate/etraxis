@@ -27,9 +27,11 @@ final class UpdateUserCommand
      */
     public function __construct(
         private readonly int $user,
+        #[Assert\NotBlank]
         #[Assert\Length(max: User::MAX_EMAIL)]
         #[Assert\Email]
         private readonly string $email,
+        #[Assert\NotBlank]
         #[Assert\Length(max: User::MAX_FULLNAME)]
         private readonly string $fullname,
         #[Assert\Length(max: User::MAX_DESCRIPTION)]
@@ -37,6 +39,7 @@ final class UpdateUserCommand
         private readonly bool $admin,
         private readonly bool $disabled,
         private readonly LocaleEnum $locale,
+        #[Assert\NotBlank]
         #[Assert\Choice(callback: 'timezone_identifiers_list', strict: true)]
         private readonly string $timezone
     ) {

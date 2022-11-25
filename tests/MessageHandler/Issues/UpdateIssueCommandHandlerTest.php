@@ -583,6 +583,26 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
         }
     }
 
+    public function testValidationEmptySubject(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('ldoyle@example.com');
+
+        /** @var Issue $issue */
+        [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
+
+        $command = new UpdateIssueCommand($issue->getId(), '', null);
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
     public function testValidationSubjectLength(): void
     {
         $this->expectException(ValidationFailedException::class);

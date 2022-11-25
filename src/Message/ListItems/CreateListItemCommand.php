@@ -27,6 +27,7 @@ final class CreateListItemCommand
     public function __construct(
         private readonly int $field,
         private readonly int $value,
+        #[Assert\NotBlank]
         #[Assert\Length(max: ListItem::MAX_TEXT)]
         private readonly string $text
     ) {

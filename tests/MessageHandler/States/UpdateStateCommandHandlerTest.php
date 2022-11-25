@@ -67,6 +67,30 @@ final class UpdateStateCommandHandlerTest extends TransactionalTestCase
         self::assertSame(StateResponsibleEnum::Keep, $state->getResponsible());
     }
 
+    public function testValidationEmptyName(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var State $state */
+        [/* skipping */ , $state] = $this->repository->findBy(['name' => 'Assigned'], ['id' => 'ASC']);
+
+        $command = new UpdateStateCommand(
+            $state->getId(),
+            '',
+            StateResponsibleEnum::Keep
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
     public function testValidationNameLength(): void
     {
         $this->expectException(ValidationFailedException::class);

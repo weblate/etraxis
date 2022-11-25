@@ -26,6 +26,7 @@ final class UpdateProjectCommand
      */
     public function __construct(
         private readonly int $project,
+        #[Assert\NotBlank]
         #[Assert\Length(max: Project::MAX_NAME)]
         private readonly string $name,
         #[Assert\Length(max: Project::MAX_DESCRIPTION)]

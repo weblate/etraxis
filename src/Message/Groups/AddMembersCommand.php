@@ -25,7 +25,7 @@ final class AddMembersCommand
      */
     public function __construct(
         private readonly int $group,
-        #[Assert\Count(min: 1)]
+        #[Assert\NotBlank]
         #[Assert\All([
             new Assert\Regex('/^\d+$/'),
         ])]

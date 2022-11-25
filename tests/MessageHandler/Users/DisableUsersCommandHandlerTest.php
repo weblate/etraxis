@@ -78,7 +78,7 @@ final class DisableUsersCommandHandlerTest extends TransactionalTestCase
         try {
             $this->commandBus->handle($command);
         } catch (ValidationFailedException $exception) {
-            self::assertSame('This collection should contain 1 element or more.', $exception->getViolations()->get(0)->getMessage());
+            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
 
             throw $exception;
         }

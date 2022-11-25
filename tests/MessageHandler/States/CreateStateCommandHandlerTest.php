@@ -117,6 +117,31 @@ final class CreateStateCommandHandlerTest extends TransactionalTestCase
         self::assertSame(StateTypeEnum::Intermediate, $initial->getType());
     }
 
+    public function testValidationEmptyName(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var Template $template */
+        [/* skipping */ , $template] = $this->doctrine->getRepository(Template::class)->findBy(['name' => 'Development'], ['id' => 'ASC']);
+
+        $command = new CreateStateCommand(
+            $template->getId(),
+            '',
+            StateTypeEnum::Intermediate,
+            StateResponsibleEnum::Keep
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
     public function testValidationNameLength(): void
     {
         $this->expectException(ValidationFailedException::class);

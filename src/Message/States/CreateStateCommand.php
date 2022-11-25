@@ -28,6 +28,7 @@ final class CreateStateCommand
      */
     public function __construct(
         private readonly int $template,
+        #[Assert\NotBlank]
         #[Assert\Length(max: State::MAX_NAME)]
         private readonly string $name,
         private readonly StateTypeEnum $type,

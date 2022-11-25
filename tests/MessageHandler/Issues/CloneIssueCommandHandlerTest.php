@@ -312,6 +312,31 @@ final class CloneIssueCommandHandlerTest extends TransactionalTestCase
         self::assertNull($values[2]->getValue());
     }
 
+    public function testValidationEmptySubject(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('nhills@example.com');
+
+        /** @var Issue $origin */
+        [/* skipping */ , /* skipping */ , $origin] = $this->repository->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
+
+        /** @var Field $field1 */
+        $field1 = $this->doctrine->getRepository(Field::class)->findOneBy(['state' => $origin->getTemplate()->getInitialState(), 'name' => 'Priority']);
+
+        $command = new CloneIssueCommand($origin->getId(), '', null, [
+            $field1->getId() => 2,
+        ]);
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
     public function testValidationSubjectLength(): void
     {
         $this->expectException(ValidationFailedException::class);

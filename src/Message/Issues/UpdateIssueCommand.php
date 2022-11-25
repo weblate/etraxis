@@ -26,6 +26,7 @@ final class UpdateIssueCommand
      */
     public function __construct(
         private readonly int $issue,
+        #[Assert\NotBlank(allowNull: true)]
         #[Assert\Length(max: Issue::MAX_SUBJECT)]
         private readonly ?string $subject,
         private readonly ?array $fields

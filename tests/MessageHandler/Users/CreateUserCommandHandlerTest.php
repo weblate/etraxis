@@ -83,6 +83,32 @@ final class CreateUserCommandHandlerTest extends TransactionalTestCase
         self::assertSame('Pacific/Auckland', $user->getTimezone());
     }
 
+    public function testValidationEmptyEmail(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        $command = new CreateUserCommand(
+            '',
+            'secret',
+            'Anna Rodygina',
+            'Very lovely Daughter',
+            true,
+            false,
+            LocaleEnum::Russian,
+            'Pacific/Auckland'
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
     public function testValidationEmailLength(): void
     {
         $this->expectException(ValidationFailedException::class);
@@ -135,6 +161,58 @@ final class CreateUserCommandHandlerTest extends TransactionalTestCase
         }
     }
 
+    public function testValidationEmptyPassword(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        $command = new CreateUserCommand(
+            'anna@example.com',
+            '',
+            'Anna Rodygina',
+            'Very lovely Daughter',
+            true,
+            false,
+            LocaleEnum::Russian,
+            'Pacific/Auckland'
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
+    public function testValidationEmptyFullname(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        $command = new CreateUserCommand(
+            'anna@example.com',
+            'secret',
+            '',
+            'Very lovely Daughter',
+            true,
+            false,
+            LocaleEnum::Russian,
+            'Pacific/Auckland'
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
     public function testValidationFullnameLength(): void
     {
         $this->expectException(ValidationFailedException::class);
@@ -182,6 +260,32 @@ final class CreateUserCommandHandlerTest extends TransactionalTestCase
             $this->commandBus->handle($command);
         } catch (ValidationFailedException $exception) {
             self::assertSame('This value is too long. It should have 100 characters or less.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
+    public function testValidationEmptyTimezone(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        $command = new CreateUserCommand(
+            'anna@example.com',
+            'secret',
+            'Anna Rodygina',
+            'Very lovely Daughter',
+            true,
+            false,
+            LocaleEnum::Russian,
+            ''
+        );
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
 
             throw $exception;
         }

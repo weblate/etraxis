@@ -26,6 +26,7 @@ final class UpdateGroupCommand
      */
     public function __construct(
         private readonly int $group,
+        #[Assert\NotBlank]
         #[Assert\Length(max: Group::MAX_NAME)]
         private readonly string $name,
         #[Assert\Length(max: Group::MAX_DESCRIPTION)]

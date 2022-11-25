@@ -28,6 +28,7 @@ final class CreateIssueCommand
      */
     public function __construct(
         private readonly int $template,
+        #[Assert\NotBlank]
         #[Assert\Length(max: Issue::MAX_SUBJECT)]
         private readonly string $subject,
         private readonly ?int $responsible,

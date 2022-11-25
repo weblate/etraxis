@@ -24,7 +24,7 @@ final class EnableUsersCommand
      * @codeCoverageIgnore Dependency Injection constructor
      */
     public function __construct(
-        #[Assert\Count(min: 1)]
+        #[Assert\NotBlank]
         #[Assert\All([
             new Assert\Regex('/^\d+$/'),
         ])]

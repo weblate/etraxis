@@ -313,6 +313,31 @@ final class CreateIssueCommandHandlerTest extends TransactionalTestCase
         self::assertNull($values[2]->getValue());
     }
 
+    public function testValidationEmptySubject(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('nhills@example.com');
+
+        /** @var Template $template */
+        [/* skipping */ , /* skipping */ , $template] = $this->doctrine->getRepository(Template::class)->findBy(['name' => 'Development'], ['id' => 'ASC']);
+
+        /** @var Field $field1 */
+        $field1 = $this->doctrine->getRepository(Field::class)->findOneBy(['state' => $template->getInitialState(), 'name' => 'Priority']);
+
+        $command = new CreateIssueCommand($template->getId(), '', null, [
+            $field1->getId() => 2,
+        ]);
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
     public function testValidationSubjectLength(): void
     {
         $this->expectException(ValidationFailedException::class);

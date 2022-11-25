@@ -22,6 +22,7 @@ use App\TransactionalTestCase;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Messenger\Exception\ValidationFailedException;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 /**
@@ -84,6 +85,25 @@ final class SetPasswordCommandHandlerTest extends TransactionalTestCase
 
         self::assertFalse($hasher->isPasswordValid($user, 'secret'));
         self::assertTrue($hasher->isPasswordValid($user, 'newone'));
+    }
+
+    public function testValidationEmptyPassword(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        $user = $this->repository->findOneByEmail('artem@example.com');
+
+        $command = new SetPasswordCommand($user->getId(), '');
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
     }
 
     public function testAccessDenied(): void

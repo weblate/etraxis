@@ -27,8 +27,10 @@ final class CloneTemplateCommand
     public function __construct(
         private readonly int $template,
         private readonly int $project,
+        #[Assert\NotBlank]
         #[Assert\Length(max: Template::MAX_NAME)]
         private readonly string $name,
+        #[Assert\NotBlank]
         #[Assert\Length(max: Template::MAX_PREFIX)]
         private readonly string $prefix,
         #[Assert\Length(max: Template::MAX_DESCRIPTION)]

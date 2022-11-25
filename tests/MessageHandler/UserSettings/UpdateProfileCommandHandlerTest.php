@@ -62,6 +62,23 @@ final class UpdateProfileCommandHandlerTest extends TransactionalTestCase
         self::assertSame('Chaim Willms', $user->getFullname());
     }
 
+    public function testValidationEmptyEmail(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('nhills@example.com');
+
+        $command = new UpdateProfileCommand('', 'Chaim Willms');
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
     public function testValidationEmailLength(): void
     {
         $this->expectException(ValidationFailedException::class);
@@ -91,6 +108,23 @@ final class UpdateProfileCommandHandlerTest extends TransactionalTestCase
             $this->commandBus->handle($command);
         } catch (ValidationFailedException $exception) {
             self::assertSame('This value is not a valid email address.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
+    }
+
+    public function testValidationEmptyFullname(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('nhills@example.com');
+
+        $command = new UpdateProfileCommand('chaim.willms@example.com', '');
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
 
             throw $exception;
         }

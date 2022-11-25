@@ -25,6 +25,7 @@ final class SuspendIssueCommand
      */
     public function __construct(
         private readonly int $issue,
+        #[Assert\NotBlank]
         #[Assert\Regex('/^\d{4}\-[0-1]\d\-[0-3]\d$/')]
         private readonly string $date
     ) {

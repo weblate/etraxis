@@ -26,10 +26,13 @@ final class CreateUserCommand
      * @codeCoverageIgnore Dependency Injection constructor
      */
     public function __construct(
+        #[Assert\NotBlank]
         #[Assert\Length(max: User::MAX_EMAIL)]
         #[Assert\Email]
         private readonly string $email,
+        #[Assert\NotBlank]
         private readonly string $password,
+        #[Assert\NotBlank]
         #[Assert\Length(max: User::MAX_FULLNAME)]
         private readonly string $fullname,
         #[Assert\Length(max: User::MAX_DESCRIPTION)]
@@ -37,6 +40,7 @@ final class CreateUserCommand
         private readonly bool $admin,
         private readonly bool $disabled,
         private readonly LocaleEnum $locale,
+        #[Assert\NotBlank]
         #[Assert\Choice(callback: 'timezone_identifiers_list', strict: true)]
         private readonly string $timezone
     ) {

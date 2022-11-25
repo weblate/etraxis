@@ -26,6 +26,7 @@ final class AddCommentCommand
      */
     public function __construct(
         private readonly int $issue,
+        #[Assert\NotBlank]
         #[Assert\Length(max: Comment::MAX_BODY)]
         private readonly string $body,
         private readonly bool $private

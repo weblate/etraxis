@@ -14,12 +14,13 @@
 namespace App\Message\Fields;
 
 use App\Entity\Enums\FieldPermissionEnum;
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Sets specified groups permission for the field.
  */
-final class SetGroupsPermissionCommand
+final class SetGroupsPermissionCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

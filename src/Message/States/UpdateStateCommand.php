@@ -15,12 +15,13 @@ namespace App\Message\States;
 
 use App\Entity\Enums\StateResponsibleEnum;
 use App\Entity\State;
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Updates specified state.
  */
-final class UpdateStateCommand
+final class UpdateStateCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

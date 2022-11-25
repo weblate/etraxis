@@ -16,12 +16,13 @@ namespace App\Message\States;
 use App\Entity\Enums\StateResponsibleEnum;
 use App\Entity\Enums\StateTypeEnum;
 use App\Entity\State;
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Creates new state.
  */
-final class CreateStateCommand
+final class CreateStateCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

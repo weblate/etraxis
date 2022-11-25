@@ -13,10 +13,12 @@
 
 namespace App\Message\Fields;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Deletes specified field.
  */
-final class DeleteFieldCommand
+final class DeleteFieldCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

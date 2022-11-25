@@ -13,10 +13,12 @@
 
 namespace App\Message\Issues;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Deletes specified issue.
  */
-final class DeleteIssueCommand
+final class DeleteIssueCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

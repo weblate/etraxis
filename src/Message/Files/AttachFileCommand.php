@@ -13,13 +13,14 @@
 
 namespace App\Message\Files;
 
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Attaches new file to specified issue.
  */
-final class AttachFileCommand
+final class AttachFileCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

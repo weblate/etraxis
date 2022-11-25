@@ -14,12 +14,13 @@
 namespace App\Message\Issues;
 
 use App\Entity\Issue;
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Clones specified issue.
  */
-final class CloneIssueCommand
+final class CloneIssueCommand implements CommandInterface
 {
     private int $time;
 

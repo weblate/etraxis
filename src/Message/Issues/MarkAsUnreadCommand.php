@@ -13,12 +13,13 @@
 
 namespace App\Message\Issues;
 
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Marks specified issues as unread.
  */
-final class MarkAsUnreadCommand
+final class MarkAsUnreadCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

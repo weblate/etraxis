@@ -13,10 +13,12 @@
 
 namespace App\Message\Issues;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Reassigns specified issue to another user.
  */
-final class ReassignIssueCommand
+final class ReassignIssueCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

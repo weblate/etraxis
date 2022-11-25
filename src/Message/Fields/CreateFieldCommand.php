@@ -15,12 +15,13 @@ namespace App\Message\Fields;
 
 use App\Entity\Enums\FieldTypeEnum;
 use App\Entity\Field;
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Creates new field.
  */
-final class CreateFieldCommand
+final class CreateFieldCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

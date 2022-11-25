@@ -13,12 +13,13 @@
 
 namespace App\Message\States;
 
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Sets specified responsible groups for the state.
  */
-final class SetResponsibleGroupsCommand
+final class SetResponsibleGroupsCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

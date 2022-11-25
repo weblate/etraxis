@@ -13,10 +13,12 @@
 
 namespace App\Message\Issues;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Changes state of the issue to the specified one.
  */
-final class ChangeStateCommand
+final class ChangeStateCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

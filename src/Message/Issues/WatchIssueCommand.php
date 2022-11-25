@@ -13,10 +13,12 @@
 
 namespace App\Message\Issues;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Starts watching for specified issue.
  */
-final class WatchIssueCommand
+final class WatchIssueCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

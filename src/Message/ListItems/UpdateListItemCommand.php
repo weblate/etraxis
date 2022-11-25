@@ -14,12 +14,13 @@
 namespace App\Message\ListItems;
 
 use App\Entity\ListItem;
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Updates specified list item.
  */
-final class UpdateListItemCommand
+final class UpdateListItemCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

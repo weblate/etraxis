@@ -13,10 +13,12 @@
 
 namespace App\Message\Templates;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Locks specified template.
  */
-final class LockTemplateCommand
+final class LockTemplateCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

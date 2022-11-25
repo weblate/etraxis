@@ -13,10 +13,12 @@
 
 namespace App\Message\Dependencies;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Adds new dependency to specified issue.
  */
-final class AddDependencyCommand
+final class AddDependencyCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

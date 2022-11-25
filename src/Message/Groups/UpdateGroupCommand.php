@@ -14,12 +14,13 @@
 namespace App\Message\Groups;
 
 use App\Entity\Group;
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Updates specified group.
  */
-final class UpdateGroupCommand
+final class UpdateGroupCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

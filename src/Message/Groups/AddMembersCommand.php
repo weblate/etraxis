@@ -13,12 +13,13 @@
 
 namespace App\Message\Groups;
 
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Adds specified users to the group.
  */
-final class AddMembersCommand
+final class AddMembersCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

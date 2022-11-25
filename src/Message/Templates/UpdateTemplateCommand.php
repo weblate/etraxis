@@ -14,12 +14,13 @@
 namespace App\Message\Templates;
 
 use App\Entity\Template;
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Updates specified template.
  */
-final class UpdateTemplateCommand
+final class UpdateTemplateCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

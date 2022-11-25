@@ -15,12 +15,13 @@ namespace App\Message\Users;
 
 use App\Entity\Enums\LocaleEnum;
 use App\Entity\User;
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Creates new account.
  */
-final class CreateUserCommand
+final class CreateUserCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

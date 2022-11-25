@@ -13,10 +13,12 @@
 
 namespace App\Message\Users;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Enables specified account.
  */
-final class EnableUserCommand
+final class EnableUserCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

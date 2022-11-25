@@ -13,12 +13,13 @@
 
 namespace App\Message\Issues;
 
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Starts watching for specified issues.
  */
-final class WatchIssuesCommand
+final class WatchIssuesCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

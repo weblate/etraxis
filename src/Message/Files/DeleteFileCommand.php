@@ -13,10 +13,12 @@
 
 namespace App\Message\Files;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Deletes existing file from specified issue.
  */
-final class DeleteFileCommand
+final class DeleteFileCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

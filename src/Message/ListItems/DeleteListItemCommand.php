@@ -13,10 +13,12 @@
 
 namespace App\Message\ListItems;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Deletes specified list item.
  */
-final class DeleteListItemCommand
+final class DeleteListItemCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

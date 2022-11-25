@@ -13,10 +13,12 @@
 
 namespace App\Message\RelatedIssues;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Adds new related issue to specified issue.
  */
-final class AddRelatedIssueCommand
+final class AddRelatedIssueCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

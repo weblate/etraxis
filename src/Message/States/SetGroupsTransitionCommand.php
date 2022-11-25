@@ -13,12 +13,13 @@
 
 namespace App\Message\States;
 
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Sets state transition for the specified groups.
  */
-final class SetGroupsTransitionCommand
+final class SetGroupsTransitionCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

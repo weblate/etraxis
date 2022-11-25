@@ -14,12 +14,13 @@
 namespace App\Message\States;
 
 use App\Entity\Enums\SystemRoleEnum;
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Sets state transition for the specified roles.
  */
-final class SetRolesTransitionCommand
+final class SetRolesTransitionCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

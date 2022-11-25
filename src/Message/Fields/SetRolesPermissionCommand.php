@@ -15,12 +15,13 @@ namespace App\Message\Fields;
 
 use App\Entity\Enums\FieldPermissionEnum;
 use App\Entity\Enums\SystemRoleEnum;
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Sets specified roles permission for the field.
  */
-final class SetRolesPermissionCommand
+final class SetRolesPermissionCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

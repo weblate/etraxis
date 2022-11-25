@@ -13,10 +13,12 @@
 
 namespace App\Message\Templates;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Deletes specified template.
  */
-final class DeleteTemplateCommand
+final class DeleteTemplateCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

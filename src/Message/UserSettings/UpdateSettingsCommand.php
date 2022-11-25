@@ -15,12 +15,13 @@ namespace App\Message\UserSettings;
 
 use App\Entity\Enums\LocaleEnum;
 use App\Entity\Enums\ThemeEnum;
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Updates profile info of the current user.
  */
-final class UpdateSettingsCommand
+final class UpdateSettingsCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

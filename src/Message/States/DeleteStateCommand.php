@@ -13,10 +13,12 @@
 
 namespace App\Message\States;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Deletes specified state.
  */
-final class DeleteStateCommand
+final class DeleteStateCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

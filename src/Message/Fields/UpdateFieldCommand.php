@@ -14,12 +14,13 @@
 namespace App\Message\Fields;
 
 use App\Entity\Field;
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Updates specified field.
  */
-final class UpdateFieldCommand
+final class UpdateFieldCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

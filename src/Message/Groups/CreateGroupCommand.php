@@ -14,12 +14,13 @@
 namespace App\Message\Groups;
 
 use App\Entity\Group;
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Creates new group.
  */
-final class CreateGroupCommand
+final class CreateGroupCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

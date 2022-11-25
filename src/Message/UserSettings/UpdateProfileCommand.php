@@ -14,12 +14,13 @@
 namespace App\Message\UserSettings;
 
 use App\Entity\User;
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Updates profile info of the current user.
  */
-final class UpdateProfileCommand
+final class UpdateProfileCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

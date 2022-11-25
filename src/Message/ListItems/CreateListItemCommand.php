@@ -14,12 +14,13 @@
 namespace App\Message\ListItems;
 
 use App\Entity\ListItem;
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Creates new list item.
  */
-final class CreateListItemCommand
+final class CreateListItemCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

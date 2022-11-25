@@ -13,12 +13,13 @@
 
 namespace App\Message\Issues;
 
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Suspends specified issue.
  */
-final class SuspendIssueCommand
+final class SuspendIssueCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

@@ -13,10 +13,12 @@
 
 namespace App\Message\Projects;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Resumes specified project.
  */
-final class ResumeProjectCommand
+final class ResumeProjectCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

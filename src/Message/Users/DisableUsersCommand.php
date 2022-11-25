@@ -13,12 +13,13 @@
 
 namespace App\Message\Users;
 
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Disables specified accounts.
  */
-final class DisableUsersCommand
+final class DisableUsersCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

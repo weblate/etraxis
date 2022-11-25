@@ -13,12 +13,13 @@
 
 namespace App\Message\Users;
 
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Removes account from specified groups.
  */
-final class RemoveGroupsCommand
+final class RemoveGroupsCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

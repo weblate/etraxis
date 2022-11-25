@@ -15,12 +15,13 @@ namespace App\Message\Templates;
 
 use App\Entity\Enums\SystemRoleEnum;
 use App\Entity\Enums\TemplatePermissionEnum;
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Sets specified roles permission for the template.
  */
-final class SetRolesPermissionCommand
+final class SetRolesPermissionCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

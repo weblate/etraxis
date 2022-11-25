@@ -13,10 +13,12 @@
 
 namespace App\Message\Projects;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Deletes specified project.
  */
-final class DeleteProjectCommand
+final class DeleteProjectCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

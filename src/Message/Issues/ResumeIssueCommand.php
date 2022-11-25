@@ -13,10 +13,12 @@
 
 namespace App\Message\Issues;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Resumes specified issue.
  */
-final class ResumeIssueCommand
+final class ResumeIssueCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

@@ -14,12 +14,13 @@
 namespace App\Message\Issues;
 
 use App\Entity\Issue;
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Updates specified issue.
  */
-final class UpdateIssueCommand
+final class UpdateIssueCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

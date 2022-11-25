@@ -14,12 +14,13 @@
 namespace App\Message\Comments;
 
 use App\Entity\Comment;
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Adds new comment to specified issue.
  */
-final class AddCommentCommand
+final class AddCommentCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

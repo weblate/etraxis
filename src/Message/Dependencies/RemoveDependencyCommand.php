@@ -13,10 +13,12 @@
 
 namespace App\Message\Dependencies;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Removes existing dependency from specified issue.
  */
-final class RemoveDependencyCommand
+final class RemoveDependencyCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

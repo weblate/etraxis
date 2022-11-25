@@ -14,12 +14,13 @@
 namespace App\Message\Projects;
 
 use App\Entity\Project;
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Creates new project.
  */
-final class CreateProjectCommand
+final class CreateProjectCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

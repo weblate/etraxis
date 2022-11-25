@@ -13,10 +13,12 @@
 
 namespace App\Message\Projects;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Suspends specified project.
  */
-final class SuspendProjectCommand
+final class SuspendProjectCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

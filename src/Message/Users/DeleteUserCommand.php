@@ -13,10 +13,12 @@
 
 namespace App\Message\Users;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Deletes specified account.
  */
-final class DeleteUserCommand
+final class DeleteUserCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

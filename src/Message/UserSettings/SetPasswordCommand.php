@@ -13,12 +13,13 @@
 
 namespace App\Message\UserSettings;
 
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Sets password for specified account.
  */
-final class SetPasswordCommand
+final class SetPasswordCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

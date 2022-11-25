@@ -14,12 +14,13 @@
 namespace App\Message\Templates;
 
 use App\Entity\Enums\TemplatePermissionEnum;
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Sets specified groups permission for the template.
  */
-final class SetGroupsPermissionCommand
+final class SetGroupsPermissionCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

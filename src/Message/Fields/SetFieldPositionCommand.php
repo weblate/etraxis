@@ -13,10 +13,12 @@
 
 namespace App\Message\Fields;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Sets new position for specified field.
  */
-final class SetFieldPositionCommand
+final class SetFieldPositionCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

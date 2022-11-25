@@ -13,12 +13,13 @@
 
 namespace App\Message\Issues;
 
+use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Stops watching for specified issues.
  */
-final class UnwatchIssuesCommand
+final class UnwatchIssuesCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

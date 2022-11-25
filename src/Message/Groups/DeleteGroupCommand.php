@@ -13,10 +13,12 @@
 
 namespace App\Message\Groups;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Deletes specified group.
  */
-final class DeleteGroupCommand
+final class DeleteGroupCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

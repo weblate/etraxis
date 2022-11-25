@@ -13,10 +13,12 @@
 
 namespace App\Message\States;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Sets specified state as initial in its template.
  */
-final class SetInitialStateCommand
+final class SetInitialStateCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

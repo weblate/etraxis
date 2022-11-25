@@ -13,10 +13,12 @@
 
 namespace App\Message\RelatedIssues;
 
+use App\MessageBus\Contracts\CommandInterface;
+
 /**
  * Removes existing related issue from specified issue.
  */
-final class RemoveRelatedIssueCommand
+final class RemoveRelatedIssueCommand implements CommandInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

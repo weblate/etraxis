@@ -13,6 +13,8 @@
 
 namespace App\Message;
 
+use Symfony\Component\Serializer\Annotation\Groups;
+
 /**
  * A collection of items.
  */
@@ -28,6 +30,7 @@ class Collection
     /**
      * @return int Total number of all available items (not only the retrieved ones)
      */
+    #[Groups('api')]
     public function getTotal(): int
     {
         return $this->total;
@@ -36,6 +39,7 @@ class Collection
     /**
      * @return array Retrieved subset of available items
      */
+    #[Groups('api')]
     public function getItems(): array
     {
         return $this->items;

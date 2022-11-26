@@ -31,4 +31,15 @@ interface ApiControllerInterface
     public const PARAMETER_HEADER = 'header';
     public const PARAMETER_PATH   = 'path';
     public const PARAMETER_COOKIE = 'cookie';
+
+    // Query attributes.
+    public const QUERY_OFFSET  = 'offset';
+    public const QUERY_LIMIT   = 'limit';
+    public const QUERY_SEARCH  = 'search';
+    public const QUERY_FILTERS = 'filters';
+    public const QUERY_ORDER   = 'order';
+
+    // Collection attributes.
+    public const COLLECTION_TOTAL = 'total';
+    public const COLLECTION_ITEMS = 'items';
 }

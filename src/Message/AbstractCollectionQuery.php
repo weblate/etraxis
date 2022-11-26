@@ -13,10 +13,12 @@
 
 namespace App\Message;
 
+use App\MessageBus\Contracts\QueryInterface;
+
 /**
  * Abstract query for a collection of items.
  */
-abstract class AbstractCollectionQuery
+abstract class AbstractCollectionQuery implements QueryInterface
 {
     // Restrictions.
     public const MAX_LIMIT = 100;

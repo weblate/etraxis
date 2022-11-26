@@ -65,6 +65,9 @@ services:
     App\Security\Voter\FileVoter:
         $maxsize: '%env(FILES_MAXSIZE)%'
 
+    App\Serializer\JwtEncoder:
+        $secret: '%env(APP_SECRET)%'
+
 when@dev:
     services:
         mailer.dev.set_recipients:

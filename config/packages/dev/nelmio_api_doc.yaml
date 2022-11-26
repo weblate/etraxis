@@ -5,6 +5,14 @@ nelmio_api_doc:
             description: API Reference
             version: 1.0.0
         openapi: 3.0.0
+        components:
+            securitySchemes:
+                Bearer:
+                    type: http
+                    scheme: bearer
+                    bearerFormat: JWT
+        security:
+            - Bearer: []
     areas:
         path_patterns:
             - ^/api(?!/doc$)

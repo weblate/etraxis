@@ -18,6 +18,7 @@ use Firebase\JWT\ExpiredException;
 use Firebase\JWT\SignatureInvalidException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
@@ -35,8 +36,10 @@ class JwtAuthenticator extends AbstractAuthenticator implements AuthenticatorInt
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(protected readonly DecoderInterface $decoder)
-    {
+    public function __construct(
+        protected readonly DecoderInterface $decoder,
+        protected readonly RateLimiterFactory $authenticatedApiLimiter
+    ) {
     }
 
     /**
@@ -53,6 +56,9 @@ class JwtAuthenticator extends AbstractAuthenticator implements AuthenticatorInt
      */
     public function authenticate(Request $request): Passport
     {
+        $limiter = $this->authenticatedApiLimiter->create($request->getClientIp());
+        $limiter->consume()->ensureAccepted();
+
         $header = $request->headers->get('Authorization', '');
         $token  = trim(str_ireplace('Bearer', '', $header));
 

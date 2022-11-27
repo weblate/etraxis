@@ -39,9 +39,10 @@ final class JwtAuthenticatorTest extends WebTestCase
     {
         parent::setUp();
 
-        $serializer = self::getContainer()->get('serializer');
+        $serializer  = self::getContainer()->get('serializer');
+        $rateLimiter = self::getContainer()->get('limiter.authenticated_api');
 
-        $this->authenticator = new JwtAuthenticator($serializer);
+        $this->authenticator = new JwtAuthenticator($serializer, $rateLimiter);
     }
 
     /**

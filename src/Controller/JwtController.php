@@ -20,6 +20,7 @@ use OpenApi\Attributes as API;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -49,8 +50,12 @@ class JwtController extends AbstractController implements ApiControllerInterface
     ))]
     #[API\Response(response: 400, description: 'The request is malformed.')]
     #[API\Response(response: 404, description: 'Invalid credentials.')]
-    public function login(GenerateJwtCommand $command): JsonResponse
+    #[API\Response(response: 429, description: 'API rate limit exceeded.')]
+    public function login(Request $request, GenerateJwtCommand $command, RateLimiterFactory $anonymousApiLimiter): JsonResponse
     {
+        $limiter = $anonymousApiLimiter->create($request->getClientIp());
+        $limiter->consume()->ensureAccepted();
+
         $token = $this->commandBus->handleWithResult($command);
 
         return $this->json(['token' => $token]);

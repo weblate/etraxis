@@ -22,6 +22,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
@@ -188,6 +189,33 @@ final class HttpExceptionSubscriberTest extends TestCase
 
         self::assertSame(Response::HTTP_CONFLICT, $response->getStatusCode());
         self::assertSame('Conflict', trim($content, '"'));
+    }
+
+    /**
+     * @covers ::onHttpException
+     */
+    public function testHttp429Exception(): void
+    {
+        $request = new Request();
+        $request->server->set('REQUEST_URI', '/api/endpoint');
+
+        /** @var HttpKernelInterface $kernel */
+        $kernel = $this->createMock(HttpKernelInterface::class);
+
+        $event = new ExceptionEvent(
+            $kernel,
+            $request,
+            HttpKernelInterface::MAIN_REQUEST,
+            new TooManyRequestsHttpException()
+        );
+
+        $this->subscriber->onHttpException($event);
+
+        $response = $event->getResponse();
+        $content  = $response->getContent();
+
+        self::assertSame(Response::HTTP_TOO_MANY_REQUESTS, $response->getStatusCode());
+        self::assertSame('Too Many Requests', trim($content, '"'));
     }
 
     /**

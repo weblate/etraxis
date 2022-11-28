@@ -13,6 +13,7 @@
 
 namespace App\MessageBus;
 
+use App\Message\Groups;
 use App\Message\Projects;
 use App\Message\Users;
 use App\Message\UserSettings;
@@ -50,6 +51,9 @@ class CommandArgumentValueResolver implements ArgumentValueResolverInterface
     {
         yield $this->serializer->deserialize($request->getContent() ?: '{}', $argument->getType(), 'json', [
             AbstractNormalizer::DEFAULT_CONSTRUCTOR_ARGUMENTS => [
+                // Groups API
+                Groups\UpdateGroupCommand::class => ['group' => $request->get('id')],
+                Groups\DeleteGroupCommand::class => ['group' => $request->get('id')],
                 // Projects API
                 Projects\UpdateProjectCommand::class  => ['project' => $request->get('id')],
                 Projects\DeleteProjectCommand::class  => ['project' => $request->get('id')],

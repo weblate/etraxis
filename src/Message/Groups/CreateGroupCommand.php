@@ -15,6 +15,7 @@ namespace App\Message\Groups;
 
 use App\Entity\Group;
 use App\MessageBus\Contracts\CommandInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -26,11 +27,14 @@ final class CreateGroupCommand implements CommandInterface
      * @codeCoverageIgnore Dependency Injection constructor
      */
     public function __construct(
+        #[Groups('api')]
         private readonly ?int $project,
         #[Assert\NotBlank]
         #[Assert\Length(max: Group::MAX_NAME)]
+        #[Groups('api')]
         private readonly string $name,
         #[Assert\Length(max: Group::MAX_DESCRIPTION)]
+        #[Groups('api')]
         private readonly ?string $description
     ) {
     }

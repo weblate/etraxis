@@ -18,6 +18,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Group.
@@ -78,6 +79,7 @@ class Group
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getId(): int
     {
         return $this->id;
@@ -86,6 +88,7 @@ class Group
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getProject(): ?Project
     {
         return $this->project;
@@ -94,6 +97,7 @@ class Group
     /**
      * Whether the group is global.
      */
+    #[Groups('api')]
     public function isGlobal(): bool
     {
         return null === $this->project;
@@ -102,6 +106,7 @@ class Group
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getName(): string
     {
         return $this->name;
@@ -120,6 +125,7 @@ class Group
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getDescription(): ?string
     {
         return $this->description;

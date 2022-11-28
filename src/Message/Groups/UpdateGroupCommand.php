@@ -15,6 +15,7 @@ namespace App\Message\Groups;
 
 use App\Entity\Group;
 use App\MessageBus\Contracts\CommandInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -29,8 +30,10 @@ final class UpdateGroupCommand implements CommandInterface
         private readonly int $group,
         #[Assert\NotBlank]
         #[Assert\Length(max: Group::MAX_NAME)]
+        #[Groups('api')]
         private readonly string $name,
         #[Assert\Length(max: Group::MAX_DESCRIPTION)]
+        #[Groups('api')]
         private readonly ?string $description
     ) {
     }

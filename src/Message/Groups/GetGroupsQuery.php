@@ -25,5 +25,5 @@ final class GetGroupsQuery extends AbstractCollectionQuery
     public const GROUP_PROJECT     = 'project';
     public const GROUP_NAME        = 'name';
     public const GROUP_DESCRIPTION = 'description';
-    public const GROUP_IS_GLOBAL   = 'is_global';
+    public const GROUP_IS_GLOBAL   = 'global';
 }

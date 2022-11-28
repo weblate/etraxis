@@ -13,6 +13,8 @@
 
 namespace App\MessageBus;
 
+use App\Message\Users;
+use App\Message\UserSettings;
 use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
@@ -47,6 +49,13 @@ class CommandArgumentValueResolver implements ArgumentValueResolverInterface
     {
         yield $this->serializer->deserialize($request->getContent() ?: '{}', $argument->getType(), 'json', [
             AbstractNormalizer::DEFAULT_CONSTRUCTOR_ARGUMENTS => [
+                // Users API
+                Users\UpdateUserCommand::class  => ['user' => $request->get('id')],
+                Users\DeleteUserCommand::class  => ['user' => $request->get('id')],
+                Users\DisableUserCommand::class => ['user' => $request->get('id')],
+                Users\EnableUserCommand::class  => ['user' => $request->get('id')],
+                // User Settings API
+                UserSettings\SetPasswordCommand::class => ['user' => $request->get('id')],
             ],
         ]);
     }

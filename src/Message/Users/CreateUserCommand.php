@@ -16,6 +16,7 @@ namespace App\Message\Users;
 use App\Entity\Enums\LocaleEnum;
 use App\Entity\User;
 use App\MessageBus\Contracts\CommandInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -30,19 +31,27 @@ final class CreateUserCommand implements CommandInterface
         #[Assert\NotBlank]
         #[Assert\Length(max: User::MAX_EMAIL)]
         #[Assert\Email]
+        #[Groups('api')]
         private readonly string $email,
         #[Assert\NotBlank]
+        #[Groups('api')]
         private readonly string $password,
         #[Assert\NotBlank]
         #[Assert\Length(max: User::MAX_FULLNAME)]
+        #[Groups('api')]
         private readonly string $fullname,
         #[Assert\Length(max: User::MAX_DESCRIPTION)]
+        #[Groups('api')]
         private readonly ?string $description,
+        #[Groups('api')]
         private readonly bool $admin,
+        #[Groups('api')]
         private readonly bool $disabled,
+        #[Groups('api')]
         private readonly LocaleEnum $locale,
         #[Assert\NotBlank]
-        #[Assert\Choice(callback: 'timezone_identifiers_list', strict: true)]
+        #[Assert\Choice(callback: ['DateTimeZone', 'listIdentifiers'], strict: true)]
+        #[Groups('api')]
         private readonly string $timezone
     ) {
     }

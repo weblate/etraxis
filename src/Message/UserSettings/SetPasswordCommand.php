@@ -14,6 +14,7 @@
 namespace App\Message\UserSettings;
 
 use App\MessageBus\Contracts\CommandInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -27,6 +28,7 @@ final class SetPasswordCommand implements CommandInterface
     public function __construct(
         private readonly int $user,
         #[Assert\NotBlank]
+        #[Groups('api')]
         private readonly string $password
     ) {
     }

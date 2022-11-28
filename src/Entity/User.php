@@ -24,6 +24,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
 /**
@@ -158,6 +159,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getId(): int
     {
         return $this->id;
@@ -166,6 +168,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getEmail(): string
     {
         return $this->email;
@@ -212,6 +215,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getFullname(): string
     {
         return $this->fullname;
@@ -230,6 +234,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getDescription(): ?string
     {
         return $this->description;
@@ -248,6 +253,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function isAdmin(): bool
     {
         return $this->admin;
@@ -266,6 +272,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function isDisabled(): bool
     {
         return $this->disabled;
@@ -284,6 +291,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getAccountProvider(): AccountProviderEnum
     {
         return AccountProviderEnum::tryFrom($this->accountProvider) ?? AccountProviderEnum::eTraxis;
@@ -328,6 +336,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Returns user's locale.
      */
+    #[Groups('api')]
     public function getLocale(): LocaleEnum
     {
         return LocaleEnum::tryFrom($this->settings['locale'] ?? '') ?? LocaleEnum::FALLBACK;
@@ -364,6 +373,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Returns user's timezone.
      */
+    #[Groups('api')]
     public function getTimezone(): string
     {
         $timezone = $this->settings['timezone'] ?? 'UTC';

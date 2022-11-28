@@ -25,7 +25,7 @@ final class GetUsersQuery extends AbstractCollectionQuery
     public const USER_EMAIL       = 'email';
     public const USER_FULLNAME    = 'fullname';
     public const USER_DESCRIPTION = 'description';
-    public const USER_IS_ADMIN    = 'is_admin';
-    public const USER_IS_DISABLED = 'is_disabled';
-    public const USER_PROVIDER    = 'provider';
+    public const USER_IS_ADMIN    = 'admin';
+    public const USER_IS_DISABLED = 'disabled';
+    public const USER_PROVIDER    = 'accountProvider';
 }

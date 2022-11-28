@@ -172,6 +172,8 @@ class IssueFixtures extends Fixture implements FixtureInterface, DependentFixtur
             'req:c:6'  => '2017-10-14',
         ];
 
+        date_default_timezone_set('UTC');
+
         foreach ($sequence as $ref => $date) {
             [$tref, $pref, $iref] = explode(':', $ref);
 

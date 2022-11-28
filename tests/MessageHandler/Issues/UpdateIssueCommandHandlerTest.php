@@ -124,7 +124,7 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
         $date = date_create();
-        $date->setTimezone(timezone_open($user->getTimezone()));
+        $date->setTimezone(timezone_open('UTC'));
 
         self::assertLessThanOrEqual(2, time() - $issue->getChangedAt());
         self::assertSame('Test issue', $issue->getSubject());
@@ -419,14 +419,14 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
         $date = date_create();
-        $date->setTimezone(timezone_open($user->getTimezone()));
+        $date->setTimezone(timezone_open('UTC'));
 
         self::assertGreaterThan(2, time() - $issue->getChangedAt());
         self::assertSame('Development task 8', $issue->getSubject());
         self::assertSame('high', $listRepository->find($values[$index['Priority']]->getValue())->getText());
         self::assertSame('Esse labore et ducimus consequuntur labore voluptatem atque.', $textRepository->find($values[$index['Description']]->getValue())->getValue());
         self::assertSame(0, $values[$index['New feature']]->getValue());
-        self::assertSame('2017-09-22', $date->setTimestamp($values[$index['Due date']]->getValue())->format('Y-m-d'));
+        self::assertSame('2017-09-23', $date->setTimestamp($values[$index['Due date']]->getValue())->format('Y-m-d'));
 
         $events  = count($issue->getEvents());
         $changes = count($this->doctrine->getRepository(Change::class)->findAll());
@@ -447,7 +447,7 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
         $date = date_create();
-        $date->setTimezone(timezone_open($user->getTimezone()));
+        $date->setTimezone(timezone_open('UTC'));
 
         self::assertLessThanOrEqual(2, time() - $issue->getChangedAt());
         self::assertSame('Test issue', $issue->getSubject());
@@ -497,14 +497,14 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
         $date = date_create();
-        $date->setTimezone(timezone_open($user->getTimezone()));
+        $date->setTimezone(timezone_open('UTC'));
 
         self::assertGreaterThan(2, time() - $issue->getChangedAt());
         self::assertSame('Development task 8', $issue->getSubject());
         self::assertSame('high', $listRepository->find($values[$index['Priority']]->getValue())->getText());
         self::assertSame('Esse labore et ducimus consequuntur labore voluptatem atque.', $textRepository->find($values[$index['Description']]->getValue())->getValue());
         self::assertSame(0, $values[$index['New feature']]->getValue());
-        self::assertSame('2017-09-22', $date->setTimestamp($values[$index['Due date']]->getValue())->format('Y-m-d'));
+        self::assertSame('2017-09-23', $date->setTimestamp($values[$index['Due date']]->getValue())->format('Y-m-d'));
 
         $events  = count($issue->getEvents());
         $changes = count($this->doctrine->getRepository(Change::class)->findAll());
@@ -525,14 +525,14 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
         $date = date_create();
-        $date->setTimezone(timezone_open($user->getTimezone()));
+        $date->setTimezone(timezone_open('UTC'));
 
         self::assertLessThanOrEqual(2, time() - $issue->getChangedAt());
         self::assertSame('Test issue', $issue->getSubject());
         self::assertSame('high', $listRepository->find($values[$index['Priority']]->getValue())->getText());
         self::assertSame('Est dolorum omnis accusantium hic veritatis ut.', $textRepository->find($values[$index['Description']]->getValue())->getValue());
         self::assertSame(1, $values[$index['New feature']]->getValue());
-        self::assertSame('2017-09-22', $date->setTimestamp($values[$index['Due date']]->getValue())->format('Y-m-d'));
+        self::assertSame('2017-09-23', $date->setTimestamp($values[$index['Due date']]->getValue())->format('Y-m-d'));
 
         self::assertCount($events + 1, $issue->getEvents());
         self::assertCount($changes + 3, $this->doctrine->getRepository(Change::class)->findAll());

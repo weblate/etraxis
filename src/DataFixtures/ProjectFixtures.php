@@ -55,6 +55,8 @@ class ProjectFixtures extends Fixture implements FixtureInterface
             ],
         ];
 
+        date_default_timezone_set('UTC');
+
         foreach ($data as $ref => $row) {
             $project = new Project();
 

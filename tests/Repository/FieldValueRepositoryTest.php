@@ -161,7 +161,7 @@ final class FieldValueRepositoryTest extends TransactionalTestCase
         self::assertTrue($result);
 
         $date = date_create();
-        $date->setTimestamp($fieldValue->getValue())->setTimezone(timezone_open($user->getTimezone()));
+        $date->setTimestamp($fieldValue->getValue())->setTimezone(timezone_open('UTC'));
         self::assertSame('2015-04-23', $date->format('Y-m-d'));
 
         $result = $this->repository->setFieldValue($fieldValue, null);

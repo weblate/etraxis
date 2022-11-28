@@ -105,7 +105,7 @@ final class ChangeStateCommandHandlerTest extends TransactionalTestCase
         self::assertSame('Priority', $values[3]->getField()->getName());
 
         $date = date_create();
-        $date->setTimezone(timezone_open($user->getTimezone()));
+        $date->setTimezone(timezone_open('UTC'));
 
         self::assertSame($date_value, $date->setTimestamp($values[1]->getValue())->format('Y-m-d'));
 
@@ -298,7 +298,7 @@ final class ChangeStateCommandHandlerTest extends TransactionalTestCase
         self::assertSame('Priority', $values[3]->getField()->getName());
 
         $date = date_create();
-        $date->setTimezone(timezone_open($user->getTimezone()));
+        $date->setTimezone(timezone_open('UTC'));
 
         self::assertNull($values[1]->getValue());
     }

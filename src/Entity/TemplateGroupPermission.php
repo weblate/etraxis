@@ -15,6 +15,7 @@ namespace App\Entity;
 
 use App\Entity\Enums\TemplatePermissionEnum;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Template permission for group.
@@ -71,6 +72,7 @@ class TemplateGroupPermission
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getGroup(): Group
     {
         return $this->group;
@@ -79,6 +81,7 @@ class TemplateGroupPermission
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getPermission(): TemplatePermissionEnum
     {
         return TemplatePermissionEnum::from($this->permission);

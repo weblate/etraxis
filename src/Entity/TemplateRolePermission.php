@@ -16,6 +16,7 @@ namespace App\Entity;
 use App\Entity\Enums\SystemRoleEnum;
 use App\Entity\Enums\TemplatePermissionEnum;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Template permission for system role.
@@ -67,6 +68,7 @@ class TemplateRolePermission
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getRole(): SystemRoleEnum
     {
         return SystemRoleEnum::from($this->role);
@@ -75,6 +77,7 @@ class TemplateRolePermission
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getPermission(): TemplatePermissionEnum
     {
         return TemplatePermissionEnum::from($this->permission);

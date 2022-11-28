@@ -15,6 +15,7 @@ namespace App\Message\Templates;
 
 use App\Entity\Template;
 use App\MessageBus\Contracts\CommandInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -26,18 +27,24 @@ final class CreateTemplateCommand implements CommandInterface
      * @codeCoverageIgnore Dependency Injection constructor
      */
     public function __construct(
+        #[Groups('api')]
         private readonly int $project,
         #[Assert\NotBlank]
         #[Assert\Length(max: Template::MAX_NAME)]
+        #[Groups('api')]
         private readonly string $name,
         #[Assert\NotBlank]
         #[Assert\Length(max: Template::MAX_PREFIX)]
+        #[Groups('api')]
         private readonly string $prefix,
         #[Assert\Length(max: Template::MAX_DESCRIPTION)]
+        #[Groups('api')]
         private readonly ?string $description,
         #[Assert\Range(min: 1)]
+        #[Groups('api')]
         private readonly ?int $criticalAge,
         #[Assert\Range(min: 1)]
+        #[Groups('api')]
         private readonly ?int $frozenTime
     ) {
     }

@@ -13,6 +13,9 @@
 
 namespace App\MessageBus;
 
+use App\Entity\Enums\SystemRoleEnum;
+use App\Entity\Enums\TemplatePermissionEnum;
+use App\Message\Templates\SetRolesPermissionCommand;
 use App\Message\Users\GetUsersQuery;
 use App\Message\UserSettings\UpdateProfileCommand;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -68,6 +71,30 @@ final class CommandArgumentValueResolverTest extends WebTestCase
         self::assertInstanceOf(UpdateProfileCommand::class, $command);
         self::assertSame('artem@example.com', $command->getEmail());
         self::assertSame('Artem Rodygin', $command->getFullname());
+    }
+
+    /**
+     * @covers ::resolve
+     */
+    public function testResolveWithRoles(): void
+    {
+        $expected = [
+            SystemRoleEnum::Author,
+            SystemRoleEnum::Responsible,
+        ];
+
+        $request = new Request(content: json_encode([
+            'template'   => 1,
+            'permission' => TemplatePermissionEnum::PrivateComments,
+            'roles'      => ['author', 'responsible'],
+        ]));
+
+        /** @var \Generator $generator */
+        $generator = $this->resolver->resolve($request, new ArgumentMetadata('command', SetRolesPermissionCommand::class, false, false, null));
+        $command   = $generator->current();
+
+        self::assertInstanceOf(SetRolesPermissionCommand::class, $command);
+        self::assertSame($expected, $command->getRoles());
     }
 
     /**

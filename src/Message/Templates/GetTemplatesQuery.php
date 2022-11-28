@@ -26,7 +26,7 @@ final class GetTemplatesQuery extends AbstractCollectionQuery
     public const TEMPLATE_NAME         = 'name';
     public const TEMPLATE_PREFIX       = 'prefix';
     public const TEMPLATE_DESCRIPTION  = 'description';
-    public const TEMPLATE_CRITICAL_AGE = 'critical_age';
-    public const TEMPLATE_FROZEN_TIME  = 'frozen_time';
-    public const TEMPLATE_IS_LOCKED    = 'is_locked';
+    public const TEMPLATE_CRITICAL_AGE = 'criticalAge';
+    public const TEMPLATE_FROZEN_TIME  = 'frozenTime';
+    public const TEMPLATE_IS_LOCKED    = 'locked';
 }

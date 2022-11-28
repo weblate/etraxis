@@ -13,8 +13,10 @@
 
 namespace App\MessageBus;
 
+use App\Entity\Enums\SystemRoleEnum;
 use App\Message\Groups;
 use App\Message\Projects;
+use App\Message\Templates;
 use App\Message\Users;
 use App\Message\UserSettings;
 use App\MessageBus\Contracts\CommandInterface;
@@ -59,6 +61,14 @@ class CommandArgumentValueResolver implements ArgumentValueResolverInterface
                 Projects\DeleteProjectCommand::class  => ['project' => $request->get('id')],
                 Projects\SuspendProjectCommand::class => ['project' => $request->get('id')],
                 Projects\ResumeProjectCommand::class  => ['project' => $request->get('id')],
+                // Templates API
+                Templates\CloneTemplateCommand::class       => ['template' => $request->get('id')],
+                Templates\UpdateTemplateCommand::class      => ['template' => $request->get('id')],
+                Templates\DeleteTemplateCommand::class      => ['template' => $request->get('id')],
+                Templates\LockTemplateCommand::class        => ['template' => $request->get('id')],
+                Templates\UnlockTemplateCommand::class      => ['template' => $request->get('id')],
+                Templates\SetRolesPermissionCommand::class  => ['template' => $request->get('id')],
+                Templates\SetGroupsPermissionCommand::class => ['template' => $request->get('id')],
                 // Users API
                 Users\UpdateUserCommand::class  => ['user' => $request->get('id')],
                 Users\DeleteUserCommand::class  => ['user' => $request->get('id')],
@@ -66,6 +76,12 @@ class CommandArgumentValueResolver implements ArgumentValueResolverInterface
                 Users\EnableUserCommand::class  => ['user' => $request->get('id')],
                 // User Settings API
                 UserSettings\SetPasswordCommand::class => ['user' => $request->get('id')],
+            ],
+            AbstractNormalizer::CALLBACKS => [
+                'roles' => fn ($innerObject, $outerObject) => match ($outerObject) {
+                    Templates\SetRolesPermissionCommand::class => array_map(fn (string $role) => SystemRoleEnum::tryFrom($role), $innerObject),
+                    default                                    => $innerObject
+                },
             ],
         ]);
     }

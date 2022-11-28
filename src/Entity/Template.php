@@ -19,6 +19,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Template.
@@ -125,6 +126,7 @@ class Template
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getId(): int
     {
         return $this->id;
@@ -133,6 +135,7 @@ class Template
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getProject(): Project
     {
         return $this->project;
@@ -141,6 +144,7 @@ class Template
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getName(): string
     {
         return $this->name;
@@ -159,6 +163,7 @@ class Template
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getPrefix(): string
     {
         return $this->prefix;
@@ -177,6 +182,7 @@ class Template
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getDescription(): ?string
     {
         return $this->description;
@@ -195,6 +201,7 @@ class Template
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function isLocked(): bool
     {
         return $this->locked;
@@ -213,6 +220,7 @@ class Template
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getCriticalAge(): ?int
     {
         return $this->criticalAge;
@@ -231,6 +239,7 @@ class Template
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getFrozenTime(): ?int
     {
         return $this->frozenTime;

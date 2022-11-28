@@ -15,6 +15,7 @@ namespace App\Message\Projects;
 
 use App\Entity\Project;
 use App\MessageBus\Contracts\CommandInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -28,9 +29,12 @@ final class CreateProjectCommand implements CommandInterface
     public function __construct(
         #[Assert\NotBlank]
         #[Assert\Length(max: Project::MAX_NAME)]
+        #[Groups('api')]
         private readonly string $name,
         #[Assert\Length(max: Project::MAX_DESCRIPTION)]
+        #[Groups('api')]
         private readonly ?string $description,
+        #[Groups('api')]
         private readonly bool $suspended
     ) {
     }

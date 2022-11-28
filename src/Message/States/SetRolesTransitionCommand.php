@@ -28,9 +28,7 @@ final class SetRolesTransitionCommand implements CommandInterface
     public function __construct(
         private readonly int $fromState,
         private readonly int $toState,
-        #[Assert\All([
-            new Assert\Choice(callback: [SystemRoleEnum::class, 'cases'], strict: true),
-        ])]
+        #[Assert\Choice(callback: [SystemRoleEnum::class, 'cases'], multiple: true)]
         private readonly array $roles
     ) {
     }

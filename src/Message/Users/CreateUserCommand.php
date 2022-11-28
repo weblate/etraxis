@@ -50,7 +50,7 @@ final class CreateUserCommand implements CommandInterface
         #[Groups('api')]
         private readonly LocaleEnum $locale,
         #[Assert\NotBlank]
-        #[Assert\Choice(callback: ['DateTimeZone', 'listIdentifiers'], strict: true)]
+        #[Assert\Choice(callback: ['DateTimeZone', 'listIdentifiers'])]
         #[Groups('api')]
         private readonly string $timezone
     ) {

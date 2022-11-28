@@ -255,9 +255,6 @@ final class ChangeStateCommandHandlerTest extends TransactionalTestCase
     {
         $this->loginUser('ldoyle@example.com');
 
-        /** @var User $user */
-        $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'ldoyle@example.com']);
-
         /** @var User $assignee */
         $assignee = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'nhills@example.com']);
 

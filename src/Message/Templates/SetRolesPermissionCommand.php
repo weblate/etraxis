@@ -29,9 +29,7 @@ final class SetRolesPermissionCommand implements CommandInterface
     public function __construct(
         private readonly int $template,
         private readonly TemplatePermissionEnum $permission,
-        #[Assert\All([
-            new Assert\Choice(callback: [SystemRoleEnum::class, 'cases'], strict: true),
-        ])]
+        #[Assert\Choice(callback: [SystemRoleEnum::class, 'cases'], multiple: true)]
         private readonly array $roles
     ) {
     }

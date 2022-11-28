@@ -75,7 +75,6 @@ final class ListStrategy extends AbstractFieldStrategy
 
         $constraints[] = new Assert\Choice([
             'choices' => array_map(fn (ListItem $item) => $item->getValue(), $repository->findAllByField($this->field)),
-            'strict'  => true,
         ]);
 
         return $constraints;

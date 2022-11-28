@@ -30,7 +30,7 @@ final class UpdateSettingsCommand implements CommandInterface
         private readonly LocaleEnum $locale,
         private readonly ThemeEnum $theme,
         #[Assert\NotBlank]
-        #[Assert\Choice(callback: 'timezone_identifiers_list', strict: true)]
+        #[Assert\Choice(callback: 'timezone_identifiers_list')]
         private readonly string $timezone
     ) {
     }

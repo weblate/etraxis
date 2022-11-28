@@ -137,7 +137,7 @@ final class SetRolesPermissionCommandHandlerTest extends TransactionalTestCase
         try {
             $this->commandBus->handle($command);
         } catch (ValidationFailedException $exception) {
-            self::assertSame('The value you selected is not a valid choice.', $exception->getViolations()->get(0)->getMessage());
+            self::assertSame('One or more of the given values is invalid.', $exception->getViolations()->get(0)->getMessage());
 
             throw $exception;
         }

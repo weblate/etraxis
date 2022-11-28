@@ -54,7 +54,6 @@ final class CheckboxStrategy extends AbstractFieldStrategy
         return [
             new Assert\Choice([
                 'choices' => [false, true],
-                'strict'  => true,
                 'message' => $translator->trans('field.error.value_boolean', [
                     '%name%' => $this->field->getName(),
                 ]),

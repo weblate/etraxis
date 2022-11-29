@@ -62,7 +62,7 @@ class StateResponsibleGroup
     /**
      * Property getter.
      */
-    public function getgroup(): Group
+    public function getGroup(): Group
     {
         return $this->group;
     }

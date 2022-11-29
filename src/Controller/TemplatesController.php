@@ -255,7 +255,7 @@ class TemplatesController extends AbstractController implements ApiControllerInt
     #[API\Response(response: 200, description: 'Success.')]
     #[API\Response(response: 400, description: 'The request is malformed.')]
     #[API\Response(response: 404, description: 'Resource not found.')]
-    public function setPermissions(Message\SetRolesPermissionCommand $rolesCommand, Message\SetGroupsPermissionCommand $groupsCommand/*Request $request, int $id, SerializerInterface $serializer*/): JsonResponse
+    public function setPermissions(Message\SetRolesPermissionCommand $rolesCommand, Message\SetGroupsPermissionCommand $groupsCommand): JsonResponse
     {
         $this->commandBus->handle($rolesCommand);
         $this->commandBus->handle($groupsCommand);

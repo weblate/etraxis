@@ -14,6 +14,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * State transition for group.
@@ -75,6 +76,7 @@ class StateGroupTransition
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getToState(): State
     {
         return $this->toState;
@@ -83,6 +85,7 @@ class StateGroupTransition
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getGroup(): Group
     {
         return $this->group;

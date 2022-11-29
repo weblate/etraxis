@@ -16,6 +16,7 @@ namespace App\MessageBus;
 use App\Entity\Enums\SystemRoleEnum;
 use App\Message\Groups;
 use App\Message\Projects;
+use App\Message\States;
 use App\Message\Templates;
 use App\Message\Users;
 use App\Message\UserSettings;
@@ -69,6 +70,13 @@ class CommandArgumentValueResolver implements ArgumentValueResolverInterface
                 Templates\UnlockTemplateCommand::class      => ['template' => $request->get('id')],
                 Templates\SetRolesPermissionCommand::class  => ['template' => $request->get('id')],
                 Templates\SetGroupsPermissionCommand::class => ['template' => $request->get('id')],
+                // States API
+                States\UpdateStateCommand::class          => ['state'     => $request->get('id')],
+                States\DeleteStateCommand::class          => ['state'     => $request->get('id')],
+                States\SetInitialStateCommand::class      => ['state'     => $request->get('id')],
+                States\SetResponsibleGroupsCommand::class => ['state'     => $request->get('id')],
+                States\SetRolesTransitionCommand::class   => ['fromState' => $request->get('id')],
+                States\SetGroupsTransitionCommand::class  => ['fromState' => $request->get('id')],
                 // Users API
                 Users\UpdateUserCommand::class  => ['user' => $request->get('id')],
                 Users\DeleteUserCommand::class  => ['user' => $request->get('id')],
@@ -80,6 +88,7 @@ class CommandArgumentValueResolver implements ArgumentValueResolverInterface
             AbstractNormalizer::CALLBACKS => [
                 'roles' => fn ($innerObject, $outerObject) => match ($outerObject) {
                     Templates\SetRolesPermissionCommand::class => array_map(fn (string $role) => SystemRoleEnum::tryFrom($role), $innerObject),
+                    States\SetRolesTransitionCommand::class    => array_map(fn (string $role) => SystemRoleEnum::tryFrom($role), $innerObject),
                     default                                    => $innerObject
                 },
             ],

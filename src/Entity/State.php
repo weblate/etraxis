@@ -20,6 +20,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * State.
@@ -109,6 +110,7 @@ class State
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getId(): int
     {
         return $this->id;
@@ -117,6 +119,7 @@ class State
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getTemplate(): Template
     {
         return $this->template;
@@ -125,6 +128,7 @@ class State
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getName(): string
     {
         return $this->name;
@@ -143,6 +147,7 @@ class State
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getType(): StateTypeEnum
     {
         return StateTypeEnum::from($this->type);
@@ -159,6 +164,7 @@ class State
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getResponsible(): StateResponsibleEnum
     {
         return !$this->isFinal()

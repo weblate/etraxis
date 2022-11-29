@@ -17,6 +17,7 @@ use App\Entity\Enums\StateResponsibleEnum;
 use App\Entity\Enums\StateTypeEnum;
 use App\Entity\State;
 use App\MessageBus\Contracts\CommandInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -28,11 +29,15 @@ final class CreateStateCommand implements CommandInterface
      * @codeCoverageIgnore Dependency Injection constructor
      */
     public function __construct(
+        #[Groups('api')]
         private readonly int $template,
         #[Assert\NotBlank]
         #[Assert\Length(max: State::MAX_NAME)]
+        #[Groups('api')]
         private readonly string $name,
+        #[Groups('api')]
         private readonly StateTypeEnum $type,
+        #[Groups('api')]
         private readonly StateResponsibleEnum $responsible
     ) {
     }

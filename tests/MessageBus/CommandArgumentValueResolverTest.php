@@ -15,6 +15,7 @@ namespace App\MessageBus;
 
 use App\Entity\Enums\SystemRoleEnum;
 use App\Entity\Enums\TemplatePermissionEnum;
+use App\Message\States\SetRolesTransitionCommand;
 use App\Message\Templates\SetRolesPermissionCommand;
 use App\Message\Users\GetUsersQuery;
 use App\Message\UserSettings\UpdateProfileCommand;
@@ -76,7 +77,7 @@ final class CommandArgumentValueResolverTest extends WebTestCase
     /**
      * @covers ::resolve
      */
-    public function testResolveWithRoles(): void
+    public function testResolveWithTemplateRoles(): void
     {
         $expected = [
             SystemRoleEnum::Author,
@@ -94,6 +95,30 @@ final class CommandArgumentValueResolverTest extends WebTestCase
         $command   = $generator->current();
 
         self::assertInstanceOf(SetRolesPermissionCommand::class, $command);
+        self::assertSame($expected, $command->getRoles());
+    }
+
+    /**
+     * @covers ::resolve
+     */
+    public function testResolveWithStateRoles(): void
+    {
+        $expected = [
+            SystemRoleEnum::Author,
+            SystemRoleEnum::Responsible,
+        ];
+
+        $request = new Request(content: json_encode([
+            'fromState' => 1,
+            'toState'   => 2,
+            'roles'     => ['author', 'responsible'],
+        ]));
+
+        /** @var \Generator $generator */
+        $generator = $this->resolver->resolve($request, new ArgumentMetadata('command', SetRolesTransitionCommand::class, false, false, null));
+        $command   = $generator->current();
+
+        self::assertInstanceOf(SetRolesTransitionCommand::class, $command);
         self::assertSame($expected, $command->getRoles());
     }
 

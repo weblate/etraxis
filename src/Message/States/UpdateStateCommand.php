@@ -16,6 +16,7 @@ namespace App\Message\States;
 use App\Entity\Enums\StateResponsibleEnum;
 use App\Entity\State;
 use App\MessageBus\Contracts\CommandInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -30,7 +31,9 @@ final class UpdateStateCommand implements CommandInterface
         private readonly int $state,
         #[Assert\NotBlank]
         #[Assert\Length(max: State::MAX_NAME)]
+        #[Groups('api')]
         private readonly string $name,
+        #[Groups('api')]
         private readonly StateResponsibleEnum $responsible
     ) {
     }

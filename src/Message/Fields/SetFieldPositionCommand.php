@@ -14,6 +14,8 @@
 namespace App\Message\Fields;
 
 use App\MessageBus\Contracts\CommandInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Sets new position for specified field.
@@ -23,8 +25,12 @@ final class SetFieldPositionCommand implements CommandInterface
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(private readonly int $field, private readonly int $position)
-    {
+    public function __construct(
+        private readonly int $field,
+        #[Assert\Range(min: 1)]
+        #[Groups('api')]
+        private readonly int $position
+    ) {
     }
 
     /**

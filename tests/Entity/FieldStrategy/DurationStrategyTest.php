@@ -46,6 +46,7 @@ final class DurationStrategyTest extends WebTestCase
     }
 
     /**
+     * @covers ::getDefault
      * @covers ::getParameter
      * @covers ::setParameter
      */
@@ -56,23 +57,28 @@ final class DurationStrategyTest extends WebTestCase
         $max   = '999999:59';
 
         $this->strategy->setParameter(Field::DEFAULT, $value);
+        self::assertSame($value, $this->strategy->getDefault());
         self::assertSame($value, $this->strategy->getParameter(Field::DEFAULT));
         self::assertSame($value, $this->field->getParameter(Field::DEFAULT));
 
         $this->strategy->setParameter(Field::DEFAULT, $min);
+        self::assertSame($min, $this->strategy->getDefault());
         self::assertSame($min, $this->strategy->getParameter(Field::DEFAULT));
         self::assertSame($min, $this->field->getParameter(Field::DEFAULT));
 
         $this->strategy->setParameter(Field::DEFAULT, $max);
+        self::assertSame($max, $this->strategy->getDefault());
         self::assertSame($max, $this->strategy->getParameter(Field::DEFAULT));
         self::assertSame($max, $this->field->getParameter(Field::DEFAULT));
 
         $this->strategy->setParameter(Field::DEFAULT, null);
+        self::assertNull($this->strategy->getDefault());
         self::assertNull($this->strategy->getParameter(Field::DEFAULT));
         self::assertNull($this->field->getParameter(Field::DEFAULT));
     }
 
     /**
+     * @covers ::getMinimum
      * @covers ::getParameter
      * @covers ::setParameter
      */
@@ -83,19 +89,23 @@ final class DurationStrategyTest extends WebTestCase
         $max   = '999999:59';
 
         $this->strategy->setParameter(Field::MINIMUM, $value);
+        self::assertSame($value, $this->strategy->getMinimum());
         self::assertSame($value, $this->strategy->getParameter(Field::MINIMUM));
         self::assertSame($value, $this->field->getParameter(Field::MINIMUM));
 
         $this->strategy->setParameter(Field::MINIMUM, $min);
+        self::assertSame($min, $this->strategy->getMinimum());
         self::assertSame($min, $this->strategy->getParameter(Field::MINIMUM));
         self::assertSame($min, $this->field->getParameter(Field::MINIMUM));
 
         $this->strategy->setParameter(Field::MINIMUM, $max);
+        self::assertSame($max, $this->strategy->getMinimum());
         self::assertSame($max, $this->strategy->getParameter(Field::MINIMUM));
         self::assertSame($max, $this->field->getParameter(Field::MINIMUM));
     }
 
     /**
+     * @covers ::getMaximum
      * @covers ::getParameter
      * @covers ::setParameter
      */
@@ -106,14 +116,17 @@ final class DurationStrategyTest extends WebTestCase
         $max   = '999999:59';
 
         $this->strategy->setParameter(Field::MAXIMUM, $value);
+        self::assertSame($value, $this->strategy->getMaximum());
         self::assertSame($value, $this->strategy->getParameter(Field::MAXIMUM));
         self::assertSame($value, $this->field->getParameter(Field::MAXIMUM));
 
         $this->strategy->setParameter(Field::MAXIMUM, $min);
+        self::assertSame($min, $this->strategy->getMaximum());
         self::assertSame($min, $this->strategy->getParameter(Field::MAXIMUM));
         self::assertSame($min, $this->field->getParameter(Field::MAXIMUM));
 
         $this->strategy->setParameter(Field::MAXIMUM, $max);
+        self::assertSame($max, $this->strategy->getMaximum());
         self::assertSame($max, $this->strategy->getParameter(Field::MAXIMUM));
         self::assertSame($max, $this->field->getParameter(Field::MAXIMUM));
     }

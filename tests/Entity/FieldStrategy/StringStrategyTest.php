@@ -46,6 +46,7 @@ final class StringStrategyTest extends TransactionalTestCase
     }
 
     /**
+     * @covers ::getDefault
      * @covers ::getParameter
      * @covers ::setParameter
      */
@@ -54,6 +55,7 @@ final class StringStrategyTest extends TransactionalTestCase
         $value = 'eTraxis';
 
         $this->strategy->setParameter(Field::DEFAULT, $value);
+        self::assertSame($value, $this->strategy->getDefault());
         self::assertSame($value, $this->strategy->getParameter(Field::DEFAULT));
         self::assertSame($value, $this->field->getParameter(Field::DEFAULT));
 
@@ -61,15 +63,18 @@ final class StringStrategyTest extends TransactionalTestCase
         $trim = str_pad('', StringStrategy::MAX_LENGTH);
 
         $this->strategy->setParameter(Field::DEFAULT, $huge);
+        self::assertSame($trim, $this->strategy->getDefault());
         self::assertSame($trim, $this->strategy->getParameter(Field::DEFAULT));
         self::assertSame($trim, $this->field->getParameter(Field::DEFAULT));
 
         $this->strategy->setParameter(Field::DEFAULT, null);
+        self::assertNull($this->strategy->getDefault());
         self::assertNull($this->strategy->getParameter(Field::DEFAULT));
         self::assertNull($this->field->getParameter(Field::DEFAULT));
     }
 
     /**
+     * @covers ::getLength
      * @covers ::getParameter
      * @covers ::setParameter
      */
@@ -80,20 +85,24 @@ final class StringStrategyTest extends TransactionalTestCase
         $max   = StringStrategy::MAX_LENGTH + 1;
 
         $this->strategy->setParameter(Field::LENGTH, $value);
+        self::assertSame($value, $this->strategy->getLength());
         self::assertSame($value, $this->strategy->getParameter(Field::LENGTH));
         self::assertSame($value, $this->field->getParameter(Field::LENGTH));
 
         $this->strategy->setParameter(Field::LENGTH, $min);
+        self::assertSame(StringStrategy::MIN_LENGTH, $this->strategy->getLength());
         self::assertSame(StringStrategy::MIN_LENGTH, $this->strategy->getParameter(Field::LENGTH));
         self::assertSame(StringStrategy::MIN_LENGTH, $this->field->getParameter(Field::LENGTH));
 
         $this->strategy->setParameter(Field::LENGTH, $max);
+        self::assertSame(StringStrategy::MAX_LENGTH, $this->strategy->getLength());
         self::assertSame(StringStrategy::MAX_LENGTH, $this->strategy->getParameter(Field::LENGTH));
         self::assertSame(StringStrategy::MAX_LENGTH, $this->field->getParameter(Field::LENGTH));
     }
 
     /**
      * @covers ::getParameter
+     * @covers ::getPcreCheck
      * @covers ::setParameter
      */
     public function testPcreCheck(): void
@@ -101,6 +110,7 @@ final class StringStrategyTest extends TransactionalTestCase
         $value = '(\d{3})-(\d{3})-(\d{4})';
 
         $this->strategy->setParameter(Field::PCRE_CHECK, $value);
+        self::assertSame($value, $this->strategy->getPcreCheck());
         self::assertSame($value, $this->strategy->getParameter(Field::PCRE_CHECK));
         self::assertSame($value, $this->field->getParameter(Field::PCRE_CHECK));
 
@@ -108,16 +118,19 @@ final class StringStrategyTest extends TransactionalTestCase
         $trim = str_pad('', Field::MAX_PCRE);
 
         $this->strategy->setParameter(Field::PCRE_CHECK, $huge);
+        self::assertSame($trim, $this->strategy->getPcreCheck());
         self::assertSame($trim, $this->strategy->getParameter(Field::PCRE_CHECK));
         self::assertSame($trim, $this->field->getParameter(Field::PCRE_CHECK));
 
         $this->strategy->setParameter(Field::PCRE_CHECK, null);
+        self::assertNull($this->strategy->getPcreCheck());
         self::assertNull($this->strategy->getParameter(Field::PCRE_CHECK));
         self::assertNull($this->field->getParameter(Field::PCRE_CHECK));
     }
 
     /**
      * @covers ::getParameter
+     * @covers ::getPcreSearch
      * @covers ::setParameter
      */
     public function testPcreSearch(): void
@@ -125,6 +138,7 @@ final class StringStrategyTest extends TransactionalTestCase
         $value = '(\d{3})-(\d{3})-(\d{4})';
 
         $this->strategy->setParameter(Field::PCRE_SEARCH, $value);
+        self::assertSame($value, $this->strategy->getPcreSearch());
         self::assertSame($value, $this->strategy->getParameter(Field::PCRE_SEARCH));
         self::assertSame($value, $this->field->getParameter(Field::PCRE_SEARCH));
 
@@ -132,16 +146,19 @@ final class StringStrategyTest extends TransactionalTestCase
         $trim = str_pad('', Field::MAX_PCRE);
 
         $this->strategy->setParameter(Field::PCRE_SEARCH, $huge);
+        self::assertSame($trim, $this->strategy->getPcreSearch());
         self::assertSame($trim, $this->strategy->getParameter(Field::PCRE_SEARCH));
         self::assertSame($trim, $this->field->getParameter(Field::PCRE_SEARCH));
 
         $this->strategy->setParameter(Field::PCRE_SEARCH, null);
+        self::assertNull($this->strategy->getPcreSearch());
         self::assertNull($this->strategy->getParameter(Field::PCRE_SEARCH));
         self::assertNull($this->field->getParameter(Field::PCRE_SEARCH));
     }
 
     /**
      * @covers ::getParameter
+     * @covers ::getPcreReplace
      * @covers ::setParameter
      */
     public function testPcreReplace(): void
@@ -149,6 +166,7 @@ final class StringStrategyTest extends TransactionalTestCase
         $value = '($1) $2-$3';
 
         $this->strategy->setParameter(Field::PCRE_REPLACE, $value);
+        self::assertSame($value, $this->strategy->getPcreReplace());
         self::assertSame($value, $this->strategy->getParameter(Field::PCRE_REPLACE));
         self::assertSame($value, $this->field->getParameter(Field::PCRE_REPLACE));
 
@@ -156,10 +174,12 @@ final class StringStrategyTest extends TransactionalTestCase
         $trim = str_pad('', Field::MAX_PCRE);
 
         $this->strategy->setParameter(Field::PCRE_REPLACE, $huge);
+        self::assertSame($trim, $this->strategy->getPcreReplace());
         self::assertSame($trim, $this->strategy->getParameter(Field::PCRE_REPLACE));
         self::assertSame($trim, $this->field->getParameter(Field::PCRE_REPLACE));
 
         $this->strategy->setParameter(Field::PCRE_REPLACE, null);
+        self::assertNull($this->strategy->getPcreReplace());
         self::assertNull($this->strategy->getParameter(Field::PCRE_REPLACE));
         self::assertNull($this->field->getParameter(Field::PCRE_REPLACE));
     }

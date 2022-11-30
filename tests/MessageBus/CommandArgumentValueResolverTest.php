@@ -13,10 +13,12 @@
 
 namespace App\MessageBus;
 
+use App\Entity\Enums\FieldPermissionEnum;
 use App\Entity\Enums\SystemRoleEnum;
 use App\Entity\Enums\TemplatePermissionEnum;
-use App\Message\States\SetRolesTransitionCommand;
-use App\Message\Templates\SetRolesPermissionCommand;
+use App\Message\Fields\SetRolesPermissionCommand as SetFieldRolesPermissionCommand;
+use App\Message\States\SetRolesTransitionCommand as SetStateRolesTransitionCommand;
+use App\Message\Templates\SetRolesPermissionCommand as SetTemplateRolesPermissionCommand;
 use App\Message\Users\GetUsersQuery;
 use App\Message\UserSettings\UpdateProfileCommand;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -91,10 +93,10 @@ final class CommandArgumentValueResolverTest extends WebTestCase
         ]));
 
         /** @var \Generator $generator */
-        $generator = $this->resolver->resolve($request, new ArgumentMetadata('command', SetRolesPermissionCommand::class, false, false, null));
+        $generator = $this->resolver->resolve($request, new ArgumentMetadata('command', SetTemplateRolesPermissionCommand::class, false, false, null));
         $command   = $generator->current();
 
-        self::assertInstanceOf(SetRolesPermissionCommand::class, $command);
+        self::assertInstanceOf(SetTemplateRolesPermissionCommand::class, $command);
         self::assertSame($expected, $command->getRoles());
     }
 
@@ -115,10 +117,34 @@ final class CommandArgumentValueResolverTest extends WebTestCase
         ]));
 
         /** @var \Generator $generator */
-        $generator = $this->resolver->resolve($request, new ArgumentMetadata('command', SetRolesTransitionCommand::class, false, false, null));
+        $generator = $this->resolver->resolve($request, new ArgumentMetadata('command', SetStateRolesTransitionCommand::class, false, false, null));
         $command   = $generator->current();
 
-        self::assertInstanceOf(SetRolesTransitionCommand::class, $command);
+        self::assertInstanceOf(SetStateRolesTransitionCommand::class, $command);
+        self::assertSame($expected, $command->getRoles());
+    }
+
+    /**
+     * @covers ::resolve
+     */
+    public function testResolveWithFieldRoles(): void
+    {
+        $expected = [
+            SystemRoleEnum::Author,
+            SystemRoleEnum::Responsible,
+        ];
+
+        $request = new Request(content: json_encode([
+            'field'      => 1,
+            'permission' => FieldPermissionEnum::ReadAndWrite,
+            'roles'      => ['author', 'responsible'],
+        ]));
+
+        /** @var \Generator $generator */
+        $generator = $this->resolver->resolve($request, new ArgumentMetadata('command', SetFieldRolesPermissionCommand::class, false, false, null));
+        $command   = $generator->current();
+
+        self::assertInstanceOf(SetFieldRolesPermissionCommand::class, $command);
         self::assertSame($expected, $command->getRoles());
     }
 

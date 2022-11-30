@@ -16,6 +16,7 @@ namespace App\Entity;
 use App\Entity\Enums\FieldPermissionEnum;
 use App\Entity\Enums\SystemRoleEnum;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Field permission for system role.
@@ -66,6 +67,7 @@ class FieldRolePermission
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getRole(): SystemRoleEnum
     {
         return SystemRoleEnum::from($this->role);
@@ -74,6 +76,7 @@ class FieldRolePermission
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getPermission(): FieldPermissionEnum
     {
         return FieldPermissionEnum::from($this->permission);

@@ -13,12 +13,16 @@
 
 namespace App\Entity;
 
+use App\Controller\ApiControllerInterface;
 use App\Entity\Enums\FieldTypeEnum;
 use App\Repository\FieldRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Attributes as API;
 use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Field.
@@ -129,6 +133,7 @@ class Field
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getId(): int
     {
         return $this->id;
@@ -137,6 +142,7 @@ class Field
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getState(): State
     {
         return $this->state;
@@ -145,6 +151,7 @@ class Field
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getName(): string
     {
         return $this->name;
@@ -163,6 +170,7 @@ class Field
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getType(): FieldTypeEnum
     {
         return FieldTypeEnum::from($this->type);
@@ -171,6 +179,7 @@ class Field
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getDescription(): ?string
     {
         return $this->description;
@@ -189,6 +198,7 @@ class Field
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getPosition(): int
     {
         return $this->position;
@@ -207,6 +217,7 @@ class Field
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function isRequired(): bool
     {
         return $this->required;
@@ -245,6 +256,18 @@ class Field
     /**
      * Property getter.
      */
+    #[Groups('api')]
+    #[API\Property(property: 'parameters', type: ApiControllerInterface::TYPE_OBJECT, oneOf: [
+        new API\Schema(ref: new Model(type: FieldStrategy\CheckboxStrategy::class)),
+        new API\Schema(ref: new Model(type: FieldStrategy\DateStrategy::class)),
+        new API\Schema(ref: new Model(type: FieldStrategy\DecimalStrategy::class)),
+        new API\Schema(ref: new Model(type: FieldStrategy\DurationStrategy::class)),
+        new API\Schema(ref: new Model(type: FieldStrategy\IssueStrategy::class)),
+        new API\Schema(ref: new Model(type: FieldStrategy\ListStrategy::class)),
+        new API\Schema(ref: new Model(type: FieldStrategy\NumberStrategy::class)),
+        new API\Schema(ref: new Model(type: FieldStrategy\StringStrategy::class)),
+        new API\Schema(ref: new Model(type: FieldStrategy\TextStrategy::class)),
+    ])]
     public function getAllParameters(): array
     {
         return $this->parameters;

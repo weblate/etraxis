@@ -13,8 +13,13 @@
 
 namespace App\Message\Fields;
 
+use App\Controller\ApiControllerInterface;
 use App\Entity\Field;
+use App\Entity\FieldStrategy;
 use App\MessageBus\Contracts\CommandInterface;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Attributes as API;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -29,10 +34,25 @@ final class UpdateFieldCommand implements CommandInterface
         private readonly int $field,
         #[Assert\NotBlank]
         #[Assert\Length(max: Field::MAX_NAME)]
+        #[Groups('api')]
         private readonly string $name,
         #[Assert\Length(max: Field::MAX_DESCRIPTION)]
+        #[Groups('api')]
         private readonly ?string $description,
+        #[Groups('api')]
         private readonly bool $required,
+        #[Groups('api')]
+        #[API\Property(type: ApiControllerInterface::TYPE_OBJECT, oneOf: [
+            new API\Schema(ref: new Model(type: FieldStrategy\CheckboxStrategy::class)),
+            new API\Schema(ref: new Model(type: FieldStrategy\DateStrategy::class)),
+            new API\Schema(ref: new Model(type: FieldStrategy\DecimalStrategy::class)),
+            new API\Schema(ref: new Model(type: FieldStrategy\DurationStrategy::class)),
+            new API\Schema(ref: new Model(type: FieldStrategy\IssueStrategy::class)),
+            new API\Schema(ref: new Model(type: FieldStrategy\ListStrategy::class)),
+            new API\Schema(ref: new Model(type: FieldStrategy\NumberStrategy::class)),
+            new API\Schema(ref: new Model(type: FieldStrategy\StringStrategy::class)),
+            new API\Schema(ref: new Model(type: FieldStrategy\TextStrategy::class)),
+        ])]
         private readonly ?array $parameters
     ) {
     }

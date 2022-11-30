@@ -13,8 +13,12 @@
 
 namespace App\Entity\FieldStrategy;
 
+use App\Controller\ApiControllerInterface;
 use App\Entity\Field;
 use App\Entity\TextValue;
+use OpenApi\Attributes as API;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -26,6 +30,44 @@ final class TextStrategy extends AbstractFieldStrategy
     // Constraints.
     public const MIN_LENGTH = 1;
     public const MAX_LENGTH = TextValue::MAX_VALUE;
+
+    #[Groups('api')]
+    #[API\Property(type: ApiControllerInterface::TYPE_INTEGER, minimum: self::MIN_LENGTH, maximum: self::MAX_LENGTH, description: 'Maximum allowed length.')]
+    public function getLength(): int
+    {
+        return $this->getParameter(Field::LENGTH);
+    }
+
+    #[Groups('api')]
+    #[API\Property(type: ApiControllerInterface::TYPE_STRING, nullable: true, maxLength: self::MAX_LENGTH, description: 'Default value.')]
+    public function getDefault(): ?string
+    {
+        return $this->getParameter(Field::DEFAULT);
+    }
+
+    #[Groups('api')]
+    #[SerializedName('pcre-check')]
+    #[API\Property(type: ApiControllerInterface::TYPE_STRING, nullable: true, maxLength: Field::MAX_PCRE, description: 'Perl-compatible regular expression to check value format.')]
+    public function getPcreCheck(): ?string
+    {
+        return $this->getParameter(Field::PCRE_CHECK);
+    }
+
+    #[Groups('api')]
+    #[SerializedName('pcre-search')]
+    #[API\Property(type: ApiControllerInterface::TYPE_STRING, nullable: true, maxLength: Field::MAX_PCRE, description: 'Perl-compatible regular expression to modify value before display it (search for).')]
+    public function getPcreSearch(): ?string
+    {
+        return $this->getParameter(Field::PCRE_SEARCH);
+    }
+
+    #[Groups('api')]
+    #[SerializedName('pcre-replace')]
+    #[API\Property(type: ApiControllerInterface::TYPE_STRING, nullable: true, maxLength: Field::MAX_PCRE, description: 'Perl-compatible regular expression to modify value before display it (replace with).')]
+    public function getPcreReplace(): ?string
+    {
+        return $this->getParameter(Field::PCRE_REPLACE);
+    }
 
     /**
      * {@inheritDoc}

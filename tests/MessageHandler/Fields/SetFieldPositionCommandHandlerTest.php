@@ -22,6 +22,7 @@ use App\Repository\Contracts\FieldRepositoryInterface;
 use App\TransactionalTestCase;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 /**
  * @internal
@@ -141,6 +142,29 @@ final class SetFieldPositionCommandHandlerTest extends TransactionalTestCase
         $this->commandBus->handle($command);
 
         self::assertSame($expected, $this->getFields($field->getState()));
+    }
+
+    /**
+     * @covers ::__invoke
+     */
+    public function testValidationCriticalAge(): void
+    {
+        $this->expectException(ValidationFailedException::class);
+
+        $this->loginUser('admin@example.com');
+
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->repository->findBy(['name' => 'Effort'], ['id' => 'ASC']);
+
+        $command = new SetFieldPositionCommand($field->getId(), 0);
+
+        try {
+            $this->commandBus->handle($command);
+        } catch (ValidationFailedException $exception) {
+            self::assertSame('This value should be 1 or more.', $exception->getViolations()->get(0)->getMessage());
+
+            throw $exception;
+        }
     }
 
     /**

@@ -13,9 +13,14 @@
 
 namespace App\Message\Fields;
 
+use App\Controller\ApiControllerInterface;
 use App\Entity\Enums\FieldTypeEnum;
 use App\Entity\Field;
+use App\Entity\FieldStrategy;
 use App\MessageBus\Contracts\CommandInterface;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Attributes as API;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -27,14 +32,31 @@ final class CreateFieldCommand implements CommandInterface
      * @codeCoverageIgnore Dependency Injection constructor
      */
     public function __construct(
+        #[Groups('api')]
         private readonly int $state,
         #[Assert\NotBlank]
         #[Assert\Length(max: Field::MAX_NAME)]
+        #[Groups('api')]
         private readonly string $name,
+        #[Groups('api')]
         private readonly FieldTypeEnum $type,
         #[Assert\Length(max: Field::MAX_DESCRIPTION)]
+        #[Groups('api')]
         private readonly ?string $description,
+        #[Groups('api')]
         private readonly bool $required,
+        #[Groups('api')]
+        #[API\Property(type: ApiControllerInterface::TYPE_OBJECT, oneOf: [
+            new API\Schema(ref: new Model(type: FieldStrategy\CheckboxStrategy::class)),
+            new API\Schema(ref: new Model(type: FieldStrategy\DateStrategy::class)),
+            new API\Schema(ref: new Model(type: FieldStrategy\DecimalStrategy::class)),
+            new API\Schema(ref: new Model(type: FieldStrategy\DurationStrategy::class)),
+            new API\Schema(ref: new Model(type: FieldStrategy\IssueStrategy::class)),
+            new API\Schema(ref: new Model(type: FieldStrategy\ListStrategy::class)),
+            new API\Schema(ref: new Model(type: FieldStrategy\NumberStrategy::class)),
+            new API\Schema(ref: new Model(type: FieldStrategy\StringStrategy::class)),
+            new API\Schema(ref: new Model(type: FieldStrategy\TextStrategy::class)),
+        ])]
         private readonly ?array $parameters
     ) {
     }

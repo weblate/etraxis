@@ -46,23 +46,28 @@ final class CheckboxStrategyTest extends WebTestCase
     }
 
     /**
+     * @covers ::getDefault
      * @covers ::getParameter
      * @covers ::setParameter
      */
     public function testDefaultValue(): void
     {
+        self::assertTrue($this->strategy->getDefault());
         self::assertTrue($this->strategy->getParameter(Field::DEFAULT));
         self::assertTrue($this->field->getParameter(Field::DEFAULT));
 
         $this->strategy->setParameter(Field::DEFAULT, false);
+        self::assertFalse($this->strategy->getDefault());
         self::assertFalse($this->strategy->getParameter(Field::DEFAULT));
         self::assertFalse($this->field->getParameter(Field::DEFAULT));
 
         $this->strategy->setParameter(Field::DEFAULT, true);
+        self::assertTrue($this->strategy->getDefault());
         self::assertTrue($this->strategy->getParameter(Field::DEFAULT));
         self::assertTrue($this->field->getParameter(Field::DEFAULT));
 
         $this->strategy->setParameter(Field::DEFAULT, null);
+        self::assertFalse($this->strategy->getDefault());
         self::assertFalse($this->strategy->getParameter(Field::DEFAULT));
         self::assertNull($this->field->getParameter(Field::DEFAULT));
     }

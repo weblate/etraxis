@@ -15,6 +15,7 @@ namespace App\Entity;
 
 use App\Entity\Enums\FieldPermissionEnum;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Field permission for group.
@@ -70,6 +71,7 @@ class FieldGroupPermission
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getGroup(): Group
     {
         return $this->group;
@@ -78,6 +80,7 @@ class FieldGroupPermission
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getPermission(): FieldPermissionEnum
     {
         return FieldPermissionEnum::from($this->permission);

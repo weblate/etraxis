@@ -13,9 +13,12 @@
 
 namespace App\Entity\FieldStrategy;
 
+use App\Controller\ApiControllerInterface;
 use App\Entity\DecimalValue;
 use App\Entity\Field;
 use App\Validator\DecimalRange;
+use OpenApi\Attributes as API;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -27,6 +30,27 @@ final class DecimalStrategy extends AbstractFieldStrategy
     // Constraints.
     public const MIN_VALUE = '-9999999999.9999999999';
     public const MAX_VALUE = '9999999999.9999999999';
+
+    #[Groups('api')]
+    #[API\Property(type: ApiControllerInterface::TYPE_STRING, minimum: self::MIN_VALUE, maximum: self::MAX_VALUE, description: 'Minimum allowed value.')]
+    public function getMinimum(): string
+    {
+        return $this->getParameter(Field::MINIMUM);
+    }
+
+    #[Groups('api')]
+    #[API\Property(type: ApiControllerInterface::TYPE_STRING, minimum: self::MIN_VALUE, maximum: self::MAX_VALUE, description: 'Maximum allowed value.')]
+    public function getMaximum(): string
+    {
+        return $this->getParameter(Field::MAXIMUM);
+    }
+
+    #[Groups('api')]
+    #[API\Property(type: ApiControllerInterface::TYPE_STRING, nullable: true, minimum: self::MIN_VALUE, maximum: self::MAX_VALUE, description: 'Default value.')]
+    public function getDefault(): ?string
+    {
+        return $this->getParameter(Field::DEFAULT);
+    }
 
     /**
      * {@inheritDoc}

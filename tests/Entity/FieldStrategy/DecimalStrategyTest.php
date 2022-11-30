@@ -49,6 +49,7 @@ final class DecimalStrategyTest extends TransactionalTestCase
     }
 
     /**
+     * @covers ::getDefault
      * @covers ::getParameter
      * @covers ::setParameter
      */
@@ -59,23 +60,28 @@ final class DecimalStrategyTest extends TransactionalTestCase
         $max   = '10000000000.00';
 
         $this->strategy->setParameter(Field::DEFAULT, $value);
+        self::assertSame($value, $this->strategy->getDefault());
         self::assertSame($value, $this->strategy->getParameter(Field::DEFAULT));
         self::assertSame($value, $this->field->getParameter(Field::DEFAULT));
 
         $this->strategy->setParameter(Field::DEFAULT, $min);
+        self::assertSame(DecimalStrategy::MIN_VALUE, $this->strategy->getDefault());
         self::assertSame(DecimalStrategy::MIN_VALUE, $this->strategy->getParameter(Field::DEFAULT));
         self::assertSame(DecimalStrategy::MIN_VALUE, $this->field->getParameter(Field::DEFAULT));
 
         $this->strategy->setParameter(Field::DEFAULT, $max);
+        self::assertSame(DecimalStrategy::MAX_VALUE, $this->strategy->getDefault());
         self::assertSame(DecimalStrategy::MAX_VALUE, $this->strategy->getParameter(Field::DEFAULT));
         self::assertSame(DecimalStrategy::MAX_VALUE, $this->field->getParameter(Field::DEFAULT));
 
         $this->strategy->setParameter(Field::DEFAULT, null);
+        self::assertNull($this->strategy->getDefault());
         self::assertNull($this->strategy->getParameter(Field::DEFAULT));
         self::assertNull($this->field->getParameter(Field::DEFAULT));
     }
 
     /**
+     * @covers ::getMinimum
      * @covers ::getParameter
      * @covers ::setParameter
      */
@@ -86,19 +92,23 @@ final class DecimalStrategyTest extends TransactionalTestCase
         $max   = '10000000000.00';
 
         $this->strategy->setParameter(Field::MINIMUM, $value);
+        self::assertSame($value, $this->strategy->getMinimum());
         self::assertSame($value, $this->strategy->getParameter(Field::MINIMUM));
         self::assertSame($value, $this->field->getParameter(Field::MINIMUM));
 
         $this->strategy->setParameter(Field::MINIMUM, $min);
+        self::assertSame(DecimalStrategy::MIN_VALUE, $this->strategy->getMinimum());
         self::assertSame(DecimalStrategy::MIN_VALUE, $this->strategy->getParameter(Field::MINIMUM));
         self::assertSame(DecimalStrategy::MIN_VALUE, $this->field->getParameter(Field::MINIMUM));
 
         $this->strategy->setParameter(Field::MINIMUM, $max);
+        self::assertSame(DecimalStrategy::MAX_VALUE, $this->strategy->getMinimum());
         self::assertSame(DecimalStrategy::MAX_VALUE, $this->strategy->getParameter(Field::MINIMUM));
         self::assertSame(DecimalStrategy::MAX_VALUE, $this->field->getParameter(Field::MINIMUM));
     }
 
     /**
+     * @covers ::getMaximum
      * @covers ::getParameter
      * @covers ::setParameter
      */
@@ -109,14 +119,17 @@ final class DecimalStrategyTest extends TransactionalTestCase
         $max   = '10000000000.00';
 
         $this->strategy->setParameter(Field::MAXIMUM, $value);
+        self::assertSame($value, $this->strategy->getMaximum());
         self::assertSame($value, $this->strategy->getParameter(Field::MAXIMUM));
         self::assertSame($value, $this->field->getParameter(Field::MAXIMUM));
 
         $this->strategy->setParameter(Field::MAXIMUM, $min);
+        self::assertSame(DecimalStrategy::MIN_VALUE, $this->strategy->getMaximum());
         self::assertSame(DecimalStrategy::MIN_VALUE, $this->strategy->getParameter(Field::MAXIMUM));
         self::assertSame(DecimalStrategy::MIN_VALUE, $this->field->getParameter(Field::MAXIMUM));
 
         $this->strategy->setParameter(Field::MAXIMUM, $max);
+        self::assertSame(DecimalStrategy::MAX_VALUE, $this->strategy->getMaximum());
         self::assertSame(DecimalStrategy::MAX_VALUE, $this->strategy->getParameter(Field::MAXIMUM));
         self::assertSame(DecimalStrategy::MAX_VALUE, $this->field->getParameter(Field::MAXIMUM));
     }

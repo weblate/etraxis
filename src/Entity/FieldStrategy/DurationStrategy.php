@@ -13,9 +13,12 @@
 
 namespace App\Entity\FieldStrategy;
 
+use App\Controller\ApiControllerInterface;
 use App\Entity\Enums\SecondsEnum;
 use App\Entity\Field;
 use App\Validator\DurationRange;
+use OpenApi\Attributes as API;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -27,6 +30,27 @@ final class DurationStrategy extends AbstractFieldStrategy
     // Constraints.
     public const MIN_VALUE = 0;         // 0:00
     public const MAX_VALUE = 59999999;  // 999999:59
+
+    #[Groups('api')]
+    #[API\Property(type: ApiControllerInterface::TYPE_STRING, description: 'Minimum allowed value (0:00 - 999999:59).')]
+    public function getMinimum(): string
+    {
+        return $this->getParameter(Field::MINIMUM);
+    }
+
+    #[Groups('api')]
+    #[API\Property(type: ApiControllerInterface::TYPE_STRING, description: 'Maximum allowed value (0:00 - 999999:59).')]
+    public function getMaximum(): string
+    {
+        return $this->getParameter(Field::MAXIMUM);
+    }
+
+    #[Groups('api')]
+    #[API\Property(type: ApiControllerInterface::TYPE_STRING, nullable: true, description: 'Default value (0:00 - 999999:59).')]
+    public function getDefault(): ?string
+    {
+        return $this->getParameter(Field::DEFAULT);
+    }
 
     /**
      * {@inheritDoc}

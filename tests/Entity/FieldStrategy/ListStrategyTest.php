@@ -47,6 +47,7 @@ final class ListStrategyTest extends TransactionalTestCase
     }
 
     /**
+     * @covers ::getDefault
      * @covers ::getParameter
      * @covers ::setParameter
      */
@@ -56,14 +57,17 @@ final class ListStrategyTest extends TransactionalTestCase
         $min   = ListStrategy::MIN_VALUE - 1;
 
         $this->strategy->setParameter(Field::DEFAULT, $value);
+        self::assertSame($value, $this->strategy->getDefault());
         self::assertSame($value, $this->strategy->getParameter(Field::DEFAULT));
         self::assertSame($value, $this->field->getParameter(Field::DEFAULT));
 
         $this->strategy->setParameter(Field::DEFAULT, $min);
+        self::assertSame(ListStrategy::MIN_VALUE, $this->strategy->getDefault());
         self::assertSame(ListStrategy::MIN_VALUE, $this->strategy->getParameter(Field::DEFAULT));
         self::assertSame(ListStrategy::MIN_VALUE, $this->field->getParameter(Field::DEFAULT));
 
         $this->strategy->setParameter(Field::DEFAULT, null);
+        self::assertNull($this->strategy->getDefault());
         self::assertNull($this->strategy->getParameter(Field::DEFAULT));
         self::assertNull($this->field->getParameter(Field::DEFAULT));
     }

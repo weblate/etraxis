@@ -13,7 +13,10 @@
 
 namespace App\Entity\FieldStrategy;
 
+use App\Controller\ApiControllerInterface;
 use App\Entity\Field;
+use OpenApi\Attributes as API;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -22,6 +25,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class CheckboxStrategy extends AbstractFieldStrategy
 {
+    #[Groups('api')]
+    #[API\Property(type: ApiControllerInterface::TYPE_BOOLEAN, description: 'Default value.')]
+    public function getDefault(): bool
+    {
+        return $this->getParameter(Field::DEFAULT);
+    }
+
     /**
      * {@inheritDoc}
      */

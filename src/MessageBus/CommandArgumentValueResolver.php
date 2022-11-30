@@ -14,6 +14,7 @@
 namespace App\MessageBus;
 
 use App\Entity\Enums\SystemRoleEnum;
+use App\Message\Fields;
 use App\Message\Groups;
 use App\Message\Projects;
 use App\Message\States;
@@ -77,6 +78,12 @@ class CommandArgumentValueResolver implements ArgumentValueResolverInterface
                 States\SetResponsibleGroupsCommand::class => ['state'     => $request->get('id')],
                 States\SetRolesTransitionCommand::class   => ['fromState' => $request->get('id')],
                 States\SetGroupsTransitionCommand::class  => ['fromState' => $request->get('id')],
+                // Fields API
+                Fields\UpdateFieldCommand::class         => ['field' => $request->get('id')],
+                Fields\DeleteFieldCommand::class         => ['field' => $request->get('id')],
+                Fields\SetFieldPositionCommand::class    => ['field' => $request->get('id')],
+                Fields\SetRolesPermissionCommand::class  => ['field' => $request->get('id')],
+                Fields\SetGroupsPermissionCommand::class => ['field' => $request->get('id')],
                 // Users API
                 Users\UpdateUserCommand::class  => ['user' => $request->get('id')],
                 Users\DeleteUserCommand::class  => ['user' => $request->get('id')],
@@ -89,6 +96,7 @@ class CommandArgumentValueResolver implements ArgumentValueResolverInterface
                 'roles' => fn ($innerObject, $outerObject) => match ($outerObject) {
                     Templates\SetRolesPermissionCommand::class => array_map(fn (string $role) => SystemRoleEnum::tryFrom($role), $innerObject),
                     States\SetRolesTransitionCommand::class    => array_map(fn (string $role) => SystemRoleEnum::tryFrom($role), $innerObject),
+                    Fields\SetRolesPermissionCommand::class    => array_map(fn (string $role) => SystemRoleEnum::tryFrom($role), $innerObject),
                     default                                    => $innerObject
                 },
             ],

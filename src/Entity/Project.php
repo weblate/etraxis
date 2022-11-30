@@ -95,7 +95,7 @@ class Project
     /**
      * Property getter.
      */
-    #[Groups(['api', 'info'])]
+    #[Groups(['api', 'info', 'profile'])]
     public function getId(): int
     {
         return $this->id;
@@ -104,7 +104,7 @@ class Project
     /**
      * Property getter.
      */
-    #[Groups(['api', 'info'])]
+    #[Groups(['api', 'info', 'profile'])]
     public function getName(): string
     {
         return $this->name;
@@ -123,7 +123,7 @@ class Project
     /**
      * Property getter.
      */
-    #[Groups(['api', 'info'])]
+    #[Groups(['api', 'info', 'profile'])]
     public function getDescription(): ?string
     {
         return $this->description;

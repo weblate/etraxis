@@ -126,7 +126,7 @@ class Template
     /**
      * Property getter.
      */
-    #[Groups(['api', 'info'])]
+    #[Groups(['api', 'info', 'profile'])]
     public function getId(): int
     {
         return $this->id;
@@ -135,7 +135,7 @@ class Template
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups(['api', 'profile'])]
     public function getProject(): Project
     {
         return $this->project;
@@ -144,7 +144,7 @@ class Template
     /**
      * Property getter.
      */
-    #[Groups(['api', 'info'])]
+    #[Groups(['api', 'info', 'profile'])]
     public function getName(): string
     {
         return $this->name;
@@ -163,7 +163,7 @@ class Template
     /**
      * Property getter.
      */
-    #[Groups(['api', 'info'])]
+    #[Groups(['api', 'info', 'profile'])]
     public function getPrefix(): string
     {
         return $this->prefix;
@@ -182,7 +182,7 @@ class Template
     /**
      * Property getter.
      */
-    #[Groups(['api', 'info'])]
+    #[Groups(['api', 'info', 'profile'])]
     public function getDescription(): ?string
     {
         return $this->description;

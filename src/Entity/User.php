@@ -168,7 +168,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Property getter.
      */
-    #[Groups(['api', 'info'])]
+    #[Groups(['api', 'info', 'profile'])]
     public function getEmail(): string
     {
         return $this->email;
@@ -215,7 +215,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Property getter.
      */
-    #[Groups(['api', 'info'])]
+    #[Groups(['api', 'info', 'profile'])]
     public function getFullname(): string
     {
         return $this->fullname;
@@ -291,7 +291,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups(['api'])]
     public function getAccountProvider(): AccountProviderEnum
     {
         return AccountProviderEnum::tryFrom($this->accountProvider) ?? AccountProviderEnum::eTraxis;
@@ -336,7 +336,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Returns user's locale.
      */
-    #[Groups('api')]
+    #[Groups(['api', 'settings'])]
     public function getLocale(): LocaleEnum
     {
         return LocaleEnum::tryFrom($this->settings['locale'] ?? '') ?? LocaleEnum::FALLBACK;
@@ -355,6 +355,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Returns user's theme.
      */
+    #[Groups('settings')]
     public function getTheme(): ThemeEnum
     {
         return ThemeEnum::tryFrom($this->settings['theme'] ?? '') ?? ThemeEnum::FALLBACK;
@@ -373,7 +374,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Returns user's timezone.
      */
-    #[Groups('api')]
+    #[Groups(['api', 'settings'])]
     public function getTimezone(): string
     {
         $timezone = $this->settings['timezone'] ?? 'UTC';

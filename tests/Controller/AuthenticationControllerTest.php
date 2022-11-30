@@ -20,9 +20,9 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * @internal
  *
- * @coversDefaultClass \App\Controller\JwtController
+ * @coversDefaultClass \App\Controller\AuthenticationController
  */
-final class JwtControllerTest extends TransactionalTestCase
+final class AuthenticationControllerTest extends TransactionalTestCase
 {
     /**
      * @covers ::login

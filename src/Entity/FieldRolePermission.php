@@ -67,7 +67,7 @@ class FieldRolePermission
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups('info')]
     public function getRole(): SystemRoleEnum
     {
         return SystemRoleEnum::from($this->role);
@@ -76,7 +76,7 @@ class FieldRolePermission
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups('info')]
     public function getPermission(): FieldPermissionEnum
     {
         return FieldPermissionEnum::from($this->permission);

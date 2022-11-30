@@ -159,7 +159,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups(['api', 'info'])]
     public function getId(): int
     {
         return $this->id;
@@ -168,7 +168,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups(['api', 'info'])]
     public function getEmail(): string
     {
         return $this->email;
@@ -215,7 +215,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups(['api', 'info'])]
     public function getFullname(): string
     {
         return $this->fullname;

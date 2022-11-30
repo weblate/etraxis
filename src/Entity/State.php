@@ -110,7 +110,7 @@ class State
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups(['api', 'info'])]
     public function getId(): int
     {
         return $this->id;
@@ -128,7 +128,7 @@ class State
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups(['api', 'info'])]
     public function getName(): string
     {
         return $this->name;

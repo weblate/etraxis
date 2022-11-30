@@ -28,7 +28,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 #[Route('/api')]
 #[API\Tag('Authentication')]
-class JwtController extends AbstractController implements ApiControllerInterface
+class AuthenticationController extends AbstractController implements ApiControllerInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

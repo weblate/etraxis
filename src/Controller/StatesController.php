@@ -183,8 +183,8 @@ class StatesController extends AbstractController implements ApiControllerInterf
     #[API\Response(response: 200, description: 'Success.', content: new API\JsonContent(
         type: self::TYPE_OBJECT,
         properties: [
-            new API\Property(property: 'roles', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: StateRoleTransition::class, groups: ['api']))),
-            new API\Property(property: 'groups', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: StateGroupTransition::class, groups: ['api']))),
+            new API\Property(property: 'roles', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: StateRoleTransition::class, groups: ['info']))),
+            new API\Property(property: 'groups', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: StateGroupTransition::class, groups: ['info']))),
         ]
     ))]
     #[API\Response(response: 404, description: 'Resource not found.')]
@@ -195,7 +195,7 @@ class StatesController extends AbstractController implements ApiControllerInterf
             'groups' => $state->getGroupTransitions(),
         ];
 
-        return $this->json($normalizer->normalize($json, 'json', [AbstractNormalizer::GROUPS => 'api']));
+        return $this->json($normalizer->normalize($json, 'json', [AbstractNormalizer::GROUPS => 'info']));
     }
 
     /**
@@ -229,14 +229,14 @@ class StatesController extends AbstractController implements ApiControllerInterf
     #[API\Parameter(name: 'id', in: self::PARAMETER_PATH, description: 'State ID.', schema: new API\Schema(type: self::TYPE_INTEGER))]
     #[API\Response(response: 200, description: 'Success.', content: new API\JsonContent(
         type: self::TYPE_ARRAY,
-        items: new API\Items(ref: new Model(type: Group::class, groups: ['api']))
+        items: new API\Items(ref: new Model(type: Group::class, groups: ['info']))
     ))]
     #[API\Response(response: 404, description: 'Resource not found.')]
     public function getResponsibleGroups(State $state, NormalizerInterface $normalizer): JsonResponse
     {
         $groups = $state->getResponsibleGroups()->map(fn (StateResponsibleGroup $group) => $group->getGroup());
 
-        return $this->json($normalizer->normalize($groups, 'json', [AbstractNormalizer::GROUPS => 'api']));
+        return $this->json($normalizer->normalize($groups, 'json', [AbstractNormalizer::GROUPS => 'info']));
     }
 
     /**

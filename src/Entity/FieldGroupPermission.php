@@ -71,7 +71,7 @@ class FieldGroupPermission
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups('info')]
     public function getGroup(): Group
     {
         return $this->group;
@@ -80,7 +80,7 @@ class FieldGroupPermission
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups('info')]
     public function getPermission(): FieldPermissionEnum
     {
         return FieldPermissionEnum::from($this->permission);

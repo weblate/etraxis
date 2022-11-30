@@ -56,6 +56,11 @@ class CommandArgumentValueResolver implements ArgumentValueResolverInterface
     {
         yield $this->serializer->deserialize($request->getContent() ?: '{}', $argument->getType(), 'json', [
             AbstractNormalizer::DEFAULT_CONSTRUCTOR_ARGUMENTS => [
+                // Users API
+                Users\UpdateUserCommand::class  => ['user' => $request->get('id')],
+                Users\DeleteUserCommand::class  => ['user' => $request->get('id')],
+                Users\DisableUserCommand::class => ['user' => $request->get('id')],
+                Users\EnableUserCommand::class  => ['user' => $request->get('id')],
                 // Groups API
                 Groups\UpdateGroupCommand::class => ['group' => $request->get('id')],
                 Groups\DeleteGroupCommand::class => ['group' => $request->get('id')],
@@ -86,11 +91,6 @@ class CommandArgumentValueResolver implements ArgumentValueResolverInterface
                 Fields\SetRolesPermissionCommand::class  => ['field' => $request->get('id')],
                 Fields\SetGroupsPermissionCommand::class => ['field' => $request->get('id')],
                 ListItems\CreateListItemCommand::class   => ['field' => $request->get('id')],
-                // Users API
-                Users\UpdateUserCommand::class  => ['user' => $request->get('id')],
-                Users\DeleteUserCommand::class  => ['user' => $request->get('id')],
-                Users\DisableUserCommand::class => ['user' => $request->get('id')],
-                Users\EnableUserCommand::class  => ['user' => $request->get('id')],
                 // User Settings API
                 UserSettings\SetPasswordCommand::class => ['user' => $request->get('id')],
             ],

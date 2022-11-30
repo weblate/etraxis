@@ -79,7 +79,7 @@ class Group
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups(['api', 'info'])]
     public function getId(): int
     {
         return $this->id;
@@ -97,7 +97,7 @@ class Group
     /**
      * Whether the group is global.
      */
-    #[Groups('api')]
+    #[Groups(['api', 'info'])]
     public function isGlobal(): bool
     {
         return null === $this->project;
@@ -106,7 +106,7 @@ class Group
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups(['api', 'info'])]
     public function getName(): string
     {
         return $this->name;

@@ -72,7 +72,7 @@ class TemplateGroupPermission
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups('info')]
     public function getGroup(): Group
     {
         return $this->group;
@@ -81,7 +81,7 @@ class TemplateGroupPermission
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups('info')]
     public function getPermission(): TemplatePermissionEnum
     {
         return TemplatePermissionEnum::from($this->permission);

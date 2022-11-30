@@ -195,8 +195,8 @@ class FieldsController extends AbstractController implements ApiControllerInterf
     #[API\Response(response: 200, description: 'Success.', content: new API\JsonContent(
         type: self::TYPE_OBJECT,
         properties: [
-            new API\Property(property: 'roles', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: FieldRolePermission::class, groups: ['api']))),
-            new API\Property(property: 'groups', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: FieldGroupPermission::class, groups: ['api']))),
+            new API\Property(property: 'roles', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: FieldRolePermission::class, groups: ['info']))),
+            new API\Property(property: 'groups', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: FieldGroupPermission::class, groups: ['info']))),
         ]
     ))]
     #[API\Response(response: 404, description: 'Resource not found.')]
@@ -207,7 +207,7 @@ class FieldsController extends AbstractController implements ApiControllerInterf
             'groups' => $field->getGroupPermissions(),
         ];
 
-        return $this->json($normalizer->normalize($json, 'json', [AbstractNormalizer::GROUPS => 'api']));
+        return $this->json($normalizer->normalize($json, 'json', [AbstractNormalizer::GROUPS => 'info']));
     }
 
     /**

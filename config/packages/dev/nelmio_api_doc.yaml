@@ -16,3 +16,11 @@ nelmio_api_doc:
     areas:
         path_patterns:
             - ^/api(?!/doc$)
+    models:
+        names:
+            - { alias: UserInfo,     type: App\Entity\User,     groups: [info] }
+            - { alias: GroupInfo,    type: App\Entity\Group,    groups: [info] }
+            - { alias: ProjectInfo,  type: App\Entity\Project,  groups: [info] }
+            - { alias: TemplateInfo, type: App\Entity\Template, groups: [info] }
+            - { alias: StateInfo,    type: App\Entity\State,    groups: [info] }
+            - { alias: FieldInfo,    type: App\Entity\Field,    groups: [info] }

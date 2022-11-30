@@ -224,8 +224,8 @@ class TemplatesController extends AbstractController implements ApiControllerInt
     #[API\Response(response: 200, description: 'Success.', content: new API\JsonContent(
         type: self::TYPE_OBJECT,
         properties: [
-            new API\Property(property: 'roles', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: TemplateRolePermission::class, groups: ['api']))),
-            new API\Property(property: 'groups', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: TemplateGroupPermission::class, groups: ['api']))),
+            new API\Property(property: 'roles', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: TemplateRolePermission::class, groups: ['info']))),
+            new API\Property(property: 'groups', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: TemplateGroupPermission::class, groups: ['info']))),
         ]
     ))]
     #[API\Response(response: 404, description: 'Resource not found.')]
@@ -236,7 +236,7 @@ class TemplatesController extends AbstractController implements ApiControllerInt
             'groups' => $template->getGroupPermissions(),
         ];
 
-        return $this->json($normalizer->normalize($json, 'json', [AbstractNormalizer::GROUPS => 'api']));
+        return $this->json($normalizer->normalize($json, 'json', [AbstractNormalizer::GROUPS => 'info']));
     }
 
     /**

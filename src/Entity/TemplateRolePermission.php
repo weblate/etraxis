@@ -68,7 +68,7 @@ class TemplateRolePermission
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups('info')]
     public function getRole(): SystemRoleEnum
     {
         return SystemRoleEnum::from($this->role);
@@ -77,7 +77,7 @@ class TemplateRolePermission
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups('info')]
     public function getPermission(): TemplatePermissionEnum
     {
         return TemplatePermissionEnum::from($this->permission);

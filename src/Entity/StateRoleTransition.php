@@ -16,6 +16,7 @@ namespace App\Entity;
 use App\Entity\Enums\SystemRoleEnum;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
  * State transition for system role.
@@ -72,7 +73,8 @@ class StateRoleTransition
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups('info')]
+    #[SerializedName('state')]
     public function getToState(): State
     {
         return $this->toState;
@@ -81,7 +83,7 @@ class StateRoleTransition
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups('info')]
     public function getRole(): SystemRoleEnum
     {
         return SystemRoleEnum::from($this->role);

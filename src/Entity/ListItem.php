@@ -17,6 +17,7 @@ use App\Entity\Enums\FieldTypeEnum;
 use App\Repository\ListItemRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * List item.
@@ -90,6 +91,7 @@ class ListItem
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getValue(): int
     {
         return $this->value;
@@ -108,6 +110,7 @@ class ListItem
     /**
      * Property getter.
      */
+    #[Groups('api')]
     public function getText(): string
     {
         return $this->text;

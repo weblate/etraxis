@@ -15,6 +15,7 @@ namespace App\Message\ListItems;
 
 use App\Entity\ListItem;
 use App\MessageBus\Contracts\CommandInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -27,9 +28,11 @@ final class CreateListItemCommand implements CommandInterface
      */
     public function __construct(
         private readonly int $field,
+        #[Groups('api')]
         private readonly int $value,
         #[Assert\NotBlank]
         #[Assert\Length(max: ListItem::MAX_TEXT)]
+        #[Groups('api')]
         private readonly string $text
     ) {
     }

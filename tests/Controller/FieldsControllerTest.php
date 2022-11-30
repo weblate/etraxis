@@ -757,4 +757,436 @@ final class FieldsControllerTest extends TransactionalTestCase
 
         self::assertSame(Response::HTTP_NOT_FOUND, $this->client->getResponse()->getStatusCode());
     }
+
+    /**
+     * @covers ::getListItems
+     */
+    public function testGetListItems200(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->fieldRepository->findBy(['name' => 'Priority']);
+
+        $this->client->jsonRequest(Request::METHOD_GET, sprintf('/api/fields/%s/listitems', $field->getId()));
+
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::getListItems
+     */
+    public function testGetListItems204(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->fieldRepository->findBy(['name' => 'Description']);
+
+        $this->client->jsonRequest(Request::METHOD_GET, sprintf('/api/fields/%s/listitems', $field->getId()));
+
+        self::assertSame(Response::HTTP_NO_CONTENT, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::getListItems
+     */
+    public function testGetListItems401(): void
+    {
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->fieldRepository->findBy(['name' => 'Priority']);
+
+        $this->client->jsonRequest(Request::METHOD_GET, sprintf('/api/fields/%s/listitems', $field->getId()));
+
+        self::assertSame(Response::HTTP_UNAUTHORIZED, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::getListItems
+     */
+    public function testGetListItems403(): void
+    {
+        $this->loginUser('artem@example.com');
+
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->fieldRepository->findBy(['name' => 'Priority']);
+
+        $this->client->jsonRequest(Request::METHOD_GET, sprintf('/api/fields/%s/listitems', $field->getId()));
+
+        self::assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::getListItems
+     */
+    public function testGetListItems404(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        $this->client->jsonRequest(Request::METHOD_GET, sprintf('/api/fields/%s/listitems', self::UNKNOWN_ENTITY_ID));
+
+        self::assertSame(Response::HTTP_NOT_FOUND, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::createListItem
+     */
+    public function testCreateListItem201(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->fieldRepository->findBy(['name' => 'Priority'], ['id' => 'ASC']);
+
+        $content = [
+            'value' => 4,
+            'text'  => 'typo',
+        ];
+
+        $this->client->jsonRequest(Request::METHOD_POST, sprintf('/api/fields/%s/listitems', $field->getId()), $content);
+
+        self::assertSame(Response::HTTP_CREATED, $this->client->getResponse()->getStatusCode());
+        self::assertTrue($this->client->getResponse()->headers->has('Location'));
+    }
+
+    /**
+     * @covers ::createListItem
+     */
+    public function testCreateListItem400(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->fieldRepository->findBy(['name' => 'Priority'], ['id' => 'ASC']);
+
+        $content = [];
+
+        $this->client->jsonRequest(Request::METHOD_POST, sprintf('/api/fields/%s/listitems', $field->getId()), $content);
+
+        self::assertSame(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::createListItem
+     */
+    public function testCreateListItem401(): void
+    {
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->fieldRepository->findBy(['name' => 'Priority'], ['id' => 'ASC']);
+
+        $content = [
+            'value' => 4,
+            'text'  => 'typo',
+        ];
+
+        $this->client->jsonRequest(Request::METHOD_POST, sprintf('/api/fields/%s/listitems', $field->getId()), $content);
+
+        self::assertSame(Response::HTTP_UNAUTHORIZED, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::createListItem
+     */
+    public function testCreateListItem403(): void
+    {
+        $this->loginUser('artem@example.com');
+
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->fieldRepository->findBy(['name' => 'Priority'], ['id' => 'ASC']);
+
+        $content = [
+            'value' => 4,
+            'text'  => 'typo',
+        ];
+
+        $this->client->jsonRequest(Request::METHOD_POST, sprintf('/api/fields/%s/listitems', $field->getId()), $content);
+
+        self::assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::createListItem
+     */
+    public function testCreateListItem404(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        $content = [
+            'value' => 4,
+            'text'  => 'typo',
+        ];
+
+        $this->client->jsonRequest(Request::METHOD_POST, sprintf('/api/fields/%s/listitems', self::UNKNOWN_ENTITY_ID), $content);
+
+        self::assertSame(Response::HTTP_NOT_FOUND, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::createListItem
+     */
+    public function testCreateListItem409(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->fieldRepository->findBy(['name' => 'Priority'], ['id' => 'ASC']);
+
+        $content = [
+            'value' => 4,
+            'text'  => 'low',
+        ];
+
+        $this->client->jsonRequest(Request::METHOD_POST, sprintf('/api/fields/%s/listitems', $field->getId()), $content);
+
+        self::assertSame(Response::HTTP_CONFLICT, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::getListItem
+     */
+    public function testGetListItem200(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->fieldRepository->findBy(['name' => 'Priority'], ['id' => 'ASC']);
+
+        /** @var ListItem $item */
+        [/* skipping */ , $item] = $this->itemRepository->findBy(['value' => 3], ['id' => 'ASC']);
+
+        $this->client->jsonRequest(Request::METHOD_GET, sprintf('/api/fields/%s/listitems/%s', $field->getId(), $item->getValue()));
+
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::getListItem
+     */
+    public function testGetListItem401(): void
+    {
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->fieldRepository->findBy(['name' => 'Priority'], ['id' => 'ASC']);
+
+        /** @var ListItem $item */
+        [/* skipping */ , $item] = $this->itemRepository->findBy(['value' => 3], ['id' => 'ASC']);
+
+        $this->client->jsonRequest(Request::METHOD_GET, sprintf('/api/fields/%s/listitems/%s', $field->getId(), $item->getValue()));
+
+        self::assertSame(Response::HTTP_UNAUTHORIZED, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::getListItem
+     */
+    public function testGetListItem403(): void
+    {
+        $this->loginUser('artem@example.com');
+
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->fieldRepository->findBy(['name' => 'Priority'], ['id' => 'ASC']);
+
+        /** @var ListItem $item */
+        [/* skipping */ , $item] = $this->itemRepository->findBy(['value' => 3], ['id' => 'ASC']);
+
+        $this->client->jsonRequest(Request::METHOD_GET, sprintf('/api/fields/%s/listitems/%s', $field->getId(), $item->getValue()));
+
+        self::assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::getListItem
+     */
+    public function testGetListItem404(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->fieldRepository->findBy(['name' => 'Priority'], ['id' => 'ASC']);
+
+        $this->client->jsonRequest(Request::METHOD_GET, sprintf('/api/fields/%s/listitems/%s', $field->getId(), 4));
+
+        self::assertSame(Response::HTTP_NOT_FOUND, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::updateListItem
+     */
+    public function testUpdateListItem200(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->fieldRepository->findBy(['name' => 'Priority'], ['id' => 'ASC']);
+
+        /** @var ListItem $item */
+        [/* skipping */ , $item] = $this->itemRepository->findBy(['value' => 3], ['id' => 'ASC']);
+
+        $content = [
+            'value' => 5,
+            'text'  => 'low',
+        ];
+
+        $this->client->jsonRequest(Request::METHOD_PUT, sprintf('/api/fields/%s/listitems/%s', $field->getId(), $item->getValue()), $content);
+
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::updateListItem
+     */
+    public function testUpdateListItem400(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->fieldRepository->findBy(['name' => 'Priority'], ['id' => 'ASC']);
+
+        /** @var ListItem $item */
+        [/* skipping */ , $item] = $this->itemRepository->findBy(['value' => 3], ['id' => 'ASC']);
+
+        $content = [];
+
+        $this->client->jsonRequest(Request::METHOD_PUT, sprintf('/api/fields/%s/listitems/%s', $field->getId(), $item->getValue()), $content);
+
+        self::assertSame(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::updateListItem
+     */
+    public function testUpdateListItem401(): void
+    {
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->fieldRepository->findBy(['name' => 'Priority'], ['id' => 'ASC']);
+
+        /** @var ListItem $item */
+        [/* skipping */ , $item] = $this->itemRepository->findBy(['value' => 3], ['id' => 'ASC']);
+
+        $content = [
+            'value' => 5,
+            'text'  => 'low',
+        ];
+
+        $this->client->jsonRequest(Request::METHOD_PUT, sprintf('/api/fields/%s/listitems/%s', $field->getId(), $item->getValue()), $content);
+
+        self::assertSame(Response::HTTP_UNAUTHORIZED, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::updateListItem
+     */
+    public function testUpdateListItem403(): void
+    {
+        $this->loginUser('artem@example.com');
+
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->fieldRepository->findBy(['name' => 'Priority'], ['id' => 'ASC']);
+
+        /** @var ListItem $item */
+        [/* skipping */ , $item] = $this->itemRepository->findBy(['value' => 3], ['id' => 'ASC']);
+
+        $content = [
+            'value' => 5,
+            'text'  => 'low',
+        ];
+
+        $this->client->jsonRequest(Request::METHOD_PUT, sprintf('/api/fields/%s/listitems/%s', $field->getId(), $item->getValue()), $content);
+
+        self::assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::updateListItem
+     */
+    public function testUpdateListItem404(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->fieldRepository->findBy(['name' => 'Priority'], ['id' => 'ASC']);
+
+        $content = [
+            'value' => 5,
+            'text'  => 'low',
+        ];
+
+        $this->client->jsonRequest(Request::METHOD_PUT, sprintf('/api/fields/%s/listitems/%s', $field->getId(), 4), $content);
+
+        self::assertSame(Response::HTTP_NOT_FOUND, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::updateListItem
+     */
+    public function testUpdateListItem409(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->fieldRepository->findBy(['name' => 'Priority'], ['id' => 'ASC']);
+
+        /** @var ListItem $item */
+        [/* skipping */ , $item] = $this->itemRepository->findBy(['value' => 3], ['id' => 'ASC']);
+
+        $content = [
+            'value' => 2,
+            'text'  => 'low',
+        ];
+
+        $this->client->jsonRequest(Request::METHOD_PUT, sprintf('/api/fields/%s/listitems/%s', $field->getId(), $item->getValue()), $content);
+
+        self::assertSame(Response::HTTP_CONFLICT, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::deleteListItem
+     */
+    public function testDeleteListItem200(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->fieldRepository->findBy(['name' => 'Priority'], ['id' => 'ASC']);
+
+        /** @var ListItem $item */
+        [/* skipping */ , $item] = $this->itemRepository->findBy(['value' => 3], ['id' => 'ASC']);
+
+        $this->client->jsonRequest(Request::METHOD_DELETE, sprintf('/api/fields/%s/listitems/%s', $field->getId(), $item->getValue()));
+
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::deleteListItem
+     */
+    public function testDeleteListItem401(): void
+    {
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->fieldRepository->findBy(['name' => 'Priority'], ['id' => 'ASC']);
+
+        /** @var ListItem $item */
+        [/* skipping */ , $item] = $this->itemRepository->findBy(['value' => 3], ['id' => 'ASC']);
+
+        $this->client->jsonRequest(Request::METHOD_DELETE, sprintf('/api/fields/%s/listitems/%s', $field->getId(), $item->getValue()));
+
+        self::assertSame(Response::HTTP_UNAUTHORIZED, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::deleteListItem
+     */
+    public function testDeleteListItem403(): void
+    {
+        $this->loginUser('artem@example.com');
+
+        /** @var Field $field */
+        [/* skipping */ , $field] = $this->fieldRepository->findBy(['name' => 'Priority'], ['id' => 'ASC']);
+
+        /** @var ListItem $item */
+        [/* skipping */ , $item] = $this->itemRepository->findBy(['value' => 3], ['id' => 'ASC']);
+
+        $this->client->jsonRequest(Request::METHOD_DELETE, sprintf('/api/fields/%s/listitems/%s', $field->getId(), $item->getValue()));
+
+        self::assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
+    }
 }

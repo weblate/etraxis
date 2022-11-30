@@ -16,6 +16,7 @@ namespace App\MessageBus;
 use App\Entity\Enums\SystemRoleEnum;
 use App\Message\Fields;
 use App\Message\Groups;
+use App\Message\ListItems;
 use App\Message\Projects;
 use App\Message\States;
 use App\Message\Templates;
@@ -84,6 +85,7 @@ class CommandArgumentValueResolver implements ArgumentValueResolverInterface
                 Fields\SetFieldPositionCommand::class    => ['field' => $request->get('id')],
                 Fields\SetRolesPermissionCommand::class  => ['field' => $request->get('id')],
                 Fields\SetGroupsPermissionCommand::class => ['field' => $request->get('id')],
+                ListItems\CreateListItemCommand::class   => ['field' => $request->get('id')],
                 // Users API
                 Users\UpdateUserCommand::class  => ['user' => $request->get('id')],
                 Users\DeleteUserCommand::class  => ['user' => $request->get('id')],

@@ -58,11 +58,12 @@ final class CreateListItemCommandHandlerTest extends TransactionalTestCase
 
         $command = new CreateListItemCommand($field->getId(), 4, 'typo');
 
-        $this->commandBus->handle($command);
+        $result = $this->commandBus->handleWithResult($command);
 
         /** @var ListItem $item */
         $item = $this->repository->findOneBy(['value' => 4]);
         self::assertInstanceOf(ListItem::class, $item);
+        self::assertSame($item, $result);
 
         self::assertSame($field, $item->getField());
         self::assertSame(4, $item->getValue());

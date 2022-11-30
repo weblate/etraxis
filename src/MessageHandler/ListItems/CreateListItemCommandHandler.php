@@ -50,7 +50,7 @@ final class CreateListItemCommandHandler implements CommandHandlerInterface
      * @throws ConflictHttpException
      * @throws NotFoundHttpException
      */
-    public function __invoke(CreateListItemCommand $command): void
+    public function __invoke(CreateListItemCommand $command): ListItem
     {
         /** @var null|\App\Entity\Field $field */
         $field = $this->fieldRepository->find($command->getField());
@@ -77,5 +77,7 @@ final class CreateListItemCommandHandler implements CommandHandlerInterface
         }
 
         $this->itemRepository->persist($item);
+
+        return $item;
     }
 }

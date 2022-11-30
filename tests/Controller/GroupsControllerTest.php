@@ -14,6 +14,7 @@
 namespace App\Controller;
 
 use App\Entity\Group;
+use App\Entity\User;
 use App\LoginTrait;
 use App\Repository\Contracts\GroupRepositoryInterface;
 use App\TransactionalTestCase;
@@ -365,5 +366,196 @@ final class GroupsControllerTest extends TransactionalTestCase
         $this->client->jsonRequest(Request::METHOD_DELETE, sprintf('/api/groups/%s', $group->getId()));
 
         self::assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::getMembers
+     */
+    public function testGetMembers200(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        /** @var Group $group */
+        [$group] = $this->repository->findBy(['name' => 'Developers'], ['id' => 'ASC']);
+
+        $this->client->jsonRequest(Request::METHOD_GET, sprintf('/api/groups/%s/members', $group->getId()));
+
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::getMembers
+     */
+    public function testGetMembers401(): void
+    {
+        /** @var Group $group */
+        [$group] = $this->repository->findBy(['name' => 'Developers'], ['id' => 'ASC']);
+
+        $this->client->jsonRequest(Request::METHOD_GET, sprintf('/api/groups/%s/members', $group->getId()));
+
+        self::assertSame(Response::HTTP_UNAUTHORIZED, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::getMembers
+     */
+    public function testGetMembers403(): void
+    {
+        $this->loginUser('artem@example.com');
+
+        /** @var Group $group */
+        [$group] = $this->repository->findBy(['name' => 'Developers'], ['id' => 'ASC']);
+
+        $this->client->jsonRequest(Request::METHOD_GET, sprintf('/api/groups/%s/members', $group->getId()));
+
+        self::assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::getMembers
+     */
+    public function testGetMembers404(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        $this->client->jsonRequest(Request::METHOD_GET, sprintf('/api/groups/%s/members', self::UNKNOWN_ENTITY_ID));
+
+        self::assertSame(Response::HTTP_NOT_FOUND, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::setMembers
+     */
+    public function testSetMembers200(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        /** @var Group $group */
+        [$group] = $this->repository->findBy(['name' => 'Developers'], ['id' => 'ASC']);
+
+        $fdooley  = $this->doctrine->getRepository(User::class)->findOneByEmail('fdooley@example.com');
+        $nhills   = $this->doctrine->getRepository(User::class)->findOneByEmail('nhills@example.com');
+        $labshire = $this->doctrine->getRepository(User::class)->findOneByEmail('labshire@example.com');
+
+        $content = [
+            'add' => [
+                $fdooley->getId(),
+                $nhills->getId(),
+            ],
+            'remove' => [
+                $labshire->getId(),
+            ],
+        ];
+
+        $this->client->jsonRequest(Request::METHOD_PATCH, sprintf('/api/groups/%s/members', $group->getId()), $content);
+
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::setMembers
+     */
+    public function testSetMembers400(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        /** @var Group $group */
+        [$group] = $this->repository->findBy(['name' => 'Developers'], ['id' => 'ASC']);
+
+        $content = [
+            'add' => [
+                'fdooley@example.com',
+                'nhills@example.com',
+            ],
+            'remove' => [
+                'labshire@example.com',
+            ],
+        ];
+
+        $this->client->jsonRequest(Request::METHOD_PATCH, sprintf('/api/groups/%s/members', $group->getId()), $content);
+
+        self::assertSame(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::setMembers
+     */
+    public function testSetMembers401(): void
+    {
+        /** @var Group $group */
+        [$group] = $this->repository->findBy(['name' => 'Developers'], ['id' => 'ASC']);
+
+        $fdooley  = $this->doctrine->getRepository(User::class)->findOneByEmail('fdooley@example.com');
+        $nhills   = $this->doctrine->getRepository(User::class)->findOneByEmail('nhills@example.com');
+        $labshire = $this->doctrine->getRepository(User::class)->findOneByEmail('labshire@example.com');
+
+        $content = [
+            'add' => [
+                $fdooley->getId(),
+                $nhills->getId(),
+            ],
+            'remove' => [
+                $labshire->getId(),
+            ],
+        ];
+
+        $this->client->jsonRequest(Request::METHOD_PATCH, sprintf('/api/groups/%s/members', $group->getId()), $content);
+
+        self::assertSame(Response::HTTP_UNAUTHORIZED, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::setMembers
+     */
+    public function testSetMembers403(): void
+    {
+        $this->loginUser('artem@example.com');
+
+        /** @var Group $group */
+        [$group] = $this->repository->findBy(['name' => 'Developers'], ['id' => 'ASC']);
+
+        $fdooley  = $this->doctrine->getRepository(User::class)->findOneByEmail('fdooley@example.com');
+        $nhills   = $this->doctrine->getRepository(User::class)->findOneByEmail('nhills@example.com');
+        $labshire = $this->doctrine->getRepository(User::class)->findOneByEmail('labshire@example.com');
+
+        $content = [
+            'add' => [
+                $fdooley->getId(),
+                $nhills->getId(),
+            ],
+            'remove' => [
+                $labshire->getId(),
+            ],
+        ];
+
+        $this->client->jsonRequest(Request::METHOD_PATCH, sprintf('/api/groups/%s/members', $group->getId()), $content);
+
+        self::assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::setMembers
+     */
+    public function testSetMembers404(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        $fdooley  = $this->doctrine->getRepository(User::class)->findOneByEmail('fdooley@example.com');
+        $nhills   = $this->doctrine->getRepository(User::class)->findOneByEmail('nhills@example.com');
+        $labshire = $this->doctrine->getRepository(User::class)->findOneByEmail('labshire@example.com');
+
+        $content = [
+            'add' => [
+                $fdooley->getId(),
+                $nhills->getId(),
+            ],
+            'remove' => [
+                $labshire->getId(),
+            ],
+        ];
+
+        $this->client->jsonRequest(Request::METHOD_PATCH, sprintf('/api/groups/%s/members', self::UNKNOWN_ENTITY_ID), $content);
+
+        self::assertSame(Response::HTTP_NOT_FOUND, $this->client->getResponse()->getStatusCode());
     }
 }

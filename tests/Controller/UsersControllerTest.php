@@ -13,6 +13,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Group;
 use App\Entity\User;
 use App\LoginTrait;
 use App\Repository\Contracts\UserRepositoryInterface;
@@ -612,6 +613,198 @@ final class UsersControllerTest extends TransactionalTestCase
         $this->client->jsonRequest(Request::METHOD_DELETE, sprintf('/api/users/%s', $user->getId()));
 
         self::assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::getGroups
+     */
+    public function testGetGroups200(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        /** @var User $user */
+        $user = $this->repository->findOneByEmail('artem@example.com');
+
+        $this->client->jsonRequest(Request::METHOD_GET, sprintf('/api/users/%s/groups', $user->getId()));
+
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::getGroups
+     */
+    public function testGetGroups401(): void
+    {
+        /** @var User $user */
+        $user = $this->repository->findOneByEmail('artem@example.com');
+
+        $this->client->jsonRequest(Request::METHOD_GET, sprintf('/api/users/%s/groups', $user->getId()));
+
+        self::assertSame(Response::HTTP_UNAUTHORIZED, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::getGroups
+     */
+    public function testGetGroups403(): void
+    {
+        $this->loginUser('artem@example.com');
+
+        /** @var User $user */
+        $user = $this->repository->findOneByEmail('artem@example.com');
+
+        $this->client->jsonRequest(Request::METHOD_GET, sprintf('/api/users/%s/groups', $user->getId()));
+
+        self::assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::getGroups
+     */
+    public function testGetGroups404(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        $this->client->jsonRequest(Request::METHOD_GET, sprintf('/api/users/%s/groups', self::UNKNOWN_ENTITY_ID));
+
+        self::assertSame(Response::HTTP_NOT_FOUND, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::setGroups
+     */
+    public function testSetGroups200(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        $user = $this->repository->findOneByEmail('labshire@example.com');
+
+        $devA = $this->doctrine->getRepository(Group::class)->findOneBy(['description' => 'Developers A']);
+        $devB = $this->doctrine->getRepository(Group::class)->findOneBy(['description' => 'Developers B']);
+        $devC = $this->doctrine->getRepository(Group::class)->findOneBy(['description' => 'Developers C']);
+
+        $content = [
+            'add' => [
+                $devB->getId(),
+                $devC->getId(),
+            ],
+            'remove' => [
+                $devA->getId(),
+                $devC->getId(),
+            ],
+        ];
+
+        $this->client->jsonRequest(Request::METHOD_PATCH, sprintf('/api/users/%s/groups', $user->getId()), $content);
+
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::setGroups
+     */
+    public function testSetGroups400(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        $user = $this->repository->findOneByEmail('labshire@example.com');
+
+        $content = [
+            'add' => [
+                'Developers B',
+                'Developers C',
+            ],
+            'remove' => [
+                'Developers A',
+                'Developers C',
+            ],
+        ];
+
+        $this->client->jsonRequest(Request::METHOD_PATCH, sprintf('/api/users/%s/groups', $user->getId()), $content);
+
+        self::assertSame(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::setGroups
+     */
+    public function testSetGroups401(): void
+    {
+        $user = $this->repository->findOneByEmail('labshire@example.com');
+
+        $devA = $this->doctrine->getRepository(Group::class)->findOneBy(['description' => 'Developers A']);
+        $devB = $this->doctrine->getRepository(Group::class)->findOneBy(['description' => 'Developers B']);
+        $devC = $this->doctrine->getRepository(Group::class)->findOneBy(['description' => 'Developers C']);
+
+        $content = [
+            'add' => [
+                $devB->getId(),
+                $devC->getId(),
+            ],
+            'remove' => [
+                $devA->getId(),
+                $devC->getId(),
+            ],
+        ];
+
+        $this->client->jsonRequest(Request::METHOD_PATCH, sprintf('/api/users/%s/groups', $user->getId()), $content);
+
+        self::assertSame(Response::HTTP_UNAUTHORIZED, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::setGroups
+     */
+    public function testSetGroups403(): void
+    {
+        $this->loginUser('artem@example.com');
+
+        $user = $this->repository->findOneByEmail('labshire@example.com');
+
+        $devA = $this->doctrine->getRepository(Group::class)->findOneBy(['description' => 'Developers A']);
+        $devB = $this->doctrine->getRepository(Group::class)->findOneBy(['description' => 'Developers B']);
+        $devC = $this->doctrine->getRepository(Group::class)->findOneBy(['description' => 'Developers C']);
+
+        $content = [
+            'add' => [
+                $devB->getId(),
+                $devC->getId(),
+            ],
+            'remove' => [
+                $devA->getId(),
+                $devC->getId(),
+            ],
+        ];
+
+        $this->client->jsonRequest(Request::METHOD_PATCH, sprintf('/api/users/%s/groups', $user->getId()), $content);
+
+        self::assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @covers ::setGroups
+     */
+    public function testSetGroups404(): void
+    {
+        $this->loginUser('admin@example.com');
+
+        $devA = $this->doctrine->getRepository(Group::class)->findOneBy(['description' => 'Developers A']);
+        $devB = $this->doctrine->getRepository(Group::class)->findOneBy(['description' => 'Developers B']);
+        $devC = $this->doctrine->getRepository(Group::class)->findOneBy(['description' => 'Developers C']);
+
+        $content = [
+            'add' => [
+                $devB->getId(),
+                $devC->getId(),
+            ],
+            'remove' => [
+                $devA->getId(),
+                $devC->getId(),
+            ],
+        ];
+
+        $this->client->jsonRequest(Request::METHOD_PATCH, sprintf('/api/users/%s/groups', self::UNKNOWN_ENTITY_ID), $content);
+
+        self::assertSame(Response::HTTP_NOT_FOUND, $this->client->getResponse()->getStatusCode());
     }
 
     /**

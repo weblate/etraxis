@@ -14,10 +14,12 @@
 namespace App\Controller;
 
 use App\Entity\Group;
+use App\Entity\User;
 use App\Message\AbstractCollectionQuery;
 use App\Message\Groups as Message;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\MessageBus\Contracts\QueryBusInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as API;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -151,6 +153,62 @@ class GroupsController extends AbstractController implements ApiControllerInterf
     public function deleteGroup(Message\DeleteGroupCommand $command): JsonResponse
     {
         $this->commandBus->handle($command);
+
+        return $this->json(null);
+    }
+
+    /**
+     * Returns list of members for specified group.
+     */
+    #[Route('/{id}/members', name: 'api_groups_get_members', methods: [Request::METHOD_GET], requirements: ['id' => '\d+'])]
+    #[API\Parameter(name: 'id', in: self::PARAMETER_PATH, description: 'Group ID.', schema: new API\Schema(type: self::TYPE_INTEGER))]
+    #[API\Response(response: 200, description: 'Success.', content: new API\JsonContent(
+        type: self::TYPE_ARRAY,
+        items: new API\Items(ref: new Model(type: User::class, groups: ['api']))
+    ))]
+    #[API\Response(response: 404, description: 'Resource not found.')]
+    public function getMembers(Group $group, NormalizerInterface $normalizer): JsonResponse
+    {
+        return $this->json($normalizer->normalize($group->getMembers(), 'json', [AbstractNormalizer::GROUPS => 'api']));
+    }
+
+    /**
+     * Sets members for specified group.
+     */
+    #[Route('/{id}/members', name: 'api_groups_set_members', methods: [Request::METHOD_PATCH], requirements: ['id' => '\d+'])]
+    #[API\Parameter(name: 'id', in: self::PARAMETER_PATH, description: 'Group ID.', schema: new API\Schema(type: self::TYPE_INTEGER))]
+    #[API\RequestBody(content: new API\JsonContent(
+        type: self::TYPE_OBJECT,
+        properties: [
+            new API\Property(property: 'add', type: self::TYPE_ARRAY, description: 'List of user IDs to add.', items: new API\Items(type: self::TYPE_INTEGER)),
+            new API\Property(property: 'remove', type: self::TYPE_ARRAY, description: 'List of user IDs to remove.', items: new API\Items(type: self::TYPE_INTEGER)),
+        ]
+    ))]
+    #[API\Response(response: 200, description: 'Success.')]
+    #[API\Response(response: 400, description: 'The request is malformed.')]
+    #[API\Response(response: 404, description: 'Resource not found.')]
+    public function setMembers(Request $request, int $id, EntityManagerInterface $manager): JsonResponse
+    {
+        $content = json_decode($request->getContent(), true);
+
+        $add    = is_array($content['add']    ?? null) ? $content['add'] : [];
+        $remove = is_array($content['remove'] ?? null) ? $content['remove'] : [];
+
+        $manager->beginTransaction();
+
+        $command = new Message\AddMembersCommand($id, array_diff($add, $remove));
+
+        if (count($command->getUsers())) {
+            $this->commandBus->handle($command);
+        }
+
+        $command = new Message\RemoveMembersCommand($id, array_diff($remove, $add));
+
+        if (count($command->getUsers())) {
+            $this->commandBus->handle($command);
+        }
+
+        $manager->commit();
 
         return $this->json(null);
     }

@@ -46,4 +46,25 @@ final class UserRepositoryTest extends TransactionalTestCase
 
         self::assertNull($user);
     }
+
+    /**
+     * @covers ::findOneByResetToken
+     */
+    public function testFindOneByResetToken(): void
+    {
+        $user = $this->repository->findOneByResetToken('artem@example.com');
+
+        self::assertNull($user);
+
+        $user  = $this->repository->findOneByEmail('artem@example.com');
+        $token = $user->generateResetToken(new \DateInterval('PT1M'));
+
+        $this->doctrine->getManager()->persist($user);
+        $this->doctrine->getManager()->flush();
+
+        $user2 = $this->repository->findOneByResetToken($token);
+
+        self::assertInstanceOf(User::class, $user2);
+        self::assertSame($user, $user2);
+    }
 }

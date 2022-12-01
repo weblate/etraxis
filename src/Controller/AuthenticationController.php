@@ -13,7 +13,7 @@
 
 namespace App\Controller;
 
-use App\Message\Security\GenerateJwtCommand;
+use App\Message\Security as Message;
 use App\MessageBus\Contracts\CommandBusInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as API;
@@ -41,7 +41,7 @@ class AuthenticationController extends AbstractController implements ApiControll
      * Authenticates user.
      */
     #[Route('/login', name: 'api_login', methods: [Request::METHOD_POST])]
-    #[API\RequestBody(content: new Model(type: GenerateJwtCommand::class, groups: ['api']))]
+    #[API\RequestBody(content: new Model(type: Message\GenerateJwtCommand::class, groups: ['api']))]
     #[API\Response(response: 200, description: 'Success.', content: new API\JsonContent(
         type: self::TYPE_OBJECT,
         properties: [
@@ -51,7 +51,7 @@ class AuthenticationController extends AbstractController implements ApiControll
     #[API\Response(response: 400, description: 'The request is malformed.')]
     #[API\Response(response: 404, description: 'Invalid credentials.')]
     #[API\Response(response: 429, description: 'API rate limit exceeded.')]
-    public function login(Request $request, GenerateJwtCommand $command, RateLimiterFactory $anonymousApiLimiter): JsonResponse
+    public function login(Request $request, Message\GenerateJwtCommand $command, RateLimiterFactory $anonymousApiLimiter): JsonResponse
     {
         $limiter = $anonymousApiLimiter->create($request->getClientIp());
         $limiter->consume()->ensureAccepted();
@@ -59,5 +59,42 @@ class AuthenticationController extends AbstractController implements ApiControll
         $token = $this->commandBus->handleWithResult($command);
 
         return $this->json(['token' => $token]);
+    }
+
+    /**
+     * Marks password of specified eTraxis account as forgotten.
+     */
+    #[Route('/forgot', name: 'api_forgot', methods: [Request::METHOD_POST])]
+    #[API\RequestBody(content: new Model(type: Message\ForgotPasswordCommand::class, groups: ['api']))]
+    #[API\Response(response: 200, description: 'Success.')]
+    #[API\Response(response: 400, description: 'The request is malformed.')]
+    #[API\Response(response: 429, description: 'API rate limit exceeded.')]
+    public function forgot(Request $request, Message\ForgotPasswordCommand $command, RateLimiterFactory $anonymousApiLimiter): JsonResponse
+    {
+        $limiter = $anonymousApiLimiter->create($request->getClientIp());
+        $limiter->consume()->ensureAccepted();
+
+        $this->commandBus->handle($command);
+
+        return $this->json(null);
+    }
+
+    /**
+     * Resets password for specified account.
+     */
+    #[Route('/reset', name: 'api_reset', methods: [Request::METHOD_POST])]
+    #[API\RequestBody(content: new Model(type: Message\ResetPasswordCommand::class, groups: ['api']))]
+    #[API\Response(response: 200, description: 'Success.')]
+    #[API\Response(response: 400, description: 'The request is malformed.')]
+    #[API\Response(response: 404, description: 'Invalid credentials.')]
+    #[API\Response(response: 429, description: 'API rate limit exceeded.')]
+    public function reset(Request $request, Message\ResetPasswordCommand $command, RateLimiterFactory $anonymousApiLimiter): JsonResponse
+    {
+        $limiter = $anonymousApiLimiter->create($request->getClientIp());
+        $limiter->consume()->ensureAccepted();
+
+        $this->commandBus->handle($command);
+
+        return $this->json(null);
     }
 }

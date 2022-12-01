@@ -41,4 +41,9 @@ interface UserRepositoryInterface extends ObjectRepository, Selectable
      * Finds an account by email.
      */
     public function findOneByEmail(string $email): ?User;
+
+    /**
+     * Finds a user by password reset token.
+     */
+    public function findOneByResetToken(string $token): ?User;
 }

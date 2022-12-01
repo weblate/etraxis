@@ -33,6 +33,7 @@ use Symfony\Component\Uid\Uuid;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'users')]
 #[ORM\UniqueConstraint(fields: ['email'])]
+#[ORM\UniqueConstraint(fields: ['resetToken'])]
 #[ORM\UniqueConstraint(fields: ['accountProvider', 'accountUid'])]
 #[Assert\UniqueEntity(fields: ['email'], message: 'user.conflict.email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -65,6 +66,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column(nullable: true)]
     protected ?string $password = null;
+
+    /**
+     * Password reset token.
+     */
+    #[ORM\Column(length: 32, nullable: true)]
+    protected ?string $resetToken = null;
+
+    /**
+     * Unix Epoch timestamp when the reset token expires.
+     */
+    #[ORM\Column(nullable: true)]
+    protected ?int $resetTokenExpiresAt = null;
 
     /**
      * Full name.
@@ -210,6 +223,45 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->password = $password;
 
         return $this;
+    }
+
+    /**
+     * Generates new password reset token which expires in specified period of time.
+     *
+     * @param \DateInterval $interval Expiration period
+     *
+     * @return string Generated token
+     */
+    public function generateResetToken(\DateInterval $interval): string
+    {
+        $now = new \DateTime();
+
+        $this->resetToken          = str_replace('-', '', Uuid::v4()->toRfc4122());
+        $this->resetTokenExpiresAt = $now->add($interval)->getTimestamp();
+
+        return $this->resetToken;
+    }
+
+    /**
+     * Clears current reset token.
+     */
+    public function clearResetToken(): self
+    {
+        $this->resetToken          = null;
+        $this->resetTokenExpiresAt = null;
+
+        return $this;
+    }
+
+    /**
+     * Checks whether specified reset token is valid.
+     */
+    public function isResetTokenValid(string $token): bool
+    {
+        return !$this->isAccountExternal()
+            && $this->resetToken === $token
+            && null !== $this->resetTokenExpiresAt
+            && time() < $this->resetTokenExpiresAt;
     }
 
     /**

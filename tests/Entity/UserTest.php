@@ -118,6 +118,30 @@ final class UserTest extends TestCase
     }
 
     /**
+     * @covers ::clearResetToken
+     * @covers ::generateResetToken
+     * @covers ::isResetTokenValid
+     */
+    public function testResetToken(): void
+    {
+        $user = new User();
+
+        $token1 = $user->generateResetToken(new \DateInterval('PT1M'));
+        self::assertMatchesRegularExpression('/^([[:xdigit:]]{32}$)/', $token1);
+        self::assertTrue($user->isResetTokenValid($token1));
+
+        $token2 = $user->generateResetToken(new \DateInterval('PT1M'));
+        self::assertFalse($user->isResetTokenValid($token1));
+        self::assertTrue($user->isResetTokenValid($token2));
+
+        $user->clearResetToken();
+        self::assertFalse($user->isResetTokenValid($token2));
+
+        $token = $user->generateResetToken(new \DateInterval('PT0M'));
+        self::assertFalse($user->isResetTokenValid($token));
+    }
+
+    /**
      * @covers ::getFullname
      * @covers ::setFullname
      */

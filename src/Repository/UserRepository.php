@@ -71,4 +71,14 @@ class UserRepository extends ServiceEntityRepository implements Contracts\UserRe
             'email' => $email,
         ]);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findOneByResetToken(string $token): ?User
+    {
+        return $this->findOneBy([
+            'resetToken' => $token,
+        ]);
+    }
 }

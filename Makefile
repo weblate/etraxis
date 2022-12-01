@@ -43,4 +43,4 @@ coverage:
 	XDEBUG_MODE=coverage ./bin/phpunit --coverage-html=var/coverage
 
 update:
-	composer update "symfony/*"
+	composer update "symfony/*" --with-all-dependencies

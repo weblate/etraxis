@@ -13,7 +13,10 @@
 
 namespace App\Message\Issues;
 
+use App\Controller\ApiControllerInterface;
 use App\MessageBus\Contracts\CommandInterface;
+use OpenApi\Attributes as API;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -29,6 +32,8 @@ final class WatchIssuesCommand implements CommandInterface
         #[Assert\All([
             new Assert\Regex('/^\d+$/'),
         ])]
+        #[Groups('api')]
+        #[API\Property(type: ApiControllerInterface::TYPE_ARRAY, items: new API\Items(type: ApiControllerInterface::TYPE_INTEGER))]
         private readonly array $issues
     ) {
     }

@@ -102,6 +102,9 @@ class CommandArgumentValueResolver implements ArgumentValueResolverInterface
                 Issues\ReassignIssueCommand::class => ['issue' => $request->get('id'), 'responsible' => $request->get('user')],
                 Issues\SuspendIssueCommand::class  => ['issue' => $request->get('id')],
                 Issues\ResumeIssueCommand::class   => ['issue' => $request->get('id')],
+                // Watchers API
+                Issues\WatchIssueCommand::class   => ['issue' => $request->get('id')],
+                Issues\UnwatchIssueCommand::class => ['issue' => $request->get('id')],
             ],
             AbstractNormalizer::CALLBACKS => [
                 'roles' => fn ($innerObject, $outerObject) => match ($outerObject) {

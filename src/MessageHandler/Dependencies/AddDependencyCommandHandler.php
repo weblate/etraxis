@@ -51,6 +51,7 @@ final class AddDependencyCommandHandler implements CommandHandlerInterface
      * Handles the given command.
      *
      * @throws AccessDeniedHttpException
+     * @throws BadRequestHttpException
      * @throws NotFoundHttpException
      */
     public function __invoke(AddDependencyCommand $command): void

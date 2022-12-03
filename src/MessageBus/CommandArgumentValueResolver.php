@@ -15,6 +15,7 @@ namespace App\MessageBus;
 
 use App\Entity\Enums\SystemRoleEnum;
 use App\Message\Comments;
+use App\Message\Dependencies;
 use App\Message\Fields;
 use App\Message\Files;
 use App\Message\Groups;
@@ -111,6 +112,9 @@ class CommandArgumentValueResolver implements ArgumentValueResolverInterface
                 Comments\AddCommentCommand::class => ['issue' => $request->get('id')],
                 // Files API
                 Files\AttachFileCommand::class => ['issue' => $request->get('id'), 'file' => $request->files->get('file')],
+                // Dependencies API
+                Dependencies\AddDependencyCommand::class    => ['issue' => $request->get('id'), 'dependency' => $request->get('issue')],
+                Dependencies\RemoveDependencyCommand::class => ['issue' => $request->get('id'), 'dependency' => $request->get('issue')],
             ],
             AbstractNormalizer::CALLBACKS => [
                 'roles' => fn ($innerObject, $outerObject) => match ($outerObject) {

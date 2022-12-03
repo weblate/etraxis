@@ -24,21 +24,29 @@ final class GetIssuesQuery extends AbstractCollectionQuery
     public const ISSUE_ID               = 'id';
     public const ISSUE_SUBJECT          = 'subject';
     public const ISSUE_PROJECT          = 'project';
-    public const ISSUE_PROJECT_NAME     = 'project_name';
+    public const ISSUE_PROJECT_NAME     = 'projectName';
     public const ISSUE_TEMPLATE         = 'template';
-    public const ISSUE_TEMPLATE_NAME    = 'template_name';
+    public const ISSUE_TEMPLATE_NAME    = 'templateName';
     public const ISSUE_STATE            = 'state';
-    public const ISSUE_STATE_NAME       = 'state_name';
+    public const ISSUE_STATE_NAME       = 'stateName';
     public const ISSUE_AUTHOR           = 'author';
-    public const ISSUE_AUTHOR_NAME      = 'author_name';
+    public const ISSUE_AUTHOR_NAME      = 'authorName';
     public const ISSUE_RESPONSIBLE      = 'responsible';
-    public const ISSUE_RESPONSIBLE_NAME = 'responsible_name';
-    public const ISSUE_CREATED_AT       = 'created_at';
-    public const ISSUE_CHANGED_AT       = 'changed_at';
-    public const ISSUE_CLOSED_AT        = 'closed_at';
-    public const ISSUE_IS_CLONED        = 'is_cloned';
-    public const ISSUE_IS_CRITICAL      = 'is_critical';
-    public const ISSUE_IS_SUSPENDED     = 'is_suspended';
-    public const ISSUE_IS_CLOSED        = 'is_closed';
+    public const ISSUE_RESPONSIBLE_NAME = 'responsibleName';
+    public const ISSUE_CREATED_AT       = 'createdAt';
+    public const ISSUE_CHANGED_AT       = 'changedAt';
+    public const ISSUE_CLOSED_AT        = 'closedAt';
+    public const ISSUE_IS_CLONED        = 'cloned';
+    public const ISSUE_IS_CRITICAL      = 'critical';
+    public const ISSUE_IS_SUSPENDED     = 'suspended';
+    public const ISSUE_IS_CLOSED        = 'closed';
     public const ISSUE_AGE              = 'age';
+
+    /**
+     * Removes the limit for number of items to return.
+     */
+    public function clearLimit(): void
+    {
+        $this->limit = 0;
+    }
 }

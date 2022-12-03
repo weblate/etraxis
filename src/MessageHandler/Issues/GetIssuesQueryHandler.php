@@ -143,8 +143,10 @@ final class GetIssuesQueryHandler implements QueryHandlerInterface
         }
 
         // Pagination.
-        $dql->setFirstResult($query->getOffset());
-        $dql->setMaxResults($query->getLimit());
+        if (0 !== $query->getLimit()) {
+            $dql->setFirstResult($query->getOffset());
+            $dql->setMaxResults($query->getLimit());
+        }
 
         // Execute query.
         $items = array_map(fn (array $entry) => reset($entry), $dql->getQuery()->execute());

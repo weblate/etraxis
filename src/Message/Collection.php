@@ -30,7 +30,7 @@ class Collection
     /**
      * @return int Total number of all available items (not only the retrieved ones)
      */
-    #[Groups('api')]
+    #[Groups(['api', 'info'])]
     public function getTotal(): int
     {
         return $this->total;
@@ -39,7 +39,7 @@ class Collection
     /**
      * @return array Retrieved subset of available items
      */
-    #[Groups('api')]
+    #[Groups(['api', 'info'])]
     public function getItems(): array
     {
         return $this->items;

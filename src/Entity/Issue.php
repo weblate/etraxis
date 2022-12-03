@@ -18,6 +18,7 @@ use App\Repository\IssueRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Issue.
@@ -124,6 +125,7 @@ class Issue
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getId(): int
     {
         return $this->id;
@@ -132,6 +134,7 @@ class Issue
     /**
      * Returns full unique ID with template prefix.
      */
+    #[Groups('info')]
     public function getFullId(): string
     {
         return sprintf('%s-%03d', $this->state->getTemplate()->getPrefix(), $this->id);
@@ -140,6 +143,7 @@ class Issue
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getSubject(): string
     {
         return $this->subject;
@@ -158,6 +162,7 @@ class Issue
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getProject(): Project
     {
         return $this->state->getTemplate()->getProject();
@@ -166,6 +171,7 @@ class Issue
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getTemplate(): Template
     {
         return $this->state->getTemplate();
@@ -174,6 +180,7 @@ class Issue
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getState(): State
     {
         return $this->state;
@@ -197,6 +204,7 @@ class Issue
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getAuthor(): User
     {
         return $this->author;
@@ -205,6 +213,7 @@ class Issue
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getResponsible(): ?User
     {
         return $this->responsible;
@@ -245,6 +254,7 @@ class Issue
     /**
      * Whether the issue was cloned.
      */
+    #[Groups('info')]
     public function isCloned(): bool
     {
         return null !== $this->origin;
@@ -253,6 +263,7 @@ class Issue
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getCreatedAt(): int
     {
         return $this->createdAt;
@@ -261,6 +272,7 @@ class Issue
     /**
      * Returns number of days the issue remained or remains opened.
      */
+    #[Groups('info')]
     public function getAge(): int
     {
         return (int) ceil((($this->closedAt ?? time()) - $this->createdAt) / SecondsEnum::OneDay->value);
@@ -269,6 +281,7 @@ class Issue
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getChangedAt(): int
     {
         return $this->changedAt;
@@ -285,6 +298,7 @@ class Issue
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getClosedAt(): ?int
     {
         return $this->closedAt;
@@ -293,6 +307,7 @@ class Issue
     /**
      * Whether the issue is closed.
      */
+    #[Groups('info')]
     public function isClosed(): bool
     {
         return null !== $this->closedAt;
@@ -301,6 +316,7 @@ class Issue
     /**
      * Whether the issue is critical (remains opened for too long).
      */
+    #[Groups('info')]
     public function isCritical(): bool
     {
         return !$this->isClosed()
@@ -311,6 +327,7 @@ class Issue
     /**
      * Whether the issue is frozen (read-only).
      */
+    #[Groups('info')]
     public function isFrozen(): bool
     {
         return $this->isClosed()
@@ -321,6 +338,7 @@ class Issue
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getResumesAt(): ?int
     {
         return $this->resumesAt;
@@ -329,6 +347,7 @@ class Issue
     /**
      * Whether the issue is currently suspended.
      */
+    #[Groups('info')]
     public function isSuspended(): bool
     {
         return null !== $this->resumesAt && $this->resumesAt > time();

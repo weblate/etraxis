@@ -16,6 +16,7 @@ namespace App\MessageBus;
 use App\Entity\Enums\SystemRoleEnum;
 use App\Message\Fields;
 use App\Message\Groups;
+use App\Message\Issues;
 use App\Message\ListItems;
 use App\Message\Projects;
 use App\Message\States;
@@ -93,6 +94,14 @@ class CommandArgumentValueResolver implements ArgumentValueResolverInterface
                 ListItems\CreateListItemCommand::class   => ['field' => $request->get('id')],
                 // User Settings API
                 UserSettings\SetPasswordCommand::class => ['user' => $request->get('id')],
+                // Issues API
+                Issues\CloneIssueCommand::class    => ['issue' => $request->get('id')],
+                Issues\UpdateIssueCommand::class   => ['issue' => $request->get('id')],
+                Issues\DeleteIssueCommand::class   => ['issue' => $request->get('id')],
+                Issues\ChangeStateCommand::class   => ['issue' => $request->get('id'), 'state' => $request->get('state')],
+                Issues\ReassignIssueCommand::class => ['issue' => $request->get('id'), 'responsible' => $request->get('user')],
+                Issues\SuspendIssueCommand::class  => ['issue' => $request->get('id')],
+                Issues\ResumeIssueCommand::class   => ['issue' => $request->get('id')],
             ],
             AbstractNormalizer::CALLBACKS => [
                 'roles' => fn ($innerObject, $outerObject) => match ($outerObject) {

@@ -14,6 +14,7 @@
 namespace App\Message\Issues;
 
 use App\MessageBus\Contracts\CommandInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -28,6 +29,7 @@ final class SuspendIssueCommand implements CommandInterface
         private readonly int $issue,
         #[Assert\NotBlank]
         #[Assert\Regex('/^\d{4}\-[0-1]\d\-[0-3]\d$/')]
+        #[Groups('api')]
         private readonly string $date
     ) {
     }

@@ -13,7 +13,10 @@
 
 namespace App\Message\Issues;
 
+use App\Controller\ApiControllerInterface;
 use App\MessageBus\Contracts\CommandInterface;
+use OpenApi\Attributes as API;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Changes state of the issue to the specified one.
@@ -26,7 +29,14 @@ final class ChangeStateCommand implements CommandInterface
     public function __construct(
         private readonly int $issue,
         private readonly int $state,
+        #[Groups('api')]
         private readonly ?int $responsible,
+        #[Groups('api')]
+        #[API\Property(type: ApiControllerInterface::TYPE_OBJECT, description: 'Fields values (keys are field IDs).', properties: [
+            new API\Property(property: '123', type: ApiControllerInterface::TYPE_BOOLEAN),
+            new API\Property(property: '456', type: ApiControllerInterface::TYPE_INTEGER),
+            new API\Property(property: '789', type: ApiControllerInterface::TYPE_STRING),
+        ])]
         private readonly ?array $fields
     ) {
     }

@@ -22,6 +22,7 @@ use App\Message\Groups;
 use App\Message\Issues;
 use App\Message\ListItems;
 use App\Message\Projects;
+use App\Message\RelatedIssues;
 use App\Message\States;
 use App\Message\Templates;
 use App\Message\Users;
@@ -115,6 +116,9 @@ class CommandArgumentValueResolver implements ArgumentValueResolverInterface
                 // Dependencies API
                 Dependencies\AddDependencyCommand::class    => ['issue' => $request->get('id'), 'dependency' => $request->get('issue')],
                 Dependencies\RemoveDependencyCommand::class => ['issue' => $request->get('id'), 'dependency' => $request->get('issue')],
+                // Related Issues API
+                RelatedIssues\AddRelatedIssueCommand::class    => ['issue' => $request->get('id'), 'relatedIssue' => $request->get('issue')],
+                RelatedIssues\RemoveRelatedIssueCommand::class => ['issue' => $request->get('id'), 'relatedIssue' => $request->get('issue')],
             ],
             AbstractNormalizer::CALLBACKS => [
                 'roles' => fn ($innerObject, $outerObject) => match ($outerObject) {

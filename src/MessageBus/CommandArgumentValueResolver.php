@@ -14,6 +14,7 @@
 namespace App\MessageBus;
 
 use App\Entity\Enums\SystemRoleEnum;
+use App\Message\Comments;
 use App\Message\Fields;
 use App\Message\Groups;
 use App\Message\Issues;
@@ -105,6 +106,8 @@ class CommandArgumentValueResolver implements ArgumentValueResolverInterface
                 // Watchers API
                 Issues\WatchIssueCommand::class   => ['issue' => $request->get('id')],
                 Issues\UnwatchIssueCommand::class => ['issue' => $request->get('id')],
+                // Comments API
+                Comments\AddCommentCommand::class => ['issue' => $request->get('id')],
             ],
             AbstractNormalizer::CALLBACKS => [
                 'roles' => fn ($innerObject, $outerObject) => match ($outerObject) {

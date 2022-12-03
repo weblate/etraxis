@@ -100,7 +100,9 @@ final class CommentTest extends TestCase
     }
 
     /**
+     * @covers ::getCreatedAt
      * @covers ::getEvent
+     * @covers ::getUser
      */
     public function testEvent(): void
     {
@@ -117,6 +119,8 @@ final class CommentTest extends TestCase
 
         $comment = new Comment($event);
         self::assertSame($event, $comment->getEvent());
+        self::assertSame($user, $comment->getUser());
+        self::assertLessThanOrEqual(2, time() - $comment->getCreatedAt());
     }
 
     /**

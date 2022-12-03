@@ -15,6 +15,7 @@ namespace App\Message\Comments;
 
 use App\Entity\Comment;
 use App\MessageBus\Contracts\CommandInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -29,7 +30,9 @@ final class AddCommentCommand implements CommandInterface
         private readonly int $issue,
         #[Assert\NotBlank]
         #[Assert\Length(max: Comment::MAX_BODY)]
+        #[Groups('api')]
         private readonly string $body,
+        #[Groups('api')]
         private readonly bool $private
     ) {
     }

@@ -16,6 +16,7 @@ namespace App\Entity;
 use App\Entity\Enums\EventTypeEnum;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Issue comment.
@@ -85,8 +86,27 @@ class Comment
     }
 
     /**
+     * Returns author of the comment.
+     */
+    #[Groups('info')]
+    public function getUser(): User
+    {
+        return $this->event->getUser();
+    }
+
+    /**
+     * Returns comment creation time.
+     */
+    #[Groups('info')]
+    public function getCreatedAt(): int
+    {
+        return $this->event->getCreatedAt();
+    }
+
+    /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getBody(): string
     {
         return $this->body;
@@ -105,6 +125,7 @@ class Comment
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function isPrivate(): bool
     {
         return $this->private;

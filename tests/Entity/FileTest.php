@@ -99,7 +99,9 @@ final class FileTest extends TestCase
     }
 
     /**
+     * @covers ::getCreatedAt
      * @covers ::getEvent
+     * @covers ::getUser
      */
     public function testEvent(): void
     {
@@ -116,6 +118,8 @@ final class FileTest extends TestCase
 
         $file = new File($event, 'example.csv', 2309, 'text/csv');
         self::assertSame($event, $file->getEvent());
+        self::assertSame($user, $file->getUser());
+        self::assertLessThanOrEqual(2, time() - $file->getCreatedAt());
     }
 
     /**

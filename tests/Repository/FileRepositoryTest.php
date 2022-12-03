@@ -53,6 +53,34 @@ final class FileRepositoryTest extends TransactionalTestCase
     }
 
     /**
+     * @covers ::findOneByUid
+     */
+    public function testFindOneByUid(): void
+    {
+        /** @var File $expected */
+        [$expected] = $this->repository->findBy(['fileName' => 'Nesciunt nulla sint amet.xslx'], ['id' => 'ASC']);
+
+        $file = $this->repository->findOneByUid($expected->getUid());
+
+        self::assertSame($expected, $file);
+    }
+
+    /**
+     * @covers ::findOneByUid
+     */
+    public function testFindOneByUidRemoved(): void
+    {
+        /** @var File $removed */
+        [$removed] = $this->repository->findBy(['fileName' => 'Possimus sapiente.pdf'], ['id' => 'ASC']);
+
+        self::assertInstanceOf(File::class, $removed);
+
+        $file = $this->repository->findOneByUid($removed->getUid());
+
+        self::assertNull($file);
+    }
+
+    /**
      * @covers ::getFullPath
      */
     public function testGetFullPath(): void

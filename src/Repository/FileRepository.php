@@ -81,6 +81,17 @@ class FileRepository extends ServiceEntityRepository implements Contracts\FileRe
     /**
      * {@inheritDoc}
      */
+    public function findOneByUid(string $uid): ?File
+    {
+        return $this->findOneBy([
+            'uid'       => $uid,
+            'removedAt' => null,
+        ]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getFullPath(File $file): string
     {
         return $this->storage.\DIRECTORY_SEPARATOR.$file->getUid();

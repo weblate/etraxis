@@ -16,6 +16,7 @@ namespace App\MessageBus;
 use App\Entity\Enums\SystemRoleEnum;
 use App\Message\Comments;
 use App\Message\Fields;
+use App\Message\Files;
 use App\Message\Groups;
 use App\Message\Issues;
 use App\Message\ListItems;
@@ -108,6 +109,8 @@ class CommandArgumentValueResolver implements ArgumentValueResolverInterface
                 Issues\UnwatchIssueCommand::class => ['issue' => $request->get('id')],
                 // Comments API
                 Comments\AddCommentCommand::class => ['issue' => $request->get('id')],
+                // Files API
+                Files\AttachFileCommand::class => ['issue' => $request->get('id'), 'file' => $request->files->get('file')],
             ],
             AbstractNormalizer::CALLBACKS => [
                 'roles' => fn ($innerObject, $outerObject) => match ($outerObject) {

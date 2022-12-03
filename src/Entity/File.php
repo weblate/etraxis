@@ -16,6 +16,7 @@ namespace App\Entity;
 use App\Entity\Enums\EventTypeEnum;
 use App\Repository\FileRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 
 /**
@@ -109,8 +110,27 @@ class File
     }
 
     /**
+     * Returns user attached the file.
+     */
+    #[Groups('info')]
+    public function getUser(): User
+    {
+        return $this->event->getUser();
+    }
+
+    /**
+     * Returns timestamp when the file was attached.
+     */
+    #[Groups('info')]
+    public function getCreatedAt(): int
+    {
+        return $this->event->getCreatedAt();
+    }
+
+    /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getUid(): string
     {
         return $this->uid;
@@ -119,6 +139,7 @@ class File
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getFileName(): string
     {
         return $this->fileName;
@@ -127,6 +148,7 @@ class File
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getFileSize(): int
     {
         return $this->fileSize;
@@ -135,6 +157,7 @@ class File
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getMimeType(): string
     {
         return $this->mimeType;

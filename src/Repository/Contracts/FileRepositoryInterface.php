@@ -41,6 +41,11 @@ interface FileRepositoryInterface extends ObjectRepository, Selectable
     public function findAllByIssue(Issue $issue): array;
 
     /**
+     * Finds a file by its UID.
+     */
+    public function findOneByUid(string $uid): ?File;
+
+    /**
      * Returns absolute path including filename to the specified attachment.
      */
     public function getFullPath(File $file): string;

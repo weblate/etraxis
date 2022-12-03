@@ -15,6 +15,7 @@ namespace App\Message\Files;
 
 use App\MessageBus\Contracts\CommandInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -27,7 +28,9 @@ final class AttachFileCommand implements CommandInterface
      */
     public function __construct(
         private readonly int $issue,
+        #[Assert\NotNull]
         #[Assert\File]
+        #[Groups('api')]
         private readonly ?UploadedFile $file
     ) {
     }

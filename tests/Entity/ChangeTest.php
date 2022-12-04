@@ -135,7 +135,9 @@ final class ChangeTest extends TestCase
     }
 
     /**
+     * @covers ::getCreatedAt
      * @covers ::getEvent
+     * @covers ::getUser
      */
     public function testEvent(): void
     {
@@ -153,6 +155,8 @@ final class ChangeTest extends TestCase
 
         $change = new Change($event, $field, 1, null);
         self::assertSame($event, $change->getEvent());
+        self::assertSame($user, $change->getUser());
+        self::assertLessThanOrEqual(2, time() - $change->getCreatedAt());
     }
 
     /**

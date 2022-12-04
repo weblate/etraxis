@@ -18,6 +18,7 @@ use App\Repository\TransitionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Issue transition to another state.
@@ -25,7 +26,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: TransitionRepository::class)]
 #[ORM\Table(name: 'transitions')]
 #[ORM\UniqueConstraint(fields: ['event'])]
-class Transition
+class Transition implements \Stringable
 {
     /**
      * Unique ID.
@@ -82,6 +83,14 @@ class Transition
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function __toString(): string
+    {
+        return $this->id;
+    }
+
+    /**
      * Property getter.
      */
     public function getId(): int
@@ -98,8 +107,27 @@ class Transition
     }
 
     /**
+     * Returns author of the change.
+     */
+    #[Groups('info')]
+    public function getUser(): User
+    {
+        return $this->event->getUser();
+    }
+
+    /**
+     * Returns time of the change.
+     */
+    #[Groups('info')]
+    public function getCreatedAt(): int
+    {
+        return $this->event->getCreatedAt();
+    }
+
+    /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getState(): State
     {
         return $this->state;
@@ -108,6 +136,7 @@ class Transition
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getValues(): Collection
     {
         return $this->values;

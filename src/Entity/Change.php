@@ -16,6 +16,7 @@ namespace App\Entity;
 use App\Entity\Enums\EventTypeEnum;
 use App\Repository\ChangeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Field value change.
@@ -94,8 +95,27 @@ class Change
     }
 
     /**
+     * Returns author of the change.
+     */
+    #[Groups('info')]
+    public function getUser(): User
+    {
+        return $this->event->getUser();
+    }
+
+    /**
+     * Returns time of the change.
+     */
+    #[Groups('info')]
+    public function getCreatedAt(): int
+    {
+        return $this->event->getCreatedAt();
+    }
+
+    /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getField(): ?Field
     {
         return $this->field;
@@ -104,6 +124,7 @@ class Change
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getOldValue(): ?int
     {
         return $this->oldValue;
@@ -112,6 +133,7 @@ class Change
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getNewValue(): ?int
     {
         return $this->newValue;

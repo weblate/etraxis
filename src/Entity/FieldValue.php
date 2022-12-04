@@ -15,6 +15,7 @@ namespace App\Entity;
 
 use App\Repository\FieldValueRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Field value.
@@ -108,6 +109,7 @@ class FieldValue
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getField(): Field
     {
         return $this->field;
@@ -116,6 +118,7 @@ class FieldValue
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getValue(): ?int
     {
         return $this->value;

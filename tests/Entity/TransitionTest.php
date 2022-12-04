@@ -98,6 +98,28 @@ final class TransitionTest extends TestCase
     }
 
     /**
+     * @covers ::__toString
+     */
+    public function testToString(): void
+    {
+        $template = new Template(new Project());
+        $state    = new State($template, StateTypeEnum::Initial);
+        $user     = new User();
+
+        /** @var \Doctrine\Common\Collections\Collection $states */
+        $states = $this->getProperty($template, 'states');
+        $states->add($state);
+
+        $issue = new Issue($template, $user);
+        $event = new Event($issue, $user, EventTypeEnum::StateChanged);
+
+        $transition = new Transition($event, $state);
+
+        $this->setProperty($transition, 'id', 1);
+        self::assertSame('1', (string) $transition);
+    }
+
+    /**
      * @covers ::getId
      */
     public function testId(): void
@@ -120,7 +142,9 @@ final class TransitionTest extends TestCase
     }
 
     /**
+     * @covers ::getCreatedAt
      * @covers ::getEvent
+     * @covers ::getUser
      */
     public function testEvent(): void
     {
@@ -137,6 +161,8 @@ final class TransitionTest extends TestCase
 
         $transition = new Transition($event, $state);
         self::assertSame($event, $transition->getEvent());
+        self::assertSame($user, $transition->getUser());
+        self::assertLessThanOrEqual(2, time() - $transition->getCreatedAt());
     }
 
     /**

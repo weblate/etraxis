@@ -13,12 +13,32 @@
 
 namespace App\Controller;
 
+use App\Entity\Change;
+use App\Entity\Comment;
+use App\Entity\Event;
+use App\Entity\FieldValue;
+use App\Entity\File;
 use App\Entity\Issue;
+use App\Entity\State;
+use App\Entity\Transition;
+use App\Entity\User;
 use App\Message\AbstractCollectionQuery;
 use App\Message\Issues as Message;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\MessageBus\Contracts\QueryBusInterface;
+use App\Repository\Contracts\ChangeRepositoryInterface;
+use App\Repository\Contracts\CommentRepositoryInterface;
+use App\Repository\Contracts\DependencyRepositoryInterface;
+use App\Repository\Contracts\FieldValueRepositoryInterface;
+use App\Repository\Contracts\FileRepositoryInterface;
+use App\Repository\Contracts\IssueRepositoryInterface;
+use App\Repository\Contracts\RelatedIssueRepositoryInterface;
+use App\Repository\Contracts\WatcherRepositoryInterface;
+use App\Security\Voter\CommentVoter;
+use App\Security\Voter\DependencyVoter;
+use App\Security\Voter\FileVoter;
 use App\Security\Voter\IssueVoter;
+use App\Security\Voter\RelatedIssueVoter;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as API;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -229,14 +249,109 @@ class IssuesController extends AbstractController implements ApiControllerInterf
      */
     #[Route('/{id}', name: 'api_issues_get', methods: [Request::METHOD_GET], requirements: ['id' => '\d+'])]
     #[API\Parameter(name: 'id', in: self::PARAMETER_PATH, description: 'Issue ID.', schema: new API\Schema(type: self::TYPE_INTEGER))]
-    #[API\Response(response: 200, description: 'Success.', content: new Model(type: Issue::class, groups: ['info']))]
+    #[API\Response(response: 200, description: 'Success.', content: new API\JsonContent(
+        type: self::TYPE_OBJECT,
+        properties: [
+            new API\Property(property: 'issue', ref: new Model(type: Issue::class, groups: ['info'])),
+            new API\Property(property: 'events', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: Event::class, groups: ['info'])), description: 'List of events (ordered).'),
+            new API\Property(property: 'transitions', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: Transition::class, groups: ['info'])), description: 'List of transitions (ordered).'),
+            new API\Property(property: 'states', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: State::class, groups: ['info'])), description: 'List of states the issue can be moved to (ordered).'),
+            new API\Property(property: 'assignees', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: User::class, groups: ['info'])), description: 'List of possible assignees (ordered).'),
+            new API\Property(property: 'values', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: FieldValue::class, groups: ['info'])), description: 'List of current values for all editable fields (ordered).'),
+            new API\Property(property: 'changes', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: Change::class, groups: ['info'])), description: 'List of field changes (ordered).'),
+            new API\Property(property: 'watchers', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: User::class, groups: ['info'])), description: 'List of watchers (unordered).'),
+            new API\Property(property: 'comments', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: Comment::class, groups: ['info'])), description: 'List of comments (ordered).'),
+            new API\Property(property: 'files', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: File::class, groups: ['info'])), description: 'List of files (ordered).'),
+            new API\Property(property: 'dependencies', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: Issue::class, groups: ['info'])), description: 'List of dependencies (ordered).'),
+            new API\Property(property: 'related', type: self::TYPE_ARRAY, items: new API\Items(ref: new Model(type: Issue::class, groups: ['info'])), description: 'List of related issues (ordered).'),
+            new API\Property(property: 'actions', type: self::TYPE_OBJECT, properties: [
+                new API\Property(property: IssueVoter::UPDATE_ISSUE, type: self::TYPE_BOOLEAN),
+                new API\Property(property: IssueVoter::DELETE_ISSUE, type: self::TYPE_BOOLEAN),
+                new API\Property(property: IssueVoter::CHANGE_STATE, type: self::TYPE_BOOLEAN),
+                new API\Property(property: IssueVoter::REASSIGN_ISSUE, type: self::TYPE_BOOLEAN),
+                new API\Property(property: IssueVoter::SUSPEND_ISSUE, type: self::TYPE_BOOLEAN),
+                new API\Property(property: IssueVoter::RESUME_ISSUE, type: self::TYPE_BOOLEAN),
+                new API\Property(property: CommentVoter::ADD_PUBLIC_COMMENT, type: self::TYPE_BOOLEAN),
+                new API\Property(property: CommentVoter::ADD_PRIVATE_COMMENT, type: self::TYPE_BOOLEAN),
+                new API\Property(property: FileVoter::ATTACH_FILE, type: self::TYPE_BOOLEAN),
+                new API\Property(property: FileVoter::DELETE_FILE, type: self::TYPE_BOOLEAN),
+                new API\Property(property: DependencyVoter::ADD_DEPENDENCY, type: self::TYPE_BOOLEAN),
+                new API\Property(property: DependencyVoter::REMOVE_DEPENDENCY, type: self::TYPE_BOOLEAN),
+                new API\Property(property: RelatedIssueVoter::ADD_RELATED_ISSUE, type: self::TYPE_BOOLEAN),
+                new API\Property(property: RelatedIssueVoter::REMOVE_RELATED_ISSUE, type: self::TYPE_BOOLEAN),
+            ], description: 'List of actions on the issue currently available to the user.'),
+        ]
+    ))]
     #[API\Response(response: 403, description: 'Access denied.')]
     #[API\Response(response: 404, description: 'Resource not found.')]
-    public function getIssue(Issue $issue, NormalizerInterface $normalizer): JsonResponse
-    {
+    public function getIssue(
+        Issue $issue,
+        NormalizerInterface $normalizer,
+        IssueRepositoryInterface $issueRepository,
+        FieldValueRepositoryInterface $fieldValueRepository,
+        ChangeRepositoryInterface $changeRepository,
+        WatcherRepositoryInterface $watcherRepository,
+        CommentRepositoryInterface $commentRepository,
+        FileRepositoryInterface $fileRepository,
+        DependencyRepositoryInterface $dependencyRepository,
+        RelatedIssueRepositoryInterface $relatedIssueRepository
+    ): JsonResponse {
         $this->denyAccessUnlessGranted(IssueVoter::VIEW_ISSUE, $issue, 'You are not allowed to view this issue.');
 
-        return $this->json($normalizer->normalize($issue, 'json', [AbstractNormalizer::GROUPS => 'info']));
+        /** @var User $user */
+        $user = $this->getUser();
+
+        // Get extra data.
+        $states        = $issueRepository->getTransitionsByUser($issue, $user);
+        $assignees     = $issueRepository->getResponsiblesByState($issue->getState());
+        $values        = $fieldValueRepository->getLatestValues($issue, $user);
+        $changes       = $changeRepository->findAllByIssue($issue, $user);
+        $watchers      = $watcherRepository->findAllByIssue($issue);
+        $comments      = $commentRepository->findAllByIssue($issue, !$this->isGranted(CommentVoter::READ_PRIVATE_COMMENT, $issue));
+        $files         = $fileRepository->findAllByIssue($issue);
+        $dependencies  = $dependencyRepository->findAllByIssue($issue);
+        $relatedIssues = $relatedIssueRepository->findAllByIssue($issue);
+
+        $transitions = array_values(array_unique(array_map(
+            fn (FieldValue $value) => $value->getTransition(),
+            $fieldValueRepository->findAllByIssue($issue, $user)
+        )));
+
+        // Figure out the list of actions on the issue, which are currently available to the user.
+        $actions = [
+            IssueVoter::UPDATE_ISSUE,
+            IssueVoter::DELETE_ISSUE,
+            IssueVoter::CHANGE_STATE,
+            IssueVoter::REASSIGN_ISSUE,
+            IssueVoter::SUSPEND_ISSUE,
+            IssueVoter::RESUME_ISSUE,
+            CommentVoter::ADD_PUBLIC_COMMENT,
+            CommentVoter::ADD_PRIVATE_COMMENT,
+            FileVoter::ATTACH_FILE,
+            FileVoter::DELETE_FILE,
+            DependencyVoter::ADD_DEPENDENCY,
+            DependencyVoter::REMOVE_DEPENDENCY,
+            RelatedIssueVoter::ADD_RELATED_ISSUE,
+            RelatedIssueVoter::REMOVE_RELATED_ISSUE,
+        ];
+
+        $actions = array_filter($actions, fn (string $attribute) => $this->isGranted($attribute, $issue));
+
+        return $this->json([
+            'issue'        => $normalizer->normalize($issue, 'json', [AbstractNormalizer::GROUPS => 'info']),
+            'events'       => $normalizer->normalize($issue->getEvents(), 'json', [AbstractNormalizer::GROUPS => 'info']),
+            'transitions'  => $normalizer->normalize($transitions, 'json', [AbstractNormalizer::GROUPS => 'info']),
+            'states'       => $normalizer->normalize($states, 'json', [AbstractNormalizer::GROUPS => 'info']),
+            'assignees'    => $normalizer->normalize($assignees, 'json', [AbstractNormalizer::GROUPS => 'info']),
+            'values'       => $normalizer->normalize($values, 'json', [AbstractNormalizer::GROUPS => 'info']),
+            'changes'      => $normalizer->normalize($changes, 'json', [AbstractNormalizer::GROUPS => 'info']),
+            'watchers'     => $normalizer->normalize($watchers, 'json', [AbstractNormalizer::GROUPS => 'info']),
+            'comments'     => $normalizer->normalize($comments, 'json', [AbstractNormalizer::GROUPS => 'info']),
+            'files'        => $normalizer->normalize($files, 'json', [AbstractNormalizer::GROUPS => 'info']),
+            'dependencies' => $normalizer->normalize($dependencies, 'json', [AbstractNormalizer::GROUPS => 'info']),
+            'related'      => $normalizer->normalize($relatedIssues, 'json', [AbstractNormalizer::GROUPS => 'info']),
+            'actions'      => array_fill_keys($actions, true),
+        ]);
     }
 
     /**

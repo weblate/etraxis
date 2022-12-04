@@ -16,6 +16,7 @@ namespace App\Entity;
 use App\Entity\Enums\EventTypeEnum;
 use App\Repository\EventRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Event.
@@ -101,6 +102,7 @@ class Event
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getId(): int
     {
         return $this->id;
@@ -117,6 +119,7 @@ class Event
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getUser(): User
     {
         return $this->user;
@@ -125,6 +128,7 @@ class Event
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getType(): EventTypeEnum
     {
         return EventTypeEnum::from($this->type);
@@ -133,6 +137,7 @@ class Event
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getCreatedAt(): int
     {
         return $this->createdAt;
@@ -141,6 +146,7 @@ class Event
     /**
      * Property getter.
      */
+    #[Groups('info')]
     public function getParameter(): ?string
     {
         return $this->parameter;

@@ -198,7 +198,7 @@ class Field
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups(['api', 'info'])]
     public function getPosition(): int
     {
         return $this->position;

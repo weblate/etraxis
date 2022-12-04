@@ -86,7 +86,7 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
         [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
         self::assertNotNull($issue);
 
-        $values = $this->repository->getLatestValues($issue, null);
+        $values = $this->doctrine->getRepository(FieldValue::class)->getLatestValues($issue, $user);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -119,7 +119,7 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($issue);
 
-        $values = $this->repository->getLatestValues($issue, null);
+        $values = $this->doctrine->getRepository(FieldValue::class)->getLatestValues($issue, $user);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -174,11 +174,14 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
         /** @var \App\Repository\Contracts\ListItemRepositoryInterface $listRepository */
         $listRepository = $this->doctrine->getRepository(ListItem::class);
 
+        /** @var User $user */
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('ldoyle@example.com');
+
         /** @var Issue $issue */
         [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
         self::assertNotNull($issue);
 
-        $values = $this->repository->getLatestValues($issue, null);
+        $values = $this->doctrine->getRepository(FieldValue::class)->getLatestValues($issue, $user);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -202,7 +205,7 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($issue);
 
-        $values = $this->repository->getLatestValues($issue, null);
+        $values = $this->doctrine->getRepository(FieldValue::class)->getLatestValues($issue, $user);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -252,7 +255,7 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
         [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
         self::assertNotNull($issue);
 
-        $values = $this->repository->getLatestValues($issue, null);
+        $values = $this->doctrine->getRepository(FieldValue::class)->getLatestValues($issue, $user);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -276,7 +279,7 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($issue);
 
-        $values = $this->repository->getLatestValues($issue, null);
+        $values = $this->doctrine->getRepository(FieldValue::class)->getLatestValues($issue, $user);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -335,7 +338,7 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
         [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
         self::assertNotNull($issue);
 
-        $values = $this->repository->getLatestValues($issue, null);
+        $values = $this->doctrine->getRepository(FieldValue::class)->getLatestValues($issue, $user);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -362,7 +365,7 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($issue);
 
-        $values = $this->repository->getLatestValues($issue, null);
+        $values = $this->doctrine->getRepository(FieldValue::class)->getLatestValues($issue, $user);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -414,7 +417,7 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
         /** @var Issue $issue */
         [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 8'], ['id' => 'ASC']);
 
-        $values = $this->repository->getLatestValues($issue, null);
+        $values = $this->doctrine->getRepository(FieldValue::class)->getLatestValues($issue, $user);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -442,7 +445,7 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($issue);
 
-        $values = $this->repository->getLatestValues($issue, null);
+        $values = $this->doctrine->getRepository(FieldValue::class)->getLatestValues($issue, $user);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -486,13 +489,16 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
         /** @var \App\Repository\Contracts\ListItemRepositoryInterface $listRepository */
         $listRepository = $this->doctrine->getRepository(ListItem::class);
 
+        /** @var User $manager */
+        $manager = $this->doctrine->getRepository(User::class)->findOneByEmail('ldoyle@example.com');
+
         /** @var User $user */
         $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'dquigley@example.com']);
 
         /** @var Issue $issue */
         [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 8'], ['id' => 'ASC']);
 
-        $values = $this->repository->getLatestValues($issue, null);
+        $values = $this->doctrine->getRepository(FieldValue::class)->getLatestValues($issue, $manager);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -520,7 +526,7 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
 
         $this->doctrine->getManager()->refresh($issue);
 
-        $values = $this->repository->getLatestValues($issue, null);
+        $values = $this->doctrine->getRepository(FieldValue::class)->getLatestValues($issue, $manager);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -560,10 +566,13 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
             'Priority'    => 3,
         ];
 
+        /** @var User $user */
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('ldoyle@example.com');
+
         /** @var Issue $issue */
         [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 8'], ['id' => 'ASC']);
 
-        $values = $this->repository->getLatestValues($issue, null);
+        $values = $this->doctrine->getRepository(FieldValue::class)->getLatestValues($issue, $user);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 
@@ -629,10 +638,13 @@ final class UpdateIssueCommandHandlerTest extends TransactionalTestCase
 
         $this->loginUser('ldoyle@example.com');
 
+        /** @var User $user */
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('ldoyle@example.com');
+
         /** @var Issue $issue */
         [/* skipping */ , /* skipping */ , $issue] = $this->repository->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
 
-        $values = $this->repository->getLatestValues($issue, null);
+        $values = $this->doctrine->getRepository(FieldValue::class)->getLatestValues($issue, $user);
 
         usort($values, fn (FieldValue $value1, FieldValue $value2) => strcmp($value1->getField()->getName(), $value2->getField()->getName()));
 

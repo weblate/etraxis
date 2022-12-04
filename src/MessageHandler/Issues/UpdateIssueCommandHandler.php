@@ -15,7 +15,6 @@ namespace App\MessageHandler\Issues;
 
 use App\Entity\Change;
 use App\Entity\Enums\EventTypeEnum;
-use App\Entity\Enums\FieldPermissionEnum;
 use App\Entity\Enums\FieldTypeEnum;
 use App\Entity\Event;
 use App\Entity\FieldValue;
@@ -98,7 +97,7 @@ final class UpdateIssueCommandHandler implements CommandHandlerInterface
             // Change the fields.
             if (0 !== count($values)) {
                 $fieldValues = array_filter(
-                    $this->issueRepository->getLatestValues($issue, $user, FieldPermissionEnum::ReadAndWrite),
+                    $this->valueRepository->getLatestValues($issue, $user),
                     fn (FieldValue $fieldValue) => array_key_exists($fieldValue->getField()->getId(), $values)
                 );
 

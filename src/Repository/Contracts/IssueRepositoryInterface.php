@@ -13,7 +13,6 @@
 
 namespace App\Repository\Contracts;
 
-use App\Entity\Enums\FieldPermissionEnum;
 use App\Entity\Issue;
 use App\Entity\State;
 use App\Entity\User;
@@ -39,28 +38,6 @@ interface IssueRepositoryInterface extends ObjectRepository, Selectable
      * @see \Doctrine\Persistence\ObjectManager::refresh()
      */
     public function refresh(Issue $entity): void;
-
-    /**
-     * Returns all field values of the specified issue, which the user (if specified) has access.
-     *
-     * @param Issue               $issue      Target issue
-     * @param null|User           $user       User
-     * @param FieldPermissionEnum $permission Required access (ignored when user is not specified)
-     *
-     * @return \App\Entity\FieldValue[]
-     */
-    public function getAllValues(Issue $issue, ?User $user, FieldPermissionEnum $permission = FieldPermissionEnum::ReadOnly): array;
-
-    /**
-     * Returns the latest field values of the specified issue, which the user (if specified) has access.
-     *
-     * @param Issue               $issue      Target issue
-     * @param null|User           $user       User
-     * @param FieldPermissionEnum $permission Required access (ignored when user is not specified)
-     *
-     * @return \App\Entity\FieldValue[]
-     */
-    public function getLatestValues(Issue $issue, ?User $user, FieldPermissionEnum $permission = FieldPermissionEnum::ReadOnly): array;
 
     /**
      * Whether the specified issue has any active dependency.

@@ -58,6 +58,8 @@ final class CloneIssueCommandHandlerTest extends TransactionalTestCase
     {
         $this->loginUser('nhills@example.com');
 
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('ldoyle@example.com');
+
         /** @var Issue $origin */
         [/* skipping */ , /* skipping */ , $origin] = $this->repository->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
 
@@ -107,7 +109,7 @@ final class CloneIssueCommandHandlerTest extends TransactionalTestCase
 
         /** @var FieldValue[] $values */
         $values = array_filter(
-            $this->repository->getAllValues($issue, null),
+            $this->doctrine->getRepository(FieldValue::class)->findAllByIssue($issue, $user),
             fn (FieldValue $value) => $value->getField()->getState() === $origin->getTemplate()->getInitialState()
         );
 
@@ -254,6 +256,8 @@ final class CloneIssueCommandHandlerTest extends TransactionalTestCase
     {
         $this->loginUser('nhills@example.com');
 
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('ldoyle@example.com');
+
         /** @var Issue $origin */
         [/* skipping */ , /* skipping */ , $origin] = $this->repository->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
 
@@ -295,7 +299,7 @@ final class CloneIssueCommandHandlerTest extends TransactionalTestCase
 
         /** @var FieldValue[] $values */
         $values = array_filter(
-            $this->repository->getAllValues($issue, null),
+            $this->doctrine->getRepository(FieldValue::class)->findAllByIssue($issue, $user),
             fn (FieldValue $value) => $value->getField()->getState() === $origin->getTemplate()->getInitialState()
         );
 

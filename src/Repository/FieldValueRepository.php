@@ -14,14 +14,18 @@
 namespace App\Repository;
 
 use App\Entity\DecimalValue;
+use App\Entity\Enums\FieldPermissionEnum;
 use App\Entity\Enums\FieldTypeEnum;
+use App\Entity\Enums\SystemRoleEnum;
 use App\Entity\FieldStrategy\DurationStrategy;
 use App\Entity\FieldValue;
 use App\Entity\Issue;
 use App\Entity\ListItem;
 use App\Entity\StringValue;
 use App\Entity\TextValue;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
@@ -66,6 +70,88 @@ class FieldValueRepository extends ServiceEntityRepository implements Contracts\
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findAllByIssue(Issue $issue, User $user, FieldPermissionEnum $access = FieldPermissionEnum::ReadOnly): array
+    {
+        // Basic query.
+        $query = $this->createQueryBuilder('value')
+            ->addSelect('transition')
+            ->addSelect('field')
+            ->addSelect('event')
+            ->addSelect('state')
+            ->addSelect('issue')
+            ->innerJoin('value.transition', 'transition')
+            ->innerJoin('value.field', 'field')
+            ->innerJoin('transition.event', 'event')
+            ->innerJoin('transition.state', 'state')
+            ->innerJoin('event.issue', 'issue')
+            ->where('event.issue = :issue')
+            ->addOrderBy('event.createdAt')
+            ->addOrderBy('field.position')
+        ;
+
+        // Retrieve only fields the user is allowed to access.
+        $query
+            ->leftJoin('field.rolePermissions', 'frp_anyone', Join::WITH, 'frp_anyone.role = :role_anyone')
+            ->leftJoin('field.rolePermissions', 'frp_author', Join::WITH, 'frp_author.role = :role_author')
+            ->leftJoin('field.rolePermissions', 'frp_responsible', Join::WITH, 'frp_responsible.role = :role_responsible')
+            ->leftJoin('field.groupPermissions', 'fgp')
+            ->andWhere($query->expr()->orX(
+                $query->expr()->in('frp_anyone.permission', ':permissions'),
+                $query->expr()->andX(
+                    'issue.author = :user',
+                    $query->expr()->in('frp_author.permission', ':permissions')
+                ),
+                $query->expr()->andX(
+                    'issue.responsible = :user',
+                    $query->expr()->in('frp_responsible.permission', ':permissions')
+                ),
+                $query->expr()->andX(
+                    $query->expr()->in('fgp.group', ':groups'),
+                    $query->expr()->in('fgp.permission', ':permissions')
+                )
+            ))
+        ;
+
+        $query->setParameters([
+            'issue'            => $issue,
+            'user'             => $user,
+            'groups'           => $user->getGroups(),
+            'role_anyone'      => SystemRoleEnum::Anyone->value,
+            'role_author'      => SystemRoleEnum::Author->value,
+            'role_responsible' => SystemRoleEnum::Responsible->value,
+            'permissions'      => match ($access) {
+                FieldPermissionEnum::ReadOnly     => [FieldPermissionEnum::ReadOnly->value, FieldPermissionEnum::ReadAndWrite->value],
+                FieldPermissionEnum::ReadAndWrite => [FieldPermissionEnum::ReadAndWrite->value],
+            },
+        ]);
+
+        return $query->getQuery()->getResult();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLatestValues(Issue $issue, User $user): array
+    {
+        $fieldValues = $this->findAllByIssue($issue, $user, FieldPermissionEnum::ReadAndWrite);
+
+        $transitions = [];
+
+        foreach ($fieldValues as $fieldValue) {
+            $transitions[$fieldValue->getTransition()->getState()->getId()] = $fieldValue->getTransition()->getId();
+        }
+
+        $fieldValues = array_filter(
+            $fieldValues,
+            fn (FieldValue $fieldValue) => in_array($fieldValue->getTransition()->getId(), $transitions, true)
+        );
+
+        return array_values($fieldValues);
     }
 
     /**

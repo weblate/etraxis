@@ -13,9 +13,12 @@
 
 namespace App\Repository\Contracts;
 
+use App\Entity\Enums\FieldPermissionEnum;
 use App\Entity\Field;
 use App\Entity\FieldValue;
+use App\Entity\Issue;
 use App\Entity\ListItem;
+use App\Entity\User;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
@@ -34,6 +37,27 @@ interface FieldValueRepositoryInterface extends ObjectRepository, Selectable
      * @see \Doctrine\Persistence\ObjectManager::remove()
      */
     public function remove(FieldValue $entity, bool $flush = false): void;
+
+    /**
+     * Returns all field values of the specified issue, which the user has access.
+     *
+     * @param Issue               $issue  Target issue
+     * @param User                $user   User
+     * @param FieldPermissionEnum $access Required access
+     *
+     * @return FieldValue[]
+     */
+    public function findAllByIssue(Issue $issue, User $user, FieldPermissionEnum $access = FieldPermissionEnum::ReadOnly): array;
+
+    /**
+     * Returns the latest field values of the specified issue, which the user has access for modification.
+     *
+     * @param Issue $issue Target issue
+     * @param User  $user  User
+     *
+     * @return FieldValue[]
+     */
+    public function getLatestValues(Issue $issue, User $user): array;
 
     /**
      * Validates specified values against the specified set of fields.

@@ -59,6 +59,8 @@ final class CreateIssueCommandHandlerTest extends TransactionalTestCase
     {
         $this->loginUser('nhills@example.com');
 
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('ldoyle@example.com');
+
         /** @var Template $template */
         [/* skipping */ , /* skipping */ , $template] = $this->doctrine->getRepository(Template::class)->findBy(['name' => 'Development'], ['id' => 'ASC']);
 
@@ -108,7 +110,7 @@ final class CreateIssueCommandHandlerTest extends TransactionalTestCase
 
         /** @var FieldValue[] $values */
         $values = array_filter(
-            $this->repository->getAllValues($issue, null),
+            $this->doctrine->getRepository(FieldValue::class)->findAllByIssue($issue, $user),
             fn (FieldValue $value) => $value->getField()->getState() === $template->getInitialState()
         );
 
@@ -255,6 +257,8 @@ final class CreateIssueCommandHandlerTest extends TransactionalTestCase
     {
         $this->loginUser('nhills@example.com');
 
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('ldoyle@example.com');
+
         /** @var Template $template */
         [/* skipping */ , /* skipping */ , $template] = $this->doctrine->getRepository(Template::class)->findBy(['name' => 'Development'], ['id' => 'ASC']);
 
@@ -296,7 +300,7 @@ final class CreateIssueCommandHandlerTest extends TransactionalTestCase
 
         /** @var FieldValue[] $values */
         $values = array_filter(
-            $this->repository->getAllValues($issue, null),
+            $this->doctrine->getRepository(FieldValue::class)->findAllByIssue($issue, $user),
             fn (FieldValue $value) => $value->getField()->getState() === $template->getInitialState()
         );
 

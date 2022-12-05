@@ -22,7 +22,7 @@ use Doctrine\Persistence\ObjectRepository;
 /**
  * Interface to the 'Issue' entities repository.
  */
-interface IssueRepositoryInterface extends ObjectRepository, Selectable
+interface IssueRepositoryInterface extends ObjectRepository, Selectable, CacheableRepositoryInterface
 {
     /**
      * @see \Doctrine\Persistence\ObjectManager::persist()

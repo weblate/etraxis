@@ -25,14 +25,13 @@ use App\Entity\StateGroupTransition;
 use App\Entity\StateResponsibleGroup;
 use App\Entity\StateRoleTransition;
 use App\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * 'Issue' entities repository.
  */
-class IssueRepository extends ServiceEntityRepository implements Contracts\IssueRepositoryInterface
+class IssueRepository extends AbstractCacheableRepository implements Contracts\IssueRepositoryInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor
@@ -59,6 +58,8 @@ class IssueRepository extends ServiceEntityRepository implements Contracts\Issue
      */
     public function remove(Issue $entity, bool $flush = false): void
     {
+        unset($this->cache[$entity->getId()]);
+
         $this->getEntityManager()->remove($entity);
 
         if ($flush) {

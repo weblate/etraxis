@@ -14,13 +14,12 @@
 namespace App\Repository;
 
 use App\Entity\StringValue;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * 'StringValue' entities repository.
  */
-class StringValueRepository extends ServiceEntityRepository implements Contracts\StringValueRepositoryInterface
+class StringValueRepository extends AbstractCacheableRepository implements Contracts\StringValueRepositoryInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor
@@ -47,6 +46,8 @@ class StringValueRepository extends ServiceEntityRepository implements Contracts
      */
     public function remove(StringValue $entity, bool $flush = false): void
     {
+        unset($this->cache[$entity->getId()]);
+
         $this->getEntityManager()->remove($entity);
 
         if ($flush) {

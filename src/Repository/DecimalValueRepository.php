@@ -14,13 +14,12 @@
 namespace App\Repository;
 
 use App\Entity\DecimalValue;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * 'DecimalValue' entities repository.
  */
-class DecimalValueRepository extends ServiceEntityRepository implements Contracts\DecimalValueRepositoryInterface
+class DecimalValueRepository extends AbstractCacheableRepository implements Contracts\DecimalValueRepositoryInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor
@@ -47,6 +46,8 @@ class DecimalValueRepository extends ServiceEntityRepository implements Contract
      */
     public function remove(DecimalValue $entity, bool $flush = false): void
     {
+        unset($this->cache[$entity->getId()]);
+
         $this->getEntityManager()->remove($entity);
 
         if ($flush) {

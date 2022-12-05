@@ -20,7 +20,7 @@ use Doctrine\Persistence\ObjectRepository;
 /**
  * Interface to the 'DecimalValue' entities repository.
  */
-interface DecimalValueRepositoryInterface extends ObjectRepository, Selectable
+interface DecimalValueRepositoryInterface extends ObjectRepository, Selectable, CacheableRepositoryInterface
 {
     /**
      * @see \Doctrine\Persistence\ObjectManager::persist()

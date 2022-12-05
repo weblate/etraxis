@@ -21,7 +21,7 @@ use Doctrine\Persistence\ObjectRepository;
 /**
  * Interface to the 'ListItem' entities repository.
  */
-interface ListItemRepositoryInterface extends ObjectRepository, Selectable
+interface ListItemRepositoryInterface extends ObjectRepository, Selectable, CacheableRepositoryInterface
 {
     /**
      * @see \Doctrine\Persistence\ObjectManager::persist()

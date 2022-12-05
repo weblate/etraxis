@@ -14,13 +14,12 @@
 namespace App\Repository;
 
 use App\Entity\TextValue;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * 'TextValue' entities repository.
  */
-class TextValueRepository extends ServiceEntityRepository implements Contracts\TextValueRepositoryInterface
+class TextValueRepository extends AbstractCacheableRepository implements Contracts\TextValueRepositoryInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor
@@ -47,6 +46,8 @@ class TextValueRepository extends ServiceEntityRepository implements Contracts\T
      */
     public function remove(TextValue $entity, bool $flush = false): void
     {
+        unset($this->cache[$entity->getId()]);
+
         $this->getEntityManager()->remove($entity);
 
         if ($flush) {

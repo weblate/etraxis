@@ -20,7 +20,7 @@ use Doctrine\Persistence\ObjectRepository;
 /**
  * Interface to the 'StringValue' entities repository.
  */
-interface StringValueRepositoryInterface extends ObjectRepository, Selectable
+interface StringValueRepositoryInterface extends ObjectRepository, Selectable, CacheableRepositoryInterface
 {
     /**
      * @see \Doctrine\Persistence\ObjectManager::persist()

@@ -15,6 +15,7 @@ namespace App\Controller;
 
 use App\Entity\Change;
 use App\Entity\Comment;
+use App\Entity\Enums\FieldTypeEnum;
 use App\Entity\Event;
 use App\Entity\FieldValue;
 use App\Entity\File;
@@ -28,11 +29,15 @@ use App\MessageBus\Contracts\CommandBusInterface;
 use App\MessageBus\Contracts\QueryBusInterface;
 use App\Repository\Contracts\ChangeRepositoryInterface;
 use App\Repository\Contracts\CommentRepositoryInterface;
+use App\Repository\Contracts\DecimalValueRepositoryInterface;
 use App\Repository\Contracts\DependencyRepositoryInterface;
 use App\Repository\Contracts\FieldValueRepositoryInterface;
 use App\Repository\Contracts\FileRepositoryInterface;
 use App\Repository\Contracts\IssueRepositoryInterface;
+use App\Repository\Contracts\ListItemRepositoryInterface;
 use App\Repository\Contracts\RelatedIssueRepositoryInterface;
+use App\Repository\Contracts\StringValueRepositoryInterface;
+use App\Repository\Contracts\TextValueRepositoryInterface;
 use App\Repository\Contracts\WatcherRepositoryInterface;
 use App\Security\Voter\CommentVoter;
 use App\Security\Voter\DependencyVoter;
@@ -289,6 +294,10 @@ class IssuesController extends AbstractController implements ApiControllerInterf
         NormalizerInterface $normalizer,
         IssueRepositoryInterface $issueRepository,
         FieldValueRepositoryInterface $fieldValueRepository,
+        DecimalValueRepositoryInterface $decimalValueRepository,
+        StringValueRepositoryInterface $stringValueRepository,
+        TextValueRepositoryInterface $textValueRepository,
+        ListItemRepositoryInterface $listItemRepository,
         ChangeRepositoryInterface $changeRepository,
         WatcherRepositoryInterface $watcherRepository,
         CommentRepositoryInterface $commentRepository,
@@ -312,10 +321,33 @@ class IssuesController extends AbstractController implements ApiControllerInterf
         $dependencies  = $dependencyRepository->findAllByIssue($issue);
         $relatedIssues = $relatedIssueRepository->findAllByIssue($issue);
 
-        $transitions = array_values(array_unique(array_map(
-            fn (FieldValue $value) => $value->getTransition(),
-            $fieldValueRepository->findAllByIssue($issue, $user)
-        )));
+        $allValues   = $fieldValueRepository->findAllByIssue($issue, $user);
+        $transitions = array_values(array_unique(
+            array_map(fn (FieldValue $value) => $value->getTransition(), $allValues)
+        ));
+
+        // Get IDs of all field values which are foreign keys to other entities.
+        $getIds = function (array $values, array $changes, FieldTypeEnum $type): array {
+            $values  = array_filter($values, fn (FieldValue $value) => $value->getField()->getType() === $type);
+            $changes = array_filter($changes, fn (Change $change) => (
+                null === $change->getField() && FieldTypeEnum::String === $type || $change->getField()?->getType() === $type
+            ));
+
+            $ids = array_merge(
+                array_map(fn (FieldValue $value) => $value->getValue(), $values),
+                array_map(fn (Change $change) => $change->getOldValue(), $changes),
+                array_map(fn (Change $change) => $change->getNewValue(), $changes),
+            );
+
+            return array_unique(array_filter($ids, fn (?int $id) => null !== $id));
+        };
+
+        // Warmup repositories with field values.
+        $decimalValueRepository->warmup($getIds($allValues, $changes, FieldTypeEnum::Decimal));
+        $issueRepository->warmup($getIds($allValues, $changes, FieldTypeEnum::Issue));
+        $listItemRepository->warmup($getIds($allValues, $changes, FieldTypeEnum::List));
+        $stringValueRepository->warmup($getIds($allValues, $changes, FieldTypeEnum::String));
+        $textValueRepository->warmup($getIds($allValues, $changes, FieldTypeEnum::Text));
 
         // Figure out the list of actions on the issue, which are currently available to the user.
         $actions = [

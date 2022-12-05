@@ -15,13 +15,12 @@ namespace App\Repository;
 
 use App\Entity\Field;
 use App\Entity\ListItem;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * 'ListItem' entities repository.
  */
-class ListItemRepository extends ServiceEntityRepository implements Contracts\ListItemRepositoryInterface
+class ListItemRepository extends AbstractCacheableRepository implements Contracts\ListItemRepositoryInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor
@@ -48,6 +47,8 @@ class ListItemRepository extends ServiceEntityRepository implements Contracts\Li
      */
     public function remove(ListItem $entity, bool $flush = false): void
     {
+        unset($this->cache[$entity->getId()]);
+
         $this->getEntityManager()->remove($entity);
 
         if ($flush) {

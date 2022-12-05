@@ -13,9 +13,12 @@
 
 namespace App\Entity;
 
+use App\Controller\ApiControllerInterface;
 use App\Entity\Enums\EventTypeEnum;
 use App\Repository\ChangeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Attributes as API;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -48,13 +51,17 @@ class Change
     protected ?Field $field = null;
 
     /**
-     * Old value (@see FieldValue::$value property).
+     * Old value.
+     *
+     * @see FieldValue::$value property
      */
     #[ORM\Column(nullable: true)]
     protected ?int $oldValue = null;
 
     /**
-     * New value (@see FieldValue::$value property).
+     * New value.
+     *
+     * @see FieldValue::$value property
      */
     #[ORM\Column(nullable: true)]
     protected ?int $newValue = null;
@@ -125,6 +132,12 @@ class Change
      * Property getter.
      */
     #[Groups('info')]
+    #[API\Property(type: ApiControllerInterface::TYPE_OBJECT, oneOf: [
+        new API\Schema(type: ApiControllerInterface::TYPE_BOOLEAN),
+        new API\Schema(type: ApiControllerInterface::TYPE_INTEGER),
+        new API\Schema(type: ApiControllerInterface::TYPE_STRING),
+        new API\Schema(ref: new Model(type: ListItem::class)),
+    ])]
     public function getOldValue(): ?int
     {
         return $this->oldValue;
@@ -134,6 +147,12 @@ class Change
      * Property getter.
      */
     #[Groups('info')]
+    #[API\Property(type: ApiControllerInterface::TYPE_OBJECT, oneOf: [
+        new API\Schema(type: ApiControllerInterface::TYPE_BOOLEAN),
+        new API\Schema(type: ApiControllerInterface::TYPE_INTEGER),
+        new API\Schema(type: ApiControllerInterface::TYPE_STRING),
+        new API\Schema(ref: new Model(type: ListItem::class)),
+    ])]
     public function getNewValue(): ?int
     {
         return $this->newValue;

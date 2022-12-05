@@ -13,8 +13,11 @@
 
 namespace App\Entity;
 
+use App\Controller\ApiControllerInterface;
 use App\Repository\FieldValueRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Attributes as API;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -60,9 +63,11 @@ class FieldValue
     protected Field $field;
 
     /**
-     * New value of the field.
+     * Value of the field.
      *
-     * Depends on the field type as following (@see FieldTypeEnum enum):
+     * @see FieldTypeEnum enum
+     *
+     * Depends on the field type as following:
      *     Checkbox - state of checkbox (0 - unchecked, 1 - checked)
      *     Date     - date value (Unix Epoch timestamp)
      *     Decimal  - decimal value (foreign key to @see DecimalValue entity)
@@ -119,6 +124,12 @@ class FieldValue
      * Property getter.
      */
     #[Groups('info')]
+    #[API\Property(type: ApiControllerInterface::TYPE_OBJECT, oneOf: [
+        new API\Schema(type: ApiControllerInterface::TYPE_BOOLEAN),
+        new API\Schema(type: ApiControllerInterface::TYPE_INTEGER),
+        new API\Schema(type: ApiControllerInterface::TYPE_STRING),
+        new API\Schema(ref: new Model(type: ListItem::class)),
+    ])]
     public function getValue(): ?int
     {
         return $this->value;

@@ -170,7 +170,7 @@ class Field
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups(['api', 'info'])]
     public function getType(): FieldTypeEnum
     {
         return FieldTypeEnum::from($this->type);

@@ -14,6 +14,7 @@
 namespace App\Repository\Contracts;
 
 use App\Entity\Enums\FieldPermissionEnum;
+use App\Entity\Enums\FieldTypeEnum;
 use App\Entity\Field;
 use App\Entity\FieldValue;
 use App\Entity\Issue;
@@ -69,6 +70,16 @@ interface FieldValueRepositoryInterface extends ObjectRepository, Selectable
      * @return ConstraintViolationListInterface List of violations
      */
     public function validateFieldValues(array $fields, array $values, array $context = []): ConstraintViolationListInterface;
+
+    /**
+     * Converts specified field value from internal representation to a human-readable one.
+     *
+     * @param FieldTypeEnum $type  Field type
+     * @param null|int      $value Field value
+     *
+     * @return null|bool|int|ListItem|string Human-readable value
+     */
+    public function getFieldValue(FieldTypeEnum $type, ?int $value): null|bool|int|string|ListItem;
 
     /**
      * Sets value of the specified field.

@@ -179,6 +179,27 @@ class FieldValueRepository extends ServiceEntityRepository implements Contracts\
     /**
      * {@inheritDoc}
      */
+    public function getFieldValue(FieldTypeEnum $type, ?int $value): null|bool|int|string|ListItem
+    {
+        if (null === $value) {
+            return null;
+        }
+
+        return match ($type) {
+            FieldTypeEnum::Checkbox => (bool) $value,
+            FieldTypeEnum::Decimal  => $this->getEntityManager()->getRepository(DecimalValue::class)->find($value)?->getValue(),
+            FieldTypeEnum::Duration => DurationStrategy::int2hhmm($value),
+            FieldTypeEnum::Issue    => $this->getEntityManager()->getRepository(Issue::class)->find($value)?->getFullId(),
+            FieldTypeEnum::List     => $this->getEntityManager()->getRepository(ListItem::class)->find($value),
+            FieldTypeEnum::String   => $this->getEntityManager()->getRepository(StringValue::class)->find($value)?->getValue(),
+            FieldTypeEnum::Text     => $this->getEntityManager()->getRepository(TextValue::class)->find($value)?->getValue(),
+            default                 => $value,
+        };
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setFieldValue(FieldValue $fieldValue, null|bool|int|string|ListItem $value): bool
     {
         if (null !== $value) {

@@ -91,7 +91,7 @@ class ListItem
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups(['api', 'info'])]
     public function getValue(): int
     {
         return $this->value;
@@ -110,7 +110,7 @@ class ListItem
     /**
      * Property getter.
      */
-    #[Groups('api')]
+    #[Groups(['api', 'info'])]
     public function getText(): string
     {
         return $this->text;

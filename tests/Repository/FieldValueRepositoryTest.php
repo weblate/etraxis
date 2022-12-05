@@ -16,6 +16,7 @@ namespace App\Repository;
 use App\Entity\DecimalValue;
 use App\Entity\Enums\EventTypeEnum;
 use App\Entity\Enums\FieldPermissionEnum;
+use App\Entity\Enums\FieldTypeEnum;
 use App\Entity\Enums\SecondsEnum;
 use App\Entity\Event;
 use App\Entity\Field;
@@ -308,6 +309,206 @@ final class FieldValueRepositoryTest extends TransactionalTestCase
         self::assertCount(3, $fields);
         self::assertCount(1, $errors);
         self::assertSame('This value should not be blank.', $errors->get(0)->getMessage());
+    }
+
+    /**
+     * @covers ::getFieldValue
+     */
+    public function testGetCheckboxFieldValue(): void
+    {
+        /** @var Issue $issue */
+        [$issue] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Development task 3'], ['id' => 'ASC']);
+
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('ldoyle@example.com');
+
+        $values = $this->repository->getLatestValues($issue, $user);
+        $values = array_filter($values, fn (FieldValue $fieldValue) => FieldTypeEnum::Checkbox === $fieldValue->getField()->getType());
+
+        /** @var FieldValue $value */
+        $value = reset($values);
+
+        self::assertTrue($this->repository->getFieldValue($value->getField()->getType(), $value->getValue()));
+    }
+
+    /**
+     * @covers ::getFieldValue
+     */
+    public function testGetDateFieldValue(): void
+    {
+        /** @var Issue $issue */
+        [$issue] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Development task 2'], ['id' => 'ASC']);
+
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('ldoyle@example.com');
+
+        $values = $this->repository->getLatestValues($issue, $user);
+        $values = array_filter($values, fn (FieldValue $fieldValue) => FieldTypeEnum::Date === $fieldValue->getField()->getType());
+
+        /** @var FieldValue $value */
+        $value = reset($values);
+
+        /** @var Event $event */
+        $event = $issue->getEvents()->first();
+
+        self::assertSame(5 * SecondsEnum::OneDay->value, $this->repository->getFieldValue($value->getField()->getType(), $value->getValue()) - $event->getCreatedAt());
+    }
+
+    /**
+     * @covers ::getFieldValue
+     */
+    public function testGetDecimalFieldValue(): void
+    {
+        /** @var Issue $issue */
+        [$issue] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
+
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('ldoyle@example.com');
+
+        $values = $this->repository->getLatestValues($issue, $user);
+        $values = array_filter($values, fn (FieldValue $fieldValue) => FieldTypeEnum::Decimal === $fieldValue->getField()->getType());
+
+        /** @var FieldValue $value */
+        $value = reset($values);
+
+        self::assertSame('98.49', $this->repository->getFieldValue($value->getField()->getType(), $value->getValue()));
+    }
+
+    /**
+     * @covers ::getFieldValue
+     */
+    public function testGetDurationFieldValue(): void
+    {
+        /** @var Issue $issue */
+        [$issue] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Development task 2'], ['id' => 'ASC']);
+
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('ldoyle@example.com');
+
+        $values = $this->repository->getLatestValues($issue, $user);
+        $values = array_filter($values, fn (FieldValue $fieldValue) => FieldTypeEnum::Duration === $fieldValue->getField()->getType());
+
+        /** @var FieldValue $value */
+        $value = reset($values);
+
+        self::assertSame('1:20', $this->repository->getFieldValue($value->getField()->getType(), $value->getValue()));
+    }
+
+    /**
+     * @covers ::getFieldValue
+     */
+    public function testGetIssueFieldValue(): void
+    {
+        /** @var Issue $issue */
+        [$issue] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Development task 4'], ['id' => 'ASC']);
+
+        /** @var Issue $duplicate */
+        [$duplicate] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Development task 3'], ['id' => 'ASC']);
+
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('ldoyle@example.com');
+
+        $values = $this->repository->getLatestValues($issue, $user);
+        $values = array_filter($values, fn (FieldValue $fieldValue) => FieldTypeEnum::Issue === $fieldValue->getField()->getType());
+
+        /** @var FieldValue $value */
+        $value = reset($values);
+
+        self::assertSame($duplicate->getFullId(), $this->repository->getFieldValue($value->getField()->getType(), $value->getValue()));
+    }
+
+    /**
+     * @covers ::getFieldValue
+     */
+    public function testGetListFieldValue(): void
+    {
+        /** @var Issue $issue */
+        [$issue] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
+
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('ldoyle@example.com');
+
+        $values = $this->repository->getLatestValues($issue, $user);
+        $values = array_filter($values, fn (FieldValue $fieldValue) => FieldTypeEnum::List === $fieldValue->getField()->getType());
+
+        /** @var FieldValue $value */
+        $value = reset($values);
+
+        /** @var ListItem $item */
+        $item = $this->repository->getFieldValue($value->getField()->getType(), $value->getValue());
+
+        self::assertInstanceOf(ListItem::class, $item);
+        self::assertSame('normal', $item->getText());
+    }
+
+    /**
+     * @covers ::getFieldValue
+     */
+    public function testGetNumberFieldValue(): void
+    {
+        /** @var Issue $issue */
+        [$issue] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
+
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('ldoyle@example.com');
+
+        $values = $this->repository->getLatestValues($issue, $user);
+        $values = array_filter($values, fn (FieldValue $fieldValue) => FieldTypeEnum::Number === $fieldValue->getField()->getType());
+
+        /** @var FieldValue $value */
+        $value = reset($values);
+
+        self::assertSame(5173, $this->repository->getFieldValue($value->getField()->getType(), $value->getValue()));
+    }
+
+    /**
+     * @covers ::getFieldValue
+     */
+    public function testGetStringFieldValue(): void
+    {
+        /** @var Issue $issue */
+        [$issue] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Development task 2'], ['id' => 'ASC']);
+
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('ldoyle@example.com');
+
+        $values = $this->repository->getLatestValues($issue, $user);
+        $values = array_filter($values, fn (FieldValue $fieldValue) => FieldTypeEnum::String === $fieldValue->getField()->getType());
+
+        /** @var FieldValue $value */
+        $value = reset($values);
+
+        self::assertSame('940059027173b8e8e1e3e874681f012f1f3bcf1d', $this->repository->getFieldValue($value->getField()->getType(), $value->getValue()));
+    }
+
+    /**
+     * @covers ::getFieldValue
+     */
+    public function testGetTextFieldValue(): void
+    {
+        /** @var Issue $issue */
+        [$issue] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
+
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('ldoyle@example.com');
+
+        $values = $this->repository->getLatestValues($issue, $user);
+        $values = array_filter($values, fn (FieldValue $fieldValue) => FieldTypeEnum::Text === $fieldValue->getField()->getType());
+
+        /** @var FieldValue $value */
+        $value = reset($values);
+
+        self::assertSame('Quas sunt reprehenderit vero accusantium.', $this->repository->getFieldValue($value->getField()->getType(), $value->getValue()));
+    }
+
+    /**
+     * @covers ::getFieldValue
+     */
+    public function testGetNullFieldValue(): void
+    {
+        /** @var Issue $issue */
+        [$issue] = $this->doctrine->getRepository(Issue::class)->findBy(['subject' => 'Development task 1'], ['id' => 'ASC']);
+
+        $user = $this->doctrine->getRepository(User::class)->findOneByEmail('ldoyle@example.com');
+
+        $values = $this->repository->getLatestValues($issue, $user);
+        $values = array_filter($values, fn (FieldValue $fieldValue) => FieldTypeEnum::String === $fieldValue->getField()->getType());
+
+        /** @var FieldValue $value */
+        $value = reset($values);
+
+        self::assertNull($this->repository->getFieldValue($value->getField()->getType(), $value->getValue()));
     }
 
     /**

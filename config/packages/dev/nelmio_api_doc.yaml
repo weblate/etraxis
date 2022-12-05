@@ -35,3 +35,4 @@ nelmio_api_doc:
             - { alias: TemplateInfo, type: App\Entity\Template, groups: [info] }
             - { alias: StateInfo,    type: App\Entity\State,    groups: [info] }
             - { alias: FieldInfo,    type: App\Entity\Field,    groups: [info] }
+            - { alias: ListItemInfo, type: App\Entity\ListItem, groups: [info] }

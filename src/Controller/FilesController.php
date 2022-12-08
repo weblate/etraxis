@@ -111,9 +111,7 @@ class FilesController extends AbstractController implements ApiControllerInterfa
             throw $this->createNotFoundException('Unknown file.');
         }
 
-        $response = new BinaryFileResponse($path);
-
-        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_INLINE, $file->getFileName());
+        $response = $this->file($path, $file->getFileName(), ResponseHeaderBag::DISPOSITION_INLINE)->setPrivate();
         $response->setPrivate();
 
         return $response;

@@ -81,7 +81,7 @@ class CommentFixtures extends Fixture implements FixtureInterface, DependentFixt
 
                         $comment
                             ->setBody($body)
-                            ->setPrivate($event_type === EventTypeEnum::PrivateComment->value)
+                            ->setPrivate(EventTypeEnum::PrivateComment === EventTypeEnum::from($event_type))
                         ;
 
                         $manager->persist($comment);

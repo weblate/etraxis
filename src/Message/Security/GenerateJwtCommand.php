@@ -13,44 +13,11 @@
 
 namespace App\Message\Security;
 
-use App\Entity\User;
 use App\MessageBus\Contracts\CommandInterface;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Generates new JWT token for specified user.
+ * Generates new JWT token for current user.
  */
 final class GenerateJwtCommand implements CommandInterface
 {
-    /**
-     * @codeCoverageIgnore Dependency Injection constructor
-     */
-    public function __construct(
-        #[Assert\NotBlank]
-        #[Assert\Length(max: User::MAX_EMAIL)]
-        #[Assert\Email]
-        #[Groups('api')]
-        private readonly string $email,
-        #[Assert\NotBlank]
-        #[Groups('api')]
-        private readonly string $password
-    ) {
-    }
-
-    /**
-     * @return string Email address
-     */
-    public function getEmail(): string
-    {
-        return $this->email;
-    }
-
-    /**
-     * @return string Password
-     */
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
 }

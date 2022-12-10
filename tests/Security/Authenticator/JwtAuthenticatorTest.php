@@ -11,7 +11,7 @@
 //
 //----------------------------------------------------------------------
 
-namespace App\Security;
+namespace App\Security\Authenticator;
 
 use App\Entity\Enums\SecondsEnum;
 use App\Entity\User;
@@ -26,7 +26,7 @@ use Symfony\Component\Security\Http\Authenticator\Token\PostAuthenticationToken;
 /**
  * @internal
  *
- * @coversDefaultClass \App\Security\JwtAuthenticator
+ * @coversDefaultClass \App\Security\Authenticator\JwtAuthenticator
  */
 final class JwtAuthenticatorTest extends WebTestCase
 {

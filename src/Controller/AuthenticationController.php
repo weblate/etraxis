@@ -13,6 +13,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Message\Security as Message;
 use App\MessageBus\Contracts\CommandBusInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -22,6 +23,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * API controller for JWT authentication.
@@ -41,7 +43,7 @@ class AuthenticationController extends AbstractController implements ApiControll
      * Authenticates user.
      */
     #[Route('/login', name: 'api_login', methods: [Request::METHOD_POST])]
-    #[API\RequestBody(content: new Model(type: Message\GenerateJwtCommand::class, groups: ['api']))]
+    #[API\RequestBody(content: new Model(type: User::class, groups: ['login']))]
     #[API\Response(response: 200, description: 'Success.', content: new API\JsonContent(
         type: self::TYPE_OBJECT,
         properties: [
@@ -49,14 +51,19 @@ class AuthenticationController extends AbstractController implements ApiControll
         ]
     ))]
     #[API\Response(response: 400, description: 'The request is malformed.')]
-    #[API\Response(response: 404, description: 'Invalid credentials.')]
+    #[API\Response(response: 401, description: 'Invalid credentials.')]
     #[API\Response(response: 429, description: 'API rate limit exceeded.')]
-    public function login(Request $request, Message\GenerateJwtCommand $command, RateLimiterFactory $anonymousApiLimiter): JsonResponse
+    public function login(Request $request, TokenStorageInterface $tokenStorage, RateLimiterFactory $anonymousApiLimiter): JsonResponse
     {
         $limiter = $anonymousApiLimiter->create($request->getClientIp());
         $limiter->consume()->ensureAccepted();
 
-        $token = $this->commandBus->handleWithResult($command);
+        $command = new Message\GenerateJwtCommand();
+        $token   = $this->commandBus->handleWithResult($command);
+
+        // Logout user from the browser session.
+        // todo: refactor after upgrading to Symfony 6.2
+        $tokenStorage->setToken(null);
 
         return $this->json(['token' => $token]);
     }

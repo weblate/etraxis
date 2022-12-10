@@ -181,7 +181,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Property getter.
      */
-    #[Groups(['api', 'info', 'profile'])]
+    #[Groups(['api', 'info', 'profile', 'login'])]
     public function getEmail(): string
     {
         return $this->email;
@@ -210,6 +210,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * {@inheritDoc}
      */
+    #[Groups('login')]
     public function getPassword(): ?string
     {
         return $this->password;

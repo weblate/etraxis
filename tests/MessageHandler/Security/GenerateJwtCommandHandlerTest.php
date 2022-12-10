@@ -13,14 +13,13 @@
 
 namespace App\MessageHandler\Security;
 
-use App\Entity\User;
+use App\LoginTrait;
 use App\Message\Security\GenerateJwtCommand;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\TransactionalTestCase;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 /**
  * @internal
@@ -29,6 +28,8 @@ use Symfony\Component\Messenger\Exception\ValidationFailedException;
  */
 final class GenerateJwtCommandHandlerTest extends TransactionalTestCase
 {
+    use LoginTrait;
+
     private CommandBusInterface $commandBus;
 
     protected function setUp(): void
@@ -40,7 +41,9 @@ final class GenerateJwtCommandHandlerTest extends TransactionalTestCase
 
     public function testSuccess(): void
     {
-        $command = new GenerateJwtCommand('artem@example.com', 'secret');
+        $this->loginUser('artem@example.com');
+
+        $command = new GenerateJwtCommand();
 
         $token = $this->commandBus->handleWithResult($command);
 
@@ -51,102 +54,12 @@ final class GenerateJwtCommandHandlerTest extends TransactionalTestCase
         self::assertLessThanOrEqual(time(), $payload->iat ?? null);
     }
 
-    public function testValidationEmptyEmail(): void
-    {
-        $this->expectException(ValidationFailedException::class);
-
-        $command = new GenerateJwtCommand('', 'secret');
-
-        try {
-            $this->commandBus->handle($command);
-        } catch (ValidationFailedException $exception) {
-            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
-
-            throw $exception;
-        }
-    }
-
-    public function testValidationEmailLength(): void
-    {
-        $this->expectException(ValidationFailedException::class);
-
-        $command = new GenerateJwtCommand(str_pad('@example.com', User::MAX_EMAIL + 1, 'a', STR_PAD_LEFT), 'secret');
-
-        try {
-            $this->commandBus->handle($command);
-        } catch (ValidationFailedException $exception) {
-            self::assertSame('This value is too long. It should have 254 characters or less.', $exception->getViolations()->get(0)->getMessage());
-
-            throw $exception;
-        }
-    }
-
-    public function testValidationInvalidEmail(): void
-    {
-        $this->expectException(ValidationFailedException::class);
-
-        $command = new GenerateJwtCommand('artem@example', 'secret');
-
-        try {
-            $this->commandBus->handle($command);
-        } catch (ValidationFailedException $exception) {
-            self::assertSame('This value is not a valid email address.', $exception->getViolations()->get(0)->getMessage());
-
-            throw $exception;
-        }
-    }
-
-    public function testValidationEmptyPassword(): void
-    {
-        $this->expectException(ValidationFailedException::class);
-
-        $command = new GenerateJwtCommand('artem@example.com', '');
-
-        try {
-            $this->commandBus->handle($command);
-        } catch (ValidationFailedException $exception) {
-            self::assertSame('This value should not be blank.', $exception->getViolations()->get(0)->getMessage());
-
-            throw $exception;
-        }
-    }
-
     public function testUnknownUser(): void
     {
         $this->expectException(NotFoundHttpException::class);
         $this->expectExceptionMessage('Invalid credentials.');
 
-        $command = new GenerateJwtCommand('unknown@example.com', 'secret');
-
-        $this->commandBus->handle($command);
-    }
-
-    public function testDisabledUser(): void
-    {
-        $this->expectException(NotFoundHttpException::class);
-        $this->expectExceptionMessage('Invalid credentials.');
-
-        $command = new GenerateJwtCommand('tberge@example.com', 'secret');
-
-        $this->commandBus->handle($command);
-    }
-
-    public function testExternalUser(): void
-    {
-        $this->expectException(NotFoundHttpException::class);
-        $this->expectExceptionMessage('Invalid credentials.');
-
-        $command = new GenerateJwtCommand('einstein@ldap.forumsys.com', 'secret');
-
-        $this->commandBus->handle($command);
-    }
-
-    public function testInvalidPassword(): void
-    {
-        $this->expectException(NotFoundHttpException::class);
-        $this->expectExceptionMessage('Invalid credentials.');
-
-        $command = new GenerateJwtCommand('artem@example.com', 'wrong');
+        $command = new GenerateJwtCommand();
 
         $this->commandBus->handle($command);
     }

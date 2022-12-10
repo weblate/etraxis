@@ -18,6 +18,8 @@ nelmio_api_doc:
             - ^/api(?!/doc$)
     models:
         names:
+            - { alias: LoginCommand, type: App\Entity\User, groups: [login] }
+
             - { alias: Profile,       type: App\Entity\User,             groups: [info, profile, settings] }
             - { alias: CurrentLocale, type: App\Entity\Enums\LocaleEnum, groups: [info, profile, settings] }
             - { alias: CurrentTheme,  type: App\Entity\Enums\ThemeEnum,  groups: [info, profile, settings] }

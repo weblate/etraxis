@@ -11,7 +11,7 @@
 //
 //----------------------------------------------------------------------
 
-namespace App\Security;
+namespace App\Security\Authenticator;
 
 use App\Serializer\JwtEncoder;
 use Firebase\JWT\ExpiredException;

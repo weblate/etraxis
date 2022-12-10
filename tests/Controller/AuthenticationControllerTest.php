@@ -56,7 +56,7 @@ final class AuthenticationControllerTest extends TransactionalTestCase
     /**
      * @covers ::login
      */
-    public function testLogin404(): void
+    public function testLogin401(): void
     {
         $content = [
             'email'    => 'artem@example.com',
@@ -65,7 +65,7 @@ final class AuthenticationControllerTest extends TransactionalTestCase
 
         $this->client->jsonRequest(Request::METHOD_POST, '/api/login', $content);
 
-        self::assertSame(Response::HTTP_NOT_FOUND, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_UNAUTHORIZED, $this->client->getResponse()->getStatusCode());
     }
 
     /**

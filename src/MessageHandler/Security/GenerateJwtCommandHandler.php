@@ -16,10 +16,9 @@ namespace App\MessageHandler\Security;
 use App\Entity\Enums\SecondsEnum;
 use App\Message\Security\GenerateJwtCommand;
 use App\MessageBus\Contracts\CommandHandlerInterface;
-use App\Repository\Contracts\UserRepositoryInterface;
 use App\Serializer\JwtEncoder;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
 
 /**
@@ -31,9 +30,8 @@ final class GenerateJwtCommandHandler implements CommandHandlerInterface
      * @codeCoverageIgnore Dependency Injection constructor
      */
     public function __construct(
-        private readonly EncoderInterface $encoder,
-        private readonly UserPasswordHasherInterface $hasher,
-        private readonly UserRepositoryInterface $repository
+        private readonly TokenStorageInterface $tokenStorage,
+        private readonly EncoderInterface $encoder
     ) {
     }
 
@@ -44,9 +42,10 @@ final class GenerateJwtCommandHandler implements CommandHandlerInterface
      */
     public function __invoke(GenerateJwtCommand $command): string
     {
-        $user = $this->repository->findOneByEmail($command->getEmail());
+        /** @var \App\Entity\User $user */
+        $user = $this->tokenStorage->getToken()?->getUser();
 
-        if (!$user || $user->isDisabled() || $user->isAccountExternal() || !$this->hasher->isPasswordValid($user, $command->getPassword())) {
+        if (!$user) {
             throw new NotFoundHttpException('Invalid credentials.');
         }
 

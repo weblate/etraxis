@@ -20,13 +20,10 @@ security:
             lazy: true
             login_throttling: true
             provider: etraxis
-            json_login:
-                check_path: api_login
-                username_path: email
-                password_path: password
             user_checker: App\Security\UserChecker
             custom_authenticators:
                 - App\Security\Authenticator\JwtAuthenticator
+                - App\Security\Authenticator\PasswordAuthenticator
 
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER

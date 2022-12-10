@@ -50,8 +50,7 @@ class AuthenticationController extends AbstractController implements ApiControll
             new API\Property(property: 'token', type: self::TYPE_STRING, description: 'JSON web token.'),
         ]
     ))]
-    #[API\Response(response: 400, description: 'The request is malformed.')]
-    #[API\Response(response: 401, description: 'Invalid credentials.')]
+    #[API\Response(response: 404, description: 'Invalid credentials.')]
     #[API\Response(response: 429, description: 'API rate limit exceeded.')]
     public function login(Request $request, TokenStorageInterface $tokenStorage, RateLimiterFactory $anonymousApiLimiter): JsonResponse
     {

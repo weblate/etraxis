@@ -13,6 +13,7 @@
 
 namespace App\Repository\Contracts;
 
+use App\Entity\Enums\AccountProviderEnum;
 use App\Entity\User;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\Persistence\ObjectRepository;
@@ -46,4 +47,9 @@ interface UserRepositoryInterface extends ObjectRepository, Selectable
      * Finds a user by password reset token.
      */
     public function findOneByResetToken(string $token): ?User;
+
+    /**
+     * Finds user by account provider and its UID.
+     */
+    public function findOneByProviderUid(AccountProviderEnum $provider, string $uid): ?User;
 }

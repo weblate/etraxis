@@ -13,6 +13,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Enums\AccountProviderEnum;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -79,6 +80,17 @@ class UserRepository extends ServiceEntityRepository implements Contracts\UserRe
     {
         return $this->findOneBy([
             'resetToken' => $token,
+        ]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findOneByProviderUid(AccountProviderEnum $provider, string $uid): ?User
+    {
+        return $this->findOneBy([
+            'accountProvider' => $provider,
+            'accountUid'      => $uid,
         ]);
     }
 }

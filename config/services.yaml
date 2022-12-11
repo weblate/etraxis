@@ -11,6 +11,9 @@ parameters:
     env(MAILER_FROM):  noreply@example.com
     env(MAILER_DEBUG): debug@example.com
 
+    env(LDAP_URL):    ~
+    env(LDAP_BASEDN): ~
+
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -59,8 +62,15 @@ services:
     App\MessageHandler\Files\AttachFileCommandHandler:
         $maxsize: '%env(FILES_MAXSIZE)%'
 
+    App\MessageHandler\Security\RegisterExternalAccountCommandHandler:
+        $locale: '%env(ETRAXIS_LOCALE)%'
+
     App\Repository\FileRepository:
         $storage: '%env(FILES_STORAGE)%'
+
+    App\Security\LDAP\LdapService:
+        $url:    '%env(LDAP_URL)%'
+        $basedn: '%env(LDAP_BASEDN)%'
 
     App\Security\Voter\FileVoter:
         $maxsize: '%env(FILES_MAXSIZE)%'

@@ -23,6 +23,7 @@ security:
             user_checker: App\Security\UserChecker
             custom_authenticators:
                 - App\Security\Authenticator\JwtAuthenticator
+                - App\Security\Authenticator\LdapAuthenticator
                 - App\Security\Authenticator\PasswordAuthenticator
 
     role_hierarchy:

@@ -13,6 +13,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Enums\AccountProviderEnum;
 use App\Entity\User;
 use App\TransactionalTestCase;
 
@@ -66,5 +67,20 @@ final class UserRepositoryTest extends TransactionalTestCase
 
         self::assertInstanceOf(User::class, $user2);
         self::assertSame($user, $user2);
+    }
+
+    /**
+     * @covers ::findOneByProviderUid
+     */
+    public function testFindOneByProviderUid(): void
+    {
+        $user = $this->repository->findOneByProviderUid(AccountProviderEnum::LDAP, 'uid=einstein,dc=example,dc=com');
+
+        self::assertInstanceOf(User::class, $user);
+        self::assertSame('einstein@ldap.forumsys.com', $user->getEmail());
+
+        $user = $this->repository->findOneByProviderUid(AccountProviderEnum::eTraxis, 'uid=einstein,dc=example,dc=com');
+
+        self::assertNull($user);
     }
 }

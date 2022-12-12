@@ -1,6 +1,9 @@
 build:
     environment:
         php: 8.1
+    dependencies:
+        override:
+            - composer install --ignore-platform-reqs --no-interaction --no-scripts
     tests:
         override:
             - php-scrutinizer-run

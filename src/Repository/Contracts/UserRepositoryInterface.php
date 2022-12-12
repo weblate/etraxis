@@ -17,11 +17,12 @@ use App\Entity\Enums\AccountProviderEnum;
 use App\Entity\User;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\Persistence\ObjectRepository;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
  * Interface to the 'User' entities repository.
  */
-interface UserRepositoryInterface extends ObjectRepository, Selectable
+interface UserRepositoryInterface extends ObjectRepository, Selectable, PasswordUpgraderInterface
 {
     /**
      * @see \Doctrine\Persistence\ObjectManager::persist()

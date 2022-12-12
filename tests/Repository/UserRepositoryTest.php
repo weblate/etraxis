@@ -34,6 +34,22 @@ final class UserRepositoryTest extends TransactionalTestCase
     }
 
     /**
+     * @covers ::upgradePassword
+     */
+    public function testUpgradePassword(): void
+    {
+        $user = $this->repository->findOneByEmail('admin@example.com');
+
+        $newPassword = md5('secret');
+
+        self::assertNotSame($newPassword, $user->getPassword());
+
+        $this->repository->upgradePassword($user, $newPassword);
+
+        self::assertSame($newPassword, $user->getPassword());
+    }
+
+    /**
      * @covers ::findOneByEmail
      */
     public function testFindOneByEmail(): void

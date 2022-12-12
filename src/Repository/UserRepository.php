@@ -17,6 +17,7 @@ use App\Entity\Enums\AccountProviderEnum;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * 'User' entities repository.
@@ -61,6 +62,17 @@ class UserRepository extends ServiceEntityRepository implements Contracts\UserRe
     public function refresh(User $entity): void
     {
         $this->getEntityManager()->refresh($entity);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
+    {
+        if ($user instanceof User) {
+            $user->setPassword($newHashedPassword);
+            $this->persist($user, true);
+        }
     }
 
     /**

@@ -1,7 +1,15 @@
 security:
 
     password_hashers:
-        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
+            algorithm: auto
+            migrate_from:
+                - legacy.md5
+                - legacy.sha1
+        legacy.md5:
+            id: App\Security\PasswordHasher\Md5PasswordHasher
+        legacy.sha1:
+            id: App\Security\PasswordHasher\Sha1PasswordHasher
 
     providers:
         etraxis:

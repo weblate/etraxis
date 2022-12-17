@@ -46,7 +46,7 @@ class LdapAuthenticator extends AbstractAuthenticator implements AuthenticatorIn
      */
     public function supports(Request $request): ?bool
     {
-        return 'json' === $request->getContentType()
+        return 'json' === $request->getContentTypeFormat()
             && $request->isMethod('POST')
             && $request->getPathInfo() === $this->urlGenerator->generate('api_login');
     }

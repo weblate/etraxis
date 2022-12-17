@@ -39,15 +39,6 @@ services:
         App\MessageBus\Contracts\EventHandlerInterface:
             tags: [{ name: messenger.message_handler, bus: event.bus }]
 
-    # temporarily, makes all the message buses public while they are not in use
-    # todo: remove when API layer starts to use them
-    App\MessageBus\CommandBus:
-        public: true
-    App\MessageBus\QueryBus:
-        public: true
-    App\MessageBus\EventBus:
-        public: true
-
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
     App\DataFixtures\ProductionFixtures:

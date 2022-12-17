@@ -29,6 +29,7 @@
         </include>
         <exclude>
             <directory>src/DataFixtures</directory>
+            <directory>src/Entity/Enums</directory>
             <file>src/Kernel.php</file>
         </exclude>
     </coverage>

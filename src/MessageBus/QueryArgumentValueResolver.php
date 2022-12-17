@@ -15,7 +15,7 @@ namespace App\MessageBus;
 
 use App\MessageBus\Contracts\QueryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
+use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -23,7 +23,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 /**
  * Converts request into query.
  */
-class QueryArgumentValueResolver implements ArgumentValueResolverInterface
+class QueryArgumentValueResolver implements ValueResolverInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor
@@ -35,19 +35,13 @@ class QueryArgumentValueResolver implements ArgumentValueResolverInterface
     /**
      * {@inheritDoc}
      */
-    public function supports(Request $request, ArgumentMetadata $argument): bool
-    {
-        return is_subclass_of($argument->getType(), QueryInterface::class);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
-        yield $this->denormalizer->denormalize($request, $argument->getType(), 'json', [
-            AbstractNormalizer::DEFAULT_CONSTRUCTOR_ARGUMENTS => [
-            ],
-        ]);
+        if (is_subclass_of($argument->getType(), QueryInterface::class)) {
+            yield $this->denormalizer->denormalize($request, $argument->getType(), 'json', [
+                AbstractNormalizer::DEFAULT_CONSTRUCTOR_ARGUMENTS => [
+                ],
+            ]);
+        }
     }
 }

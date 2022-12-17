@@ -19,7 +19,6 @@ use App\Entity\Enums\TemplatePermissionEnum;
 use App\Message\Fields\SetRolesPermissionCommand as SetFieldRolesPermissionCommand;
 use App\Message\States\SetRolesTransitionCommand as SetStateRolesTransitionCommand;
 use App\Message\Templates\SetRolesPermissionCommand as SetTemplateRolesPermissionCommand;
-use App\Message\Users\GetUsersQuery;
 use App\Message\UserSettings\UpdateProfileCommand;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,17 +43,6 @@ final class CommandArgumentValueResolverTest extends WebTestCase
         $serializer = self::getContainer()->get('serializer');
 
         $this->resolver = new CommandArgumentValueResolver($serializer);
-    }
-
-    /**
-     * @covers ::supports
-     */
-    public function testSupports(): void
-    {
-        $request = new Request();
-
-        self::assertTrue($this->resolver->supports($request, new ArgumentMetadata('command', UpdateProfileCommand::class, false, false, null)));
-        self::assertFalse($this->resolver->supports($request, new ArgumentMetadata('command', GetUsersQuery::class, false, false, null)));
     }
 
     /**

@@ -15,7 +15,6 @@ namespace App\MessageBus;
 
 use App\Message\AbstractCollectionQuery;
 use App\Message\Users\GetUsersQuery;
-use App\Message\UserSettings\UpdateProfileCommand;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -36,17 +35,6 @@ final class QueryArgumentValueResolverTest extends WebTestCase
         $serializer = self::getContainer()->get('serializer');
 
         $this->resolver = new QueryArgumentValueResolver($serializer);
-    }
-
-    /**
-     * @covers ::supports
-     */
-    public function testSupports(): void
-    {
-        $request = new Request();
-
-        self::assertTrue($this->resolver->supports($request, new ArgumentMetadata('query', GetUsersQuery::class, false, false, null)));
-        self::assertFalse($this->resolver->supports($request, new ArgumentMetadata('query', UpdateProfileCommand::class, false, false, null)));
     }
 
     /**

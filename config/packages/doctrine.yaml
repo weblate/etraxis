@@ -11,11 +11,11 @@ doctrine:
         auto_mapping: true
         dql:
             numeric_functions:
-                ceil: DoctrineExtensions\Query\Mysql\Ceil
+                ceil: App\Doctrine\CeilFunction
             string_functions:
-                cast: DoctrineExtensions\Query\Mysql\Cast
-                greatest: DoctrineExtensions\Query\Mysql\Greatest
-                lpad: DoctrineExtensions\Query\Mysql\Lpad
+                cast: App\Doctrine\CastFunction
+                greatest: App\Doctrine\GreatestFunction
+                lpad: App\Doctrine\LpadFunction
         mappings:
             App:
                 is_bundle: false

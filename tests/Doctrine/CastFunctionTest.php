@@ -38,20 +38,14 @@ final class CastFunctionTest extends WebTestCase
 
         $query = $manager->createQuery('
             SELECT DISTINCT
-                CAST(3.14159 AS DECIMAL) AS decimal,
-                CAST(3.14159 AS VARCHAR) AS string,
-                CAST(3.14159 AS INT) AS integer,
-                CAST(3.14159 AS VARCHAR(2)) AS stringWithLimit,
-                CAST(3.14159 AS DEC(5,4)) AS decimalWithPrecision
+                CAST(3.14159 AS CHAR(2)) AS string,
+                CAST(3.14159 AS DECIMAL(5,4)) AS decimal
             FROM App:User u
         ');
 
         $expected = [
-            'decimal'              => '3.14159',
-            'string'               => '3.14159',
-            'integer'              => 3,
-            'stringWithLimit'      => '3.',
-            'decimalWithPrecision' => '3.1416',
+            'string'  => '3.',
+            'decimal' => '3.1416',
         ];
 
         self::assertSame($expected, $query->getSingleResult());

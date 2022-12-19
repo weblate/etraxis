@@ -42,8 +42,7 @@ final class LpadFunctionTest extends WebTestCase
                 LPAD('', 5, '*') AS emptyToFive,
                 LPAD('', 0, '*') AS emptyToZero,
                 LPAD('123', 5, '0') AS numberToLonger,
-                LPAD('123', 2, '0') AS numberToShorter,
-                LPAD('123', 5, '') AS numberWithEmpty
+                LPAD('123', 2, '0') AS numberToShorter
             FROM App:User u
         ");
 
@@ -52,7 +51,6 @@ final class LpadFunctionTest extends WebTestCase
             'emptyToZero'     => '',
             'numberToLonger'  => '00123',
             'numberToShorter' => '12',
-            'numberWithEmpty' => '123',
         ];
 
         self::assertSame($expected, $query->getSingleResult());

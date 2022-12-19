@@ -49,14 +49,14 @@ final class CeilFunctionTest extends WebTestCase
         ');
 
         $expected = [
-            'posInt'    => '3',
-            'posLittle' => '4',
-            'posBig'    => '4',
-            'negInt'    => '-3',
-            'negLittle' => '-3',
-            'negBig'    => '-3',
+            'posInt'    => 3,
+            'posLittle' => 4,
+            'posBig'    => 4,
+            'negInt'    => -3,
+            'negLittle' => -3,
+            'negBig'    => -3,
         ];
 
-        self::assertSame($expected, $query->getSingleResult());
+        self::assertSame($expected, array_map(fn ($entry) => (int) $entry, $query->getSingleResult()));
     }
 }

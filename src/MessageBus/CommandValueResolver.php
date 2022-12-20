@@ -37,7 +37,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 /**
  * Converts request into command.
  */
-class CommandArgumentValueResolver implements ValueResolverInterface
+class CommandValueResolver implements ValueResolverInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

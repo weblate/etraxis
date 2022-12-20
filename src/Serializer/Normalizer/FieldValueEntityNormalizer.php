@@ -16,7 +16,6 @@ namespace App\Serializer\Normalizer;
 use App\Entity\FieldValue;
 use App\Repository\Contracts\FieldValueRepositoryInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 /**
  * 'FieldValue' entity normalizer.
@@ -27,7 +26,7 @@ class FieldValueEntityNormalizer implements NormalizerInterface
      * @codeCoverageIgnore Dependency Injection constructor
      */
     public function __construct(
-        protected readonly ObjectNormalizer $objectNormalizer,
+        protected readonly NormalizerInterface $normalizer,
         protected readonly FieldValueRepositoryInterface $repository
     ) {
     }
@@ -38,13 +37,13 @@ class FieldValueEntityNormalizer implements NormalizerInterface
     public function normalize(mixed $object, string $format = null, array $context = []): array
     {
         /** @var FieldValue $object */
-        $json = $this->objectNormalizer->normalize($object, $format, $context);
+        $json = $this->normalizer->normalize($object, $format, $context);
 
         if (null !== $object->getValue()) {
             $value = $this->repository->getFieldValue($object->getField()->getType(), $object->getValue());
 
             $json['value'] = is_object($value)
-                ? $this->objectNormalizer->normalize($value, $format, $context)
+                ? $this->normalizer->normalize($value, $format, $context)
                 : $value;
         }
 

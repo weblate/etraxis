@@ -23,7 +23,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 /**
  * Converts request into query.
  */
-class QueryArgumentValueResolver implements ValueResolverInterface
+class QueryValueResolver implements ValueResolverInterface
 {
     /**
      * @codeCoverageIgnore Dependency Injection constructor

@@ -30,11 +30,11 @@ use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
 /**
  * @internal
  *
- * @coversDefaultClass \App\MessageBus\CommandArgumentValueResolver
+ * @coversDefaultClass \App\MessageBus\CommandValueResolver
  */
-final class CommandArgumentValueResolverTest extends WebTestCase
+final class CommandValueResolverTest extends WebTestCase
 {
-    private CommandArgumentValueResolver $resolver;
+    private CommandValueResolver $resolver;
 
     protected function setUp(): void
     {
@@ -42,7 +42,7 @@ final class CommandArgumentValueResolverTest extends WebTestCase
 
         $serializer = self::getContainer()->get('serializer');
 
-        $this->resolver = new CommandArgumentValueResolver($serializer);
+        $this->resolver = new CommandValueResolver($serializer);
     }
 
     /**

@@ -22,11 +22,11 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 /**
  * @internal
  *
- * @coversDefaultClass \App\MessageBus\QueryArgumentValueResolver
+ * @coversDefaultClass \App\MessageBus\QueryValueResolver
  */
-final class QueryArgumentValueResolverTest extends WebTestCase
+final class QueryValueResolverTest extends WebTestCase
 {
-    private QueryArgumentValueResolver $resolver;
+    private QueryValueResolver $resolver;
 
     protected function setUp(): void
     {
@@ -34,7 +34,7 @@ final class QueryArgumentValueResolverTest extends WebTestCase
 
         $serializer = self::getContainer()->get('serializer');
 
-        $this->resolver = new QueryArgumentValueResolver($serializer);
+        $this->resolver = new QueryValueResolver($serializer);
     }
 
     /**

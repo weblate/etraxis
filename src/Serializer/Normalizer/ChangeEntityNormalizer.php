@@ -17,7 +17,6 @@ use App\Entity\Change;
 use App\Repository\Contracts\FieldValueRepositoryInterface;
 use App\Repository\Contracts\StringValueRepositoryInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 /**
  * 'Change' entity normalizer.
@@ -28,7 +27,7 @@ class ChangeEntityNormalizer implements NormalizerInterface
      * @codeCoverageIgnore Dependency Injection constructor
      */
     public function __construct(
-        protected readonly ObjectNormalizer $objectNormalizer,
+        protected readonly NormalizerInterface $normalizer,
         protected readonly StringValueRepositoryInterface $stringValueRepository,
         protected readonly FieldValueRepositoryInterface $fieldValueRepository
     ) {
@@ -40,7 +39,7 @@ class ChangeEntityNormalizer implements NormalizerInterface
     public function normalize(mixed $object, string $format = null, array $context = []): array
     {
         /** @var Change $object */
-        $json = $this->objectNormalizer->normalize($object, $format, $context);
+        $json = $this->normalizer->normalize($object, $format, $context);
 
         if (null !== $object->getOldValue()) {
             $value = null === $object->getField()
@@ -48,7 +47,7 @@ class ChangeEntityNormalizer implements NormalizerInterface
                 : $this->fieldValueRepository->getFieldValue($object->getField()->getType(), $object->getOldValue());
 
             $json['oldValue'] = is_object($value)
-                ? $this->objectNormalizer->normalize($value, $format, $context)
+                ? $this->normalizer->normalize($value, $format, $context)
                 : $value;
         }
 
@@ -58,7 +57,7 @@ class ChangeEntityNormalizer implements NormalizerInterface
                 : $this->fieldValueRepository->getFieldValue($object->getField()->getType(), $object->getNewValue());
 
             $json['newValue'] = is_object($value)
-                ? $this->objectNormalizer->normalize($value, $format, $context)
+                ? $this->normalizer->normalize($value, $format, $context)
                 : $value;
         }
 

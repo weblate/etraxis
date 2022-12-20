@@ -70,6 +70,12 @@ services:
     App\Serializer\JwtEncoder:
         $secret: '%env(APP_SECRET)%'
 
+    App\Serializer\Normalizer\ChangeEntityNormalizer:
+        $normalizer: '@serializer.normalizer.object'
+
+    App\Serializer\Normalizer\FieldValueEntityNormalizer:
+        $normalizer: '@serializer.normalizer.object'
+
 when@dev:
     services:
         mailer.dev.set_recipients:

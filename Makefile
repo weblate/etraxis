@@ -8,6 +8,7 @@ SHELL=/bin/bash
 .PHONY: test
 .PHONY: coverage
 .PHONY: update
+.PHONY: watch
 
 help:
 	@echo "make build	Builds the project from scratch"
@@ -17,6 +18,7 @@ help:
 	@echo "make test	Executes PHPUnit tests"
 	@echo "make coverage	Executes PHPUnit tests with code coverage"
 	@echo "make update	Updates Symfony framework"
+	@echo "make watch	Watches for changes in frontend sources"
 
 build:
 	composer install
@@ -24,6 +26,8 @@ build:
 	./bin/console doctrine:database:create
 	./bin/console doctrine:migrations:migrate -n
 	./bin/console doctrine:fixtures:load --group=prod -n
+	npm install
+	npm run dev
 
 run:
 	symfony serve
@@ -32,7 +36,7 @@ check:
 	./vendor/bin/php-cs-fixer fix
 
 cloc:
-	cloc ./src ./templates ./tests
+	cloc ./assets ./src ./templates ./tests
 
 test:
 	./bin/console doctrine:fixtures:load -n
@@ -44,3 +48,6 @@ coverage:
 
 update:
 	composer update "symfony/*" --with-all-dependencies
+
+watch:
+	npm run watch

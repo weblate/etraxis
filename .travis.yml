@@ -22,6 +22,8 @@ install:
     - cp config/travis/.env.$DB .env.local
     - cp config/travis/phpunit.$DB.xml phpunit.xml
     - composer --optimize-autoloader --no-interaction install
+    - npm install
+    - npm run dev
 
 before_script:
     - ./bin/console --no-interaction doctrine:database:create

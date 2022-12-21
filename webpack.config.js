@@ -29,6 +29,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('font-awesome', 'font-awesome/css/font-awesome.css')
+    .addEntry('etraxis',      './assets/styles/etraxis.scss')
 
     // Aliases.
     .addAliases({
@@ -51,6 +52,7 @@ Encore
     .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())
     .enableIntegrityHashes(Encore.isProduction())
+    .enableSassLoader()
 ;
 
 module.exports = Encore.getWebpackConfig();

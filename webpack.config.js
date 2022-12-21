@@ -33,7 +33,8 @@ Encore
 
     // Aliases.
     .addAliases({
-        '@utilities': path.resolve(__dirname, 'assets/scripts/'),
+        '@components': path.resolve(__dirname, 'assets/components/'),
+        '@utilities':  path.resolve(__dirname, 'assets/scripts/'),
     })
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
@@ -53,6 +54,7 @@ Encore
     .enableVersioning(Encore.isProduction())
     .enableIntegrityHashes(Encore.isProduction())
     .enableSassLoader()
+    .enableVueLoader(() => {}, { runtimeCompilerBuild: true })
 ;
 
 module.exports = Encore.getWebpackConfig();

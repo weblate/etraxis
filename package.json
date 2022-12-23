@@ -4,6 +4,7 @@
         "axios": "^1.2.1",
         "bulma": "^0.9.4",
         "font-awesome": "^4.7.0",
+        "prettier": "^2.8.1",
         "sass": "^1.57.1",
         "sass-loader": "^13.2.0",
         "vue": "^3.2.45",

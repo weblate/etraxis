@@ -34,6 +34,7 @@ run:
 
 check:
 	./vendor/bin/php-cs-fixer fix
+	npx prettier --write --list-different ./assets ./templates
 
 cloc:
 	cloc ./assets ./src ./templates ./tests

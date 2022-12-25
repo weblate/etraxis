@@ -10,6 +10,10 @@ env:
         - DB=mysql
         - DB=postgresql
 
+branches:
+    only:
+        - master
+
 services:
     - mysql
     - postgresql

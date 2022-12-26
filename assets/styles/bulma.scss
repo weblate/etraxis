@@ -9,6 +9,15 @@
 //
 //----------------------------------------------------------------------
 
+$body-size: 13px;
+
 @import "bulma/sass/utilities/all";
 @import "bulma/sass/base/all";
 @import "bulma/sass/helpers/all";
+
+@import "bulma/sass/grid/columns";
+
+@import "bulma/sass/form/all";
+
+@import "bulma/sass/elements/container";
+@import "bulma/sass/elements/content";

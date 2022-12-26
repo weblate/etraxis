@@ -9,5 +9,14 @@
 //
 //----------------------------------------------------------------------
 
-@import "bulma";
-@import "layout";
+[v-cloak] {
+    display: none;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+}

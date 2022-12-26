@@ -17,7 +17,6 @@ use App\LoginTrait;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @internal
@@ -44,7 +43,7 @@ final class DefaultPublicControllerTest extends WebTestCase
     {
         $this->client->request(Request::METHOD_GET, '/');
 
-        self::assertSame(Response::HTTP_UNAUTHORIZED, $this->client->getResponse()->getStatusCode());
+        self::assertTrue($this->client->getResponse()->isRedirect('/login'));
     }
 
     /**

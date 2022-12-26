@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class DefaultPublicController extends AbstractController
 {
-    #[Route('/')]
+    #[Route('/', name: 'homepage')]
     public function index(): Response
     {
         return $this->render('base.html.twig');

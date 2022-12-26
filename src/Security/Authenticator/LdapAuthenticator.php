@@ -22,6 +22,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\AuthenticatorInterface;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\CustomCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
@@ -46,9 +47,14 @@ class LdapAuthenticator extends AbstractAuthenticator implements AuthenticatorIn
      */
     public function supports(Request $request): ?bool
     {
+        $endpoints = [
+            $this->urlGenerator->generate('login'),
+            $this->urlGenerator->generate('api_login'),
+        ];
+
         return 'json' === $request->getContentTypeFormat()
             && $request->isMethod('POST')
-            && $request->getPathInfo() === $this->urlGenerator->generate('api_login');
+            && in_array($request->getPathInfo(), $endpoints, true);
     }
 
     /**
@@ -65,9 +71,16 @@ class LdapAuthenticator extends AbstractAuthenticator implements AuthenticatorIn
             throw new AuthenticationException();
         }
 
+        $badges = [];
+
+        if ($request->getPathInfo() === $this->urlGenerator->generate('login')) {
+            $badges[] = new CsrfTokenBadge('authenticate', $content->csrf ?? null);
+        }
+
         return new Passport(
             new UserBadge($email, $this->ldapUserLoader),
-            new CustomCredentials($this->ldapCredentialsChecker, $password)
+            new CustomCredentials($this->ldapCredentialsChecker, $password),
+            $badges
         );
     }
 

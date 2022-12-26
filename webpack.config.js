@@ -30,6 +30,7 @@ Encore
      */
     .addEntry('font-awesome', 'font-awesome/css/font-awesome.css')
     .addEntry('etraxis',      './assets/styles/etraxis.scss')
+    .addEntry('login/index',  './templates/login/index.js')
 
     // Aliases.
     .addAliases({

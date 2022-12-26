@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div v-cloak id="vue-login">
+        <form @submit.prevent="login">
+            <input type="hidden" ref="csrf" value="{{ csrf_token('authenticate') }}">
+            <input type="email" required autofocus v-model="email">
+            <input type="password" required v-model="password">
+            <button type="submit">{{ 'security.login' | trans }}</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ encore_entry_script_tags('login/index') }}
+{% endblock %}

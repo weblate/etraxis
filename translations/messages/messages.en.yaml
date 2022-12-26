@@ -11,3 +11,5 @@ field.error.default_value_range: 'Default value should be in range from %minimum
 field.error.min_max_values: 'Maximum value should not be less then minimum one.'
 field.error.value_boolean: '''%name%'' should be ''false'' or ''true''.'
 field.error.value_range: '''%name%'' should be in range from %minimum% to %maximum%.'
+security.login: 'Log in'
+security.logout: 'Log out'

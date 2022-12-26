@@ -21,6 +21,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\CustomCredentials;
 use Symfony\Component\Security\Http\Authenticator\Token\PostAuthenticationToken;
@@ -44,6 +45,7 @@ final class LdapAuthenticatorTest extends TestCase
         $urlGenerator
             ->method('generate')
             ->willReturnMap([
+                ['login',     [], UrlGeneratorInterface::ABSOLUTE_PATH, '/login'],
                 ['api_login', [], UrlGeneratorInterface::ABSOLUTE_PATH, '/api/login'],
             ])
         ;
@@ -57,7 +59,24 @@ final class LdapAuthenticatorTest extends TestCase
     /**
      * @covers ::supports
      */
-    public function testSupportsSuccess(): void
+    public function testSupportsSuccessWeb(): void
+    {
+        $request = new Request(content: json_encode([
+            'email'    => 'einstein@example.com',
+            'password' => 'secret',
+        ]));
+
+        $request->setMethod(Request::METHOD_POST);
+        $request->server->set('REQUEST_URI', '/login');
+        $request->headers->set('Content-Type', 'application/json');
+
+        self::assertTrue($this->authenticator->supports($request));
+    }
+
+    /**
+     * @covers ::supports
+     */
+    public function testSupportsSuccessApi(): void
     {
         $request = new Request(content: json_encode([
             'email'    => 'einstein@example.com',
@@ -125,12 +144,14 @@ final class LdapAuthenticatorTest extends TestCase
     /**
      * @covers ::authenticate
      */
-    public function testAuthenticate(): void
+    public function testAuthenticateWeb(): void
     {
         $request = new Request(content: json_encode([
             'email'    => 'einstein@example.com',
             'password' => 'secret',
         ]));
+
+        $request->server->set('REQUEST_URI', '/login');
 
         $passport = $this->authenticator->authenticate($request);
 
@@ -144,6 +165,36 @@ final class LdapAuthenticatorTest extends TestCase
         /** @var CustomCredentials $badge */
         $badge = $passport->getBadge(CustomCredentials::class);
         self::assertSame('secret', $this->getProperty($badge, 'credentials'));
+
+        self::assertTrue($passport->hasBadge(CsrfTokenBadge::class));
+    }
+
+    /**
+     * @covers ::authenticate
+     */
+    public function testAuthenticateApi(): void
+    {
+        $request = new Request(content: json_encode([
+            'email'    => 'einstein@example.com',
+            'password' => 'secret',
+        ]));
+
+        $request->server->set('REQUEST_URI', '/api/login');
+
+        $passport = $this->authenticator->authenticate($request);
+
+        self::assertTrue($passport->hasBadge(UserBadge::class));
+        self::assertTrue($passport->hasBadge(CustomCredentials::class));
+
+        /** @var UserBadge $badge */
+        $badge = $passport->getBadge(UserBadge::class);
+        self::assertSame('einstein@example.com', $badge->getUserIdentifier());
+
+        /** @var CustomCredentials $badge */
+        $badge = $passport->getBadge(CustomCredentials::class);
+        self::assertSame('secret', $this->getProperty($badge, 'credentials'));
+
+        self::assertFalse($passport->hasBadge(CsrfTokenBadge::class));
     }
 
     /**
@@ -156,6 +207,8 @@ final class LdapAuthenticatorTest extends TestCase
         $request = new Request(content: json_encode([
             'email' => 'einstein@example.com',
         ]));
+
+        $request->server->set('REQUEST_URI', '/login');
 
         $this->authenticator->authenticate($request);
     }

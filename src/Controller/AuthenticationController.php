@@ -19,11 +19,11 @@ use App\MessageBus\Contracts\CommandBusInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as API;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * API controller for JWT authentication.
@@ -52,7 +52,7 @@ class AuthenticationController extends AbstractController implements ApiControll
     ))]
     #[API\Response(response: 404, description: 'Invalid credentials.')]
     #[API\Response(response: 429, description: 'API rate limit exceeded.')]
-    public function login(Request $request, TokenStorageInterface $tokenStorage, RateLimiterFactory $anonymousApiLimiter): JsonResponse
+    public function login(Request $request, Security $security, RateLimiterFactory $anonymousApiLimiter): JsonResponse
     {
         $limiter = $anonymousApiLimiter->create($request->getClientIp());
         $limiter->consume()->ensureAccepted();
@@ -61,8 +61,7 @@ class AuthenticationController extends AbstractController implements ApiControll
         $token   = $this->commandBus->handleWithResult($command);
 
         // Logout user from the browser session.
-        // todo: refactor after upgrading to Symfony 6.2
-        $tokenStorage->setToken(null);
+        $security->logout(false);
 
         return $this->json(['token' => $token]);
     }

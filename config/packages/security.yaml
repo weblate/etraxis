@@ -26,9 +26,11 @@ security:
             security: false
         main:
             lazy: true
+            logout: true
             login_throttling: true
             provider: etraxis
             user_checker: App\Security\UserChecker
+            entry_point: App\Security\AuthenticationEntryPoint
             custom_authenticators:
                 - App\Security\Authenticator\JwtAuthenticator
                 - App\Security\Authenticator\LdapAuthenticator
@@ -43,6 +45,8 @@ security:
         - { path: ^/api/login,  roles: PUBLIC_ACCESS }
         - { path: ^/api/forgot, roles: PUBLIC_ACCESS }
         - { path: ^/api/reset,  roles: PUBLIC_ACCESS }
+
+        - { path: ^/login, roles: PUBLIC_ACCESS }
 
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/,      roles: ROLE_USER  }

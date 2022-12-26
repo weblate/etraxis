@@ -22,13 +22,12 @@ install:
     - cp config/travis/.env.$DB .env.local
     - cp config/travis/phpunit.$DB.xml phpunit.xml
     - composer --optimize-autoloader --no-interaction install
-    - npm install
-    - npm run dev
 
 before_script:
     - ./bin/console --no-interaction doctrine:database:create
     - ./bin/console --no-interaction doctrine:migrations:migrate
     - ./bin/console --no-interaction doctrine:fixtures:load
+    - ./bin/console --no-interaction etraxis:fake-webpack
 
 script:
     - ./bin/phpunit --coverage-clover=coverage.clover

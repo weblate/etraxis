@@ -1,0 +1,33 @@
+<nav v-cloak id="vue-navbar" class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand is-hidden-tablet">
+            <div class="navbar-item">
+                <img src="{{ asset('etraxis.svg') }}" alt="Logo">
+            </div>
+            <span class="navbar-item is-flex-grow-1 is-justify-content-center">{{ title ?? 'eTraxis' }}</span>
+            <a class="navbar-burger" role="button" aria-label="menu" aria-expanded="false" @click="toggleMenu">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div class="navbar-menu" :class="{ 'is-active': isActive }">
+            <div class="navbar-start">
+                <a class="navbar-item" href="{{ path('logout') }}">
+                    <div class="icon-text">
+                        <span class="icon is-hidden-mobile"><i class="fa fa-lg fa-sign-out"></i></span>
+                        <span class="is-hidden-tablet-only">{{ 'security.logout' | trans }}</span>
+                    </div>
+                </a>
+            </div>
+            <div class="navbar-end is-hidden-mobile">
+                <div class="navbar-item">
+                    <span>{{ app.user.fullname }}</span>
+                </div>
+                <div class="navbar-item">
+                    <img src="{{ asset('etraxis.svg') }}" alt="Logo">
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

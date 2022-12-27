@@ -10,7 +10,10 @@
         {{ encore_entry_link_tags('etraxis') }}
         {% block styles %}{% endblock %}
     </head>
-    <body class="is-flex is-flex-direction-column">
+    <body class="is-flex is-flex-direction-column has-navbar-fixed-top">
+        {% if app.user %}
+            {% include 'navbar.html.twig' %}
+        {% endif %}
         <main class="is-flex-grow-1">
             <div class="container">
                 {% block content %}{% endblock %}
@@ -21,6 +24,9 @@
                 <p class="content is-small"><strong>eTraxis</strong> &copy; 2017-2022 Artem Rodygin</p>
             </div>
         </footer>
+        {% if app.user %}
+            {{ encore_entry_script_tags('navbar') }}
+        {% endif %}
         {% block scripts %}{% endblock %}
     </body>
 </html>

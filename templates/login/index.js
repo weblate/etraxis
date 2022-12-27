@@ -14,6 +14,8 @@ import axios from "axios";
 
 import url from "@utilities/url";
 
+import "./index.scss";
+
 /**
  * Login page.
  */

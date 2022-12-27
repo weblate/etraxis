@@ -1,16 +1,38 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <div v-cloak id="vue-login">
-        <form @submit.prevent="login">
-            <input type="hidden" ref="csrf" value="{{ csrf_token('authenticate') }}">
-            <input type="email" required autofocus v-model="email">
-            <input type="password" required v-model="password">
-            <button type="submit">{{ 'security.login' | trans }}</button>
-        </form>
+    <div v-cloak id="vue-login" class="is-flex is-flex-direction-column is-justify-content-center">
+        <div class="columns is-centered">
+            <div class="column is-half-tablet is-one-third-desktop">
+                <div class="box">
+                    <form @submit.prevent="login">
+                        <input type="hidden" ref="csrf" value="{{ csrf_token('authenticate') }}">
+                        <div class="field">
+                            <div class="control">
+                                <input class="input" type="email" placeholder="{{ 'user.email' | trans }}" required autofocus v-model="email">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <input class="input" type="password" placeholder="{{ 'user.password' | trans }}" required v-model="password">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <button class="button" type="submit">{{ 'security.login' | trans }}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 
 {% block scripts %}
     {{ encore_entry_script_tags('login/index') }}
+{% endblock %}
+
+{% block styles %}
+    {{ encore_entry_link_tags('login/index') }}
 {% endblock %}

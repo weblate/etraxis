@@ -13,3 +13,5 @@ field.error.value_boolean: '''%name%'' should be ''false'' or ''true''.'
 field.error.value_range: '''%name%'' should be in range from %minimum% to %maximum%.'
 security.login: 'Log in'
 security.logout: 'Log out'
+user.email: Email
+user.password: Password

@@ -13,3 +13,5 @@ field.error.value_boolean: 'Значение поля "%name%" должно бы
 field.error.value_range: 'Значение поля "%name%" должно лежать в диапазоне от %minimum% до %maximum%.'
 security.login: Войти
 security.logout: Выйти
+user.email: 'Эл. почта'
+user.password: Пароль

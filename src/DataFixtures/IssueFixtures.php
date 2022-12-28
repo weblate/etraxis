@@ -89,33 +89,33 @@ class IssueFixtures extends Fixture implements FixtureInterface, DependentFixtur
                 'author'      => $this->developer2,
                 'responsible' => $this->support2,
             ],
-            'req1' => [
+            'req1'  => [
                 'subject'     => 'Support request 1',
                 'author'      => $this->client1,
                 'responsible' => null,
             ],
-            'req2' => [
+            'req2'  => [
                 'subject'     => 'Support request 2',
                 'author'      => $this->client2,
                 'responsible' => $this->support2,
             ],
-            'req3' => [
+            'req3'  => [
                 'subject'     => 'Support request 3',
                 'author'      => $this->client2,
                 'responsible' => null,
             ],
-            'req4' => [
+            'req4'  => [
                 'subject'     => 'Support request 4',
                 'author'      => $this->client3,
                 'responsible' => $this->support1,
             ],
-            'req5' => [
+            'req5'  => [
                 'subject'     => 'Support request 5',
                 'author'      => $this->client2,
                 'responsible' => $this->support3,
                 'suspended'   => true,
             ],
-            'req6' => [
+            'req6'  => [
                 'subject'     => 'Support request 6',
                 'author'      => $this->client1,
                 'responsible' => null,

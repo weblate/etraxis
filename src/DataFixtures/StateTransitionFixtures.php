@@ -43,14 +43,14 @@ class StateTransitionFixtures extends Fixture implements FixtureInterface, Depen
     public function load(ObjectManager $manager): void
     {
         $data = [
-            'task' => [
-                SystemRoleEnum::Author->value => [
+            'task'  => [
+                SystemRoleEnum::Author->value      => [
                     'completed:%s' => 'new:%s',
                 ],
                 SystemRoleEnum::Responsible->value => [
                     'assigned:%s' => 'completed:%s',
                 ],
-                'managers:%s' => [
+                'managers:%s'                      => [
                     'new:%s'       => 'assigned:%s',
                     'assigned:%s'  => 'duplicated:%s',
                     'completed:%s' => 'new:%s',
@@ -58,7 +58,7 @@ class StateTransitionFixtures extends Fixture implements FixtureInterface, Depen
             ],
 
             'issue' => [
-                SystemRoleEnum::Author->value => [
+                SystemRoleEnum::Author->value      => [
                     'submitted:%s' => 'resolved:%s',
                     'opened:%s'    => 'resolved:%s',
                     'resolved:%s'  => 'opened:%s',
@@ -66,11 +66,11 @@ class StateTransitionFixtures extends Fixture implements FixtureInterface, Depen
                 SystemRoleEnum::Responsible->value => [
                     'opened:%s' => 'resolved:%s',
                 ],
-                'managers:%s' => [
+                'managers:%s'                      => [
                     'submitted:%s' => 'opened:%s',
                     'opened:%s'    => 'resolved:%s',
                 ],
-                'support:%s' => [
+                'support:%s'                       => [
                     'submitted:%s' => 'opened:%s',
                 ],
             ],

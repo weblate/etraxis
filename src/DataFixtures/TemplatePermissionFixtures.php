@@ -45,7 +45,7 @@ class TemplatePermissionFixtures extends Fixture implements FixtureInterface, De
     {
         $data = [
             'task' => [
-                SystemRoleEnum::Author->value => [
+                SystemRoleEnum::Author->value      => [
                     TemplatePermissionEnum::CreateIssues,
                     TemplatePermissionEnum::EditIssues,
                     TemplatePermissionEnum::ReassignIssues,
@@ -73,7 +73,7 @@ class TemplatePermissionFixtures extends Fixture implements FixtureInterface, De
                     TemplatePermissionEnum::ManageDependencies,
                     TemplatePermissionEnum::ManageRelatedIssues,
                 ],
-                'managers:%s' => [
+                'managers:%s'                      => [
                     TemplatePermissionEnum::ViewIssues,
                     TemplatePermissionEnum::CreateIssues,
                     TemplatePermissionEnum::EditIssues,
@@ -88,17 +88,17 @@ class TemplatePermissionFixtures extends Fixture implements FixtureInterface, De
                     TemplatePermissionEnum::ManageDependencies,
                     TemplatePermissionEnum::ManageRelatedIssues,
                 ],
-                'developers:%s' => [
+                'developers:%s'                    => [
                     TemplatePermissionEnum::ViewIssues,
                     TemplatePermissionEnum::CreateIssues,
                 ],
-                'support:%s' => [
+                'support:%s'                       => [
                     TemplatePermissionEnum::CreateIssues,
                 ],
             ],
 
-            'req' => [
-                SystemRoleEnum::Author->value => [
+            'req'  => [
+                SystemRoleEnum::Author->value      => [
                     TemplatePermissionEnum::EditIssues,
                     TemplatePermissionEnum::AddComments,
                     TemplatePermissionEnum::AttachFiles,
@@ -109,7 +109,7 @@ class TemplatePermissionFixtures extends Fixture implements FixtureInterface, De
                     TemplatePermissionEnum::ManageDependencies,
                     TemplatePermissionEnum::ManageRelatedIssues,
                 ],
-                'managers:%s' => [
+                'managers:%s'                      => [
                     TemplatePermissionEnum::ViewIssues,
                     TemplatePermissionEnum::CreateIssues,
                     TemplatePermissionEnum::EditIssues,
@@ -124,14 +124,14 @@ class TemplatePermissionFixtures extends Fixture implements FixtureInterface, De
                     TemplatePermissionEnum::ManageDependencies,
                     TemplatePermissionEnum::ManageRelatedIssues,
                 ],
-                'clients:%s' => [
+                'clients:%s'                       => [
                     TemplatePermissionEnum::CreateIssues,
                 ],
-                'support:%s' => [
+                'support:%s'                       => [
                     TemplatePermissionEnum::ViewIssues,
                     TemplatePermissionEnum::PrivateComments,
                 ],
-                'staff' => [
+                'staff'                            => [
                     TemplatePermissionEnum::ViewIssues,
                 ],
             ],

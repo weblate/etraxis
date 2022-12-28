@@ -43,7 +43,7 @@ class FieldFixtures extends Fixture implements FixtureInterface, DependentFixtur
     public function load(ObjectManager $manager): void
     {
         $data = [
-            'new' => [
+            'new'        => [
                 [
                     'type'       => FieldTypeEnum::List,
                     'name'       => 'Priority',
@@ -87,7 +87,7 @@ class FieldFixtures extends Fixture implements FixtureInterface, DependentFixtur
                 ],
             ],
 
-            'assigned' => [
+            'assigned'   => [
                 [
                     'type'       => FieldTypeEnum::Date,
                     'name'       => 'Due date',
@@ -103,7 +103,7 @@ class FieldFixtures extends Fixture implements FixtureInterface, DependentFixtur
                 ],
             ],
 
-            'completed' => [
+            'completed'  => [
                 [
                     'type'       => FieldTypeEnum::String,
                     'name'       => 'Commit ID',
@@ -173,7 +173,7 @@ class FieldFixtures extends Fixture implements FixtureInterface, DependentFixtur
                 ],
             ],
 
-            'submitted' => [
+            'submitted'  => [
                 [
                     'type'       => FieldTypeEnum::Text,
                     'name'       => 'Details',
@@ -185,9 +185,9 @@ class FieldFixtures extends Fixture implements FixtureInterface, DependentFixtur
                 ],
             ],
 
-            'opened' => [],
+            'opened'     => [],
 
-            'resolved' => [],
+            'resolved'   => [],
         ];
 
         foreach (['a', 'b', 'c', 'd'] as $pref) {

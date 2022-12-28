@@ -49,64 +49,64 @@ class UserFixtures extends Fixture implements FixtureInterface, DependentFixture
     public function load(ObjectManager $manager): void
     {
         $data = [
-            'artem@example.com' => [
+            'artem@example.com'              => [
                 'fullname' => 'Artem Rodygin',
             ],
-            'einstein@ldap.forumsys.com' => [
+            'einstein@ldap.forumsys.com'     => [
                 'provider' => AccountProviderEnum::LDAP,
                 'uid'      => 'uid=einstein,dc=example,dc=com',
                 'fullname' => 'Albert Einstein',
             ],
-            'tberge@example.com' => [
+            'tberge@example.com'             => [
                 'fullname'    => 'Ted Berge',
                 'description' => 'Disabled account',
                 'disabled'    => true,
             ],
-            'lucas.oconnell@example.com' => [
+            'lucas.oconnell@example.com'     => [
                 'fullname'    => 'Lucas O\'Connell',
                 'description' => 'Client A+B+C',
             ],
-            'clegros@example.com' => [
+            'clegros@example.com'            => [
                 'fullname'    => 'Carson Legros',
                 'description' => 'Client A+B',
             ],
-            'jmueller@example.com' => [
+            'jmueller@example.com'           => [
                 'fullname'    => 'Jeramy Mueller',
                 'description' => 'Client A+C',
             ],
-            'dtillman@example.com' => [
+            'dtillman@example.com'           => [
                 'fullname'    => 'Derrick Tillman',
                 'description' => 'Client B+C',
             ],
-            'hstroman@example.com' => [
+            'hstroman@example.com'           => [
                 'fullname'    => 'Hunter Stroman',
                 'description' => 'Client A',
             ],
-            'aschinner@example.com' => [
+            'aschinner@example.com'          => [
                 'fullname'    => 'Alyson Schinner',
                 'description' => 'Client B',
             ],
-            'dmurazik@example.com' => [
+            'dmurazik@example.com'           => [
                 'fullname'    => 'Denis Murazik',
                 'description' => 'Client C',
             ],
-            'ldoyle@example.com' => [
+            'ldoyle@example.com'             => [
                 'fullname'    => 'Leland Doyle',
                 'description' => 'Manager A+B+C+D',
             ],
-            'dorcas.ernser@example.com' => [
+            'dorcas.ernser@example.com'      => [
                 'fullname'    => 'Dorcas Ernser',
                 'description' => 'Manager A+B',
             ],
-            'berenice.oconnell@example.com' => [
+            'berenice.oconnell@example.com'  => [
                 'fullname'    => 'Berenice O\'Connell',
                 'description' => 'Manager A+C',
             ],
-            'carolyn.hill@example.com' => [
+            'carolyn.hill@example.com'       => [
                 'fullname'    => 'Carolyn Hill',
                 'description' => 'Manager B+C',
             ],
-            'dangelo.hill@example.com' => [
+            'dangelo.hill@example.com'       => [
                 'fullname'    => 'Dangelo Hill',
                 'description' => 'Manager A',
             ],
@@ -114,71 +114,71 @@ class UserFixtures extends Fixture implements FixtureInterface, DependentFixture
                 'fullname'    => 'Emmanuelle Bartell',
                 'description' => 'Manager B',
             ],
-            'jgoodwin@example.com' => [
+            'jgoodwin@example.com'           => [
                 'fullname'    => 'Juanita Goodwin',
                 'description' => 'Manager C',
             ],
-            'fdooley@example.com' => [
+            'fdooley@example.com'            => [
                 'fullname'    => 'Francesca Dooley',
                 'description' => 'Developer A+B+C',
             ],
-            'labshire@example.com' => [
+            'labshire@example.com'           => [
                 'fullname'    => 'Lola Abshire',
                 'description' => 'Developer A+B',
             ],
-            'dquigley@example.com' => [
+            'dquigley@example.com'           => [
                 'fullname'    => 'Dennis Quigley',
                 'description' => 'Developer A+C',
             ],
-            'akoepp@example.com' => [
+            'akoepp@example.com'             => [
                 'fullname'    => 'Ansel Koepp',
                 'description' => 'Developer B+C',
             ],
-            'christy.mcdermott@example.com' => [
+            'christy.mcdermott@example.com'  => [
                 'fullname'    => 'Christy McDermott',
                 'description' => 'Developer A',
             ],
-            'amarvin@example.com' => [
+            'amarvin@example.com'            => [
                 'fullname'    => 'Anissa Marvin',
                 'description' => 'Developer B',
             ],
-            'mbogisich@example.com' => [
+            'mbogisich@example.com'          => [
                 'fullname'    => 'Millie Bogisich',
                 'description' => 'Developer C',
             ],
-            'tmarquardt@example.com' => [
+            'tmarquardt@example.com'         => [
                 'fullname'    => 'Tracy Marquardt',
                 'description' => 'Support Engineer A+B+C',
             ],
-            'bkemmer@example.com' => [
+            'bkemmer@example.com'            => [
                 'fullname'    => 'Bell Kemmer',
                 'description' => 'Support Engineer A+B',
             ],
-            'cbatz@example.com' => [
+            'cbatz@example.com'              => [
                 'fullname'    => 'Carter Batz',
                 'description' => 'Support Engineer A+C',
             ],
-            'kbahringer@example.com' => [
+            'kbahringer@example.com'         => [
                 'fullname'    => 'Kailyn Bahringer',
                 'description' => 'Support Engineer B+C',
             ],
-            'kschultz@example.com' => [
+            'kschultz@example.com'           => [
                 'fullname'    => 'Kyla Schultz',
                 'description' => 'Support Engineer A',
             ],
-            'vparker@example.com' => [
+            'vparker@example.com'            => [
                 'fullname'    => 'Vida Parker',
                 'description' => 'Support Engineer B',
             ],
-            'tbuckridge@example.com' => [
+            'tbuckridge@example.com'         => [
                 'fullname'    => 'Tony Buckridge',
                 'description' => 'Support Engineer C',
             ],
-            'nhills@example.com' => [
+            'nhills@example.com'             => [
                 'fullname'    => 'Nikko Hills',
                 'description' => 'Support Engineer A+B, Developer C',
             ],
-            'jkiehn@example.com' => [
+            'jkiehn@example.com'             => [
                 'fullname'    => 'Jarrell Kiehn',
                 'description' => 'Support Engineer A, Developer B, Manager C',
             ],

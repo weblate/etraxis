@@ -41,7 +41,7 @@ class StateResponsibleGroupFixtures extends Fixture implements FixtureInterface,
     public function load(ObjectManager $manager): void
     {
         $data = [
-            'task' => [
+            'task'  => [
                 'assigned:%s' => [
                     'developers:%s',
                 ],

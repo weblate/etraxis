@@ -44,39 +44,39 @@ class FieldPermissionFixtures extends Fixture implements FixtureInterface, Depen
     public function load(ObjectManager $manager): void
     {
         $data = [
-            'new:%s:priority' => [
+            'new:%s:priority'            => [
                 SystemRoleEnum::Author->value => FieldPermissionEnum::ReadOnly,
                 'managers:%s'                 => FieldPermissionEnum::ReadAndWrite,
                 'developers:%s'               => FieldPermissionEnum::ReadOnly,
             ],
-            'new:%s:description' => [
+            'new:%s:description'         => [
                 SystemRoleEnum::Author->value => FieldPermissionEnum::ReadAndWrite,
                 'managers:%s'                 => FieldPermissionEnum::ReadAndWrite,
                 'developers:%s'               => FieldPermissionEnum::ReadOnly,
             ],
-            'new:%s:error' => [
+            'new:%s:error'               => [
                 SystemRoleEnum::Author->value => FieldPermissionEnum::ReadAndWrite,
                 'managers:%s'                 => FieldPermissionEnum::ReadAndWrite,
                 'developers:%s'               => FieldPermissionEnum::ReadOnly,
             ],
-            'new:%s:new feature' => [
+            'new:%s:new feature'         => [
                 SystemRoleEnum::Author->value => FieldPermissionEnum::ReadAndWrite,
                 'managers:%s'                 => FieldPermissionEnum::ReadAndWrite,
                 'developers:%s'               => FieldPermissionEnum::ReadOnly,
             ],
-            'assigned:%s:due date' => [
+            'assigned:%s:due date'       => [
                 SystemRoleEnum::Responsible->value => FieldPermissionEnum::ReadOnly,
                 'managers:%s'                      => FieldPermissionEnum::ReadAndWrite,
             ],
-            'completed:%s:commit id' => [
+            'completed:%s:commit id'     => [
                 'managers:%s'   => FieldPermissionEnum::ReadAndWrite,
                 'developers:%s' => FieldPermissionEnum::ReadAndWrite,
             ],
-            'completed:%s:delta' => [
+            'completed:%s:delta'         => [
                 'managers:%s'   => FieldPermissionEnum::ReadAndWrite,
                 'developers:%s' => FieldPermissionEnum::ReadAndWrite,
             ],
-            'completed:%s:effort' => [
+            'completed:%s:effort'        => [
                 'managers:%s'   => FieldPermissionEnum::ReadAndWrite,
                 'developers:%s' => FieldPermissionEnum::ReadAndWrite,
             ],
@@ -84,16 +84,16 @@ class FieldPermissionFixtures extends Fixture implements FixtureInterface, Depen
                 'managers:%s'   => FieldPermissionEnum::ReadAndWrite,
                 'developers:%s' => FieldPermissionEnum::ReadAndWrite,
             ],
-            'duplicated:%s:task id' => [
+            'duplicated:%s:task id'      => [
                 'managers:%s'   => FieldPermissionEnum::ReadAndWrite,
                 'developers:%s' => FieldPermissionEnum::ReadOnly,
             ],
-            'duplicated:%s:issue id' => [
+            'duplicated:%s:issue id'     => [
                 SystemRoleEnum::Author->value => FieldPermissionEnum::ReadOnly,
                 'managers:%s'                 => FieldPermissionEnum::ReadAndWrite,
                 'developers:%s'               => FieldPermissionEnum::ReadOnly,
             ],
-            'submitted:%s:details' => [
+            'submitted:%s:details'       => [
                 SystemRoleEnum::Author->value => FieldPermissionEnum::ReadAndWrite,
                 'managers:%s'                 => FieldPermissionEnum::ReadAndWrite,
                 'support:%s'                  => FieldPermissionEnum::ReadOnly,

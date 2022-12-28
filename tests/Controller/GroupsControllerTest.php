@@ -438,7 +438,7 @@ final class GroupsControllerTest extends TransactionalTestCase
         $labshire = $this->doctrine->getRepository(User::class)->findOneByEmail('labshire@example.com');
 
         $content = [
-            'add' => [
+            'add'    => [
                 $fdooley->getId(),
                 $nhills->getId(),
             ],
@@ -463,7 +463,7 @@ final class GroupsControllerTest extends TransactionalTestCase
         [$group] = $this->repository->findBy(['name' => 'Developers'], ['id' => 'ASC']);
 
         $content = [
-            'add' => [
+            'add'    => [
                 'fdooley@example.com',
                 'nhills@example.com',
             ],
@@ -490,7 +490,7 @@ final class GroupsControllerTest extends TransactionalTestCase
         $labshire = $this->doctrine->getRepository(User::class)->findOneByEmail('labshire@example.com');
 
         $content = [
-            'add' => [
+            'add'    => [
                 $fdooley->getId(),
                 $nhills->getId(),
             ],
@@ -519,7 +519,7 @@ final class GroupsControllerTest extends TransactionalTestCase
         $labshire = $this->doctrine->getRepository(User::class)->findOneByEmail('labshire@example.com');
 
         $content = [
-            'add' => [
+            'add'    => [
                 $fdooley->getId(),
                 $nhills->getId(),
             ],
@@ -545,7 +545,7 @@ final class GroupsControllerTest extends TransactionalTestCase
         $labshire = $this->doctrine->getRepository(User::class)->findOneByEmail('labshire@example.com');
 
         $content = [
-            'add' => [
+            'add'    => [
                 $fdooley->getId(),
                 $nhills->getId(),
             ],

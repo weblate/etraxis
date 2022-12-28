@@ -125,41 +125,41 @@ class EventFixtures extends Fixture implements FixtureInterface, DependentFixtur
                 [EventTypeEnum::RelatedIssueAdded, $this->manager1,   3, 10, 'task:%s:2'],
             ],
 
-            'req:%s:1' => [
+            'req:%s:1'  => [
                 [EventTypeEnum::IssueCreated,  $this->client1,  0, 0, 'submitted'],
                 [EventTypeEnum::StateChanged,  $this->manager1, 0, 5, 'opened'],
                 [EventTypeEnum::IssueAssigned, $this->manager1, 0, 5, $this->support1],
                 [EventTypeEnum::IssueClosed,   $this->support1, 2, 0, 'resolved'],
             ],
 
-            'req:%s:2' => [
+            'req:%s:2'  => [
                 [EventTypeEnum::IssueCreated,    $this->client2,  0, 0,  'submitted'],
                 [EventTypeEnum::StateChanged,    $this->support2, 0, 5,  'opened'],
                 [EventTypeEnum::IssueAssigned,   $this->support2, 0, 5,  $this->support2],
                 [EventTypeEnum::DependencyAdded, $this->support2, 0, 10, 'req:%s:3'],
             ],
 
-            'req:%s:3' => [
+            'req:%s:3'  => [
                 [EventTypeEnum::IssueCreated,  $this->client2,  0, 0, 'submitted'],
                 [EventTypeEnum::StateChanged,  $this->support2, 0, 5, 'opened'],
                 [EventTypeEnum::IssueAssigned, $this->support2, 0, 5, $this->support2],
                 [EventTypeEnum::IssueClosed,   $this->support2, 2, 0, 'resolved'],
             ],
 
-            'req:%s:4' => [
+            'req:%s:4'  => [
                 [EventTypeEnum::IssueCreated,  $this->client3,  0, 0, 'submitted'],
                 [EventTypeEnum::StateChanged,  $this->manager2, 1, 0, 'opened'],
                 [EventTypeEnum::IssueAssigned, $this->manager2, 1, 0, $this->support1],
             ],
 
-            'req:%s:5' => [
+            'req:%s:5'  => [
                 [EventTypeEnum::IssueCreated,    $this->client2,  0, 0, 'submitted'],
                 [EventTypeEnum::StateChanged,    $this->support3, 0, 5, 'opened'],
                 [EventTypeEnum::IssueAssigned,   $this->support3, 0, 5, $this->support3],
                 [EventTypeEnum::DependencyAdded, $this->support3, 1, 0, 'req:%s:2'],
             ],
 
-            'req:%s:6' => [
+            'req:%s:6'  => [
                 [EventTypeEnum::IssueCreated,    $this->client1,  0, 0, 'submitted'],
                 [EventTypeEnum::DependencyAdded, $this->manager2, 0, 5, 'req:%s:1'],
                 [EventTypeEnum::DependencyAdded, $this->manager1, 2, 0, 'task:%s:8'],

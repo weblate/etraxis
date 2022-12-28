@@ -39,11 +39,9 @@ class FakeWebpackCommand extends Command
         $file = fopen('webpack.config.js', 'r');
 
         while (!feof($file)) {
-
             $line = trim(fgets($file));
 
             if (str_starts_with($line, '.addEntry')) {
-
                 $parts = explode('\'', $line, 3);
 
                 if (count($parts) >= 3) {

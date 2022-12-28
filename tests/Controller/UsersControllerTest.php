@@ -684,7 +684,7 @@ final class UsersControllerTest extends TransactionalTestCase
         $devC = $this->doctrine->getRepository(Group::class)->findOneBy(['description' => 'Developers C']);
 
         $content = [
-            'add' => [
+            'add'    => [
                 $devB->getId(),
                 $devC->getId(),
             ],
@@ -709,7 +709,7 @@ final class UsersControllerTest extends TransactionalTestCase
         $user = $this->repository->findOneByEmail('labshire@example.com');
 
         $content = [
-            'add' => [
+            'add'    => [
                 'Developers B',
                 'Developers C',
             ],
@@ -736,7 +736,7 @@ final class UsersControllerTest extends TransactionalTestCase
         $devC = $this->doctrine->getRepository(Group::class)->findOneBy(['description' => 'Developers C']);
 
         $content = [
-            'add' => [
+            'add'    => [
                 $devB->getId(),
                 $devC->getId(),
             ],
@@ -765,7 +765,7 @@ final class UsersControllerTest extends TransactionalTestCase
         $devC = $this->doctrine->getRepository(Group::class)->findOneBy(['description' => 'Developers C']);
 
         $content = [
-            'add' => [
+            'add'    => [
                 $devB->getId(),
                 $devC->getId(),
             ],
@@ -792,7 +792,7 @@ final class UsersControllerTest extends TransactionalTestCase
         $devC = $this->doctrine->getRepository(Group::class)->findOneBy(['description' => 'Developers C']);
 
         $content = [
-            'add' => [
+            'add'    => [
                 $devB->getId(),
                 $devC->getId(),
             ],

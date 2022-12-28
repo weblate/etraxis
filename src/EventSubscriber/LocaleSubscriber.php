@@ -40,7 +40,7 @@ class LocaleSubscriber implements EventSubscriberInterface
             LoginSuccessEvent::class => 'saveLocale',
 
             // must be registered before (i.e. with a higher priority than) the default Locale listener
-            KernelEvents::REQUEST => [['setLocale', 20]],
+            KernelEvents::REQUEST    => [['setLocale', 20]],
         ];
     }
 

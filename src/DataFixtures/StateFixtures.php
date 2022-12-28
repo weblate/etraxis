@@ -59,7 +59,7 @@ class StateFixtures extends Fixture implements FixtureInterface, DependentFixtur
                 ],
             ],
 
-            'req' => [
+            'req'  => [
                 'Submitted' => [
                     'type'        => StateTypeEnum::Initial,
                     'responsible' => StateResponsibleEnum::Keep,

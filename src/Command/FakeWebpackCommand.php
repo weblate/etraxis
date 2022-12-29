@@ -36,6 +36,7 @@ class FakeWebpackCommand extends Command
     {
         $entrypoints = [];
 
+        // Find Webpack entries.
         $file = fopen('webpack.config.js', 'r');
 
         while (!feof($file)) {
@@ -52,6 +53,14 @@ class FakeWebpackCommand extends Command
 
         fclose($file);
 
+        // Find translations.
+        foreach (scandir('translations/messages') as $translation) {
+            $entrypoint = str_replace(['messages.', '.yaml'], ['i18n/', ''], $translation);
+
+            $entrypoints[$entrypoint] = [];
+        }
+
+        // Generate manifest file.
         file_exists('public/build') || mkdir('public/build');
         file_put_contents('public/build/entrypoints.json', json_encode(['entrypoints' => $entrypoints]));
         file_put_contents('public/build/manifest.json', '{}');

@@ -27,6 +27,7 @@
         {% if app.user %}
             {{ encore_entry_script_tags('navbar') }}
         {% endif %}
+        {{ encore_entry_script_tags('i18n/' ~ (app.user.locale.value ?? locale)) }}
         {% block scripts %}{% endblock %}
     </body>
 </html>

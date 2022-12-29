@@ -10,6 +10,7 @@
 //----------------------------------------------------------------------
 
 const Encore = require('@symfony/webpack-encore');
+const glob   = require('glob');
 const path   = require('path');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
@@ -58,5 +59,18 @@ Encore
     .enableSassLoader()
     .enableVueLoader(() => {}, { runtimeCompilerBuild: true })
 ;
+
+/**
+ * TRANSLATIONS CONFIG
+ *
+ * Converts translations in the YAML files to JavaScript objects.
+ */
+Encore.addAliases({ '@translations': path.resolve(__dirname, 'translations/messages/') });
+Encore.addLoader({ test: /\.ya?ml$/, loader: 'yaml-loader' });
+
+glob.sync('./templates/i18n/**.js').forEach(name => Encore.addEntry(
+    name.replace('./templates/', '').replace('.js', ''),
+    name
+));
 
 module.exports = Encore.getWebpackConfig();

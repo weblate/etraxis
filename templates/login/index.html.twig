@@ -4,26 +4,7 @@
     <div v-cloak id="vue-login" class="is-flex is-flex-direction-column is-justify-content-center">
         <div class="columns is-centered">
             <div class="column is-half-tablet is-one-third-desktop">
-                <div class="box">
-                    <form @submit.prevent="login">
-                        <input type="hidden" ref="csrf" value="{{ csrf_token('authenticate') }}">
-                        <div class="field">
-                            <div class="control">
-                                <input class="input" type="email" placeholder="{{ 'user.email' | trans }}" required autofocus v-model="email">
-                            </div>
-                        </div>
-                        <div class="field">
-                            <div class="control">
-                                <input class="input" type="password" placeholder="{{ 'user.password' | trans }}" required v-model="password">
-                            </div>
-                        </div>
-                        <div class="field">
-                            <div class="control">
-                                <button class="button" type="submit">{{ 'security.login' | trans }}</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                <login-page :csrf="'{{ csrf_token('authenticate') }}'"></login-page>
             </div>
         </div>
     </div>

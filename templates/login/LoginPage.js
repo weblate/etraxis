@@ -1,0 +1,61 @@
+//----------------------------------------------------------------------
+//
+//  Copyright (C) 2017-2022 Artem Rodygin
+//
+//  This file is part of eTraxis.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with eTraxis. If not, see <https://www.gnu.org/licenses/>.
+//
+//----------------------------------------------------------------------
+
+import axios from "axios";
+
+import url from "@utilities/url";
+
+/**
+ * Login page.
+ */
+export default {
+    props: {
+        /**
+         * @property {string} csrf CSRF token for the form
+         */
+        csrf: {
+            type: String,
+            required: true
+        }
+    },
+
+    data() {
+        return {
+            email: null,
+            password: null
+        };
+    },
+
+    computed: {
+        /**
+         * @property {Object} i18n Translation resources
+         */
+        i18n: () => window.i18n
+    },
+
+    methods: {
+        /**
+         * Submits the login form.
+         */
+        login() {
+            const data = {
+                email: this.email,
+                password: this.password,
+                csrf: this.csrf
+            };
+
+            axios
+                .post(url("/login"), data)
+                .then(() => location.reload())
+                .catch((error) => alert(error.response.data));
+        }
+    }
+};

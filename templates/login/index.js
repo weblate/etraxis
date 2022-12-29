@@ -10,40 +10,16 @@
 //----------------------------------------------------------------------
 
 import { createApp } from "vue";
-import axios from "axios";
 
-import url from "@utilities/url";
+import LoginPage from "./LoginPage.vue";
 
 import "./index.scss";
 
 /**
- * Login page.
+ * Authentication page.
  */
-const app = createApp({
-    data() {
-        return {
-            email: null,
-            password: null
-        };
-    },
+const app = createApp({});
 
-    methods: {
-        /**
-         * Submits the login form.
-         */
-        login() {
-            const data = {
-                email: this.email,
-                password: this.password,
-                csrf: this.$refs.csrf.value
-            };
-
-            axios
-                .post(url("/login"), data)
-                .then(() => location.reload())
-                .catch((error) => alert(error.response.data));
-        }
-    }
-});
+app.component("login-page", LoginPage);
 
 app.mount("#vue-login");

@@ -16,6 +16,9 @@ namespace App\MessageHandler\Security;
 use App\Message\Security\ForgotPasswordCommand;
 use App\MessageBus\Contracts\CommandHandlerInterface;
 use App\Repository\Contracts\UserRepositoryInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Command handler.
@@ -25,8 +28,11 @@ final class ForgotPasswordCommandHandler implements CommandHandlerInterface
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(private readonly UserRepositoryInterface $repository)
-    {
+    public function __construct(
+        private readonly TranslatorInterface $translator,
+        private readonly MailerInterface $mailer,
+        private readonly UserRepositoryInterface $repository
+    ) {
     }
 
     /**
@@ -41,7 +47,22 @@ final class ForgotPasswordCommandHandler implements CommandHandlerInterface
         }
 
         // Token expires in 2 hours.
-        $user->generateResetToken(new \DateInterval('PT2H'));
+        $token = $user->generateResetToken(new \DateInterval('PT2H'));
+
+        $message = new TemplatedEmail();
+        $subject = $this->translator->trans('email.forgot_password.subject', locale: $user->getLocale()->value);
+
+        $message
+            ->to($user->getEmailAddress())
+            ->subject($subject)
+            ->htmlTemplate('security/forgot-password.html.twig')
+            ->context([
+                'locale' => $user->getLocale()->value,
+                'token'  => $token,
+            ])
+        ;
+
+        $this->mailer->send($message);
 
         $this->repository->persist($user);
     }

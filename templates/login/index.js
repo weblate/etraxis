@@ -10,8 +10,9 @@
 //----------------------------------------------------------------------
 
 import { createApp } from "vue";
+import { createRouter } from "vue-router";
 
-import LoginPage from "./LoginPage.vue";
+import routerConfig from "./router";
 
 import "./index.scss";
 
@@ -19,7 +20,7 @@ import "./index.scss";
  * Authentication page.
  */
 const app = createApp({});
+const router = createRouter(routerConfig);
 
-app.component("login-page", LoginPage);
-
+app.use(router);
 app.mount("#vue-login");

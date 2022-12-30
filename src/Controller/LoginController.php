@@ -35,6 +35,8 @@ class LoginController extends AbstractController
      * Login page.
      */
     #[Route('/login', name: 'login', methods: [Request::METHOD_GET])]
+    #[Route('/forgot', methods: [Request::METHOD_GET])]
+    #[Route('/reset/{token}', name: 'reset_password', methods: [Request::METHOD_GET])]
     public function index(Request $request, Security $security): Response
     {
         if ($this->getUser()) {

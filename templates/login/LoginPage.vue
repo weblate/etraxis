@@ -11,9 +11,20 @@
                     <input class="input" type="password" :placeholder="i18n['user.password']" required v-model="password" />
                 </div>
             </div>
-            <div class="field">
-                <div class="control">
-                    <button class="button" type="submit">{{ i18n["security.login"] }}</button>
+            <div class="columns is-mobile is-align-items-center">
+                <div class="column is-narrow">
+                    <div class="field">
+                        <div class="control">
+                            <button class="button" type="submit">{{ i18n["security.login"] }}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <div class="control has-text-right">
+                            <router-link to="/forgot">{{ i18n["password.forgot"] }}</router-link>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>

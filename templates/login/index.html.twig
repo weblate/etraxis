@@ -4,7 +4,7 @@
     <div v-cloak id="vue-login" class="is-flex is-flex-direction-column is-justify-content-center">
         <div class="columns is-centered">
             <div class="column is-half-tablet is-one-third-desktop">
-                <login-page :csrf="'{{ csrf_token('authenticate') }}'"></login-page>
+                <router-view :csrf="'{{ csrf_token('authenticate') }}'"></router-view>
             </div>
         </div>
     </div>

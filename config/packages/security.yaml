@@ -35,6 +35,8 @@ security:
                 - App\Security\Authenticator\JwtAuthenticator
                 - App\Security\Authenticator\LdapAuthenticator
                 - App\Security\Authenticator\PasswordAuthenticator
+            remember_me:
+                secret: '%kernel.secret%'
 
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER

@@ -27,5 +27,6 @@ password.forgot.email_sent: 'Вам выслано письмо с инстру�
 password.new: 'Новый пароль'
 security.login: Войти
 security.logout: Выйти
+security.remember_me: 'Запомнить меня'
 user.email: 'Эл. почта'
 user.password: Пароль

@@ -9,7 +9,14 @@
 //
 //----------------------------------------------------------------------
 
-@import "bulma";
-@import "layout";
-@import "navbar";
-@import "form";
+@import "bulma/sass/helpers/flexbox";
+@import "bulma/sass/helpers/spacing";
+
+.checkbox {
+    @extend .is-flex;
+    @extend .is-align-items-center;
+
+    input[type="checkbox"] {
+        @extend .mr-1;
+    }
+}

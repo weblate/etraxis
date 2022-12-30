@@ -27,5 +27,6 @@ password.forgot.email_sent: 'An email with instructions to choose a new password
 password.new: 'New password'
 security.login: 'Log in'
 security.logout: 'Log out'
+security.remember_me: 'Remember me'
 user.email: Email
 user.password: Password

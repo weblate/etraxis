@@ -22,6 +22,7 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\AuthenticatorInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
@@ -71,6 +72,9 @@ class PasswordAuthenticator extends AbstractAuthenticator implements Authenticat
 
         if ($request->getPathInfo() === $this->urlGenerator->generate('login')) {
             $badges[] = new CsrfTokenBadge('authenticate', $content->csrf ?? null);
+            $badges[] = new RememberMeBadge();
+
+            $request->request->set('_remember_me', $content->remember ?? false);
         }
 
         return new Passport(

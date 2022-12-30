@@ -11,6 +11,14 @@
                     <input class="input" type="password" :placeholder="i18n['user.password']" required v-model="password" />
                 </div>
             </div>
+            <div class="field">
+                <div class="control">
+                    <label class="checkbox">
+                        <input type="checkbox" v-model="remember" />
+                        <span>{{ i18n["security.remember_me"] }}</span>
+                    </label>
+                </div>
+            </div>
             <div class="columns is-mobile is-align-items-center">
                 <div class="column is-narrow">
                     <div class="field">

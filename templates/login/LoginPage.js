@@ -30,7 +30,8 @@ export default {
     data() {
         return {
             email: null,
-            password: null
+            password: null,
+            remember: false
         };
     },
 
@@ -49,6 +50,7 @@ export default {
             const data = {
                 email: this.email,
                 password: this.password,
+                remember: this.remember,
                 csrf: this.csrf
             };
 

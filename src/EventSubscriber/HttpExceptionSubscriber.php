@@ -48,10 +48,9 @@ class HttpExceptionSubscriber implements EventSubscriberInterface
      */
     public function onHttpException(ExceptionEvent $event): void
     {
-        $request   = $event->getRequest();
         $throwable = $event->getThrowable();
 
-        if (str_starts_with($request->getPathInfo(), '/api/') && $throwable instanceof HttpException) {
+        if ($throwable instanceof HttpException) {
             $message  = $throwable->getMessage() ?: JsonResponse::$statusTexts[$throwable->getStatusCode()];
             $response = new JsonResponse($message, $throwable->getStatusCode(), $throwable->getHeaders());
 

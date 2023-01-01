@@ -15,6 +15,7 @@ namespace App\Security\Authenticator;
 
 use App\Security\LDAP\LdapCredentialsChecker;
 use App\Security\LDAP\LdapUserLoader;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -93,7 +94,9 @@ class LdapAuthenticator extends AbstractAuthenticator implements AuthenticatorIn
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        return null;
+        return $request->getPathInfo() === $this->urlGenerator->generate('login')
+            ? new JsonResponse()
+            : null;
     }
 
     /**

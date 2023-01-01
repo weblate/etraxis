@@ -49,15 +49,12 @@ class UnhandledExceptionSubscriber implements EventSubscriberInterface
      */
     public function onException(ExceptionEvent $event): void
     {
-        $request   = $event->getRequest();
         $throwable = $event->getThrowable();
 
-        if (str_starts_with($request->getPathInfo(), '/api/')) {
-            $message  = $throwable->getMessage() ?: JsonResponse::$statusTexts[Response::HTTP_INTERNAL_SERVER_ERROR];
-            $response = new JsonResponse($message, Response::HTTP_INTERNAL_SERVER_ERROR);
-            $this->logger->critical('Exception', ['error' => $message]);
+        $message  = $throwable->getMessage() ?: JsonResponse::$statusTexts[Response::HTTP_INTERNAL_SERVER_ERROR];
+        $response = new JsonResponse($message, Response::HTTP_INTERNAL_SERVER_ERROR);
+        $this->logger->critical('Exception', ['error' => $message]);
 
-            $event->setResponse($response);
-        }
+        $event->setResponse($response);
     }
 }

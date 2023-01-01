@@ -14,6 +14,7 @@
 namespace App\Security\Authenticator;
 
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -89,7 +90,9 @@ class PasswordAuthenticator extends AbstractAuthenticator implements Authenticat
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        return null;
+        return $request->getPathInfo() === $this->urlGenerator->generate('login')
+            ? new JsonResponse()
+            : null;
     }
 
     /**

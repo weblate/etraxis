@@ -78,29 +78,4 @@ final class UnhandledExceptionSubscriberTest extends TestCase
         self::assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
         self::assertSame('Something went wrong.', trim($content, '"'));
     }
-
-    /**
-     * @covers ::onException
-     */
-    public function testNotApiException(): void
-    {
-        $request = new Request();
-        $request->server->set('REQUEST_URI', '/');
-
-        /** @var HttpKernelInterface $kernel */
-        $kernel = $this->createMock(HttpKernelInterface::class);
-
-        $event = new ExceptionEvent(
-            $kernel,
-            $request,
-            HttpKernelInterface::MAIN_REQUEST,
-            new \Exception('Something went wrong.')
-        );
-
-        $this->subscriber->onException($event);
-
-        $response = $event->getResponse();
-
-        self::assertNull($response);
-    }
 }

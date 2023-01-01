@@ -18,6 +18,7 @@ use App\ReflectionTrait;
 use App\Security\LDAP\LdapCredentialsChecker;
 use App\Security\LDAP\LdapUserLoader;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -221,17 +222,37 @@ final class LdapAuthenticatorTest extends TestCase
     /**
      * @covers ::onAuthenticationSuccess
      */
-    public function testOnAuthenticationSuccess(): void
+    public function testOnAuthenticationSuccessApi(): void
     {
         $request = new Request(content: json_encode([
             'email'    => 'einstein@example.com',
             'password' => 'secret',
         ]));
 
+        $request->server->set('REQUEST_URI', '/api/login');
+
         $token    = new PostAuthenticationToken(new User(), 'main', [User::ROLE_USER]);
         $response = $this->authenticator->onAuthenticationSuccess($request, $token, 'main');
 
         self::assertNull($response);
+    }
+
+    /**
+     * @covers ::onAuthenticationSuccess
+     */
+    public function testOnAuthenticationSuccessNotApi(): void
+    {
+        $request = new Request(content: json_encode([
+            'email'    => 'einstein@example.com',
+            'password' => 'secret',
+        ]));
+
+        $request->server->set('REQUEST_URI', '/login');
+
+        $token    = new PostAuthenticationToken(new User(), 'main', [User::ROLE_USER]);
+        $response = $this->authenticator->onAuthenticationSuccess($request, $token, 'main');
+
+        self::assertInstanceOf(JsonResponse::class, $response);
     }
 
     /**

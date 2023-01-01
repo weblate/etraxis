@@ -244,29 +244,4 @@ final class HttpExceptionSubscriberTest extends TestCase
         self::assertSame(Response::HTTP_FORBIDDEN, $response->getStatusCode());
         self::assertSame('You are not allowed for this action.', trim($content, '"'));
     }
-
-    /**
-     * @covers ::onHttpException
-     */
-    public function testNotApiException(): void
-    {
-        $request = new Request();
-        $request->server->set('REQUEST_URI', '/');
-
-        /** @var HttpKernelInterface $kernel */
-        $kernel = $this->createMock(HttpKernelInterface::class);
-
-        $event = new ExceptionEvent(
-            $kernel,
-            $request,
-            HttpKernelInterface::MAIN_REQUEST,
-            new BadRequestHttpException()
-        );
-
-        $this->subscriber->onHttpException($event);
-
-        $response = $event->getResponse();
-
-        self::assertNull($response);
-    }
 }

@@ -1,6 +1,6 @@
 //----------------------------------------------------------------------
 //
-//  Copyright (C) 2017-2022 Artem Rodygin
+//  Copyright (C) 2017-2023 Artem Rodygin
 //
 //  This file is part of eTraxis.
 //

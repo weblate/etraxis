@@ -7,7 +7,7 @@
         <title>{{ title ?? 'eTraxis' }}</title>
         <link rel="icon" href="{{ asset('favicon.ico') }}">
         {{ encore_entry_link_tags('font-awesome') }}
-        {{ encore_entry_link_tags('etraxis') }}
+        {{ encore_entry_link_tags(app.user.theme.value ?? theme) }}
         {% block styles %}{% endblock %}
     </head>
     <body class="is-flex is-flex-direction-column has-navbar-fixed-top">

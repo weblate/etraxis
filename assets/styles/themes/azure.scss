@@ -9,9 +9,18 @@
 //
 //----------------------------------------------------------------------
 
-@import "bulma";
-@import "typography";
-@import "layout";
-@import "navbar";
-@import "button";
-@import "form";
+$primary: #268bd2;
+$danger: #dc322f;
+
+$black: hsl(0, 0%, 7%);
+$black-bis: hsl(0, 0%, 13%);
+$black-ter: hsl(0, 0%, 17%);
+
+$grey: hsl(0, 0%, 60%);
+
+$white-ter: hsl(0, 0%, 92%);
+$white-bis: hsl(0, 0%, 98%);
+$white: hsl(0, 0%, 100%);
+
+@import "_theme";
+@import "../etraxis";

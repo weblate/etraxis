@@ -6,6 +6,7 @@
 parameters:
 
     env(ETRAXIS_LOCALE): en
+    env(ETRAXIS_THEME):  azure
 
     env(MAILER_DSN):   null://null
     env(MAILER_FROM):  noreply@example.com

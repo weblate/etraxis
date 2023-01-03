@@ -30,9 +30,13 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('font-awesome', 'font-awesome/css/font-awesome.css')
-    .addEntry('etraxis',      './assets/styles/etraxis.scss')
     .addEntry('login/index',  './templates/login/index.js')
     .addEntry('navbar',       './templates/navbar.js')
+
+    // Themes.
+    .addEntry('azure',   './assets/styles/themes/azure.scss')
+    .addEntry('emerald', './assets/styles/themes/emerald.scss')
+    .addEntry('mars',    './assets/styles/themes/mars.scss')
 
     // Aliases.
     .addAliases({

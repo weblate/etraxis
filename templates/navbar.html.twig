@@ -13,6 +13,16 @@
         </div>
         <div class="navbar-menu" :class="{ 'is-active': isActive }">
             <div class="navbar-start">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <div class="icon-text navbar-link is-arrowless">
+                            <span class="icon is-hidden-mobile"><i class="fa fa-lg fa-cog"></i></span>
+                            <span class="is-hidden-tablet-only">{{ 'administration' | trans }}</span>
+                        </div>
+                        <div class="navbar-dropdown is-boxed">
+                        </div>
+                    </div>
+                {% endif %}
                 <a class="navbar-item" href="{{ path('logout') }}">
                     <div class="icon-text">
                         <span class="icon is-hidden-mobile"><i class="fa fa-lg fa-sign-out"></i></span>

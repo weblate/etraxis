@@ -9,14 +9,83 @@
 //
 //----------------------------------------------------------------------
 
+@import "bulma/sass/utilities/initial-variables";
+@import "bulma/sass/utilities/derived-variables";
+
 @import "bulma/sass/helpers/flexbox";
 @import "bulma/sass/helpers/spacing";
+@import "bulma/sass/helpers/typography";
 
-.checkbox {
-    @extend .is-flex;
+input[type="checkbox"],
+input[type="radio"] {
+    filter: grayscale(100%);
+}
+
+.box {
+    border: 1px solid $border;
+}
+
+.fieldset {
+    border: 1px solid $border;
+    border-radius: $radius;
+    padding: 1.25rem;
+
+    &:not(:last-child) {
+        margin-bottom: 1rem;
+    }
+
+    &.has-legend {
+        margin-top: -0.7rem;
+    }
+
+    legend {
+        margin-left: -0.25rem;
+        padding: 0 0.25rem;
+    }
+
+    &.is-danger {
+        border-color: $danger;
+
+        legend {
+            color: $danger;
+        }
+    }
+}
+
+.field {
+    &.is-horizontal {
+        .field-label {
+            @extend .has-text-left;
+        }
+
+        .field-body {
+            @extend .is-flex-grow-3;
+        }
+    }
+}
+
+.label {
+    font-weight: normal;
+}
+
+// Mobile only
+@include mobile {
+    p.label {
+        font-weight: bolder;
+    }
+}
+
+.checkbox,
+.radio {
+    @extend .is-inline-flex;
     @extend .is-align-items-center;
 
-    input[type="checkbox"] {
-        @extend .mr-1;
+    input[type="checkbox"],
+    input[type="radio"] {
+        @extend .mr-2;
     }
+}
+
+.radio + .radio {
+    @extend .ml-3;
 }

@@ -9,6 +9,9 @@
 //
 //----------------------------------------------------------------------
 
+@import "bulma/sass/utilities/initial-variables";
+@import "bulma/sass/utilities/mixins";
+
 [v-cloak] {
     display: none;
 }
@@ -19,4 +22,18 @@ html {
 
 body {
     min-height: 100%;
+}
+
+main {
+    padding-bottom: calc($block-spacing/2);
+    padding-top: calc($block-spacing/2);
+}
+
+// Mobile or tablet
+@include touch {
+    main > .container,
+    footer > .container {
+        padding-left: calc($block-spacing/2);
+        padding-right: calc($block-spacing/2);
+    }
 }

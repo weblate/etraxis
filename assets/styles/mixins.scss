@@ -9,24 +9,17 @@
 //
 //----------------------------------------------------------------------
 
-@import "bulma/sass/helpers/visibility";
-
-body.has-navbar-fixed-top {
-    padding-top: 0;
-}
-
-main {
-    @extend .is-flex;
-}
-
-footer {
-    @extend .is-hidden;
-}
-
-#vue-login {
-    min-height: 80%;
-
-    button.button {
-        min-width: 100px;
+/**
+ * Draws gradient of specified color.
+ *
+ * @param {color} $color  Color of the gradient
+ * @param {color} $amount Amount of the gradient
+ */
+@mixin gradient($color, $amount) {
+    @if ($amount == 0) {
+        background-color: $color;
+        background-image: none;
+    } @else {
+        background-image: linear-gradient(lighten($color, $amount), darken($color, $amount));
     }
 }

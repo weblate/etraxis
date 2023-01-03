@@ -1,0 +1,50 @@
+//----------------------------------------------------------------------
+//
+//  Copyright (C) 2017-2023 Artem Rodygin
+//
+//  This file is part of eTraxis.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with eTraxis. If not, see <https://www.gnu.org/licenses/>.
+//
+//----------------------------------------------------------------------
+
+@import "bulma/sass/utilities/initial-variables";
+@import "bulma/sass/utilities/derived-variables";
+
+$scheme-main: $white;
+$scheme-main-bis: $white-bis;
+$scheme-main-ter: $white-ter;
+
+$border: $grey;
+$border-hover: darken($border, 10%);
+$border-light: lighten($border, 20%);
+
+$scheme-invert: $black;
+$scheme-invert-bis: $black-bis;
+$scheme-invert-ter: $black-ter;
+
+$link: $primary;
+$link-hover: $primary;
+$link-focus-border: $primary;
+
+$background: $scheme-main-ter;
+
+$text: $scheme-invert-bis;
+$text-light: $scheme-invert-ter;
+$text-strong: $scheme-invert;
+
+$body-background-color: $scheme-main-bis;
+$body-size: 13px;
+
+$hr-background-color: $border;
+$hr-height: 1px;
+
+$button-color: $text-light;
+$button-border-color: $border;
+$button-hover-color: $text;
+$button-hover-border-color: $border-hover;
+$button-focus-color: $text;
+$button-focus-border-color: $primary;
+$button-active-color: $text-strong;
+$button-active-border-color: $border-hover;

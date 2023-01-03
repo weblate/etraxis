@@ -1,0 +1,40 @@
+//----------------------------------------------------------------------
+//
+//  Copyright (C) 2017-2023 Artem Rodygin
+//
+//  This file is part of eTraxis.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with eTraxis. If not, see <https://www.gnu.org/licenses/>.
+//
+//----------------------------------------------------------------------
+
+@import "bulma/sass/utilities/derived-variables";
+
+@import "mixins";
+
+.buttons {
+    > .field.has-addons {
+        margin-bottom: 0;
+
+        &:not(:last-child):not(.is-fullwidth) {
+            margin-right: 0.5rem;
+        }
+    }
+}
+
+.button {
+    @include gradient($background, 5%);
+
+    &:hover:not(:disabled) {
+        @include gradient(lighten($background, 2%), 5%);
+    }
+
+    &.is-danger {
+        @include gradient(lighten($danger, 15%), 5%);
+
+        &:hover:not(:disabled) {
+            @include gradient(lighten($danger, 10%), 5%);
+        }
+    }
+}

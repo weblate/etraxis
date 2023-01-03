@@ -10,11 +10,88 @@
 //----------------------------------------------------------------------
 
 @import "bulma/sass/utilities/initial-variables";
+@import "bulma/sass/utilities/mixins";
 
 $navbar-breakpoint: $tablet;
 
 @import "bulma/sass/components/navbar";
 
+@import "mixins";
+
+// Desktop or bigger
+@include desktop {
+    body.has-navbar-fixed-top {
+        padding-top: 4rem;
+    }
+}
+
 nav.navbar {
     @extend .is-dark;
+    @include gradient($primary, 10%);
+
+    // Tablet or bigger
+    @include tablet {
+        .navbar-start {
+            border-left: 1px solid darken($primary, 10%);
+            border-right: 1px solid lighten($primary, 10%);
+
+            > .navbar-item {
+                border-left: 1px solid lighten($primary, 10%);
+                border-right: 1px solid darken($primary, 10%);
+                justify-content: center;
+                min-width: 100px;
+
+                // Tablet only
+                @include tablet-only {
+                    min-width: 50px;
+                }
+
+                // Desktop or bigger
+                @include desktop {
+                    .icon-text {
+                        align-items: center;
+                        flex-direction: column;
+
+                        .icon .fa {
+                            font-size: 1.5em;
+                        }
+                    }
+                }
+
+                &:focus,
+                &:hover {
+                    @include gradient(lighten($primary, 5%), 10%);
+                }
+
+                &.has-dropdown:hover .navbar-link {
+                    @include gradient(lighten($primary, 5%), 10%);
+                }
+
+                .icon-text .icon {
+                    margin-right: 0;
+                }
+            }
+
+            .navbar-dropdown {
+                font-size: 1rem;
+            }
+        }
+    }
+
+    // Tablet only
+    @include tablet-only {
+        .navbar-start {
+            margin-left: calc($block-spacing/2);
+        }
+        .navbar-end {
+            margin-right: calc($block-spacing/2);
+        }
+    }
+
+    // Mobile only
+    @include mobile {
+        .navbar-brand {
+            @include gradient($primary, 10%);
+        }
+    }
 }

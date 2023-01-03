@@ -9,24 +9,13 @@
 //
 //----------------------------------------------------------------------
 
-@import "bulma/sass/helpers/visibility";
+@import "bulma/sass/utilities/derived-variables";
 
-body.has-navbar-fixed-top {
-    padding-top: 0;
+::selection {
+    background-color: lighten($primary, 10%);
+    color: $primary-invert;
 }
 
-main {
-    @extend .is-flex;
-}
-
-footer {
-    @extend .is-hidden;
-}
-
-#vue-login {
-    min-height: 80%;
-
-    button.button {
-        min-width: 100px;
-    }
+a:focus {
+    outline-color: $primary;
 }

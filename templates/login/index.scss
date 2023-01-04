@@ -13,14 +13,14 @@
 
 body.has-navbar-fixed-top {
     padding-top: 0;
-}
 
-main {
-    @extend .is-flex;
-}
+    > main {
+        @extend .is-flex;
+    }
 
-footer {
-    @extend .is-hidden;
+    > footer {
+        @extend .is-hidden;
+    }
 }
 
 #vue-login {

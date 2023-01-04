@@ -29,7 +29,7 @@
                         <span class="is-hidden-tablet-only">{{ 'user.theme' | trans }}</span>
                     </div>
                 </a>
-                <a class="navbar-item" href="{{ path('logout') }}">
+                <a class="navbar-item" @click="logout">
                     <div class="icon-text">
                         <span class="icon is-hidden-mobile"><i class="fa fa-lg fa-sign-out"></i></span>
                         <span class="is-hidden-tablet-only">{{ 'security.logout' | trans }}</span>

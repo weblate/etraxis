@@ -1,7 +1,11 @@
 administration: Administration
 button.cancel: Cancel
+button.close: Close
+button.no: No
 button.ok: OK
 button.save: Save
+button.yes: Yes
+confirm.logout: 'Are you sure you want exit?'
 email.account_created.line1: 'A new account in eTraxis has been created for you.'
 email.account_created.line2: 'Please use your email address and the password below to login.'
 email.account_created.subject: 'Your new account in eTraxis'
@@ -29,6 +33,7 @@ password.new: 'New password'
 security.login: 'Log in'
 security.logout: 'Log out'
 security.remember_me: 'Remember me'
+text.error: Error
 text.please_wait: 'Please wait...'
 user.email: Email
 user.password: Password

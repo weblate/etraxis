@@ -1,0 +1,53 @@
+//----------------------------------------------------------------------
+//
+//  Copyright (C) 2017-2023 Artem Rodygin
+//
+//  This file is part of eTraxis.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with eTraxis. If not, see <https://www.gnu.org/licenses/>.
+//
+//----------------------------------------------------------------------
+
+@import "bulma/sass/utilities/initial-variables";
+@import "bulma/sass/utilities/derived-variables";
+@import "bulma/sass/components/message";
+
+$modal-card-head-padding: $message-header-padding;
+$modal-card-title-size: $size-6;
+
+@import "bulma/sass/components/modal";
+
+@import "mixins";
+
+dialog {
+    .modal-card {
+        .modal-card-head {
+            @include gradient($primary, 10%);
+            font-weight: $message-header-weight;
+
+            .modal-card-title {
+                color: $primary-invert;
+            }
+
+            .delete::before,
+            .delete::after {
+                background-color: $primary-invert;
+            }
+        }
+
+        .modal-card-body {
+            background-color: $scheme-main-bis;
+
+            .icon {
+                .fa.has-text-info {
+                    color: $primary !important;
+                }
+            }
+        }
+
+        .modal-card-foot {
+            background-color: $scheme-main-bis;
+        }
+    }
+}

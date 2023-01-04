@@ -13,6 +13,8 @@ import { createApp } from "vue";
 
 import axios from "axios";
 
+import * as ui from "@utilities/blockui";
+import * as msg from "@utilities/messagebox";
 import url from "@utilities/url";
 
 /**
@@ -93,6 +95,15 @@ const app = createApp({
             html.classList.add(this.themeModeClass);
 
             axios.patch(url("/api/my/profile"), { darkMode: this.isDarkMode });
+        },
+
+        logout() {
+            this.isActive = false;
+
+            msg.confirm(i18n["confirm.logout"]).then(() => {
+                ui.block();
+                location.href = url("/logout");
+            });
         }
     },
 

@@ -12,6 +12,7 @@
 import axios from "axios";
 
 import * as ui from "@utilities/blockui";
+import * as msg from "@utilities/messagebox";
 import url from "@utilities/url";
 
 /**
@@ -45,10 +46,9 @@ export default {
             axios
                 .post(url("/api/forgot"), data)
                 .then(() => {
-                    alert(i18n["password.forgot.email_sent"]);
-                    this.$router.push("/login");
+                    msg.info(i18n["password.forgot.email_sent"]).then(() => this.$router.push("/login"));
                 })
-                .catch((error) => alert(error.response.data))
+                .catch((error) => msg.alert(error.response.data))
                 .then(() => ui.unblock());
         }
     }

@@ -9,18 +9,11 @@
 //
 //----------------------------------------------------------------------
 
-@import "bulma/sass/utilities/initial-variables";
-@import "bulma/sass/utilities/functions";
-@import "bulma/sass/utilities/derived-variables";
-@import "bulma/sass/components/modal";
-
-dialog {
-    background-color: transparent;
-    border: none;
-    color: $text;
-}
-
-dialog::backdrop,
-dialog + .backdrop {
-    background-color: bulmaRgba($black, 0.62);
-}
+/**
+ * Generates unique ID.
+ *
+ * @param {string} prefix Optional prefix for the ID
+ *
+ * @return {string} Generated ID
+ */
+export default (prefix = "__etraxis_") => prefix + Math.random().toString(36).substring(2);

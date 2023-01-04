@@ -1,7 +1,11 @@
 administration: Администрирование
 button.cancel: Отмена
+button.close: Закрыть
+button.no: Нет
 button.ok: ОК
 button.save: Сохранить
+button.yes: Да
+confirm.logout: 'Вы уверены что хотите выйти?'
 email.account_created.line1: 'Для вас была создана новая учетная запись в eTraxis.'
 email.account_created.line2: 'Пожалуйста, используйте для входа свой электронный почтовый адрес и указанный ниже пароль.'
 email.account_created.subject: 'Ваша новая учетная запись в eTraxis'
@@ -29,6 +33,7 @@ password.new: 'Новый пароль'
 security.login: Войти
 security.logout: Выйти
 security.remember_me: 'Запомнить меня'
+text.error: Ошибка
 text.please_wait: 'Пожалуйста, подождите...'
 user.email: 'Эл. почта'
 user.password: Пароль

@@ -1,5 +1,3 @@
-<?php
-
 //----------------------------------------------------------------------
 //
 //  Copyright (C) 2017-2023 Artem Rodygin
@@ -11,17 +9,22 @@
 //
 //----------------------------------------------------------------------
 
-namespace App\Entity\Enums;
+@import "solarized";
 
-/**
- * UI themes.
- */
-enum ThemeEnum: string
-{
-    case Azure     = 'azure';
-    case Emerald   = 'emerald';
-    case Mars      = 'mars';
-    case Solarized = 'solarized';
+$dark-mode: true;
 
-    public const FALLBACK = self::Azure;
-}
+$primary: desaturate($cyan, 20%);
+$danger: desaturate($red, 20%);
+
+$black: darken($base03, 3%);
+$black-bis: $base03;
+$black-ter: $base02;
+
+$grey: $base01;
+
+$white-ter: $base2;
+$white-bis: $base3;
+$white: lighten($base3, 3%);
+
+@import "_theme";
+@import "../etraxis";

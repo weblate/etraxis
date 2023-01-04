@@ -9,11 +9,15 @@
 //
 //----------------------------------------------------------------------
 
-@import "bulma";
-@import "typography";
-@import "layout";
-@import "navbar";
-@import "button";
-@import "form";
-@import "dialog";
-@import "blockui";
+@import "bulma/sass/utilities/initial-variables";
+@import "bulma/sass/utilities/derived-variables";
+
+dialog.blockui {
+    background-color: $scheme-main;
+    border-radius: $radius-large;
+    border-width: 1px;
+    box-shadow: $shadow;
+    color: $text;
+    min-width: 240px;
+    padding: $block-spacing;
+}

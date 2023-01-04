@@ -29,6 +29,7 @@ password.new: 'Новый пароль'
 security.login: Войти
 security.logout: Выйти
 security.remember_me: 'Запомнить меня'
+text.please_wait: 'Пожалуйста, подождите...'
 user.email: 'Эл. почта'
 user.password: Пароль
 user.theme: Оформление

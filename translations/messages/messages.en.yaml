@@ -29,6 +29,7 @@ password.new: 'New password'
 security.login: 'Log in'
 security.logout: 'Log out'
 security.remember_me: 'Remember me'
+text.please_wait: 'Please wait...'
 user.email: Email
 user.password: Password
 user.theme: Theme

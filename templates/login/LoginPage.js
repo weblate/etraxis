@@ -11,6 +11,7 @@
 
 import axios from "axios";
 
+import * as ui from "@utilities/blockui";
 import url from "@utilities/url";
 
 /**
@@ -47,6 +48,8 @@ export default {
          * Submits the login form.
          */
         login() {
+            ui.block();
+
             const data = {
                 email: this.email,
                 password: this.password,
@@ -57,7 +60,8 @@ export default {
             axios
                 .post(url("/login"), data)
                 .then(() => location.reload())
-                .catch((error) => alert(error.response.data));
+                .catch((error) => alert(error.response.data))
+                .then(() => ui.unblock());
         }
     }
 };

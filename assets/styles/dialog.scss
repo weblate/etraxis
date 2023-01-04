@@ -9,11 +9,18 @@
 //
 //----------------------------------------------------------------------
 
-@import "bulma";
-@import "typography";
-@import "layout";
-@import "navbar";
-@import "button";
-@import "form";
-@import "dialog";
-@import "blockui";
+@import 'bulma/sass/utilities/initial-variables';
+@import 'bulma/sass/utilities/functions';
+@import 'bulma/sass/utilities/derived-variables';
+@import "bulma/sass/components/modal";
+
+dialog {
+    background-color: transparent;
+    border: none;
+    color: $text;
+}
+
+dialog::backdrop,
+dialog + .backdrop {
+    background-color: bulmaRgba($black, 0.62);
+}

@@ -11,6 +11,7 @@
 
 import axios from "axios";
 
+import * as ui from "@utilities/blockui";
 import url from "@utilities/url";
 
 /**
@@ -41,6 +42,8 @@ export default {
                 return;
             }
 
+            ui.block();
+
             const data = {
                 token: this.$route.params.token,
                 password: this.password
@@ -52,7 +55,8 @@ export default {
                     alert(i18n["password.changed"]);
                     this.$router.push("/login");
                 })
-                .catch((error) => alert(error.response.data));
+                .catch((error) => alert(error.response.data))
+                .then(() => ui.unblock());
         }
     }
 };

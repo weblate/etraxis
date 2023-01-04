@@ -11,6 +11,7 @@
 
 import axios from "axios";
 
+import * as ui from "@utilities/blockui";
 import url from "@utilities/url";
 
 /**
@@ -35,6 +36,8 @@ export default {
          * Submits the form.
          */
         submit() {
+            ui.block();
+
             const data = {
                 email: this.email
             };
@@ -45,7 +48,8 @@ export default {
                     alert(i18n["password.forgot.email_sent"]);
                     this.$router.push("/login");
                 })
-                .catch((error) => alert(error.response.data));
+                .catch((error) => alert(error.response.data))
+                .then(() => ui.unblock());
         }
     }
 };

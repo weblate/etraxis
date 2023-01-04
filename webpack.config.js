@@ -37,10 +37,12 @@ Encore
     .addEntry('light/azure',     './assets/styles/themes/azure-light.scss')
     .addEntry('light/emerald',   './assets/styles/themes/emerald-light.scss')
     .addEntry('light/mars',      './assets/styles/themes/mars-light.scss')
+    .addEntry('light/nord',      './assets/styles/themes/nord-light.scss')
     .addEntry('light/solarized', './assets/styles/themes/solarized-light.scss')
     .addEntry('dark/azure',      './assets/styles/themes/azure-dark.scss')
     .addEntry('dark/emerald',    './assets/styles/themes/emerald-dark.scss')
     .addEntry('dark/mars',       './assets/styles/themes/mars-dark.scss')
+    .addEntry('dark/nord',       './assets/styles/themes/nord-dark.scss')
     .addEntry('dark/solarized',  './assets/styles/themes/solarized-dark.scss')
 
     // Aliases.

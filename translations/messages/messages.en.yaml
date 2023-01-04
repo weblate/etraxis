@@ -31,3 +31,4 @@ security.logout: 'Log out'
 security.remember_me: 'Remember me'
 user.email: Email
 user.password: Password
+user.theme: Theme

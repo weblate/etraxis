@@ -12,21 +12,41 @@
 @import "bulma/sass/utilities/initial-variables";
 @import "bulma/sass/utilities/derived-variables";
 
-$scheme-main: $white;
-$scheme-main-bis: $white-bis;
-$scheme-main-ter: $white-ter;
+$dark-mode: false !default;
 
-$border: $grey;
-$border-hover: darken($border, 10%);
-$border-light: lighten($border, 20%);
+@if ($dark-mode) {
+    $scheme-main: $black;
+    $scheme-main-bis: $black-bis;
+    $scheme-main-ter: $black-ter;
 
-$scheme-invert: $black;
-$scheme-invert-bis: $black-bis;
-$scheme-invert-ter: $black-ter;
+    $border: $grey;
+    $border-hover: lighten($border, 10%);
+    $border-light: darken($border, 20%);
 
-$link: $primary;
-$link-hover: $primary;
-$link-focus-border: $primary;
+    $scheme-invert: $white;
+    $scheme-invert-bis: $white-bis;
+    $scheme-invert-ter: $white-ter;
+
+    $link: lighten($primary, 15%);
+    $link-hover: lighten($primary, 15%);
+    $link-focus-border: lighten($primary, 15%);
+} @else {
+    $scheme-main: $white;
+    $scheme-main-bis: $white-bis;
+    $scheme-main-ter: $white-ter;
+
+    $border: $grey;
+    $border-hover: darken($border, 10%);
+    $border-light: lighten($border, 20%);
+
+    $scheme-invert: $black;
+    $scheme-invert-bis: $black-bis;
+    $scheme-invert-ter: $black-ter;
+
+    $link: $primary;
+    $link-hover: $primary;
+    $link-focus-border: $primary;
+}
 
 $background: $scheme-main-ter;
 

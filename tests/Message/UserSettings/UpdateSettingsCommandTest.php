@@ -28,13 +28,15 @@ final class UpdateSettingsCommandTest extends TestCase
      * @covers ::getLocale
      * @covers ::getTheme
      * @covers ::getTimezone
+     * @covers ::isDarkMode
      */
     public function testConstructor(): void
     {
-        $command = new UpdateSettingsCommand(LocaleEnum::Russian, ThemeEnum::Emerald, 'Pacific/Auckland');
+        $command = new UpdateSettingsCommand(LocaleEnum::Russian, ThemeEnum::Emerald, true, 'Pacific/Auckland');
 
         self::assertSame(LocaleEnum::Russian, $command->getLocale());
         self::assertSame(ThemeEnum::Emerald, $command->getTheme());
+        self::assertTrue($command->isDarkMode());
         self::assertSame('Pacific/Auckland', $command->getTimezone());
     }
 }

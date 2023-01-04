@@ -29,6 +29,7 @@ final class UpdateSettingsCommand implements CommandInterface
     public function __construct(
         private readonly LocaleEnum $locale,
         private readonly ThemeEnum $theme,
+        private readonly bool $darkMode,
         #[Assert\NotBlank]
         #[Assert\Choice(callback: 'timezone_identifiers_list')]
         private readonly string $timezone
@@ -49,6 +50,14 @@ final class UpdateSettingsCommand implements CommandInterface
     public function getTheme(): ThemeEnum
     {
         return $this->theme;
+    }
+
+    /**
+     * @return bool Theme mode (light/dark)
+     */
+    public function isDarkMode(): bool
+    {
+        return $this->darkMode;
     }
 
     /**

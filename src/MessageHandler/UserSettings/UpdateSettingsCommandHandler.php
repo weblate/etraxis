@@ -54,6 +54,7 @@ final class UpdateSettingsCommandHandler implements CommandHandlerInterface
         $user
             ->setLocale($command->getLocale())
             ->setTheme($command->getTheme())
+            ->setDarkMode($command->isDarkMode())
             ->setTimezone($command->getTimezone())
         ;
 

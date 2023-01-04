@@ -268,6 +268,22 @@ final class UserTest extends TestCase
     }
 
     /**
+     * @covers ::isDarkMode
+     * @covers ::setDarkMode
+     */
+    public function testDarkMode(): void
+    {
+        $user = new User();
+        self::assertFalse($user->isDarkMode());
+
+        $user->setDarkMode(true);
+        self::assertTrue($user->isDarkMode());
+
+        $user->setDarkMode(false);
+        self::assertFalse($user->isDarkMode());
+    }
+
+    /**
      * @covers ::getTimezone
      * @covers ::setTimezone
      */

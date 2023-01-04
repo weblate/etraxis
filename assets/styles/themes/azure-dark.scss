@@ -9,14 +9,16 @@
 //
 //----------------------------------------------------------------------
 
-$primary: #146c64;
-$danger: #dc322f;
+$dark-mode: true;
+
+$primary: desaturate(#268bd2, 20%);
+$danger: desaturate(#dc322f, 20%);
 
 $black: hsl(0, 0%, 7%);
 $black-bis: hsl(0, 0%, 13%);
 $black-ter: hsl(0, 0%, 17%);
 
-$grey: hsl(0, 0%, 60%);
+$grey: hsl(0, 0%, 40%);
 
 $white-ter: hsl(0, 0%, 92%);
 $white-bis: hsl(0, 0%, 98%);

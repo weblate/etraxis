@@ -23,3 +23,21 @@
         background-image: linear-gradient(lighten($color, $amount), darken($color, $amount));
     }
 }
+
+/**
+ * Scopes the encapsulated rules for light themes only.
+ */
+@mixin light {
+    html.light & {
+        @content;
+    }
+}
+
+/**
+ * Scopes the encapsulated rules for dark themes only.
+ */
+@mixin dark {
+    html.dark & {
+        @content;
+    }
+}

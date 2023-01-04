@@ -90,6 +90,7 @@ class AccountController extends AbstractController implements ApiControllerInter
                 Message\UpdateSettingsCommand::class => [
                     'locale'   => $user->getLocale(),
                     'theme'    => $user->getTheme(),
+                    'darkMode' => $user->isDarkMode(),
                     'timezone' => $user->getTimezone(),
                 ],
             ],

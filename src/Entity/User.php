@@ -425,6 +425,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * Returns theme mode (light/dark).
+     */
+    #[Groups('settings')]
+    public function isDarkMode(): bool
+    {
+        return (bool) ($this->settings['dark_mode'] ?? false);
+    }
+
+    /**
+     * Sets theme mode.
+     */
+    public function setDarkMode(bool $darkMode): self
+    {
+        $this->settings['dark_mode'] = $darkMode;
+
+        return $this;
+    }
+
+    /**
      * Returns user's timezone.
      */
     #[Groups(['api', 'settings'])]

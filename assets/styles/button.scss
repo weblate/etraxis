@@ -33,8 +33,16 @@
     &.is-danger {
         @include gradient(lighten($danger, 15%), 5%);
 
+        @include dark {
+            @include gradient($danger, 5%);
+        }
+
         &:hover:not(:disabled) {
             @include gradient(lighten($danger, 10%), 5%);
+
+            @include dark {
+                @include gradient(lighten($danger, 5%), 5%);
+            }
         }
     }
 }

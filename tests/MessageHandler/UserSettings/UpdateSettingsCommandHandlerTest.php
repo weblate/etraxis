@@ -64,7 +64,7 @@ final class UpdateSettingsCommandHandlerTest extends TransactionalTestCase
         self::assertSame(ThemeEnum::FALLBACK, $user->getTheme());
         self::assertSame('UTC', $user->getTimezone());
 
-        $command = new UpdateSettingsCommand(LocaleEnum::Russian, ThemeEnum::Emerald, 'Pacific/Auckland');
+        $command = new UpdateSettingsCommand(LocaleEnum::Russian, ThemeEnum::Emerald, true, 'Pacific/Auckland');
 
         $this->commandBus->handle($command);
 
@@ -72,6 +72,7 @@ final class UpdateSettingsCommandHandlerTest extends TransactionalTestCase
 
         self::assertSame(LocaleEnum::Russian, $user->getLocale());
         self::assertSame(ThemeEnum::Emerald, $user->getTheme());
+        self::assertTrue($user->isDarkMode());
         self::assertSame('Pacific/Auckland', $user->getTimezone());
     }
 
@@ -81,7 +82,7 @@ final class UpdateSettingsCommandHandlerTest extends TransactionalTestCase
 
         $this->loginUser('artem@example.com');
 
-        $command = new UpdateSettingsCommand(LocaleEnum::Russian, ThemeEnum::Emerald, '');
+        $command = new UpdateSettingsCommand(LocaleEnum::Russian, ThemeEnum::Emerald, true, '');
 
         try {
             $this->commandBus->handle($command);
@@ -98,7 +99,7 @@ final class UpdateSettingsCommandHandlerTest extends TransactionalTestCase
 
         $this->loginUser('artem@example.com');
 
-        $command = new UpdateSettingsCommand(LocaleEnum::Russian, ThemeEnum::Emerald, 'Invalid/Timezone');
+        $command = new UpdateSettingsCommand(LocaleEnum::Russian, ThemeEnum::Emerald, true, 'Invalid/Timezone');
 
         try {
             $this->commandBus->handle($command);
@@ -114,7 +115,7 @@ final class UpdateSettingsCommandHandlerTest extends TransactionalTestCase
         $this->expectException(AccessDeniedHttpException::class);
         $this->expectExceptionMessage('User must be logged in.');
 
-        $command = new UpdateSettingsCommand(LocaleEnum::Russian, ThemeEnum::Emerald, 'Pacific/Auckland');
+        $command = new UpdateSettingsCommand(LocaleEnum::Russian, ThemeEnum::Emerald, true, 'Pacific/Auckland');
 
         $this->commandBus->handle($command);
     }

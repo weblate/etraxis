@@ -34,9 +34,12 @@ Encore
     .addEntry('navbar',       './templates/navbar.js')
 
     // Themes.
-    .addEntry('azure',   './assets/styles/themes/azure.scss')
-    .addEntry('emerald', './assets/styles/themes/emerald.scss')
-    .addEntry('mars',    './assets/styles/themes/mars.scss')
+    .addEntry('light/azure',   './assets/styles/themes/azure-light.scss')
+    .addEntry('light/emerald', './assets/styles/themes/emerald-light.scss')
+    .addEntry('light/mars',    './assets/styles/themes/mars-light.scss')
+    .addEntry('dark/azure',    './assets/styles/themes/azure-dark.scss')
+    .addEntry('dark/emerald',  './assets/styles/themes/emerald-dark.scss')
+    .addEntry('dark/mars',     './assets/styles/themes/mars-dark.scss')
 
     // Aliases.
     .addAliases({

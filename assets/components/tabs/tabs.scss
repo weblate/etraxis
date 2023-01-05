@@ -1,0 +1,107 @@
+//----------------------------------------------------------------------
+//
+//  Copyright (C) 2017-2023 Artem Rodygin
+//
+//  This file is part of eTraxis.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with eTraxis. If not, see <https://www.gnu.org/licenses/>.
+//
+//----------------------------------------------------------------------
+
+@import "bulma/sass/utilities/derived-variables";
+
+$tabs-link-color: $text-light;
+$tabs-link-hover-color: $text-strong;
+$tabs-link-active-color: $text;
+
+$tabs-boxed-link-active-background-color: $scheme-main-bis;
+
+@import "bulma/sass/components/tabs";
+@import "bulma/sass/elements/tag";
+
+@import "../../styles/mixins";
+
+.tabs {
+    @extend .is-boxed;
+    @include gradient($primary, 10%);
+
+    html.dark & {
+        @include gradient($background, 5%);
+    }
+
+    border: 1px solid $border;
+    border-bottom: none;
+    border-top-left-radius: $tabs-boxed-link-radius;
+    border-top-right-radius: $tabs-boxed-link-radius;
+
+    &:not(:last-child) {
+        margin-bottom: 0;
+    }
+
+    li {
+        @include gradient($background, 5%);
+        border-top-left-radius: $tabs-boxed-link-radius;
+        border-top-right-radius: $tabs-boxed-link-radius;
+        margin: 0.5rem 1px 0;
+
+        &:first-child {
+            margin-left: 0.5rem;
+        }
+
+        &:last-child {
+            margin-right: 0.5rem;
+        }
+
+        a {
+            border-color: $border;
+            padding: 0.375em 0.75em;
+        }
+
+        &.is-active a {
+            html.dark & {
+                @include gradient($primary, 5%);
+                border-bottom-color: darken($primary, 5%) !important;
+                border-left-color: $border-hover;
+                border-right-color: $border-hover;
+                border-top-color: $border-hover;
+            }
+        }
+
+        &:not(.is-active) a:hover {
+            @include gradient(lighten($background, 2%), 5%);
+
+            html.dark & {
+                border-left-color: $border-hover;
+                border-right-color: $border-hover;
+                border-top-color: $border-hover;
+            }
+        }
+
+        .tag {
+            background-color: darken($background, 10%);
+            margin-left: 0.5rem;
+
+            html.dark & {
+                background-color: lighten($background, 10%);
+            }
+        }
+
+        &.is-active .tag {
+            background-color: darken($background, 5%);
+
+            html.dark & {
+                background-color: lighten($background, 5%);
+            }
+        }
+    }
+}
+
+.tab {
+    border-bottom: 1px solid $tabs-border-bottom-color;
+    border-bottom-left-radius: $tabs-boxed-link-radius;
+    border-bottom-right-radius: $tabs-boxed-link-radius;
+    border-left: 1px solid $tabs-border-bottom-color;
+    border-right: 1px solid $tabs-border-bottom-color;
+    padding: 1rem;
+}

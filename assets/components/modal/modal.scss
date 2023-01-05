@@ -14,11 +14,12 @@
 @import "bulma/sass/components/message";
 
 $modal-card-head-padding: $message-header-padding;
+$modal-card-body-padding: 1rem;
 $modal-card-title-size: $size-6;
 
 @import "bulma/sass/components/modal";
 
-@import "mixins";
+@import "../../styles/mixins";
 
 dialog {
     .modal-card {

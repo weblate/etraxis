@@ -31,19 +31,17 @@ const app = createApp({
         localStorage[this.themeModeStorage] = JSON.stringify(this.isDarkMode);
     },
 
-    data() {
-        return {
-            /**
-             * @property {boolean} isActive Whether the main menu is active or hidden
-             */
-            isActive: false,
+    data: () => ({
+        /**
+         * @property {boolean} isActive Whether the main menu is active or hidden
+         */
+        isActive: false,
 
-            /**
-             * @property {boolean} isDarkMode Whether the theme mode is set to "dark"
-             */
-            isDarkMode: false
-        };
-    },
+        /**
+         * @property {boolean} isDarkMode Whether the theme mode is set to "dark"
+         */
+        isDarkMode: false
+    }),
 
     computed: {
         /**

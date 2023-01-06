@@ -19,12 +19,11 @@ import url from "@utilities/url";
  * "Reset password" page.
  */
 export default {
-    data() {
-        return {
-            password: null,
-            confirmation: null
-        };
-    },
+    data: () => ({
+        // Form model
+        password: null,
+        confirmation: null
+    }),
 
     computed: {
         /**

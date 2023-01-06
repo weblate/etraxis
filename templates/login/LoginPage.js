@@ -29,13 +29,12 @@ export default {
         }
     },
 
-    data() {
-        return {
-            email: null,
-            password: null,
-            remember: false
-        };
-    },
+    data: () => ({
+        // Form model
+        email: null,
+        password: null,
+        remember: false
+    }),
 
     computed: {
         /**

@@ -19,11 +19,10 @@ import url from "@utilities/url";
  * "Forgot password" page.
  */
 export default {
-    data() {
-        return {
-            email: null
-        };
-    },
+    data: () => ({
+        // Form model
+        email: null
+    }),
 
     computed: {
         /**

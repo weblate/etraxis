@@ -1,0 +1,35 @@
+//----------------------------------------------------------------------
+//
+//  Copyright (C) 2017-2023 Artem Rodygin
+//
+//  This file is part of eTraxis.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with eTraxis. If not, see <https://www.gnu.org/licenses/>.
+//
+//----------------------------------------------------------------------
+
+@import "bulma/sass/utilities/derived-variables";
+@import "bulma/sass/components/dropdown";
+
+.dropdown {
+    .dropdown-trigger {
+        .button {
+            margin-bottom: 0;
+        }
+    }
+
+    .dropdown-content {
+        border: 1px solid $border-light;
+    }
+}
+
+.buttons {
+    .dropdown {
+        margin-bottom: 0.5rem;
+
+        &:not(:last-child):not(.is-fullwidth) {
+            margin-right: 0.5rem;
+        }
+    }
+}

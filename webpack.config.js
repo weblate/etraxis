@@ -48,6 +48,7 @@ Encore
     // Aliases.
     .addAliases({
         '@components': path.resolve(__dirname, 'assets/components/'),
+        '@enums':      path.resolve(__dirname, 'assets/enums/'),
         '@utilities':  path.resolve(__dirname, 'assets/scripts/'),
     })
 

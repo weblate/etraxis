@@ -2,6 +2,7 @@
     <section>
         <div class="buttons">
             <button class="button" type="button" @click="openProfileDialog">{{ i18n["button.edit"] }}</button>
+            <button v-if="!isExternal" class="button" type="button" @click="openPasswordDialog">{{ i18n["password.change"] }}</button>
         </div>
         <div class="columns">
             <div class="column">
@@ -84,6 +85,13 @@
         :errors="errors"
         @submit="updateProfile"
     ></profile-dialog>
+    <password-dialog
+        v-if="!isExternal"
+        ref="dlgPassword"
+        :header="i18n['password.change']"
+        :errors="errors"
+        @submit="updatePassword"
+    ></password-dialog>
 </template>
 
 <script src="./ProfileTab.js"></script>

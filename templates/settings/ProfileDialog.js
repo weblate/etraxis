@@ -76,7 +76,13 @@ export default {
         /**
          * @property {Object} values Form values
          */
-        values: {},
+        values: {
+            email: null,
+            fullname: null,
+            locale: null,
+            theme: null,
+            timezone: null
+        },
 
         /**
          * @property {string} country Current country

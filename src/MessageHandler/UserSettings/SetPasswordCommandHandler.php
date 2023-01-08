@@ -77,7 +77,7 @@ final class SetPasswordCommandHandler implements CommandHandlerInterface
             throw new BadRequestHttpException($exception->getMessage());
         }
 
-        if (!$user->isDisabled()) {
+        if ($currentUser !== $user && !$user->isDisabled()) {
             $message = new TemplatedEmail();
             $subject = $this->translator->trans('email.password_changed.subject', locale: $user->getLocale()->value);
 

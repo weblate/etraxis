@@ -21,13 +21,15 @@ import parseErrors from "@utilities/parseErrors";
 import url from "@utilities/url";
 
 import ProfileDialog from "./ProfileDialog.vue";
+import PasswordDialog from "./PasswordDialog.vue";
 
 /**
  * "Profile" tab.
  */
 export default {
     components: {
-        "profile-dialog": ProfileDialog
+        "profile-dialog": ProfileDialog,
+        "password-dialog": PasswordDialog
     },
 
     created() {
@@ -81,6 +83,13 @@ export default {
          */
         profileDialog() {
             return this.$refs.dlgProfile;
+        },
+
+        /**
+         * @property {Object} passwordDialog "Change password" dialog instance
+         */
+        passwordDialog() {
+            return this.$refs.dlgPassword;
         },
 
         /**
@@ -147,6 +156,45 @@ export default {
                 })
                 .catch((exception) => (this.errors = parseErrors(exception)))
                 .then(() => ui.unblock());
+        },
+
+        /**
+         * Opens "Change password" dialog.
+         */
+        openPasswordDialog() {
+            this.errors = {};
+            this.passwordDialog.open();
+        },
+
+        /**
+         * Changes user's password.
+         *
+         * @param {Object} event Submitted values
+         */
+        updatePassword(event) {
+            if (event.new !== event.confirmation) {
+                this.errors = {
+                    confirmation: i18n["password.dont_match"]
+                };
+            } else {
+                let data = {
+                    current: event.current,
+                    new: event.new
+                };
+
+                ui.block();
+
+                axios
+                    .put(url("/api/my/password"), data)
+                    .then(() => {
+                        msg.info(i18n["password.changed"]).then(() => {
+                            ui.block();
+                            location.href = url("/logout");
+                        });
+                    })
+                    .catch((exception) => (this.errors = parseErrors(exception)))
+                    .then(() => ui.unblock());
+            }
         }
     }
 };

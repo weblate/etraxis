@@ -55,17 +55,17 @@ class AccountController extends AbstractController implements ApiControllerInter
      * Returns profile of the current user.
      */
     #[Route('/profile', name: 'api_profile_get', methods: [Request::METHOD_GET])]
-    #[API\Response(response: 200, description: 'Success.', content: new Model(type: User::class, groups: ['info', 'profile', 'settings']))]
+    #[API\Response(response: 200, description: 'Success.', content: new Model(type: User::class, groups: ['info', 'profile']))]
     public function getProfile(NormalizerInterface $normalizer): JsonResponse
     {
-        return $this->json($normalizer->normalize($this->getUser(), 'json', [AbstractNormalizer::GROUPS => ['info', 'profile', 'settings']]));
+        return $this->json($normalizer->normalize($this->getUser(), 'json', [AbstractNormalizer::GROUPS => ['info', 'profile']]));
     }
 
     /**
      * Updates profile of the current user.
      */
     #[Route('/profile', name: 'api_profile_update', methods: [Request::METHOD_PATCH])]
-    #[API\RequestBody(content: new Model(type: User::class, groups: ['profile', 'settings']))]
+    #[API\RequestBody(content: new Model(type: User::class, groups: ['settings']))]
     #[API\Response(response: 200, description: 'Success.')]
     #[API\Response(response: 400, description: 'The request is malformed.')]
     #[API\Response(response: 409, description: 'Resource already exists.')]

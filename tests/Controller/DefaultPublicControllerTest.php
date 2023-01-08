@@ -57,4 +57,48 @@ final class DefaultPublicControllerTest extends WebTestCase
 
         self::assertTrue($this->client->getResponse()->isOk());
     }
+
+    /**
+     * @covers ::settings
+     */
+    public function testSettingsAnonymous(): void
+    {
+        $this->client->request(Request::METHOD_GET, '/settings');
+
+        self::assertTrue($this->client->getResponse()->isRedirect('/login'));
+    }
+
+    /**
+     * @covers ::settings
+     */
+    public function testSettingsUser(): void
+    {
+        $this->loginUser('artem@example.com');
+
+        $this->client->request(Request::METHOD_GET, '/settings');
+
+        self::assertTrue($this->client->getResponse()->isOk());
+    }
+
+    /**
+     * @covers ::timezones
+     */
+    public function testTimezonesAnonymous(): void
+    {
+        $this->client->request(Request::METHOD_GET, '/timezones');
+
+        self::assertTrue($this->client->getResponse()->isRedirect('/login'));
+    }
+
+    /**
+     * @covers ::timezones
+     */
+    public function testTimezonesUser(): void
+    {
+        $this->loginUser('artem@example.com');
+
+        $this->client->request(Request::METHOD_GET, '/timezones');
+
+        self::assertTrue($this->client->getResponse()->isOk());
+    }
 }

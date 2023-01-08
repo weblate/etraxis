@@ -1,6 +1,7 @@
 administration: Administration
 button.cancel: Cancel
 button.close: Close
+button.edit: Edit
 button.no: No
 button.ok: OK
 button.save: Save
@@ -33,8 +34,19 @@ password.new: 'New password'
 security.login: 'Log in'
 security.logout: 'Log out'
 security.remember_me: 'Remember me'
+settings: Settings
+text.changes_saved: 'Your changes were successfully saved.'
 text.error: Error
 text.please_wait: 'Please wait...'
+user.account: Account
+user.appearance: Appearance
+user.authentication: Authentication
+user.city: City
+user.country: Country
 user.email: Email
+user.fullname: 'Full name'
+user.language: Language
 user.password: Password
+user.profile: Profile
 user.theme: Theme
+user.timezone: Timezone

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div v-cloak id="vue-settings">
+        <tabs v-model="tab">
+            <tab id="profile" :title="i18n['user.profile']">
+                <profile-tab></profile-tab>
+            </tab>
+        </tabs>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ encore_entry_script_tags('settings/index') }}
+{% endblock %}

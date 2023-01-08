@@ -1,6 +1,7 @@
 administration: Администрирование
 button.cancel: Отмена
 button.close: Закрыть
+button.edit: Редактировать
 button.no: Нет
 button.ok: ОК
 button.save: Сохранить
@@ -33,8 +34,19 @@ password.new: 'Новый пароль'
 security.login: Войти
 security.logout: Выйти
 security.remember_me: 'Запомнить меня'
+settings: Настройки
+text.changes_saved: 'Ваши изменения успешно сохранены.'
 text.error: Ошибка
 text.please_wait: 'Пожалуйста, подождите...'
+user.account: 'Учетная запись'
+user.appearance: 'Внешний вид'
+user.authentication: Авторизация
+user.city: Город
+user.country: Страна
 user.email: 'Эл. почта'
+user.fullname: 'Полное имя'
+user.language: Язык
 user.password: Пароль
+user.profile: Профиль
 user.theme: Оформление
+user.timezone: 'Часовой пояс'

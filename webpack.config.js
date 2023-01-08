@@ -29,9 +29,10 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('font-awesome', 'font-awesome/css/font-awesome.css')
-    .addEntry('login/index',  './templates/login/index.js')
-    .addEntry('navbar',       './templates/navbar.js')
+    .addEntry('font-awesome',   'font-awesome/css/font-awesome.css')
+    .addEntry('login/index',    './templates/login/index.js')
+    .addEntry('navbar',         './templates/navbar.js')
+    .addEntry('settings/index', './templates/settings/index.js')
 
     // Themes.
     .addEntry('light/azure',     './assets/styles/themes/azure-light.scss')

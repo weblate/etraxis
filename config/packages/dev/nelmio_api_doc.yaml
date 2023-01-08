@@ -20,13 +20,13 @@ nelmio_api_doc:
         names:
             - { alias: LoginCommand, type: App\Entity\User, groups: [login] }
 
-            - { alias: Profile,       type: App\Entity\User,             groups: [info, profile, settings] }
-            - { alias: CurrentLocale, type: App\Entity\Enums\LocaleEnum, groups: [info, profile, settings] }
-            - { alias: CurrentTheme,  type: App\Entity\Enums\ThemeEnum,  groups: [info, profile, settings] }
+            - { alias: Profile,       type: App\Entity\User,             groups: [info, profile] }
+            - { alias: CurrentLocale, type: App\Entity\Enums\LocaleEnum, groups: [info, profile] }
+            - { alias: CurrentTheme,  type: App\Entity\Enums\ThemeEnum,  groups: [info, profile] }
 
-            - { alias: Settings,  type: App\Entity\User,             groups: [profile, settings] }
-            - { alias: NewLocale, type: App\Entity\Enums\LocaleEnum, groups: [profile, settings] }
-            - { alias: NewTheme,  type: App\Entity\Enums\ThemeEnum,  groups: [profile, settings] }
+            - { alias: Settings,  type: App\Entity\User,             groups: [settings] }
+            - { alias: NewLocale, type: App\Entity\Enums\LocaleEnum, groups: [settings] }
+            - { alias: NewTheme,  type: App\Entity\Enums\ThemeEnum,  groups: [settings] }
 
             - { alias: UserProject,  type: App\Entity\Project,  groups: [profile] }
             - { alias: UserTemplate, type: App\Entity\Template, groups: [profile] }

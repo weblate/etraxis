@@ -39,34 +39,31 @@ final class DefaultAdminControllerTest extends WebTestCase
     /**
      * @covers ::index
      */
-    public function testIndexAnonymous(): void
+    public function testAnonymous(): void
     {
         $this->client->request(Request::METHOD_GET, '/admin');
-
         self::assertTrue($this->client->getResponse()->isRedirect('/login'));
     }
 
     /**
      * @covers ::index
      */
-    public function testIndexUser(): void
+    public function testUser(): void
     {
         $this->loginUser('artem@example.com');
 
         $this->client->request(Request::METHOD_GET, '/admin');
-
         self::assertTrue($this->client->getResponse()->isForbidden());
     }
 
     /**
      * @covers ::index
      */
-    public function testIndexAdmin(): void
+    public function testAdmin(): void
     {
         $this->loginUser('admin@example.com');
 
         $this->client->request(Request::METHOD_GET, '/admin');
-
         self::assertTrue($this->client->getResponse()->isOk());
     }
 }

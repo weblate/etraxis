@@ -38,67 +38,37 @@ final class DefaultPublicControllerTest extends WebTestCase
 
     /**
      * @covers ::index
+     * @covers ::settings
+     * @covers ::timezones
      */
-    public function testIndexAnonymous(): void
+    public function testAnonymous(): void
     {
         $this->client->request(Request::METHOD_GET, '/');
+        self::assertTrue($this->client->getResponse()->isRedirect('/login'));
 
+        $this->client->request(Request::METHOD_GET, '/settings');
+        self::assertTrue($this->client->getResponse()->isRedirect('/login'));
+
+        $this->client->request(Request::METHOD_GET, '/timezones');
         self::assertTrue($this->client->getResponse()->isRedirect('/login'));
     }
 
     /**
      * @covers ::index
+     * @covers ::settings
+     * @covers ::timezones
      */
-    public function testIndexUser(): void
+    public function testUser(): void
     {
         $this->loginUser('artem@example.com');
 
         $this->client->request(Request::METHOD_GET, '/');
-
         self::assertTrue($this->client->getResponse()->isOk());
-    }
-
-    /**
-     * @covers ::settings
-     */
-    public function testSettingsAnonymous(): void
-    {
-        $this->client->request(Request::METHOD_GET, '/settings');
-
-        self::assertTrue($this->client->getResponse()->isRedirect('/login'));
-    }
-
-    /**
-     * @covers ::settings
-     */
-    public function testSettingsUser(): void
-    {
-        $this->loginUser('artem@example.com');
 
         $this->client->request(Request::METHOD_GET, '/settings');
-
         self::assertTrue($this->client->getResponse()->isOk());
-    }
-
-    /**
-     * @covers ::timezones
-     */
-    public function testTimezonesAnonymous(): void
-    {
-        $this->client->request(Request::METHOD_GET, '/timezones');
-
-        self::assertTrue($this->client->getResponse()->isRedirect('/login'));
-    }
-
-    /**
-     * @covers ::timezones
-     */
-    public function testTimezonesUser(): void
-    {
-        $this->loginUser('artem@example.com');
 
         $this->client->request(Request::METHOD_GET, '/timezones');
-
         self::assertTrue($this->client->getResponse()->isOk());
     }
 }

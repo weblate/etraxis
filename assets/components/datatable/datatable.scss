@@ -1,0 +1,118 @@
+//----------------------------------------------------------------------
+//
+//  Copyright (C) 2017-2023 Artem Rodygin
+//
+//  This file is part of eTraxis.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with eTraxis. If not, see <https://www.gnu.org/licenses/>.
+//
+//----------------------------------------------------------------------
+
+@import "bulma/sass/utilities/initial-variables";
+@import "bulma/sass/utilities/derived-variables";
+
+$table-background-color: $scheme-main-bis;
+$table-cell-border: 1px solid $border-light;
+$table-row-hover-background-color: $scheme-main-ter;
+
+@import "bulma/sass/elements/table";
+@import "bulma/sass/components/level";
+
+@import "../../styles/mixins";
+
+.datatable {
+    > .header {
+        @extend .level;
+        @include gradient($primary, 10%);
+
+        border-top-left-radius: $radius;
+        border-top-right-radius: $radius;
+        margin-bottom: 0 !important;
+        padding: 1px;
+
+        .paging {
+            @extend .level-left;
+
+            margin: 0.5rem;
+
+            .page-number {
+                width: 3rem;
+            }
+        }
+
+        .status {
+            @extend .level-item;
+
+            color: $primary-invert;
+            margin: 0.5rem auto;
+        }
+
+        .search {
+            @extend .level-right;
+
+            margin: 0.5rem;
+
+            input[type="text"] {
+                max-width: 200px;
+            }
+        }
+    }
+
+    > table {
+        &.is-hoverable {
+            tbody tr:not(.empty):hover {
+                cursor: pointer;
+            }
+        }
+
+        th,
+        td {
+            &:not(.wrappable) {
+                white-space: nowrap;
+            }
+        }
+
+        thead {
+            background-color: $scheme-main-ter;
+        }
+
+        tfoot {
+            display: table-row-group;
+
+            td {
+                padding: 0;
+                vertical-align: middle;
+
+                input,
+                select {
+                    border: none;
+                    border-radius: 0;
+                }
+            }
+        }
+
+        // Responsive table styles below are inspired by David Bushell.
+        // https://dbushell.com/2016/03/04/css-only-responsive-tables/
+        @include touch {
+            background: radial-gradient(ellipse at left, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%) no-repeat scroll 0 0,
+                radial-gradient(ellipse at right, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%) no-repeat scroll 100% 0;
+            background-size: 10px 100%, 10px 100%;
+            display: inline-block;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+
+            th:first-child,
+            td:first-child {
+                background: linear-gradient(to right, $table-background-color 50%, rgba(255, 255, 255, 0) 100%) no-repeat 0 0;
+                background-size: 20px 100%;
+            }
+
+            th:last-child,
+            td:last-child {
+                background: linear-gradient(to left, $table-background-color 50%, rgba(255, 255, 255, 0) 100%) no-repeat 100% 0;
+                background-size: 20px 100%;
+            }
+        }
+    }
+}

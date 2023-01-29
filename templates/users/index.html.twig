@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'users' | trans %}
+
+{% block content %}
+    <div v-cloak id="vue-users">
+        <div class="columns">
+            <div class="column">
+                <datatable ref="users" id="users" :data="users" :clickable="false" :checkboxes="false">
+                    <column id="fullname">{{ 'user.fullname' | trans }}</column>
+                    <column id="email">{{ 'user.email' | trans }}</column>
+                    <column id="admin" :filter-with="permissions">{{ 'user.permissions' | trans }}</column>
+                    <column id="accountProvider" :filter-with="providers">{{ 'user.authentication' | trans }}</column>
+                    <column id="description" :wrappable="true">{{ 'user.description' | trans }}</column>
+                </datatable>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ encore_entry_script_tags('users/index') }}
+{% endblock %}

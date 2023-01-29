@@ -20,11 +20,18 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Default admin area controller.
  */
+#[Route('/admin')]
 class DefaultAdminController extends AbstractController
 {
-    #[Route('/admin')]
+    #[Route('')]
     public function index(): Response
     {
         return $this->render('base.html.twig');
+    }
+
+    #[Route('/users', name: 'admin_users')]
+    public function users(): Response
+    {
+        return $this->render('users/index.html.twig');
     }
 }

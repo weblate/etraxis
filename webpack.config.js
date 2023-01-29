@@ -33,6 +33,7 @@ Encore
     .addEntry('login/index',    './templates/login/index.js')
     .addEntry('navbar',         './templates/navbar.js')
     .addEntry('settings/index', './templates/settings/index.js')
+    .addEntry('users/index',    './templates/users/index.js')
 
     // Themes.
     .addEntry('light/azure',     './assets/styles/themes/azure-light.scss')

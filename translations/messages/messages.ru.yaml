@@ -37,6 +37,8 @@ password.dont_match: 'Пароли не совпадают.'
 password.forgot: 'Забыли пароль?'
 password.forgot.email_sent: 'Вам выслано письмо с инструкциями о смене пароля.'
 password.new: 'Новый пароль'
+role.admin: Администратор
+role.user: Пользователь
 security.login: Войти
 security.logout: Выйти
 security.remember_me: 'Запомнить меня'
@@ -55,10 +57,13 @@ user.appearance: 'Внешний вид'
 user.authentication: Авторизация
 user.city: Город
 user.country: Страна
+user.description: Описание
 user.email: 'Эл. почта'
 user.fullname: 'Полное имя'
 user.language: Язык
 user.password: Пароль
+user.permissions: 'Права доступа'
 user.profile: Профиль
 user.theme: Оформление
 user.timezone: 'Часовой пояс'
+users: Пользователи

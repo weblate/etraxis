@@ -38,15 +38,20 @@ final class DefaultAdminControllerTest extends WebTestCase
 
     /**
      * @covers ::index
+     * @covers ::users
      */
     public function testAnonymous(): void
     {
         $this->client->request(Request::METHOD_GET, '/admin');
         self::assertTrue($this->client->getResponse()->isRedirect('/login'));
+
+        $this->client->request(Request::METHOD_GET, '/admin/users');
+        self::assertTrue($this->client->getResponse()->isRedirect('/login'));
     }
 
     /**
      * @covers ::index
+     * @covers ::users
      */
     public function testUser(): void
     {
@@ -54,16 +59,23 @@ final class DefaultAdminControllerTest extends WebTestCase
 
         $this->client->request(Request::METHOD_GET, '/admin');
         self::assertTrue($this->client->getResponse()->isForbidden());
+
+        $this->client->request(Request::METHOD_GET, '/admin/users');
+        self::assertTrue($this->client->getResponse()->isForbidden());
     }
 
     /**
      * @covers ::index
+     * @covers ::users
      */
     public function testAdmin(): void
     {
         $this->loginUser('admin@example.com');
 
         $this->client->request(Request::METHOD_GET, '/admin');
+        self::assertTrue($this->client->getResponse()->isOk());
+
+        $this->client->request(Request::METHOD_GET, '/admin/users');
         self::assertTrue($this->client->getResponse()->isOk());
     }
 }

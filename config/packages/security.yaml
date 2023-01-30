@@ -35,6 +35,7 @@ security:
                 - App\Security\Authenticator\JwtAuthenticator
                 - App\Security\Authenticator\LdapAuthenticator
                 - App\Security\Authenticator\PasswordAuthenticator
+            switch_user: { role: ROLE_ADMIN }
             remember_me:
                 secret: '%kernel.secret%'
 

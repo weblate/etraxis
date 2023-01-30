@@ -60,6 +60,7 @@ user.country: Country
 user.description: Description
 user.email: Email
 user.fullname: 'Full name'
+user.impersonate: Impersonate
 user.language: Language
 user.password: Password
 user.permissions: Permissions

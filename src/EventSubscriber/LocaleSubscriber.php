@@ -18,6 +18,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
+use Symfony\Component\Security\Http\Event\SwitchUserEvent;
+use Symfony\Component\Security\Http\SecurityEvents;
 
 /**
  * "Sticky" locale.
@@ -37,10 +39,11 @@ class LocaleSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            LoginSuccessEvent::class => 'saveLocale',
+            LoginSuccessEvent::class    => 'saveLocale',
 
             // must be registered before (i.e. with a higher priority than) the default Locale listener
-            KernelEvents::REQUEST    => [['setLocale', 20]],
+            KernelEvents::REQUEST       => [['setLocale', 20]],
+            SecurityEvents::SWITCH_USER => 'onSwitchUser',
         ];
     }
 
@@ -64,6 +67,21 @@ class LocaleSubscriber implements EventSubscriberInterface
 
         if ($request->hasPreviousSession()) {
             $request->setLocale($request->getSession()->get('_locale', $this->locale));
+        }
+    }
+
+    /**
+     * Overrides current locale with the locale of impersonated user.
+     */
+    public function onSwitchUser(SwitchUserEvent $event): void
+    {
+        $request = $event->getRequest();
+
+        if ($request->hasSession()) {
+            /** @var \App\Entity\User $user */
+            $user = $event->getTargetUser();
+
+            $request->getSession()->set('_locale', $user->getLocale()->value);
         }
     }
 }

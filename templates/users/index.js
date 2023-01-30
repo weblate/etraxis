@@ -11,13 +11,20 @@
 
 import { createApp } from "vue";
 
+import axios from "axios";
+
 import AccountProviderEnum from "@enums/accountprovider";
 
+import * as ui from "@utilities/blockui";
+import parseErrors from "@utilities/parseErrors";
 import query from "@utilities/query";
 import url from "@utilities/url";
 
 import DataTable from "@components/datatable/datatable.vue";
 import Column from "@components/datatable/column.vue";
+import Icon from "@components/datatable/icon";
+
+const ICON_IMPERSONATE = "impersonate";
 
 /**
  * "Users" page.
@@ -40,7 +47,14 @@ const app = createApp({
         /**
          * @property {Object} providers List of possible account providers
          */
-        providers: () => AccountProviderEnum
+        providers: () => AccountProviderEnum,
+
+        /**
+         * @property {number} currentUser ID of the current user
+         */
+        currentUser() {
+            return Number(this.$el.dataset.id);
+        }
     },
 
     methods: {
@@ -61,9 +75,14 @@ const app = createApp({
             return {
                 total: data.total,
                 rows: data.rows.map((user) => {
+                    let icons = [
+                        new Icon(ICON_IMPERSONATE, i18n["user.impersonate"], "fa-user-circle-o", user.id === this.currentUser)
+                    ];
+
                     return {
                         DT_id: user.id,
                         DT_class: user.disabled ? "has-text-grey" : null,
+                        DT_icons: icons,
                         fullname: user.fullname,
                         email: user.email,
                         admin: user.admin ? i18n["role.admin"] : i18n["role.user"],
@@ -72,6 +91,39 @@ const app = createApp({
                     };
                 })
             };
+        },
+
+        /**
+         * An icon is clicked.
+         *
+         * @param {number} id   Account ID
+         * @param {string} icon Icon ID
+         */
+        onIcon(id, icon) {
+            switch (icon) {
+                case ICON_IMPERSONATE:
+                    this.impersonateUser(id);
+                    break;
+            }
+        },
+
+        /**
+         * Impersonates specified account.
+         *
+         * @param {number} id Account ID
+         */
+        impersonateUser(id) {
+            if (id !== this.currentUser) {
+                ui.block();
+
+                axios
+                    .get(url(`/api/users/${id}`))
+                    .then((response) => {
+                        location.href = url(`/?_switch_user=${response.data.email}`);
+                    })
+                    .catch((exception) => (this.errors = parseErrors(exception)))
+                    .then(() => ui.unblock());
+            }
         }
     }
 });

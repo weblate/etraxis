@@ -95,12 +95,17 @@ const app = createApp({
             axios.patch(url("/api/my/profile"), { darkMode: this.isDarkMode });
         },
 
-        logout() {
+        /**
+         * Logs the current user out.
+         *
+         * @param {string} url Exit path
+         */
+        logout(url) {
             this.isActive = false;
 
             msg.confirm(i18n["confirm.logout"]).then(() => {
                 ui.block();
-                location.href = url("/logout");
+                location.href = url;
             });
         }
     },

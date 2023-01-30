@@ -60,6 +60,7 @@ user.country: Страна
 user.description: Описание
 user.email: 'Эл. почта'
 user.fullname: 'Полное имя'
+user.impersonate: 'Зайти от имени пользователя'
 user.language: Язык
 user.password: Пароль
 user.permissions: 'Права доступа'

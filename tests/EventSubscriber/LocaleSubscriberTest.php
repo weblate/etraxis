@@ -26,6 +26,8 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authenticator\AuthenticatorInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
+use Symfony\Component\Security\Http\Event\SwitchUserEvent;
+use Symfony\Component\Security\Http\SecurityEvents;
 
 /**
  * @internal
@@ -58,6 +60,7 @@ final class LocaleSubscriberTest extends WebTestCase
         $expected = [
             LoginSuccessEvent::class,
             KernelEvents::REQUEST,
+            SecurityEvents::SWITCH_USER,
         ];
 
         self::assertSame($expected, array_keys(LocaleSubscriber::getSubscribedEvents()));
@@ -130,5 +133,27 @@ final class LocaleSubscriberTest extends WebTestCase
         $object->setLocale($event);
 
         self::assertSame('ru', $event->getRequest()->getLocale());
+    }
+
+    /**
+     * @covers ::onSwitchUser
+     */
+    public function testOnSwitchUser(): void
+    {
+        $doctrine = self::getContainer()->get('doctrine');
+
+        $request = $this->requestStack->getCurrentRequest();
+        $session = $this->requestStack->getSession();
+
+        /** @var User $user */
+        $user = $doctrine->getRepository(User::class)->findOneBy(['email' => 'artem@example.com']);
+        $user->setLocale(LocaleEnum::Russian);
+
+        $event = new SwitchUserEvent($request, $user);
+
+        $object = new LocaleSubscriber($this->requestStack, 'en');
+        $object->onSwitchUser($event);
+
+        self::assertSame('ru', $session->get('_locale'));
     }
 }

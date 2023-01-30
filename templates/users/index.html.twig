@@ -4,9 +4,9 @@
 
 {% block content %}
     <div v-cloak id="vue-users">
-        <div class="columns">
+        <div class="columns" data-id="{{ app.user.id }}">
             <div class="column">
-                <datatable ref="users" id="users" :data="users" :clickable="false" :checkboxes="false">
+                <datatable ref="users" id="users" :data="users" :clickable="false" :icons="true" :checkboxes="false" @icon-click="onIcon">
                     <column id="fullname">{{ 'user.fullname' | trans }}</column>
                     <column id="email">{{ 'user.email' | trans }}</column>
                     <column id="admin" :filter-with="permissions">{{ 'user.permissions' | trans }}</column>

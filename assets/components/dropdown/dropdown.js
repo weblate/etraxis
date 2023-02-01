@@ -33,10 +33,6 @@ export default {
         }
     },
 
-    beforeDestroy() {
-        document.removeEventListener("click", this.eventListener);
-    },
-
     data: () => ({
         /**
          * @property {string} uid Unique dropdown ID
@@ -84,5 +80,9 @@ export default {
                 document.removeEventListener("click", this.eventListener);
             }
         }
+    },
+
+    beforeDestroy() {
+        document.removeEventListener("click", this.eventListener);
     }
 };

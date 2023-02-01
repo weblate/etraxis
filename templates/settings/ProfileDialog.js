@@ -102,18 +102,14 @@ export default {
         i18n: () => window.i18n,
 
         /**
-         * @property {Array<string>} locales Available locales
+         * @property {Object} locales Available locales
          */
-        locales() {
-            return LocaleEnum;
-        },
+        locales: () => LocaleEnum,
 
         /**
-         * @property {Array<string>} themes Available themes
+         * @property {Object} themes Available themes
          */
-        themes() {
-            return ThemeEnum;
-        },
+        themes: () => ThemeEnum,
 
         /**
          * @property {Array<string>} countries Available countries
@@ -123,7 +119,7 @@ export default {
         },
 
         /**
-         * @property {Array<string>} cities Available cities in the current country
+         * @property {Object} cities Available cities in the current country
          */
         cities() {
             return this.country === "UTC" ? { UTC: "UTC" } : this.timezones[this.country] ?? {};

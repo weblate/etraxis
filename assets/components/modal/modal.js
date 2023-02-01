@@ -27,21 +27,13 @@ export default {
          */
         autoClose: {
             type: Boolean,
-            default: true
+            default: false
         }
     },
 
     emits: ["submit", "cancel"],
 
     expose: ["open", "close"],
-
-    mounted() {
-        // Cancel the dialog when the "Esc" is pressed.
-        this.$el.addEventListener("cancel", (event) => {
-            event.preventDefault();
-            this.onCancel();
-        });
-    },
 
     data: () => ({
         /**
@@ -157,5 +149,13 @@ export default {
                 this.close();
             }
         }
+    },
+
+    mounted() {
+        // Cancel the dialog when the "Esc" is pressed.
+        this.$el.addEventListener("cancel", (event) => {
+            event.preventDefault();
+            this.onCancel();
+        });
     }
 };

@@ -1,5 +1,5 @@
 <template>
-    <modal ref="modal" :header="header" @submit="submit">
+    <modal ref="modal" :header="header" auto-close @submit="submit">
         <fieldset v-if="!isExternal" class="fieldset has-legend">
             <legend>{{ i18n["user.account"] }}</legend>
             <div class="field is-horizontal">

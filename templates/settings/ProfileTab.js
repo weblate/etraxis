@@ -32,22 +32,6 @@ export default {
         "password-dialog": PasswordDialog
     },
 
-    created() {
-        const urls = [url("/api/my/profile"), url("/timezones")];
-
-        ui.block();
-
-        axios
-            .all(urls.map((endpoint) => axios.get(endpoint)))
-            .then(
-                axios.spread((profile, timezones) => {
-                    this.profile = { ...profile.data };
-                    this.timezones = { ...timezones.data };
-                })
-            )
-            .then(() => ui.unblock());
-    },
-
     data: () => ({
         /**
          * @property {Object} profile User's profile
@@ -79,6 +63,21 @@ export default {
         i18n: () => window.i18n,
 
         /**
+         * @property {Object} accountProviders Supported account providers
+         */
+        accountProviders: () => AccountProviderEnum,
+
+        /**
+         * @property {Object} locales Available locales
+         */
+        locales: () => LocaleEnum,
+
+        /**
+         * @property {Object} themes Available themes
+         */
+        themes: () => ThemeEnum,
+
+        /**
          * @property {Object} profileDialog "Profile" dialog instance
          */
         profileDialog() {
@@ -90,27 +89,6 @@ export default {
          */
         passwordDialog() {
             return this.$refs.dlgPassword;
-        },
-
-        /**
-         * @property {null|string} locale User's human-readable account provider
-         */
-        accountProvider() {
-            return AccountProviderEnum[this.profile.accountProvider] ?? null;
-        },
-
-        /**
-         * @property {null|string} locale User's human-readable locale
-         */
-        locale() {
-            return LocaleEnum[this.profile.locale] ?? null;
-        },
-
-        /**
-         * @property {null|string} locale User's human-readable theme
-         */
-        theme() {
-            return ThemeEnum[this.profile.theme] ?? null;
         },
 
         /**
@@ -196,5 +174,21 @@ export default {
                     .then(() => ui.unblock());
             }
         }
+    },
+
+    created() {
+        const urls = [url("/api/my/profile"), url("/timezones")];
+
+        ui.block();
+
+        axios
+            .all(urls.map((endpoint) => axios.get(endpoint)))
+            .then(
+                axios.spread((profile, timezones) => {
+                    this.profile = { ...profile.data };
+                    this.timezones = { ...timezones.data };
+                })
+            )
+            .then(() => ui.unblock());
     }
 };

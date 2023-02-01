@@ -38,7 +38,7 @@ export default {
          */
         sortable: {
             type: Boolean,
-            default: true
+            default: false
         },
 
         /**
@@ -46,7 +46,7 @@ export default {
          */
         filterable: {
             type: Boolean,
-            default: true
+            default: false
         },
 
         /**

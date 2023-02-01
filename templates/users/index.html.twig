@@ -6,12 +6,12 @@
     <div v-cloak id="vue-users">
         <div class="columns" data-id="{{ app.user.id }}">
             <div class="column">
-                <datatable ref="users" id="users" :data="users" :clickable="false" :icons="true" :checkboxes="false" @icon-click="onIcon">
-                    <column id="fullname">{{ 'user.fullname' | trans }}</column>
-                    <column id="email">{{ 'user.email' | trans }}</column>
-                    <column id="admin" :filter-with="permissions">{{ 'user.permissions' | trans }}</column>
-                    <column id="accountProvider" :filter-with="providers">{{ 'user.authentication' | trans }}</column>
-                    <column id="description" :wrappable="true">{{ 'user.description' | trans }}</column>
+                <datatable ref="users" id="users" :data="users" paging icons @icon-click="onIcon">
+                    <column sortable filterable id="fullname">{{ 'user.fullname' | trans }}</column>
+                    <column sortable filterable id="email">{{ 'user.email' | trans }}</column>
+                    <column sortable filterable id="admin" :filter-with="permissions">{{ 'user.permissions' | trans }}</column>
+                    <column sortable filterable id="accountProvider" :filter-with="providers">{{ 'user.authentication' | trans }}</column>
+                    <column sortable filterable id="description" wrappable>{{ 'user.description' | trans }}</column>
                 </datatable>
             </div>
         </div>

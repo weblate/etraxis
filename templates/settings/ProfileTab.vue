@@ -34,7 +34,7 @@
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ accountProvider }}</p>
+                                <p>{{ accountProviders[profile.accountProvider] ?? null }}</p>
                             </div>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ locale }}</p>
+                                <p>{{ locales[profile.locale] ?? null }}</p>
                             </div>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ theme }}</p>
+                                <p>{{ themes[profile.theme] ?? null }}</p>
                             </div>
                         </div>
                     </div>

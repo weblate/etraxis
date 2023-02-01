@@ -90,7 +90,7 @@
         <table class="table is-bordered is-fullwidth" :class="{ 'is-hoverable': clickable && !blocked }">
             <thead>
                 <tr>
-                    <th v-if="checkboxes && totalFilters === 0" class="is-narrow has-text-centered" @click.stop="isCheckedAll = !isCheckedAll">
+                    <th v-if="checkboxes && !hasFilters" class="is-narrow has-text-centered" @click.stop="isCheckedAll = !isCheckedAll">
                         <input
                             v-if="total !== 0"
                             type="checkbox"
@@ -99,12 +99,12 @@
                             v-model="isCheckedAll"
                         />
                     </th>
-                    <th v-if="checkboxes && totalFilters !== 0"></th>
+                    <th v-if="checkboxes && hasFilters"></th>
                     <slot></slot>
                     <th v-if="icons && rows.length !== 0" class="is-narrow"></th>
                 </tr>
             </thead>
-            <tfoot v-if="totalFilters !== 0">
+            <tfoot v-if="hasFilters">
                 <tr>
                     <td v-if="checkboxes" class="is-narrow has-text-centered" @click.stop="isCheckedAll = !isCheckedAll">
                         <input
@@ -116,7 +116,7 @@
                         />
                     </td>
                     <td v-for="column in columns" :key="column.props.id">
-                        <template v-if="column.props.filterable ?? true">
+                        <template v-if="isColumnFilterable(column)">
                             <input
                                 v-if="Object.keys(columnFilterWith(column)).length === 0"
                                 class="input is-fullwidth"

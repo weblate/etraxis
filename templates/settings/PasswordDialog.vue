@@ -1,5 +1,5 @@
 <template>
-    <modal ref="modal" :header="header" @submit="submit">
+    <modal ref="modal" :header="header" auto-close @submit="submit">
         <fieldset class="fieldset">
             <div class="field is-horizontal">
                 <div class="field-label is-normal">

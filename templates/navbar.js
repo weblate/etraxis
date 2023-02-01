@@ -21,16 +21,6 @@ import url from "@utilities/url";
  * Main menu (navigation).
  */
 const app = createApp({
-    created() {
-        // Set default theme mode.
-        this.lightStyleSheet.disabled = false;
-        this.darkStyleSheet.disabled = true;
-
-        // Detect current theme mode.
-        this.isDarkMode = document.querySelector("html").classList.contains("dark");
-        localStorage[this.themeModeStorage] = JSON.stringify(this.isDarkMode);
-    },
-
     data: () => ({
         /**
          * @property {boolean} isActive Whether the main menu is active or hidden
@@ -122,6 +112,16 @@ const app = createApp({
 
             localStorage[this.themeModeStorage] = JSON.stringify(value);
         }
+    },
+
+    created() {
+        // Set default theme mode.
+        this.lightStyleSheet.disabled = false;
+        this.darkStyleSheet.disabled = true;
+
+        // Detect current theme mode.
+        this.isDarkMode = document.querySelector("html").classList.contains("dark");
+        localStorage[this.themeModeStorage] = JSON.stringify(this.isDarkMode);
     }
 });
 

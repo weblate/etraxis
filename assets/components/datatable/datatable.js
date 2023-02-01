@@ -19,51 +19,6 @@ const REFRESH_DELAY = 400;
  * DataTable.
  */
 export default {
-    mounted() {
-        // Restore saved table state (paging).
-        if (this.paging) {
-            this.page = parseInt(this.loadState("page")) || 1;
-            this.pageSize = parseInt(this.loadState("pageSize")) || DEFAULT_PAGE_SIZE;
-
-            if (!this.allowedPageSizes.includes(this.pageSize)) {
-                this.pageSize = DEFAULT_PAGE_SIZE;
-            }
-        } else {
-            this.page = 1;
-            this.pageSize = DEFAULT_PAGE_SIZE;
-
-            this.refresh();
-        }
-
-        // Restore saved table state (search).
-        this.search = this.loadState("search") || "";
-
-        // Restore saved table state (filters).
-        let filters = this.loadState("filters") || {};
-
-        this.columns.forEach((column) => {
-            if (filters.hasOwnProperty(column.props.id) && (column.props.filterable ?? true)) {
-                this.filters[column.props.id] = filters[column.props.id];
-            } else {
-                this.filters[column.props.id] = "";
-            }
-        });
-
-        // Restore saved table state (sorting order).
-        let order = this.loadState("order") || {};
-
-        this.columns.forEach((column) => {
-            if (order.hasOwnProperty(column.props.id) && (column.props.sortable ?? true)) {
-                this.order[column.props.id] = order[column.props.id];
-            }
-        });
-
-        // Default sorting order.
-        if (Object.keys(this.order).length === 0) {
-            this.order[this.columns[0].props.id] = DEFAULT_ORDER;
-        }
-    },
-
     props: {
         /**
          * @property {string} id Table ID to save its state
@@ -99,7 +54,7 @@ export default {
          */
         paging: {
             type: Boolean,
-            default: true
+            default: false
         },
 
         /**
@@ -107,7 +62,7 @@ export default {
          */
         clickable: {
             type: Boolean,
-            default: true
+            default: false
         },
 
         /**
@@ -123,7 +78,7 @@ export default {
          */
         checkboxes: {
             type: Boolean,
-            default: true
+            default: false
         },
 
         /**
@@ -256,10 +211,10 @@ export default {
         },
 
         /**
-         * @property {number} totalFilters Number of filterable columns
+         * @property {boolean} hasFilters Whether the table contains filterable columns
          */
-        totalFilters() {
-            return this.columns.filter((column) => column.props.filterable ?? true).length;
+        hasFilters() {
+            return this.columns.some((column) => this.isColumnFilterable(column));
         },
 
         /**
@@ -267,6 +222,10 @@ export default {
          */
         normalizedFilters() {
             return this.columns.reduce((result, column) => {
+                if (!this.isColumnFilterable(column)) {
+                    return result;
+                }
+
                 let value = this.filters[column.props.id].trim();
 
                 if (value.length === 0) {
@@ -392,6 +351,20 @@ export default {
         },
 
         /**
+         * Determines whether the table can be sorted by specified column.
+         */
+        isColumnSortable(column) {
+            return ![undefined, false].includes(column.props.sortable);
+        },
+
+        /**
+         * Determines whether the table can be filtered by specified column.
+         */
+        isColumnFilterable(column) {
+            return ![undefined, false].includes(column.props.filterable);
+        },
+
+        /**
          * Returns list of allowed filtering options for specified columns.
          *
          * @param {Object} column Column object
@@ -481,6 +454,51 @@ export default {
         order(value) {
             this.saveState("order", value);
             this.refresh();
+        }
+    },
+
+    mounted() {
+        // Restore saved table state (paging).
+        if (this.paging) {
+            this.page = parseInt(this.loadState("page")) || 1;
+            this.pageSize = parseInt(this.loadState("pageSize")) || DEFAULT_PAGE_SIZE;
+
+            if (!this.allowedPageSizes.includes(this.pageSize)) {
+                this.pageSize = DEFAULT_PAGE_SIZE;
+            }
+        } else {
+            this.page = 1;
+            this.pageSize = DEFAULT_PAGE_SIZE;
+
+            this.refresh();
+        }
+
+        // Restore saved table state (search).
+        this.search = this.loadState("search") || "";
+
+        // Restore saved table state (filters).
+        let filters = this.loadState("filters") || {};
+
+        this.columns.forEach((column) => {
+            if (filters.hasOwnProperty(column.props.id) && this.isColumnFilterable(column)) {
+                this.filters[column.props.id] = filters[column.props.id];
+            } else {
+                this.filters[column.props.id] = "";
+            }
+        });
+
+        // Restore saved table state (sorting order).
+        let order = this.loadState("order") || {};
+
+        this.columns.forEach((column) => {
+            if (order.hasOwnProperty(column.props.id) && this.isColumnSortable(column)) {
+                this.order[column.props.id] = order[column.props.id];
+            }
+        });
+
+        // Default sorting order.
+        if (Object.keys(this.order).length === 0) {
+            this.order[this.columns[0].props.id] = DEFAULT_ORDER;
         }
     }
 };

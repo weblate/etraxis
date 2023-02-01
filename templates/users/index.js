@@ -96,10 +96,11 @@ const app = createApp({
         /**
          * An icon is clicked.
          *
-         * @param {number} id   Account ID
-         * @param {string} icon Icon ID
+         * @param {MouseEvent} event Original event
+         * @param {number}     id    Account ID
+         * @param {string}     icon  Icon ID
          */
-        onIcon(id, icon) {
+        onIcon(event, id, icon) {
             switch (icon) {
                 case ICON_IMPERSONATE:
                     this.impersonateUser(id);

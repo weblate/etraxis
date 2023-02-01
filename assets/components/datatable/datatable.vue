@@ -151,7 +151,7 @@
                         v-for="column in columns"
                         :key="column.props.id"
                         :class="[row['DT_class'] || '', { wrappable: column.props.wrappable }]"
-                        @click="clickable ? $emit('cell-click', row['DT_id'], column.props.id) : null"
+                        @click="clickable ? $emit('cell-click', $event, row['DT_id'], column.props.id) : null"
                     >
                         <span>{{ row[column.props.id] || "&mdash;" }}</span>
                     </td>
@@ -162,7 +162,7 @@
                             class="icon"
                             :class="{ 'has-text-grey': icon.disabled }"
                             :title="!icon.disabled ? icon.title : null"
-                            @click="!icon.disabled ? $emit('icon-click', row['DT_id'], icon.id) : null"
+                            @click="!icon.disabled ? $emit('icon-click', $event, row['DT_id'], icon.id) : null"
                         >
                             <i class="fa" :class="icon.css"></i>
                         </span>

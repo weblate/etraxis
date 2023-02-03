@@ -82,7 +82,7 @@ export default {
         }
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         document.removeEventListener("click", this.eventListener);
     }
 };

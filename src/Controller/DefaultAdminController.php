@@ -13,6 +13,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,5 +34,13 @@ class DefaultAdminController extends AbstractController
     public function users(): Response
     {
         return $this->render('users/index.html.twig');
+    }
+
+    #[Route('/users/{id}', requirements: ['id' => '\d+'])]
+    public function viewUser(User $user): Response
+    {
+        return $this->render('users/view.html.twig', [
+            'user' => $user,
+        ]);
     }
 }

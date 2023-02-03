@@ -109,6 +109,20 @@ const app = createApp({
         },
 
         /**
+         * A table row is clicked.
+         *
+         * @param {MouseEvent} event Original event
+         * @param {number}     id    Account ID
+         */
+        viewUser(event, id) {
+            if (event.ctrlKey) {
+                window.open(url(`/admin/users/${id}`), "_blank");
+            } else {
+                location.href = url(`/admin/users/${id}`);
+            }
+        },
+
+        /**
          * Impersonates specified account.
          *
          * @param {number} id Account ID

@@ -1,4 +1,5 @@
 administration: Администрирование
+button.back: Назад
 button.cancel: Отмена
 button.close: Закрыть
 button.edit: Редактировать
@@ -58,13 +59,16 @@ user.authentication: Авторизация
 user.city: Город
 user.country: Страна
 user.description: Описание
+user.disabled: Заблокирован
 user.email: 'Эл. почта'
+user.enabled: Незаблокирован
 user.fullname: 'Полное имя'
 user.impersonate: 'Зайти от имени пользователя'
 user.language: Язык
 user.password: Пароль
 user.permissions: 'Права доступа'
 user.profile: Профиль
+user.status: Состояние
 user.theme: Оформление
 user.timezone: 'Часовой пояс'
 users: Пользователи

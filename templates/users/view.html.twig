@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% set title = user.fullname %}
+
+{% block content %}
+    <div v-cloak id="vue-user">
+        <div data-id="{{ user.id }}">
+            <tabs v-model="tab">
+                <tab id="profile" :title="i18n['user.profile']">
+                    <profile-tab v-bind="profile"></profile-tab>
+                </tab>
+            </tabs>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ encore_entry_script_tags('users/view') }}
+{% endblock %}

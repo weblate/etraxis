@@ -6,7 +6,7 @@
     <div v-cloak id="vue-users">
         <div class="columns" data-id="{{ app.user.id }}">
             <div class="column">
-                <datatable ref="users" id="users" :data="users" paging icons @icon-click="onIcon">
+                <datatable ref="users" id="users" :data="users" paging clickable icons @icon-click="onIcon" @cell-click="viewUser">
                     <column sortable filterable id="fullname">{{ 'user.fullname' | trans }}</column>
                     <column sortable filterable id="email">{{ 'user.email' | trans }}</column>
                     <column sortable filterable id="admin" :filter-with="permissions">{{ 'user.permissions' | trans }}</column>

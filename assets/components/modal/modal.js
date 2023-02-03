@@ -48,7 +48,7 @@ export default {
         cursorY: 0,
 
         /**
-         * @property {number} offsetX,offsetY Dialog's current position
+         * @property {number} offsetX,offsetY Current offset of the dialog's position
          */
         offsetX: 0,
         offsetY: 0
@@ -61,12 +61,11 @@ export default {
         i18n: () => window.i18n,
 
         /**
-         * @property {{top: string, left: string}} offset Dialog position
+         * @property {Object} offset Offset of the dialog's position
          */
         offset() {
             return {
-                left: this.offsetX + "px",
-                top: this.offsetY + "px"
+                transform: `translate(${this.offsetX}px, ${this.offsetY}px)`
             };
         }
     },
@@ -114,14 +113,11 @@ export default {
         onMouseMove(event) {
             event.preventDefault();
 
-            let x = event.clientX - this.cursorX;
-            let y = event.clientY - this.cursorY;
+            this.offsetX += event.clientX - this.cursorX;
+            this.offsetY += event.clientY - this.cursorY;
 
             this.cursorX = event.clientX;
             this.cursorY = event.clientY;
-
-            this.offsetX = this.offsetX + x * 2;
-            this.offsetY = this.offsetY + y * 2;
         },
 
         /**

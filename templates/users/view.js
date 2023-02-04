@@ -73,7 +73,7 @@ const app = createApp({
                 .then((response) => {
                     this.profile = { ...response.data };
                 })
-                .catch((exception) => (this.errors = parseErrors(exception)))
+                .catch((exception) => parseErrors(exception))
                 .then(() => ui.unblock());
         }
     },

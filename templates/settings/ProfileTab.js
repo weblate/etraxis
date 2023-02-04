@@ -51,7 +51,7 @@ export default {
         timezones: {},
 
         /**
-         * @property {Object} errors "Profile" dialog errors
+         * @property {Object} errors Dialog errors
          */
         errors: {}
     }),

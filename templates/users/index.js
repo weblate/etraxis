@@ -136,7 +136,7 @@ const app = createApp({
                     .then((response) => {
                         location.href = url(`/?_switch_user=${response.data.email}`);
                     })
-                    .catch((exception) => (this.errors = parseErrors(exception)))
+                    .catch((exception) => parseErrors(exception))
                     .then(() => ui.unblock());
             }
         }

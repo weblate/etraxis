@@ -1,7 +1,7 @@
 <template>
     <div class="datatable">
         <div v-if="paging" class="header">
-            <div :class="{ 'ml-2 mr-1': hasToolbar }">
+            <div :class="{ 'm-2': hasToolbar }">
                 <slot name="toolbar"></slot>
             </div>
             <div v-if="paging" class="paging">

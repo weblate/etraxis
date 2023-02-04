@@ -12,6 +12,7 @@
 @import "bulma/sass/utilities/initial-variables";
 @import "bulma/sass/utilities/derived-variables";
 
+@import "bulma/sass/helpers/color";
 @import "bulma/sass/helpers/flexbox";
 @import "bulma/sass/helpers/spacing";
 @import "bulma/sass/helpers/typography";
@@ -19,6 +20,12 @@
 input[type="checkbox"],
 input[type="radio"] {
     filter: grayscale(100%);
+}
+
+label.disabled {
+    @extend .has-text-grey;
+
+    cursor: not-allowed;
 }
 
 .box {

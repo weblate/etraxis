@@ -16,6 +16,7 @@ import axios from "axios";
 import AccountProviderEnum from "@enums/accountprovider";
 
 import * as ui from "@utilities/blockui";
+import * as msg from "@utilities/messagebox";
 import parseErrors from "@utilities/parseErrors";
 import query from "@utilities/query";
 import url from "@utilities/url";
@@ -24,12 +25,26 @@ import DataTable from "@components/datatable/datatable.vue";
 import Column from "@components/datatable/column.vue";
 import Icon from "@components/datatable/icon";
 
+import NewUserDialog from "./NewUserDialog.vue";
+
 const ICON_IMPERSONATE = "impersonate";
 
 /**
  * "Users" page.
  */
 const app = createApp({
+    data: () => ({
+        /**
+         * @property {Array<string>} timezones List of all available timezones
+         */
+        timezones: [],
+
+        /**
+         * @property {Object} errors Dialog errors
+         */
+        errors: {}
+    }),
+
     computed: {
         /**
          * @property {Object} i18n Translation resources
@@ -54,6 +69,34 @@ const app = createApp({
          */
         currentUser() {
             return Number(this.$el.dataset.id);
+        },
+
+        /**
+         * @property {string} defaultLocale Default locale
+         */
+        defaultLocale() {
+            return this.$el.dataset.locale;
+        },
+
+        /**
+         * @property {string} defaultTimezone Default timezone
+         */
+        defaultTimezone() {
+            return this.$el.dataset.timezone;
+        },
+
+        /**
+         * @property {Object} usersTable DataTable instance
+         */
+        usersTable() {
+            return this.$refs.users;
+        },
+
+        /**
+         * @property {Object} newUserDialog "New user" dialog instance
+         */
+        newUserDialog() {
+            return this.$refs.dlgNewUser;
         }
     },
 
@@ -139,11 +182,78 @@ const app = createApp({
                     .catch((exception) => parseErrors(exception))
                     .then(() => ui.unblock());
             }
+        },
+
+        /**
+         * Opens "New user" dialog.
+         */
+        openNewUserDialog() {
+            let defaults = {
+                email: "",
+                password: "",
+                fullname: "",
+                description: "",
+                admin: false,
+                disabled: false,
+                locale: this.defaultLocale,
+                timezone: this.defaultTimezone
+            };
+
+            this.errors = {};
+
+            this.newUserDialog.open(defaults);
+        },
+
+        /**
+         * Creates new user.
+         *
+         * @param {Object} event Submitted values
+         */
+        createUser(event) {
+            let data = {
+                email: event.email,
+                password: event.password,
+                fullname: event.fullname,
+                description: event.description || null,
+                admin: event.admin,
+                disabled: event.disabled,
+                locale: event.locale,
+                timezone: event.timezone
+            };
+
+            ui.block();
+
+            axios
+                .post(url("/api/users"), data)
+                .then(() => {
+                    msg.info(i18n["user.successfully_created"]).then(() => {
+                        this.newUserDialog.close();
+                        this.usersTable.refresh();
+                    });
+                })
+                .catch((exception) => (this.errors = parseErrors(exception)))
+                .then(() => ui.unblock());
         }
+    },
+
+    created() {
+        ui.block();
+
+        axios
+            .get(url("/timezones"))
+            .then((response) => {
+                this.timezones = Object.values(response.data)
+                    .reduce((result, entry) => [...result, ...Object.keys(entry)], [])
+                    .sort();
+                this.timezones.unshift("UTC");
+            })
+            .catch((exception) => parseErrors(exception))
+            .then(() => ui.unblock());
     }
 });
 
 app.component("datatable", DataTable);
 app.component("column", Column);
+app.component("new-user-dialog", NewUserDialog);
 
 app.mount("#vue-users");

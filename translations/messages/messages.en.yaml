@@ -2,6 +2,7 @@ administration: Administration
 button.back: Back
 button.cancel: Cancel
 button.close: Close
+button.create: Create
 button.edit: Edit
 button.no: No
 button.ok: OK
@@ -65,10 +66,12 @@ user.enabled: Enabled
 user.fullname: 'Full name'
 user.impersonate: Impersonate
 user.language: Language
+user.new: 'New user'
 user.password: Password
 user.permissions: Permissions
 user.profile: Profile
 user.status: Status
+user.successfully_created: 'New user was successfully created.'
 user.theme: Theme
 user.timezone: Timezone
 users: Users

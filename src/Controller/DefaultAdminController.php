@@ -33,7 +33,9 @@ class DefaultAdminController extends AbstractController
     #[Route('/users', name: 'admin_users')]
     public function users(): Response
     {
-        return $this->render('users/index.html.twig');
+        return $this->render('users/index.html.twig', [
+            'timezone' => date_default_timezone_get(),
+        ]);
     }
 
     #[Route('/users/{id}', requirements: ['id' => '\d+'])]

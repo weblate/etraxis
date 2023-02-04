@@ -4,7 +4,7 @@
 
 {% block content %}
     <div v-cloak id="vue-users">
-        <div class="columns" data-id="{{ app.user.id }}">
+        <div class="columns" data-id="{{ app.user.id }}" data-locale="{{ locale }}" data-timezone="{{ timezone }}">
             <div class="column">
                 <datatable ref="users" id="users" :data="users" paging clickable icons @icon-click="onIcon" @cell-click="viewUser">
                     <column sortable filterable id="fullname">{{ 'user.fullname' | trans }}</column>
@@ -12,7 +12,15 @@
                     <column sortable filterable id="admin" :filter-with="permissions">{{ 'user.permissions' | trans }}</column>
                     <column sortable filterable id="accountProvider" :filter-with="providers">{{ 'user.authentication' | trans }}</column>
                     <column sortable filterable id="description" wrappable>{{ 'user.description' | trans }}</column>
+                    <template #toolbar>
+                        <div class="buttons">
+                            <button class="button" type="button" title="{{ 'button.create' | trans }}" @click="openNewUserDialog">
+                                <span class="icon"><i class="fa fa-plus"></i></span>
+                            </button>
+                        </div>
+                    </template>
                 </datatable>
+                <new-user-dialog ref="dlgNewUser" :header="i18n['user.new']" :timezones="timezones" :errors="errors" @submit="createUser"></new-user-dialog>
             </div>
         </div>
     </div>

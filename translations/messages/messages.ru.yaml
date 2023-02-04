@@ -2,6 +2,7 @@ administration: Администрирование
 button.back: Назад
 button.cancel: Отмена
 button.close: Закрыть
+button.create: Создать
 button.edit: Редактировать
 button.no: Нет
 button.ok: ОК
@@ -65,10 +66,12 @@ user.enabled: Незаблокирован
 user.fullname: 'Полное имя'
 user.impersonate: 'Зайти от имени пользователя'
 user.language: Язык
+user.new: 'Новый пользователь'
 user.password: Пароль
 user.permissions: 'Права доступа'
 user.profile: Профиль
 user.status: Состояние
+user.successfully_created: 'Новый пользователь успешно создан.'
 user.theme: Оформление
 user.timezone: 'Часовой пояс'
 users: Пользователи

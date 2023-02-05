@@ -3,7 +3,9 @@ button.back: Назад
 button.cancel: Отмена
 button.close: Закрыть
 button.create: Создать
+button.disable: Заблокировать
 button.edit: Редактировать
+button.enable: Разблокировать
 button.no: Нет
 button.ok: ОК
 button.save: Сохранить

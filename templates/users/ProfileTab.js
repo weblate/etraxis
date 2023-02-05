@@ -45,6 +45,11 @@ export default {
 
     data: () => ({
         /**
+         * @property {number} currentUser ID of the current user
+         */
+        currentUser: null,
+
+        /**
          * @property {Array<string>} timezones List of all available timezones
          */
         timezones: [],
@@ -72,10 +77,10 @@ export default {
         locales: () => LocaleEnum,
 
         /**
-         * @property {number} currentUser ID of the current user
+         * @property {boolean} isCurrentUser Whether the user is the current one
          */
-        currentUser() {
-            return Number(this.$el.dataset.id);
+        isCurrentUser() {
+            return this.id === this.currentUser;
         },
 
         /**
@@ -109,7 +114,7 @@ export default {
             };
 
             this.errors = {};
-            this.editUserDialog.open(this.id === this.currentUser, this.accountProvider !== "etraxis", defaults);
+            this.editUserDialog.open(this.isCurrentUser, this.accountProvider !== "etraxis", defaults);
         },
 
         /**
@@ -140,6 +145,19 @@ export default {
                 })
                 .catch((exception) => (this.errors = parseErrors(exception)))
                 .then(() => ui.unblock());
+        },
+
+        /**
+         * Toggles the user's status.
+         */
+        toggleStatus() {
+            ui.block();
+
+            axios
+                .post(url(`/api/users/${this.id}/${this.disabled ? "enable" : "disable"}`))
+                .then(() => this.$emit("update:profile"))
+                .catch((exception) => parseErrors(exception))
+                .then(() => ui.unblock());
         }
     },
 
@@ -156,5 +174,9 @@ export default {
             })
             .catch((exception) => parseErrors(exception))
             .then(() => ui.unblock());
+    },
+
+    mounted() {
+        this.currentUser = Number(this.$el.dataset.id);
     }
 };

@@ -3,7 +3,9 @@ button.back: Back
 button.cancel: Cancel
 button.close: Close
 button.create: Create
+button.disable: Disable
 button.edit: Edit
+button.enable: Enable
 button.no: No
 button.ok: OK
 button.save: Save

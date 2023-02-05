@@ -30,6 +30,8 @@ import EditUserDialog from "./EditUserDialog.vue";
 
 const ICON_IMPERSONATE = "impersonate";
 const ICON_UPDATE = "update";
+const ICON_DISABLE = "disable";
+const ICON_ENABLE = "enable";
 
 /**
  * "Users" page.
@@ -129,7 +131,10 @@ const app = createApp({
                 rows: data.rows.map((user) => {
                     let icons = [
                         new Icon(ICON_IMPERSONATE, i18n["user.impersonate"], "fa-user-circle-o", user.id === this.currentUser),
-                        new Icon(ICON_UPDATE, i18n["user.edit"], "fa-pencil")
+                        new Icon(ICON_UPDATE, i18n["user.edit"], "fa-pencil"),
+                        user.disabled
+                            ? new Icon(ICON_ENABLE, i18n["button.enable"], "fa-toggle-off")
+                            : new Icon(ICON_DISABLE, i18n["button.disable"], "fa-toggle-on", user.id === this.currentUser)
                     ];
 
                     return {
@@ -160,6 +165,12 @@ const app = createApp({
                     break;
                 case ICON_UPDATE:
                     this.openEditUserDialog(id);
+                    break;
+                case ICON_DISABLE:
+                    this.disableUser(id);
+                    break;
+                case ICON_ENABLE:
+                    this.enableUser(id);
                     break;
             }
         },
@@ -293,6 +304,36 @@ const app = createApp({
                     });
                 })
                 .catch((exception) => (this.errors = parseErrors(exception)))
+                .then(() => ui.unblock());
+        },
+
+        /**
+         * Disables specified account.
+         *
+         * @param {number} id Account ID
+         */
+        disableUser(id) {
+            ui.block();
+
+            axios
+                .post(url(`/api/users/${id}/disable`))
+                .then(() => this.usersTable.refresh())
+                .catch((exception) => parseErrors(exception))
+                .then(() => ui.unblock());
+        },
+
+        /**
+         * Enables specified account.
+         *
+         * @param {number} id Account ID
+         */
+        enableUser(id) {
+            ui.block();
+
+            axios
+                .post(url(`/api/users/${id}/enable`))
+                .then(() => this.usersTable.refresh())
+                .catch((exception) => parseErrors(exception))
                 .then(() => ui.unblock());
         }
     },

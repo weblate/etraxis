@@ -36,6 +36,7 @@ const app = createApp({
          * @property {Object} profile User's profile
          */
         profile: {
+            id: null,
             email: null,
             fullname: null,
             description: null,

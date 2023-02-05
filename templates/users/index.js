@@ -26,8 +26,10 @@ import Column from "@components/datatable/column.vue";
 import Icon from "@components/datatable/icon";
 
 import NewUserDialog from "./NewUserDialog.vue";
+import EditUserDialog from "./EditUserDialog.vue";
 
 const ICON_IMPERSONATE = "impersonate";
+const ICON_UPDATE = "update";
 
 /**
  * "Users" page.
@@ -97,6 +99,13 @@ const app = createApp({
          */
         newUserDialog() {
             return this.$refs.dlgNewUser;
+        },
+
+        /**
+         * @property {Object} editUserDialog "Edit user" dialog instance
+         */
+        editUserDialog() {
+            return this.$refs.dlgEditUser;
         }
     },
 
@@ -119,7 +128,8 @@ const app = createApp({
                 total: data.total,
                 rows: data.rows.map((user) => {
                     let icons = [
-                        new Icon(ICON_IMPERSONATE, i18n["user.impersonate"], "fa-user-circle-o", user.id === this.currentUser)
+                        new Icon(ICON_IMPERSONATE, i18n["user.impersonate"], "fa-user-circle-o", user.id === this.currentUser),
+                        new Icon(ICON_UPDATE, i18n["user.edit"], "fa-pencil")
                     ];
 
                     return {
@@ -147,6 +157,9 @@ const app = createApp({
             switch (icon) {
                 case ICON_IMPERSONATE:
                     this.impersonateUser(id);
+                    break;
+                case ICON_UPDATE:
+                    this.openEditUserDialog(id);
                     break;
             }
         },
@@ -233,6 +246,54 @@ const app = createApp({
                 })
                 .catch((exception) => (this.errors = parseErrors(exception)))
                 .then(() => ui.unblock());
+        },
+
+        /**
+         * Opens "Edit user" dialog.
+         *
+         * @param {number} id Account ID
+         */
+        openEditUserDialog(id) {
+            ui.block();
+
+            axios
+                .get(url(`/api/users/${id}`))
+                .then((response) => {
+                    this.errors = {};
+                    this.editUserDialog.open(id === this.currentUser, response.data.accountProvider !== "etraxis", response.data);
+                })
+                .catch((exception) => parseErrors(exception))
+                .then(() => ui.unblock());
+        },
+
+        /**
+         * Updates user.
+         *
+         * @param {Object} event Submitted values
+         */
+        updateUser(event) {
+            let data = {
+                email: event.email,
+                fullname: event.fullname,
+                description: event.description || null,
+                admin: event.admin,
+                disabled: event.disabled,
+                locale: event.locale,
+                timezone: event.timezone
+            };
+
+            ui.block();
+
+            axios
+                .put(url(`/api/users/${event.id}`), data)
+                .then(() => {
+                    msg.info(i18n["text.changes_saved"]).then(() => {
+                        this.editUserDialog.close();
+                        this.usersTable.refresh();
+                    });
+                })
+                .catch((exception) => (this.errors = parseErrors(exception)))
+                .then(() => ui.unblock());
         }
     },
 
@@ -255,5 +316,6 @@ const app = createApp({
 app.component("datatable", DataTable);
 app.component("column", Column);
 app.component("new-user-dialog", NewUserDialog);
+app.component("edit-user-dialog", EditUserDialog);
 
 app.mount("#vue-users");

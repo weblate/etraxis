@@ -61,6 +61,7 @@ user.city: City
 user.country: Country
 user.description: Description
 user.disabled: Disabled
+user.edit: 'Edit user'
 user.email: Email
 user.enabled: Enabled
 user.fullname: 'Full name'

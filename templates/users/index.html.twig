@@ -21,6 +21,7 @@
                     </template>
                 </datatable>
                 <new-user-dialog ref="dlgNewUser" :header="i18n['user.new']" :timezones="timezones" :errors="errors" @submit="createUser"></new-user-dialog>
+                <edit-user-dialog ref="dlgEditUser" :header="i18n['user.edit']" :timezones="timezones" :errors="errors" @submit="updateUser"></edit-user-dialog>
             </div>
         </div>
     </div>

@@ -7,7 +7,7 @@
         <div data-id="{{ user.id }}">
             <tabs v-model="tab">
                 <tab id="profile" :title="i18n['user.profile']">
-                    <profile-tab v-bind="profile"></profile-tab>
+                    <profile-tab data-id="{{ app.user.id }}" v-bind="profile" @update:profile="loadProfile"></profile-tab>
                 </tab>
             </tabs>
         </div>

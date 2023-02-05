@@ -2,6 +2,7 @@
     <section>
         <div class="buttons">
             <button class="button" type="button" @click="goBack">{{ i18n["button.back"] }}</button>
+            <button class="button" type="button" @click="openEditUserDialog">{{ i18n["button.edit"] }}</button>
         </div>
         <div class="columns">
             <div class="column is-half-tablet">
@@ -91,6 +92,13 @@
                 </fieldset>
             </div>
         </div>
+        <edit-user-dialog
+            ref="dlgEditUser"
+            :header="i18n['user.edit']"
+            :timezones="timezones"
+            :errors="errors"
+            @submit="updateUser"
+        ></edit-user-dialog>
     </section>
 </template>
 

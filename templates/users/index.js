@@ -44,6 +44,11 @@ const app = createApp({
         timezones: [],
 
         /**
+         * @property {Array<number>} checked List of selected (checked) account IDs
+         */
+        checked: [],
+
+        /**
          * @property {Object} errors Dialog errors
          */
         errors: {}
@@ -140,6 +145,7 @@ const app = createApp({
                     return {
                         DT_id: user.id,
                         DT_class: user.disabled ? "has-text-grey" : null,
+                        DT_checkable: user.id !== this.currentUser,
                         DT_icons: icons,
                         fullname: user.fullname,
                         email: user.email,
@@ -332,6 +338,32 @@ const app = createApp({
 
             axios
                 .post(url(`/api/users/${id}/enable`))
+                .then(() => this.usersTable.refresh())
+                .catch((exception) => parseErrors(exception))
+                .then(() => ui.unblock());
+        },
+
+        /**
+         * Disables currently checked accounts.
+         */
+        disableMultipleUsers() {
+            ui.block();
+
+            axios
+                .post(url(`/api/users/disable`), { users: this.checked })
+                .then(() => this.usersTable.refresh())
+                .catch((exception) => parseErrors(exception))
+                .then(() => ui.unblock());
+        },
+
+        /**
+         * Enables currently checked accounts.
+         */
+        enableMultipleUsers() {
+            ui.block();
+
+            axios
+                .post(url(`/api/users/enable`), { users: this.checked })
                 .then(() => this.usersTable.refresh())
                 .catch((exception) => parseErrors(exception))
                 .then(() => ui.unblock());

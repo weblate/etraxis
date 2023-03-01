@@ -83,9 +83,9 @@ Encore
 Encore.addAliases({ '@translations': path.resolve(__dirname, 'translations/messages/') });
 Encore.addLoader({ test: /\.ya?ml$/, loader: 'yaml-loader' });
 
-glob.sync('./templates/i18n/**.js').forEach(name => Encore.addEntry(
-    name.replace('./templates/', '').replace('.js', ''),
-    name
+glob.globSync('./templates/i18n/**.js').forEach(name => Encore.addEntry(
+    name.replace('templates/', '').replace('.js', ''),
+    './' + name
 ));
 
 module.exports = Encore.getWebpackConfig();

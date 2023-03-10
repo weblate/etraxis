@@ -125,7 +125,7 @@ final class FilesControllerTest extends TransactionalTestCase
             'file' => $this->file,
         ];
 
-        $this->client->request(Request::METHOD_POST, sprintf('/api/issues/%s/files', $issue->getId()), [], $files, ['CONTENT_TYPE' => 'application/json']);
+        $this->client->request(Request::METHOD_POST, sprintf('/api/issues/%s/files', $issue->getId()), [], $files, ['HTTP_ACCEPT' => 'application/json']);
 
         self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
     }
@@ -142,7 +142,7 @@ final class FilesControllerTest extends TransactionalTestCase
 
         $files = [];
 
-        $this->client->request(Request::METHOD_POST, sprintf('/api/issues/%s/files', $issue->getId()), [], $files, ['CONTENT_TYPE' => 'application/json']);
+        $this->client->request(Request::METHOD_POST, sprintf('/api/issues/%s/files', $issue->getId()), [], $files, ['HTTP_ACCEPT' => 'application/json']);
 
         self::assertSame(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
     }
@@ -159,7 +159,7 @@ final class FilesControllerTest extends TransactionalTestCase
             'file' => $this->file,
         ];
 
-        $this->client->request(Request::METHOD_POST, sprintf('/api/issues/%s/files', $issue->getId()), [], $files, ['CONTENT_TYPE' => 'application/json']);
+        $this->client->request(Request::METHOD_POST, sprintf('/api/issues/%s/files', $issue->getId()), [], $files, ['HTTP_ACCEPT' => 'application/json']);
 
         self::assertSame(Response::HTTP_UNAUTHORIZED, $this->client->getResponse()->getStatusCode());
     }
@@ -178,7 +178,7 @@ final class FilesControllerTest extends TransactionalTestCase
             'file' => $this->file,
         ];
 
-        $this->client->request(Request::METHOD_POST, sprintf('/api/issues/%s/files', $issue->getId()), [], $files, ['CONTENT_TYPE' => 'application/json']);
+        $this->client->request(Request::METHOD_POST, sprintf('/api/issues/%s/files', $issue->getId()), [], $files, ['HTTP_ACCEPT' => 'application/json']);
 
         self::assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
     }
@@ -194,7 +194,7 @@ final class FilesControllerTest extends TransactionalTestCase
             'file' => $this->file,
         ];
 
-        $this->client->request(Request::METHOD_POST, sprintf('/api/issues/%s/files', self::UNKNOWN_ENTITY_ID), [], $files, ['CONTENT_TYPE' => 'application/json']);
+        $this->client->request(Request::METHOD_POST, sprintf('/api/issues/%s/files', self::UNKNOWN_ENTITY_ID), [], $files, ['HTTP_ACCEPT' => 'application/json']);
 
         self::assertSame(Response::HTTP_NOT_FOUND, $this->client->getResponse()->getStatusCode());
     }

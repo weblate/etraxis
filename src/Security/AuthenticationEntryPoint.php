@@ -38,7 +38,7 @@ class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
      */
     public function start(Request $request, AuthenticationException $authException = null): Response
     {
-        return $request->isXmlHttpRequest() || 'json' === $request->getContentTypeFormat()
+        return $request->isXmlHttpRequest() || 'json' === $request->getPreferredFormat()
             ? new JsonResponse($authException?->getMessage(), Response::HTTP_UNAUTHORIZED)
             : new RedirectResponse($this->urlGenerator->generate('login'));
     }

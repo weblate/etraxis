@@ -138,7 +138,7 @@ export default {
             axios
                 .put(url(`/api/users/${this.id}`), data)
                 .then(() => {
-                    msg.info(i18n["text.changes_saved"]).then(() => {
+                    msg.info(this.i18n["text.changes_saved"]).then(() => {
                         this.editUserDialog.close();
                         this.$emit("update:profile");
                     });

@@ -127,7 +127,7 @@ export default {
             axios
                 .patch(url("/api/my/profile"), data)
                 .then(() => {
-                    msg.info(i18n["text.changes_saved"]).then(() => {
+                    msg.info(this.i18n["text.changes_saved"]).then(() => {
                         this.profileDialog.close();
                         location.reload();
                     });
@@ -152,7 +152,7 @@ export default {
         updatePassword(event) {
             if (event.new !== event.confirmation) {
                 this.errors = {
-                    confirmation: i18n["password.dont_match"]
+                    confirmation: this.i18n["password.dont_match"]
                 };
             } else {
                 let data = {
@@ -165,7 +165,7 @@ export default {
                 axios
                     .put(url("/api/my/password"), data)
                     .then(() => {
-                        msg.info(i18n["password.changed"]).then(() => {
+                        msg.info(this.i18n["password.changed"]).then(() => {
                             ui.block();
                             location.href = url("/logout");
                         });

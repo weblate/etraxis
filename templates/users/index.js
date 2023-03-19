@@ -64,8 +64,8 @@ const app = createApp({
          * @property {Object} permissions List of possible account permissions
          */
         permissions: () => ({
-            true: i18n["role.admin"],
-            false: i18n["role.user"]
+            true: window.i18n["role.admin"],
+            false: window.i18n["role.user"]
         }),
 
         /**
@@ -135,11 +135,11 @@ const app = createApp({
                 total: data.total,
                 rows: data.rows.map((user) => {
                     let icons = [
-                        new Icon(ICON_IMPERSONATE, i18n["user.impersonate"], "fa-user-circle-o", user.id === this.currentUser),
-                        new Icon(ICON_UPDATE, i18n["user.edit"], "fa-pencil"),
+                        new Icon(ICON_IMPERSONATE, this.i18n["user.impersonate"], "fa-user-circle-o", user.id === this.currentUser),
+                        new Icon(ICON_UPDATE, this.i18n["user.edit"], "fa-pencil"),
                         user.disabled
-                            ? new Icon(ICON_ENABLE, i18n["button.enable"], "fa-toggle-off")
-                            : new Icon(ICON_DISABLE, i18n["button.disable"], "fa-toggle-on", user.id === this.currentUser)
+                            ? new Icon(ICON_ENABLE, this.i18n["button.enable"], "fa-toggle-off")
+                            : new Icon(ICON_DISABLE, this.i18n["button.disable"], "fa-toggle-on", user.id === this.currentUser)
                     ];
 
                     return {
@@ -149,7 +149,7 @@ const app = createApp({
                         DT_icons: icons,
                         fullname: user.fullname,
                         email: user.email,
-                        admin: user.admin ? i18n["role.admin"] : i18n["role.user"],
+                        admin: user.admin ? this.i18n["role.admin"] : this.i18n["role.user"],
                         accountProvider: this.providers[user.accountProvider],
                         description: user.description
                     };
@@ -256,7 +256,7 @@ const app = createApp({
             axios
                 .post(url("/api/users"), data)
                 .then(() => {
-                    msg.info(i18n["user.successfully_created"]).then(() => {
+                    msg.info(this.i18n["user.successfully_created"]).then(() => {
                         this.newUserDialog.close();
                         this.usersTable.refresh();
                     });
@@ -304,7 +304,7 @@ const app = createApp({
             axios
                 .put(url(`/api/users/${event.id}`), data)
                 .then(() => {
-                    msg.info(i18n["text.changes_saved"]).then(() => {
+                    msg.info(this.i18n["text.changes_saved"]).then(() => {
                         this.editUserDialog.close();
                         this.usersTable.refresh();
                     });
@@ -350,7 +350,7 @@ const app = createApp({
             ui.block();
 
             axios
-                .post(url(`/api/users/disable`), { users: this.checked })
+                .post(url("/api/users/disable"), { users: this.checked })
                 .then(() => this.usersTable.refresh())
                 .catch((exception) => parseErrors(exception))
                 .then(() => ui.unblock());
@@ -363,7 +363,7 @@ const app = createApp({
             ui.block();
 
             axios
-                .post(url(`/api/users/enable`), { users: this.checked })
+                .post(url("/api/users/enable"), { users: this.checked })
                 .then(() => this.usersTable.refresh())
                 .catch((exception) => parseErrors(exception))
                 .then(() => ui.unblock());

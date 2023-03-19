@@ -176,7 +176,7 @@ export default {
          */
         status() {
             if (this.blocked) {
-                return i18n["text.please_wait"];
+                return this.i18n["text.please_wait"];
             }
 
             if (this.total === 0) {
@@ -184,11 +184,11 @@ export default {
             }
 
             return !this.paging
-                ? i18n["table.size"].replace("%size%", this.total)
-                : i18n["table.status"]
-                      .replace("%from%", (this.page - 1) * this.pageSize + 1)
-                      .replace("%to%", Math.min(this.page * this.pageSize, this.total))
-                      .replace("%total%", this.total);
+                ? this.i18n["table.size"].replace("%size%", this.total)
+                : this.i18n["table.status"]
+                    .replace("%from%", (this.page - 1) * this.pageSize + 1)
+                    .replace("%to%", Math.min(this.page * this.pageSize, this.total))
+                    .replace("%total%", this.total);
         },
 
         /**
@@ -480,7 +480,7 @@ export default {
         let filters = this.loadState("filters") || {};
 
         this.columns.forEach((column) => {
-            if (filters.hasOwnProperty(column.props.id) && this.isColumnFilterable(column)) {
+            if (filters[column.props.id] !== undefined && this.isColumnFilterable(column)) {
                 this.filters[column.props.id] = filters[column.props.id];
             } else {
                 this.filters[column.props.id] = "";
@@ -491,7 +491,7 @@ export default {
         let order = this.loadState("order") || {};
 
         this.columns.forEach((column) => {
-            if (order.hasOwnProperty(column.props.id) && this.isColumnSortable(column)) {
+            if (order[column.props.id] !== undefined && this.isColumnSortable(column)) {
                 this.order[column.props.id] = order[column.props.id];
             }
         });

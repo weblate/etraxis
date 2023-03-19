@@ -45,7 +45,7 @@ export default {
             axios
                 .post(url("/api/forgot"), data)
                 .then(() => {
-                    msg.info(i18n["password.forgot.email_sent"]).then(() => this.$router.push("/login"));
+                    msg.info(this.i18n["password.forgot.email_sent"]).then(() => this.$router.push("/login"));
                 })
                 .catch((error) => msg.alert(error.response.data))
                 .then(() => ui.unblock());

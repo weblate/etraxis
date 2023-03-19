@@ -123,7 +123,7 @@ export default {
          */
         submit() {
             if (this.values.password !== this.confirmation) {
-                this.errors.confirmation = i18n["password.dont_match"];
+                this.errors.confirmation = this.i18n["password.dont_match"];
             } else {
                 this.errors.confirmation = null;
                 this.$emit("submit", this.values);

@@ -19,7 +19,7 @@ export const block = (message = null) => {
 
     const template = `
         <dialog id="${id}" class="blockui">
-            <p class="has-text-centered">${message ?? i18n["text.please_wait"]}</p>
+            <p class="has-text-centered">${message ?? window.i18n["text.please_wait"]}</p>
         </dialog>`;
 
     if (!document.getElementById(id)) {

@@ -18,7 +18,7 @@ import generateUid from "@utilities/uid";
  *
  * @return {Promise} Promise is resolved when the message box is closed
  */
-export const alert = (message) => messageBox(i18n["text.error"], message, "fa-times-circle", "has-text-danger", true);
+export const alert = (message) => messageBox(window.i18n["text.error"], message, "fa-times-circle", "has-text-danger", true);
 
 /**
  * Displays informational message box (alternative to JavaScript "alert").
@@ -53,9 +53,9 @@ const messageBox = (header, message, iconGlyph, iconClass, singleButton) =>
         const uid = generateUid();
 
         const buttons = singleButton
-            ? `<button class="button" type="button" data-id="yes">${i18n["button.close"]}</button>`
-            : `<button class="button" type="button" data-id="yes">${i18n["button.yes"]}</button>` +
-              `<button class="button" type="button" data-id="no">${i18n["button.no"]}</button>`;
+            ? `<button class="button" type="button" data-id="yes">${window.i18n["button.close"]}</button>`
+            : `<button class="button" type="button" data-id="yes">${window.i18n["button.yes"]}</button>` +
+              `<button class="button" type="button" data-id="no">${window.i18n["button.no"]}</button>`;
 
         const template = `
             <dialog id="${uid}" class="messagebox">
@@ -63,7 +63,7 @@ const messageBox = (header, message, iconGlyph, iconClass, singleButton) =>
                     <div class="modal-card">
                         <header class="modal-card-head">
                             <p class="modal-card-title">${header}</p>
-                            <span class="delete" title="${i18n["button.close"]}"></span>
+                            <span class="delete" title="${window.i18n["button.close"]}"></span>
                         </header>
                         <section class="modal-card-body">
                             <div class="columns is-mobile is-align-items-center">
@@ -89,8 +89,8 @@ const messageBox = (header, message, iconGlyph, iconClass, singleButton) =>
 
         let modal = document.getElementById(uid);
 
-        let btnYes = modal.querySelector('footer button[data-id="yes"]');
-        let btnNo = modal.querySelector('footer button[data-id="no"]');
+        let btnYes = modal.querySelector("footer button[data-id=yes]");
+        let btnNo = modal.querySelector("footer button[data-id=no]");
         let btnClose = modal.querySelector("header .delete");
 
         // Button "Yes" is clicked.

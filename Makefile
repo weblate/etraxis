@@ -28,7 +28,7 @@ build:
 	./bin/console doctrine:fixtures:load --group=prod -n
 	./bin/console etraxis:export-enums
 	npm install
-	npx prettier --write ./assets/enums
+	npx eslint --fix ./assets/enums
 	npm run dev
 
 run:
@@ -36,7 +36,7 @@ run:
 
 check:
 	./vendor/bin/php-cs-fixer fix
-	npx prettier --write --list-different ./assets ./templates
+	npx eslint --fix ./assets ./templates
 
 cloc:
 	cloc ./assets ./src ./templates ./tests
@@ -54,5 +54,5 @@ update:
 
 watch:
 	./bin/console etraxis:export-enums
-	npx prettier --write ./assets/enums
+	npx eslint --fix ./assets/enums
 	npm run watch

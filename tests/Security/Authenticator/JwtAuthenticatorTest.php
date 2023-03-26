@@ -13,8 +13,8 @@
 
 namespace App\Security\Authenticator;
 
-use App\Entity\Enums\SecondsEnum;
 use App\Entity\User;
+use App\Utils\SecondsEnum;
 use Firebase\JWT\JWT;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;

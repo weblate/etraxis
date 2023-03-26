@@ -14,13 +14,13 @@
 namespace App\Repository;
 
 use App\Entity\Change;
-use App\Entity\Enums\SecondsEnum;
 use App\Entity\Issue;
 use App\Entity\ListItem;
 use App\Entity\StringValue;
 use App\Entity\TextValue;
 use App\Entity\User;
 use App\TransactionalTestCase;
+use App\Utils\SecondsEnum;
 
 /**
  * @internal

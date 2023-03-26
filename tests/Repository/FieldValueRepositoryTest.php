@@ -17,7 +17,6 @@ use App\Entity\DecimalValue;
 use App\Entity\Enums\EventTypeEnum;
 use App\Entity\Enums\FieldPermissionEnum;
 use App\Entity\Enums\FieldTypeEnum;
-use App\Entity\Enums\SecondsEnum;
 use App\Entity\Event;
 use App\Entity\Field;
 use App\Entity\FieldValue;
@@ -30,6 +29,7 @@ use App\Entity\TextValue;
 use App\Entity\Transition;
 use App\Entity\User;
 use App\TransactionalTestCase;
+use App\Utils\SecondsEnum;
 
 /**
  * @internal

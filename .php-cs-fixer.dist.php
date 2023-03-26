@@ -6,6 +6,7 @@ $finder = (new PhpCsFixer\Finder())
     ->in(__DIR__.'/tests')
     ->notPath([
         'Entity/Enums',
+        'Utils/SecondsEnum',
     ])
 ;
 

@@ -13,7 +13,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Enums\SecondsEnum;
 use App\Entity\Field;
 use App\Entity\Issue;
 use App\Entity\State;
@@ -22,6 +21,7 @@ use App\Entity\User;
 use App\LoginTrait;
 use App\Repository\Contracts\IssueRepositoryInterface;
 use App\TransactionalTestCase;
+use App\Utils\SecondsEnum;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

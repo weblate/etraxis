@@ -13,10 +13,10 @@
 
 namespace App\MessageHandler\Security;
 
-use App\Entity\Enums\SecondsEnum;
 use App\Message\Security\GenerateJwtCommand;
 use App\MessageBus\Contracts\CommandHandlerInterface;
 use App\Serializer\JwtEncoder;
+use App\Utils\SecondsEnum;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;

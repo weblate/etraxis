@@ -15,7 +15,6 @@ namespace App\DataFixtures;
 
 use App\Entity\DecimalValue;
 use App\Entity\Enums\FieldTypeEnum;
-use App\Entity\Enums\SecondsEnum;
 use App\Entity\Event;
 use App\Entity\FieldValue;
 use App\Entity\ListItem;
@@ -23,6 +22,7 @@ use App\Entity\StringValue;
 use App\Entity\TextValue;
 use App\Entity\Transition;
 use App\ReflectionTrait;
+use App\Utils\SecondsEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\DataFixtures\FixtureInterface;

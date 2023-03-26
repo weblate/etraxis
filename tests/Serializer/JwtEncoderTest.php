@@ -13,7 +13,7 @@
 
 namespace App\Serializer;
 
-use App\Entity\Enums\SecondsEnum;
+use App\Utils\SecondsEnum;
 use PHPUnit\Framework\TestCase;
 
 /**

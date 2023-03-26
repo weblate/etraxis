@@ -13,12 +13,12 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\Enums\SecondsEnum;
 use App\Entity\Issue;
 use App\Entity\Template;
 use App\LoginTrait;
 use App\Repository\Contracts\IssueRepositoryInterface;
 use App\TransactionalTestCase;
+use App\Utils\SecondsEnum;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;

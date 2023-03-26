@@ -13,8 +13,8 @@
 
 namespace App\Entity\FieldStrategy;
 
-use App\Entity\Enums\SecondsEnum;
 use App\Entity\Field;
+use App\Utils\SecondsEnum;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;

@@ -11,7 +11,7 @@
 //
 //----------------------------------------------------------------------
 
-namespace App\Entity\Enums;
+namespace App\Utils;
 
 /**
  * Time constants expressed in seconds.

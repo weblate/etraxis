@@ -14,8 +14,8 @@
 namespace App\Entity\FieldStrategy;
 
 use App\Controller\ApiControllerInterface;
-use App\Entity\Enums\SecondsEnum;
 use App\Entity\Field;
+use App\Utils\SecondsEnum;
 use App\Validator\DateRange;
 use OpenApi\Attributes as API;
 use Symfony\Component\Serializer\Annotation\Groups;

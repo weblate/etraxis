@@ -13,7 +13,7 @@
 
 namespace App\Validator;
 
-use App\Entity\Enums\SecondsEnum;
+use App\Utils\SecondsEnum;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\ConstraintValidatorInterface;

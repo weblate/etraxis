@@ -13,8 +13,8 @@
 
 namespace App\Entity;
 
-use App\Entity\Enums\SecondsEnum;
 use App\Repository\IssueRepository;
+use App\Utils\SecondsEnum;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

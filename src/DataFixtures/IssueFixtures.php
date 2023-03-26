@@ -13,9 +13,9 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Enums\SecondsEnum;
 use App\Entity\Issue;
 use App\ReflectionTrait;
+use App\Utils\SecondsEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\DataFixtures\FixtureInterface;

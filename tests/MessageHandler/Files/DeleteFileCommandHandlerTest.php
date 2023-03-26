@@ -14,7 +14,6 @@
 namespace App\MessageHandler\Files;
 
 use App\Entity\Enums\EventTypeEnum;
-use App\Entity\Enums\SecondsEnum;
 use App\Entity\File;
 use App\Entity\User;
 use App\LoginTrait;
@@ -22,6 +21,7 @@ use App\Message\Files\DeleteFileCommand;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\Repository\Contracts\FileRepositoryInterface;
 use App\TransactionalTestCase;
+use App\Utils\SecondsEnum;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

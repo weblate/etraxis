@@ -14,13 +14,13 @@
 namespace App\MessageHandler\Issues;
 
 use App\Entity\Enums\EventTypeEnum;
-use App\Entity\Enums\SecondsEnum;
 use App\Entity\Issue;
 use App\LoginTrait;
 use App\Message\Issues\SuspendIssueCommand;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\Repository\Contracts\IssueRepositoryInterface;
 use App\TransactionalTestCase;
+use App\Utils\SecondsEnum;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

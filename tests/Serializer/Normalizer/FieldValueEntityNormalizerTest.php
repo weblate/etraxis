@@ -14,12 +14,12 @@
 namespace App\Serializer\Normalizer;
 
 use App\Entity\Enums\FieldTypeEnum;
-use App\Entity\Enums\SecondsEnum;
 use App\Entity\FieldValue;
 use App\Entity\Issue;
 use App\Entity\User;
 use App\Repository\Contracts\FieldValueRepositoryInterface;
 use App\TransactionalTestCase;
+use App\Utils\SecondsEnum;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;

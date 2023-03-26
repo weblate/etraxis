@@ -13,11 +13,11 @@
 
 namespace App\Message\Fields;
 
-use App\Controller\ApiControllerInterface;
 use App\Entity\Enums\FieldTypeEnum;
 use App\Entity\Field;
 use App\Entity\FieldStrategy;
 use App\MessageBus\Contracts\CommandInterface;
+use App\Utils\OpenApiInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as API;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -46,7 +46,7 @@ final class CreateFieldCommand implements CommandInterface
         #[Groups('api')]
         private readonly bool $required,
         #[Groups('api')]
-        #[API\Property(type: ApiControllerInterface::TYPE_OBJECT, oneOf: [
+        #[API\Property(type: OpenApiInterface::TYPE_OBJECT, oneOf: [
             new API\Schema(ref: new Model(type: FieldStrategy\CheckboxStrategy::class)),
             new API\Schema(ref: new Model(type: FieldStrategy\DateStrategy::class)),
             new API\Schema(ref: new Model(type: FieldStrategy\DecimalStrategy::class)),

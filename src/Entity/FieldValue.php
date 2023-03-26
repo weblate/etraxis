@@ -13,8 +13,8 @@
 
 namespace App\Entity;
 
-use App\Controller\ApiControllerInterface;
 use App\Repository\FieldValueRepository;
+use App\Utils\OpenApiInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as API;
@@ -124,10 +124,10 @@ class FieldValue
      * Property getter.
      */
     #[Groups('info')]
-    #[API\Property(type: ApiControllerInterface::TYPE_OBJECT, oneOf: [
-        new API\Schema(type: ApiControllerInterface::TYPE_BOOLEAN),
-        new API\Schema(type: ApiControllerInterface::TYPE_INTEGER),
-        new API\Schema(type: ApiControllerInterface::TYPE_STRING),
+    #[API\Property(type: OpenApiInterface::TYPE_OBJECT, oneOf: [
+        new API\Schema(type: OpenApiInterface::TYPE_BOOLEAN),
+        new API\Schema(type: OpenApiInterface::TYPE_INTEGER),
+        new API\Schema(type: OpenApiInterface::TYPE_STRING),
         new API\Schema(ref: new Model(type: ListItem::class)),
     ])]
     public function getValue(): ?int

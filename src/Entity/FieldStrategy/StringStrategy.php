@@ -13,9 +13,9 @@
 
 namespace App\Entity\FieldStrategy;
 
-use App\Controller\ApiControllerInterface;
 use App\Entity\Field;
 use App\Entity\StringValue;
+use App\Utils\OpenApiInterface;
 use OpenApi\Attributes as API;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
@@ -32,14 +32,14 @@ final class StringStrategy extends AbstractFieldStrategy
     public const MAX_LENGTH = StringValue::MAX_VALUE;
 
     #[Groups('api')]
-    #[API\Property(type: ApiControllerInterface::TYPE_INTEGER, minimum: self::MIN_LENGTH, maximum: self::MAX_LENGTH, description: 'Maximum allowed length.')]
+    #[API\Property(type: OpenApiInterface::TYPE_INTEGER, minimum: self::MIN_LENGTH, maximum: self::MAX_LENGTH, description: 'Maximum allowed length.')]
     public function getLength(): int
     {
         return $this->getParameter(Field::LENGTH);
     }
 
     #[Groups('api')]
-    #[API\Property(type: ApiControllerInterface::TYPE_STRING, nullable: true, maxLength: self::MAX_LENGTH, description: 'Default value.')]
+    #[API\Property(type: OpenApiInterface::TYPE_STRING, nullable: true, maxLength: self::MAX_LENGTH, description: 'Default value.')]
     public function getDefault(): ?string
     {
         return $this->getParameter(Field::DEFAULT);
@@ -47,7 +47,7 @@ final class StringStrategy extends AbstractFieldStrategy
 
     #[Groups('api')]
     #[SerializedName('pcre-check')]
-    #[API\Property(type: ApiControllerInterface::TYPE_STRING, nullable: true, maxLength: Field::MAX_PCRE, description: 'Perl-compatible regular expression to check value format.')]
+    #[API\Property(type: OpenApiInterface::TYPE_STRING, nullable: true, maxLength: Field::MAX_PCRE, description: 'Perl-compatible regular expression to check value format.')]
     public function getPcreCheck(): ?string
     {
         return $this->getParameter(Field::PCRE_CHECK);
@@ -55,7 +55,7 @@ final class StringStrategy extends AbstractFieldStrategy
 
     #[Groups('api')]
     #[SerializedName('pcre-search')]
-    #[API\Property(type: ApiControllerInterface::TYPE_STRING, nullable: true, maxLength: Field::MAX_PCRE, description: 'Perl-compatible regular expression to modify value before display it (search for).')]
+    #[API\Property(type: OpenApiInterface::TYPE_STRING, nullable: true, maxLength: Field::MAX_PCRE, description: 'Perl-compatible regular expression to modify value before display it (search for).')]
     public function getPcreSearch(): ?string
     {
         return $this->getParameter(Field::PCRE_SEARCH);
@@ -63,7 +63,7 @@ final class StringStrategy extends AbstractFieldStrategy
 
     #[Groups('api')]
     #[SerializedName('pcre-replace')]
-    #[API\Property(type: ApiControllerInterface::TYPE_STRING, nullable: true, maxLength: Field::MAX_PCRE, description: 'Perl-compatible regular expression to modify value before display it (replace with).')]
+    #[API\Property(type: OpenApiInterface::TYPE_STRING, nullable: true, maxLength: Field::MAX_PCRE, description: 'Perl-compatible regular expression to modify value before display it (replace with).')]
     public function getPcreReplace(): ?string
     {
         return $this->getParameter(Field::PCRE_REPLACE);

@@ -13,8 +13,8 @@
 
 namespace App\Message\Issues;
 
-use App\Controller\ApiControllerInterface;
 use App\MessageBus\Contracts\CommandInterface;
+use App\Utils\OpenApiInterface;
 use OpenApi\Attributes as API;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -32,10 +32,10 @@ final class ChangeStateCommand implements CommandInterface
         #[Groups('api')]
         private readonly ?int $responsible,
         #[Groups('api')]
-        #[API\Property(type: ApiControllerInterface::TYPE_OBJECT, description: 'Fields values (keys are field IDs).', properties: [
-            new API\Property(property: '123', type: ApiControllerInterface::TYPE_BOOLEAN),
-            new API\Property(property: '456', type: ApiControllerInterface::TYPE_INTEGER),
-            new API\Property(property: '789', type: ApiControllerInterface::TYPE_STRING),
+        #[API\Property(type: OpenApiInterface::TYPE_OBJECT, description: 'Fields values (keys are field IDs).', properties: [
+            new API\Property(property: '123', type: OpenApiInterface::TYPE_BOOLEAN),
+            new API\Property(property: '456', type: OpenApiInterface::TYPE_INTEGER),
+            new API\Property(property: '789', type: OpenApiInterface::TYPE_STRING),
         ])]
         private readonly ?array $fields
     ) {

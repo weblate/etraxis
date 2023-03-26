@@ -13,8 +13,8 @@
 
 namespace App\Entity\FieldStrategy;
 
-use App\Controller\ApiControllerInterface;
 use App\Entity\Field;
+use App\Utils\OpenApiInterface;
 use App\Utils\SecondsEnum;
 use App\Validator\DurationRange;
 use OpenApi\Attributes as API;
@@ -32,21 +32,21 @@ final class DurationStrategy extends AbstractFieldStrategy
     public const MAX_VALUE = 59999999;  // 999999:59
 
     #[Groups('api')]
-    #[API\Property(type: ApiControllerInterface::TYPE_STRING, description: 'Minimum allowed value (0:00 - 999999:59).')]
+    #[API\Property(type: OpenApiInterface::TYPE_STRING, description: 'Minimum allowed value (0:00 - 999999:59).')]
     public function getMinimum(): string
     {
         return $this->getParameter(Field::MINIMUM);
     }
 
     #[Groups('api')]
-    #[API\Property(type: ApiControllerInterface::TYPE_STRING, description: 'Maximum allowed value (0:00 - 999999:59).')]
+    #[API\Property(type: OpenApiInterface::TYPE_STRING, description: 'Maximum allowed value (0:00 - 999999:59).')]
     public function getMaximum(): string
     {
         return $this->getParameter(Field::MAXIMUM);
     }
 
     #[Groups('api')]
-    #[API\Property(type: ApiControllerInterface::TYPE_STRING, nullable: true, description: 'Default value (0:00 - 999999:59).')]
+    #[API\Property(type: OpenApiInterface::TYPE_STRING, nullable: true, description: 'Default value (0:00 - 999999:59).')]
     public function getDefault(): ?string
     {
         return $this->getParameter(Field::DEFAULT);

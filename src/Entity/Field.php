@@ -13,9 +13,9 @@
 
 namespace App\Entity;
 
-use App\Controller\ApiControllerInterface;
 use App\Entity\Enums\FieldTypeEnum;
 use App\Repository\FieldRepository;
+use App\Utils\OpenApiInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -257,7 +257,7 @@ class Field
      * Property getter.
      */
     #[Groups('api')]
-    #[API\Property(property: 'parameters', type: ApiControllerInterface::TYPE_OBJECT, oneOf: [
+    #[API\Property(property: 'parameters', type: OpenApiInterface::TYPE_OBJECT, oneOf: [
         new API\Schema(ref: new Model(type: FieldStrategy\CheckboxStrategy::class)),
         new API\Schema(ref: new Model(type: FieldStrategy\DateStrategy::class)),
         new API\Schema(ref: new Model(type: FieldStrategy\DecimalStrategy::class)),

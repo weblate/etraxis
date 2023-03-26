@@ -13,8 +13,8 @@
 
 namespace App\Message\States;
 
-use App\Controller\ApiControllerInterface;
 use App\MessageBus\Contracts\CommandInterface;
+use App\Utils\OpenApiInterface;
 use OpenApi\Attributes as API;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -33,7 +33,7 @@ final class SetResponsibleGroupsCommand implements CommandInterface
             new Assert\Regex('/^\d+$/'),
         ])]
         #[Groups('api')]
-        #[API\Property(type: ApiControllerInterface::TYPE_ARRAY, items: new API\Items(type: ApiControllerInterface::TYPE_INTEGER))]
+        #[API\Property(type: OpenApiInterface::TYPE_ARRAY, items: new API\Items(type: OpenApiInterface::TYPE_INTEGER))]
         private readonly array $groups
     ) {
     }

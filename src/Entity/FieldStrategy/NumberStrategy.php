@@ -13,8 +13,8 @@
 
 namespace App\Entity\FieldStrategy;
 
-use App\Controller\ApiControllerInterface;
 use App\Entity\Field;
+use App\Utils\OpenApiInterface;
 use OpenApi\Attributes as API;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -30,21 +30,21 @@ final class NumberStrategy extends AbstractFieldStrategy
     public const MAX_VALUE = 1000000000;
 
     #[Groups('api')]
-    #[API\Property(type: ApiControllerInterface::TYPE_INTEGER, minimum: self::MIN_VALUE, maximum: self::MAX_VALUE, description: 'Minimum allowed value.')]
+    #[API\Property(type: OpenApiInterface::TYPE_INTEGER, minimum: self::MIN_VALUE, maximum: self::MAX_VALUE, description: 'Minimum allowed value.')]
     public function getMinimum(): int
     {
         return $this->getParameter(Field::MINIMUM);
     }
 
     #[Groups('api')]
-    #[API\Property(type: ApiControllerInterface::TYPE_INTEGER, minimum: self::MIN_VALUE, maximum: self::MAX_VALUE, description: 'Maximum allowed value.')]
+    #[API\Property(type: OpenApiInterface::TYPE_INTEGER, minimum: self::MIN_VALUE, maximum: self::MAX_VALUE, description: 'Maximum allowed value.')]
     public function getMaximum(): int
     {
         return $this->getParameter(Field::MAXIMUM);
     }
 
     #[Groups('api')]
-    #[API\Property(type: ApiControllerInterface::TYPE_INTEGER, nullable: true, minimum: self::MIN_VALUE, maximum: self::MAX_VALUE, description: 'Default value.')]
+    #[API\Property(type: OpenApiInterface::TYPE_INTEGER, nullable: true, minimum: self::MIN_VALUE, maximum: self::MAX_VALUE, description: 'Default value.')]
     public function getDefault(): ?int
     {
         return $this->getParameter(Field::DEFAULT);

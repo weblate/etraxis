@@ -13,9 +13,9 @@
 
 namespace App\Entity;
 
-use App\Controller\ApiControllerInterface;
 use App\Entity\Enums\EventTypeEnum;
 use App\Repository\ChangeRepository;
+use App\Utils\OpenApiInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as API;
@@ -132,10 +132,10 @@ class Change
      * Property getter.
      */
     #[Groups('info')]
-    #[API\Property(type: ApiControllerInterface::TYPE_OBJECT, oneOf: [
-        new API\Schema(type: ApiControllerInterface::TYPE_BOOLEAN),
-        new API\Schema(type: ApiControllerInterface::TYPE_INTEGER),
-        new API\Schema(type: ApiControllerInterface::TYPE_STRING),
+    #[API\Property(type: OpenApiInterface::TYPE_OBJECT, oneOf: [
+        new API\Schema(type: OpenApiInterface::TYPE_BOOLEAN),
+        new API\Schema(type: OpenApiInterface::TYPE_INTEGER),
+        new API\Schema(type: OpenApiInterface::TYPE_STRING),
         new API\Schema(ref: new Model(type: ListItem::class)),
     ])]
     public function getOldValue(): ?int
@@ -147,10 +147,10 @@ class Change
      * Property getter.
      */
     #[Groups('info')]
-    #[API\Property(type: ApiControllerInterface::TYPE_OBJECT, oneOf: [
-        new API\Schema(type: ApiControllerInterface::TYPE_BOOLEAN),
-        new API\Schema(type: ApiControllerInterface::TYPE_INTEGER),
-        new API\Schema(type: ApiControllerInterface::TYPE_STRING),
+    #[API\Property(type: OpenApiInterface::TYPE_OBJECT, oneOf: [
+        new API\Schema(type: OpenApiInterface::TYPE_BOOLEAN),
+        new API\Schema(type: OpenApiInterface::TYPE_INTEGER),
+        new API\Schema(type: OpenApiInterface::TYPE_STRING),
         new API\Schema(ref: new Model(type: ListItem::class)),
     ])]
     public function getNewValue(): ?int

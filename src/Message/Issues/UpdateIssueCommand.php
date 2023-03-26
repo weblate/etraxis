@@ -13,9 +13,9 @@
 
 namespace App\Message\Issues;
 
-use App\Controller\ApiControllerInterface;
 use App\Entity\Issue;
 use App\MessageBus\Contracts\CommandInterface;
+use App\Utils\OpenApiInterface;
 use OpenApi\Attributes as API;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -35,10 +35,10 @@ final class UpdateIssueCommand implements CommandInterface
         #[Groups('api')]
         private readonly ?string $subject,
         #[Groups('api')]
-        #[API\Property(type: ApiControllerInterface::TYPE_OBJECT, description: 'Fields values (keys are field IDs).', properties: [
-            new API\Property(property: '123', type: ApiControllerInterface::TYPE_BOOLEAN),
-            new API\Property(property: '456', type: ApiControllerInterface::TYPE_INTEGER),
-            new API\Property(property: '789', type: ApiControllerInterface::TYPE_STRING),
+        #[API\Property(type: OpenApiInterface::TYPE_OBJECT, description: 'Fields values (keys are field IDs).', properties: [
+            new API\Property(property: '123', type: OpenApiInterface::TYPE_BOOLEAN),
+            new API\Property(property: '456', type: OpenApiInterface::TYPE_INTEGER),
+            new API\Property(property: '789', type: OpenApiInterface::TYPE_STRING),
         ])]
         private readonly ?array $fields
     ) {

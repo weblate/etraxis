@@ -13,10 +13,10 @@
 
 namespace App\Entity\FieldStrategy;
 
-use App\Controller\ApiControllerInterface;
 use App\Entity\Field;
 use App\Entity\ListItem;
 use App\Repository\Contracts\ListItemRepositoryInterface;
+use App\Utils\OpenApiInterface;
 use OpenApi\Attributes as API;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -31,7 +31,7 @@ final class ListStrategy extends AbstractFieldStrategy
     public const MIN_VALUE = 1;
 
     #[Groups('api')]
-    #[API\Property(type: ApiControllerInterface::TYPE_INTEGER, nullable: true, minimum: self::MIN_VALUE, description: 'Default value.')]
+    #[API\Property(type: OpenApiInterface::TYPE_INTEGER, nullable: true, minimum: self::MIN_VALUE, description: 'Default value.')]
     public function getDefault(): ?int
     {
         return $this->getParameter(Field::DEFAULT);

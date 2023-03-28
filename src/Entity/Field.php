@@ -23,6 +23,7 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as API;
 use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
  * Field.
@@ -257,7 +258,8 @@ class Field
      * Property getter.
      */
     #[Groups('api')]
-    #[API\Property(property: 'parameters', type: OpenApiInterface::TYPE_OBJECT, oneOf: [
+    #[SerializedName('parameters')]
+    #[API\Property(type: OpenApiInterface::TYPE_OBJECT, oneOf: [
         new API\Schema(ref: new Model(type: FieldStrategy\CheckboxStrategy::class)),
         new API\Schema(ref: new Model(type: FieldStrategy\DateStrategy::class)),
         new API\Schema(ref: new Model(type: FieldStrategy\DecimalStrategy::class)),

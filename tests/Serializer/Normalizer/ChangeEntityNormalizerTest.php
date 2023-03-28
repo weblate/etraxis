@@ -23,7 +23,6 @@ use App\Repository\Contracts\ChangeRepositoryInterface;
 use App\TransactionalTestCase;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 /**
  * @internal
@@ -64,11 +63,7 @@ final class ChangeEntityNormalizerTest extends TransactionalTestCase
             'field'     => null,
             'oldValue'  => 'Task 1',
             'newValue'  => 'Development task 1',
-            'user'      => [
-                'id'       => $change->getUser()->getId(),
-                'email'    => $change->getUser()->getEmail(),
-                'fullname' => $change->getUser()->getFullname(),
-            ],
+            'user'      => $this->normalizer->normalize($change->getUser(), 'json', [AbstractNormalizer::GROUPS => 'info']),
             'createdAt' => $change->getCreatedAt(),
         ];
 
@@ -108,11 +103,7 @@ final class ChangeEntityNormalizerTest extends TransactionalTestCase
                 'value' => 2,
                 'text'  => 'normal',
             ],
-            'user'      => [
-                'id'       => $change->getUser()->getId(),
-                'email'    => $change->getUser()->getEmail(),
-                'fullname' => $change->getUser()->getFullname(),
-            ],
+            'user'      => $this->normalizer->normalize($change->getUser(), 'json', [AbstractNormalizer::GROUPS => 'info']),
             'createdAt' => $change->getCreatedAt(),
         ];
 
@@ -146,11 +137,7 @@ final class ChangeEntityNormalizerTest extends TransactionalTestCase
             ],
             'oldValue'  => 'Velit voluptatem rerum nulla quos.',
             'newValue'  => 'Velit voluptatem rerum nulla quos soluta excepturi omnis.',
-            'user'      => [
-                'id'       => $change->getUser()->getId(),
-                'email'    => $change->getUser()->getEmail(),
-                'fullname' => $change->getUser()->getFullname(),
-            ],
+            'user'      => $this->normalizer->normalize($change->getUser(), 'json', [AbstractNormalizer::GROUPS => 'info']),
             'createdAt' => $change->getCreatedAt(),
         ];
 
@@ -175,7 +162,6 @@ final class ChangeEntityNormalizerTest extends TransactionalTestCase
         $change = reset($changes);
 
         $normalizer = new ChangeEntityNormalizer(
-            new ObjectNormalizer(),
             $this->doctrine->getRepository(StringValue::class),
             $this->doctrine->getRepository(FieldValue::class)
         );

@@ -15,20 +15,22 @@ namespace App\Serializer\Normalizer;
 
 use App\Entity\FieldValue;
 use App\Repository\Contracts\FieldValueRepositoryInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * 'FieldValue' entity normalizer.
  */
-class FieldValueEntityNormalizer implements NormalizerInterface
+class FieldValueEntityNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
+    use NormalizerAwareTrait;
+
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
-    public function __construct(
-        protected readonly NormalizerInterface $normalizer,
-        protected readonly FieldValueRepositoryInterface $repository
-    ) {
+    public function __construct(protected readonly FieldValueRepositoryInterface $repository)
+    {
     }
 
     /**
@@ -36,18 +38,21 @@ class FieldValueEntityNormalizer implements NormalizerInterface
      */
     public function normalize(mixed $object, string $format = null, array $context = []): array
     {
+        // Setting this to flag that the normalizer has been already called before.
+        $context[self::class] = true;
+
         /** @var FieldValue $object */
-        $json = $this->normalizer->normalize($object, $format, $context);
+        $result = $this->normalizer->normalize($object, $format, $context);
 
         if (null !== $object->getValue()) {
             $value = $this->repository->getFieldValue($object->getField()->getType(), $object->getValue());
 
-            $json['value'] = is_object($value)
+            $result['value'] = is_object($value)
                 ? $this->normalizer->normalize($value, $format, $context)
                 : $value;
         }
 
-        return $json;
+        return $result;
     }
 
     /**
@@ -55,6 +60,6 @@ class FieldValueEntityNormalizer implements NormalizerInterface
      */
     public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
     {
-        return $data instanceof FieldValue;
+        return $data instanceof FieldValue && !($context[self::class] ?? false);
     }
 }

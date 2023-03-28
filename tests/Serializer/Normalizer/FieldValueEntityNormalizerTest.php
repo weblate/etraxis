@@ -22,7 +22,6 @@ use App\TransactionalTestCase;
 use App\Utils\SecondsEnum;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 /**
  * @internal
@@ -378,7 +377,7 @@ final class FieldValueEntityNormalizerTest extends TransactionalTestCase
         /** @var FieldValue $value */
         $value = reset($values);
 
-        $normalizer = new FieldValueEntityNormalizer(new ObjectNormalizer(), $this->repository);
+        $normalizer = new FieldValueEntityNormalizer($this->repository);
 
         self::assertTrue($normalizer->supportsNormalization($value));
         self::assertFalse($normalizer->supportsNormalization($issue));

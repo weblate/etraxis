@@ -16,18 +16,21 @@ namespace App\Serializer\Normalizer;
 use App\Entity\Change;
 use App\Repository\Contracts\FieldValueRepositoryInterface;
 use App\Repository\Contracts\StringValueRepositoryInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * 'Change' entity normalizer.
  */
-class ChangeEntityNormalizer implements NormalizerInterface
+class ChangeEntityNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
+    use NormalizerAwareTrait;
+
     /**
      * @codeCoverageIgnore Dependency Injection constructor
      */
     public function __construct(
-        protected readonly NormalizerInterface $normalizer,
         protected readonly StringValueRepositoryInterface $stringValueRepository,
         protected readonly FieldValueRepositoryInterface $fieldValueRepository
     ) {
@@ -38,15 +41,18 @@ class ChangeEntityNormalizer implements NormalizerInterface
      */
     public function normalize(mixed $object, string $format = null, array $context = []): array
     {
+        // Setting this to flag that the normalizer has been already called before.
+        $context[self::class] = true;
+
         /** @var Change $object */
-        $json = $this->normalizer->normalize($object, $format, $context);
+        $result = $this->normalizer->normalize($object, $format, $context);
 
         if (null !== $object->getOldValue()) {
             $value = null === $object->getField()
                 ? $this->stringValueRepository->find($object->getOldValue())?->getValue()
                 : $this->fieldValueRepository->getFieldValue($object->getField()->getType(), $object->getOldValue());
 
-            $json['oldValue'] = is_object($value)
+            $result['oldValue'] = is_object($value)
                 ? $this->normalizer->normalize($value, $format, $context)
                 : $value;
         }
@@ -56,12 +62,12 @@ class ChangeEntityNormalizer implements NormalizerInterface
                 ? $this->stringValueRepository->find($object->getNewValue())?->getValue()
                 : $this->fieldValueRepository->getFieldValue($object->getField()->getType(), $object->getNewValue());
 
-            $json['newValue'] = is_object($value)
+            $result['newValue'] = is_object($value)
                 ? $this->normalizer->normalize($value, $format, $context)
                 : $value;
         }
 
-        return $json;
+        return $result;
     }
 
     /**
@@ -69,6 +75,6 @@ class ChangeEntityNormalizer implements NormalizerInterface
      */
     public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
     {
-        return $data instanceof Change;
+        return $data instanceof Change && !($context[self::class] ?? false);
     }
 }

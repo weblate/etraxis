@@ -9,11 +9,11 @@
 //
 //----------------------------------------------------------------------
 
-import Modal from "@components/modal/modal.vue";
+import Modal from '@components/modal/modal.vue';
 
-import LocaleEnum from "@enums/locale";
+import LocaleEnum from '@enums/locale';
 
-import generateUid from "@utilities/uid";
+import generateUid from '@utilities/uid';
 
 /**
  * "New user" dialog.
@@ -49,10 +49,10 @@ export default {
         /**
          * @param {Object} values Submitted form values
          */
-        submit: (values) => typeof values === "object"
+        submit: (values) => typeof values === 'object'
     },
 
-    expose: ["open", "close"],
+    expose: ['open', 'close'],
 
     components: {
         modal: Modal
@@ -104,7 +104,7 @@ export default {
          */
         open(defaults = {}) {
             this.values = { ...defaults };
-            this.confirmation = "";
+            this.confirmation = '';
 
             this.$refs.modal.open();
 
@@ -123,10 +123,10 @@ export default {
          */
         submit() {
             if (this.values.password !== this.confirmation) {
-                this.errors.confirmation = this.i18n["password.dont_match"];
+                this.errors.confirmation = this.i18n['password.dont_match'];
             } else {
                 this.errors.confirmation = null;
-                this.$emit("submit", this.values);
+                this.$emit('submit', this.values);
             }
         }
     }

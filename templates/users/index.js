@@ -9,29 +9,29 @@
 //
 //----------------------------------------------------------------------
 
-import { createApp } from "vue";
+import { createApp } from 'vue';
 
-import axios from "axios";
+import axios from 'axios';
 
-import AccountProviderEnum from "@enums/accountprovider";
+import AccountProviderEnum from '@enums/accountprovider';
 
-import * as ui from "@utilities/blockui";
-import * as msg from "@utilities/messagebox";
-import parseErrors from "@utilities/parseErrors";
-import query from "@utilities/query";
-import url from "@utilities/url";
+import * as ui from '@utilities/blockui';
+import * as msg from '@utilities/messagebox';
+import parseErrors from '@utilities/parseErrors';
+import query from '@utilities/query';
+import url from '@utilities/url';
 
-import DataTable from "@components/datatable/datatable.vue";
-import Column from "@components/datatable/column.vue";
-import Icon from "@components/datatable/icon";
+import DataTable from '@components/datatable/datatable.vue';
+import Column from '@components/datatable/column.vue';
+import Icon from '@components/datatable/icon';
 
-import NewUserDialog from "./NewUserDialog.vue";
-import EditUserDialog from "./EditUserDialog.vue";
+import NewUserDialog from './NewUserDialog.vue';
+import EditUserDialog from './EditUserDialog.vue';
 
-const ICON_IMPERSONATE = "impersonate";
-const ICON_UPDATE = "update";
-const ICON_DISABLE = "disable";
-const ICON_ENABLE = "enable";
+const ICON_IMPERSONATE = 'impersonate';
+const ICON_UPDATE = 'update';
+const ICON_DISABLE = 'disable';
+const ICON_ENABLE = 'enable';
 
 /**
  * "Users" page.
@@ -64,8 +64,8 @@ const app = createApp({
          * @property {Object} permissions List of possible account permissions
          */
         permissions: () => ({
-            true: window.i18n["role.admin"],
-            false: window.i18n["role.user"]
+            true: window.i18n['role.admin'],
+            false: window.i18n['role.user']
         }),
 
         /**
@@ -129,27 +129,27 @@ const app = createApp({
          * @return {Object} Table data
          */
         async users(offset, limit, search, filters, order) {
-            let data = await query(url("/api/users"), offset, limit, search, filters, order);
+            let data = await query(url('/api/users'), offset, limit, search, filters, order);
 
             return {
                 total: data.total,
                 rows: data.rows.map((user) => {
                     let icons = [
-                        new Icon(ICON_IMPERSONATE, this.i18n["user.impersonate"], "fa-user-circle-o", user.id === this.currentUser),
-                        new Icon(ICON_UPDATE, this.i18n["user.edit"], "fa-pencil"),
+                        new Icon(ICON_IMPERSONATE, this.i18n['user.impersonate'], 'fa-user-circle-o', user.id === this.currentUser),
+                        new Icon(ICON_UPDATE, this.i18n['user.edit'], 'fa-pencil'),
                         user.disabled
-                            ? new Icon(ICON_ENABLE, this.i18n["button.enable"], "fa-toggle-off")
-                            : new Icon(ICON_DISABLE, this.i18n["button.disable"], "fa-toggle-on", user.id === this.currentUser)
+                            ? new Icon(ICON_ENABLE, this.i18n['button.enable'], 'fa-toggle-off')
+                            : new Icon(ICON_DISABLE, this.i18n['button.disable'], 'fa-toggle-on', user.id === this.currentUser)
                     ];
 
                     return {
                         DT_id: user.id,
-                        DT_class: user.disabled ? "has-text-grey" : null,
+                        DT_class: user.disabled ? 'has-text-grey' : null,
                         DT_checkable: user.id !== this.currentUser,
                         DT_icons: icons,
                         fullname: user.fullname,
                         email: user.email,
-                        admin: user.admin ? this.i18n["role.admin"] : this.i18n["role.user"],
+                        admin: user.admin ? this.i18n['role.admin'] : this.i18n['role.user'],
                         accountProvider: this.providers[user.accountProvider],
                         description: user.description
                     };
@@ -189,7 +189,7 @@ const app = createApp({
          */
         viewUser(event, id) {
             if (event.ctrlKey) {
-                window.open(url(`/admin/users/${id}`), "_blank");
+                window.open(url(`/admin/users/${id}`), '_blank');
             } else {
                 location.href = url(`/admin/users/${id}`);
             }
@@ -219,10 +219,10 @@ const app = createApp({
          */
         openNewUserDialog() {
             let defaults = {
-                email: "",
-                password: "",
-                fullname: "",
-                description: "",
+                email: '',
+                password: '',
+                fullname: '',
+                description: '',
                 admin: false,
                 disabled: false,
                 locale: this.defaultLocale,
@@ -254,9 +254,9 @@ const app = createApp({
             ui.block();
 
             axios
-                .post(url("/api/users"), data)
+                .post(url('/api/users'), data)
                 .then(() => {
-                    msg.info(this.i18n["user.successfully_created"]).then(() => {
+                    msg.info(this.i18n['user.successfully_created']).then(() => {
                         this.newUserDialog.close();
                         this.usersTable.refresh();
                     });
@@ -277,7 +277,7 @@ const app = createApp({
                 .get(url(`/api/users/${id}`))
                 .then((response) => {
                     this.errors = {};
-                    this.editUserDialog.open(id === this.currentUser, response.data.accountProvider !== "etraxis", response.data);
+                    this.editUserDialog.open(id === this.currentUser, response.data.accountProvider !== 'etraxis', response.data);
                 })
                 .catch((exception) => parseErrors(exception))
                 .then(() => ui.unblock());
@@ -304,7 +304,7 @@ const app = createApp({
             axios
                 .put(url(`/api/users/${event.id}`), data)
                 .then(() => {
-                    msg.info(this.i18n["text.changes_saved"]).then(() => {
+                    msg.info(this.i18n['text.changes_saved']).then(() => {
                         this.editUserDialog.close();
                         this.usersTable.refresh();
                     });
@@ -350,7 +350,7 @@ const app = createApp({
             ui.block();
 
             axios
-                .post(url("/api/users/disable"), { users: this.checked })
+                .post(url('/api/users/disable'), { users: this.checked })
                 .then(() => this.usersTable.refresh())
                 .catch((exception) => parseErrors(exception))
                 .then(() => ui.unblock());
@@ -363,7 +363,7 @@ const app = createApp({
             ui.block();
 
             axios
-                .post(url("/api/users/enable"), { users: this.checked })
+                .post(url('/api/users/enable'), { users: this.checked })
                 .then(() => this.usersTable.refresh())
                 .catch((exception) => parseErrors(exception))
                 .then(() => ui.unblock());
@@ -374,21 +374,21 @@ const app = createApp({
         ui.block();
 
         axios
-            .get(url("/timezones"))
+            .get(url('/timezones'))
             .then((response) => {
                 this.timezones = Object.values(response.data)
                     .reduce((result, entry) => [...result, ...Object.keys(entry)], [])
                     .sort();
-                this.timezones.unshift("UTC");
+                this.timezones.unshift('UTC');
             })
             .catch((exception) => parseErrors(exception))
             .then(() => ui.unblock());
     }
 });
 
-app.component("datatable", DataTable);
-app.component("column", Column);
-app.component("new-user-dialog", NewUserDialog);
-app.component("edit-user-dialog", EditUserDialog);
+app.component('datatable', DataTable);
+app.component('column', Column);
+app.component('new-user-dialog', NewUserDialog);
+app.component('edit-user-dialog', EditUserDialog);
 
-app.mount("#vue-users");
+app.mount('#vue-users');

@@ -9,7 +9,7 @@
 //
 //----------------------------------------------------------------------
 
-import { alert } from "@utilities/messagebox";
+import { alert } from '@utilities/messagebox';
 
 /**
  * Retrieves all errors caught in the axios `catch` block.
@@ -25,9 +25,9 @@ import { alert } from "@utilities/messagebox";
 export default (exception) => {
     let errors = {};
 
-    if (typeof exception.response.data === "object") {
+    if (typeof exception.response.data === 'object') {
         for (let entry of exception.response.data) {
-            errors[entry["property"]] = entry["message"];
+            errors[entry['property']] = entry['message'];
         }
     } else {
         alert(exception.response.data);

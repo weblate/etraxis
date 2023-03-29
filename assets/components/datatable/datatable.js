@@ -9,10 +9,10 @@
 //
 //----------------------------------------------------------------------
 
-import { alert } from "@utilities/messagebox";
+import { alert } from '@utilities/messagebox';
 
 const DEFAULT_PAGE_SIZE = 10;
-const DEFAULT_ORDER = "asc";
+const DEFAULT_ORDER = 'asc';
 const REFRESH_DELAY = 400;
 
 /**
@@ -90,9 +90,9 @@ export default {
         }
     },
 
-    emits: ["cell-click", "icon-click", "update:checked"],
+    emits: ['cell-click', 'icon-click', 'update:checked'],
 
-    expose: ["refresh"],
+    expose: ['refresh'],
 
     data: () => ({
         /**
@@ -133,7 +133,7 @@ export default {
         /**
          * @property {string} search "Search" value
          */
-        search: "",
+        search: '',
 
         /**
          * @property {Object} filters Column filters values
@@ -176,7 +176,7 @@ export default {
          */
         status() {
             if (this.blocked) {
-                return this.i18n["text.please_wait"];
+                return this.i18n['text.please_wait'];
             }
 
             if (this.total === 0) {
@@ -184,11 +184,11 @@ export default {
             }
 
             return !this.paging
-                ? this.i18n["table.size"].replace("%size%", this.total)
-                : this.i18n["table.status"]
-                    .replace("%from%", (this.page - 1) * this.pageSize + 1)
-                    .replace("%to%", Math.min(this.page * this.pageSize, this.total))
-                    .replace("%total%", this.total);
+                ? this.i18n['table.size'].replace('%size%', this.total)
+                : this.i18n['table.status']
+                    .replace('%from%', (this.page - 1) * this.pageSize + 1)
+                    .replace('%to%', Math.min(this.page * this.pageSize, this.total))
+                    .replace('%total%', this.total);
         },
 
         /**
@@ -206,7 +206,7 @@ export default {
                 return this.checked.length === this.rows.filter((row) => this.isRowCheckable(row)).length;
             },
             set(value) {
-                this.$emit("update:checked", value ? this.rows.filter((row) => this.isRowCheckable(row)).map((row) => row["DT_id"]) : []);
+                this.$emit('update:checked', value ? this.rows.filter((row) => this.isRowCheckable(row)).map((row) => row['DT_id']) : []);
             }
         },
 
@@ -235,9 +235,9 @@ export default {
                 if (Object.keys(this.columnFilterWith(column)).length !== 0) {
                     if (!Number.isNaN(Number(value))) {
                         value = parseFloat(value);
-                    } else if (value === "true") {
+                    } else if (value === 'true') {
                         value = true;
-                    } else if (value === "false") {
+                    } else if (value === 'false') {
                         value = false;
                     }
                 }
@@ -271,7 +271,7 @@ export default {
 
                 this.blocked = false;
 
-                this.$emit("update:checked", []);
+                this.$emit('update:checked', []);
             } catch (error) {
                 alert(error).then(() => (this.blocked = false));
             }
@@ -292,7 +292,7 @@ export default {
          * @param {*}      value Value to store
          */
         saveState(name, value) {
-            if (typeof value === "object") {
+            if (typeof value === 'object') {
                 let values = Object.entries(value).reduce(
                     (result, entry) => ({
                         ...result,
@@ -339,15 +339,15 @@ export default {
                 checked.add(id);
             }
 
-            this.$emit("update:checked", Array.from(checked));
+            this.$emit('update:checked', Array.from(checked));
         },
 
         /**
          * Clears current search and filters.
          */
         clearSearchAndFilters() {
-            this.search = "";
-            this.columns.forEach((column) => (this.filters[column.props.id] = ""));
+            this.search = '';
+            this.columns.forEach((column) => (this.filters[column.props.id] = ''));
         },
 
         /**
@@ -372,7 +372,7 @@ export default {
          * @returns {Object} Filtering options
          */
         columnFilterWith(column) {
-            return column.props["filter-with"] ?? {};
+            return column.props['filter-with'] ?? {};
         }
     },
 
@@ -384,7 +384,7 @@ export default {
          */
         userPage(value) {
             if (this.paging) {
-                if (typeof value === "number" && value >= 1 && value <= this.pages) {
+                if (typeof value === 'number' && value >= 1 && value <= this.pages) {
                     this.userPage = this.page = Math.round(value);
                 } else {
                     this.userPage = this.page;
@@ -401,7 +401,7 @@ export default {
             this.userPage = value;
 
             if (this.paging) {
-                this.saveState("page", value);
+                this.saveState('page', value);
                 this.refreshWithDelay();
             }
         },
@@ -418,7 +418,7 @@ export default {
                     return;
                 }
 
-                this.saveState("pageSize", value);
+                this.saveState('pageSize', value);
                 this.refreshWithDelay();
             }
         },
@@ -429,7 +429,7 @@ export default {
          * @param {string} value New search
          */
         search(value) {
-            this.saveState("search", value);
+            this.saveState('search', value);
             this.refreshWithDelay();
         },
 
@@ -440,7 +440,7 @@ export default {
          */
         filters: {
             handler(value) {
-                this.saveState("filters", value);
+                this.saveState('filters', value);
                 this.refreshWithDelay();
             },
             deep: true
@@ -452,7 +452,7 @@ export default {
          * @param {Object} value New order
          */
         order(value) {
-            this.saveState("order", value);
+            this.saveState('order', value);
             this.refresh();
         }
     },
@@ -460,8 +460,8 @@ export default {
     mounted() {
         // Restore saved table state (paging).
         if (this.paging) {
-            this.page = parseInt(this.loadState("page")) || 1;
-            this.pageSize = parseInt(this.loadState("pageSize")) || DEFAULT_PAGE_SIZE;
+            this.page = parseInt(this.loadState('page')) || 1;
+            this.pageSize = parseInt(this.loadState('pageSize')) || DEFAULT_PAGE_SIZE;
 
             if (!this.allowedPageSizes.includes(this.pageSize)) {
                 this.pageSize = DEFAULT_PAGE_SIZE;
@@ -474,21 +474,21 @@ export default {
         }
 
         // Restore saved table state (search).
-        this.search = this.loadState("search") || "";
+        this.search = this.loadState('search') || '';
 
         // Restore saved table state (filters).
-        let filters = this.loadState("filters") || {};
+        let filters = this.loadState('filters') || {};
 
         this.columns.forEach((column) => {
             if (filters[column.props.id] !== undefined && this.isColumnFilterable(column)) {
                 this.filters[column.props.id] = filters[column.props.id];
             } else {
-                this.filters[column.props.id] = "";
+                this.filters[column.props.id] = '';
             }
         });
 
         // Restore saved table state (sorting order).
-        let order = this.loadState("order") || {};
+        let order = this.loadState('order') || {};
 
         this.columns.forEach((column) => {
             if (order[column.props.id] !== undefined && this.isColumnSortable(column)) {

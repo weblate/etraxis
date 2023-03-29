@@ -9,8 +9,8 @@
 //
 //----------------------------------------------------------------------
 
-const ORDER_ASC = "asc";
-const ORDER_DESC = "desc";
+const ORDER_ASC = 'asc';
+const ORDER_DESC = 'desc';
 
 /**
  * DataTable column.
@@ -64,8 +64,8 @@ export default {
          */
         cssClass() {
             return {
-                "is-narrow": !this.wrappable,
-                "is-clickable": this.sortable
+                'is-narrow': !this.wrappable,
+                'is-clickable': this.sortable
             };
         },
 
@@ -92,7 +92,7 @@ export default {
          */
         onClick(event) {
             if (this.sortable) {
-                let direction = (this.$parent.$data.order[this.id] || "") === ORDER_ASC ? ORDER_DESC : ORDER_ASC;
+                let direction = (this.$parent.$data.order[this.id] || '') === ORDER_ASC ? ORDER_DESC : ORDER_ASC;
 
                 if (event.ctrlKey) {
                     delete this.$parent.$data.order[this.id];

@@ -31,9 +31,9 @@ export default {
         }
     },
 
-    emits: ["submit", "cancel"],
+    emits: ['submit', 'cancel'],
 
-    expose: ["open", "close"],
+    expose: ['open', 'close'],
 
     data: () => ({
         /**
@@ -132,14 +132,14 @@ export default {
          * Submits the dialog.
          */
         onSubmit() {
-            this.$emit("submit");
+            this.$emit('submit');
         },
 
         /**
          * Cancels the dialog.
          */
         onCancel() {
-            this.$emit("cancel");
+            this.$emit('cancel');
 
             if (this.autoClose) {
                 this.close();
@@ -149,7 +149,7 @@ export default {
 
     mounted() {
         // Cancel the dialog when the "Esc" is pressed.
-        this.$el.addEventListener("cancel", (event) => {
+        this.$el.addEventListener('cancel', (event) => {
             event.preventDefault();
             this.onCancel();
         });

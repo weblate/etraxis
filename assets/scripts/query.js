@@ -9,7 +9,7 @@
 //
 //----------------------------------------------------------------------
 
-import axios from "axios";
+import axios from 'axios';
 
 /**
  * Makes an API call for DataTable component.

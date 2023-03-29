@@ -9,6 +9,6 @@
 //
 //----------------------------------------------------------------------
 
-import translations from "@translations/messages.ru.yaml";
+import translations from '@translations/messages.ru.yaml';
 
 window.i18n = translations;

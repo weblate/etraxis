@@ -27,7 +27,7 @@ export default {
         /**
          * @param {string} value ID of the active tab
          */
-        "update:modelValue": (value) => typeof value === "string"
+        'update:modelValue': (value) => typeof value === 'string'
     },
 
     computed: {

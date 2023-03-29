@@ -9,7 +9,7 @@
 //
 //----------------------------------------------------------------------
 
-import generateUid from "@utilities/uid";
+import generateUid from '@utilities/uid';
 
 /**
  * Displays error message box (alternative to JavaScript "alert").
@@ -18,7 +18,7 @@ import generateUid from "@utilities/uid";
  *
  * @return {Promise} Promise is resolved when the message box is closed
  */
-export const alert = (message) => messageBox(window.i18n["text.error"], message, "fa-times-circle", "has-text-danger", true);
+export const alert = (message) => messageBox(window.i18n['text.error'], message, 'fa-times-circle', 'has-text-danger', true);
 
 /**
  * Displays informational message box (alternative to JavaScript "alert").
@@ -27,7 +27,7 @@ export const alert = (message) => messageBox(window.i18n["text.error"], message,
  *
  * @return {Promise} Promise is resolved when the message box is closed
  */
-export const info = (message) => messageBox("eTraxis", message, "fa-info-circle", "has-text-info", true);
+export const info = (message) => messageBox('eTraxis', message, 'fa-info-circle', 'has-text-info', true);
 
 /**
  * Displays confirmation message box (alternative to JavaScript "confirm").
@@ -36,7 +36,7 @@ export const info = (message) => messageBox("eTraxis", message, "fa-info-circle"
  *
  * @return {Promise} Promise is resolved when the message box is closed with confirmation
  */
-export const confirm = (message) => messageBox("eTraxis", message, "fa-question-circle", "has-text-info", false);
+export const confirm = (message) => messageBox('eTraxis', message, 'fa-question-circle', 'has-text-info', false);
 
 /**
  * @internal Displays modal message box.
@@ -53,9 +53,9 @@ const messageBox = (header, message, iconGlyph, iconClass, singleButton) =>
         const uid = generateUid();
 
         const buttons = singleButton
-            ? `<button class="button" type="button" data-id="yes">${window.i18n["button.close"]}</button>`
-            : `<button class="button" type="button" data-id="yes">${window.i18n["button.yes"]}</button>` +
-              `<button class="button" type="button" data-id="no">${window.i18n["button.no"]}</button>`;
+            ? `<button class="button" type="button" data-id="yes">${window.i18n['button.close']}</button>`
+            : `<button class="button" type="button" data-id="yes">${window.i18n['button.yes']}</button>` +
+              `<button class="button" type="button" data-id="no">${window.i18n['button.no']}</button>`;
 
         const template = `
             <dialog id="${uid}" class="messagebox">
@@ -63,7 +63,7 @@ const messageBox = (header, message, iconGlyph, iconClass, singleButton) =>
                     <div class="modal-card">
                         <header class="modal-card-head">
                             <p class="modal-card-title">${header}</p>
-                            <span class="delete" title="${window.i18n["button.close"]}"></span>
+                            <span class="delete" title="${window.i18n['button.close']}"></span>
                         </header>
                         <section class="modal-card-body">
                             <div class="columns is-mobile is-align-items-center">
@@ -85,33 +85,33 @@ const messageBox = (header, message, iconGlyph, iconClass, singleButton) =>
                 </div>
             </dialog>`;
 
-        document.querySelector("body").insertAdjacentHTML("beforeend", template);
+        document.querySelector('body').insertAdjacentHTML('beforeend', template);
 
         let modal = document.getElementById(uid);
 
-        let btnYes = modal.querySelector("footer button[data-id=yes]");
-        let btnNo = modal.querySelector("footer button[data-id=no]");
-        let btnClose = modal.querySelector("header .delete");
+        let btnYes = modal.querySelector('footer button[data-id="yes"]');
+        let btnNo = modal.querySelector('footer button[data-id="no"]');
+        let btnClose = modal.querySelector('header .delete');
 
         // Button "Yes" is clicked.
-        btnYes.addEventListener("click", () => modal.close("yes"));
+        btnYes.addEventListener('click', () => modal.close('yes'));
 
         // Button "No" is clicked.
         if (btnNo) {
-            btnNo.addEventListener("click", () => modal.close("no"));
+            btnNo.addEventListener('click', () => modal.close('no'));
         }
 
         // The "x" button in the header is clicked.
-        btnClose.addEventListener("click", () => modal.close("no"));
+        btnClose.addEventListener('click', () => modal.close('no'));
 
         // "Esc" is pressed.
-        modal.addEventListener("cancel", () => (modal.returnValue = "no"));
+        modal.addEventListener('cancel', () => (modal.returnValue = 'no'));
 
         // Dialog is closed.
-        modal.addEventListener("close", () => {
+        modal.addEventListener('close', () => {
             modal.parentNode.removeChild(modal);
 
-            if (singleButton || modal.returnValue === "yes") {
+            if (singleButton || modal.returnValue === 'yes') {
                 resolve();
             } else {
                 Promise.resolve();

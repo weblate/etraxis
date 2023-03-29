@@ -9,11 +9,11 @@
 //
 //----------------------------------------------------------------------
 
-import axios from "axios";
+import axios from 'axios';
 
-import * as ui from "@utilities/blockui";
-import * as msg from "@utilities/messagebox";
-import url from "@utilities/url";
+import * as ui from '@utilities/blockui';
+import * as msg from '@utilities/messagebox';
+import url from '@utilities/url';
 
 /**
  * "Forgot password" page.
@@ -43,9 +43,9 @@ export default {
             };
 
             axios
-                .post(url("/api/forgot"), data)
+                .post(url('/api/forgot'), data)
                 .then(() => {
-                    msg.info(this.i18n["password.forgot.email_sent"]).then(() => this.$router.push("/login"));
+                    msg.info(this.i18n['password.forgot.email_sent']).then(() => this.$router.push('/login'));
                 })
                 .catch((error) => msg.alert(error.response.data))
                 .then(() => ui.unblock());

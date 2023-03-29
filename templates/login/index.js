@@ -9,12 +9,12 @@
 //
 //----------------------------------------------------------------------
 
-import { createApp } from "vue";
-import { createRouter } from "vue-router";
+import { createApp } from 'vue';
+import { createRouter } from 'vue-router';
 
-import routerConfig from "./router";
+import routerConfig from './router';
 
-import "./index.scss";
+import './index.scss';
 
 /**
  * Authentication page.
@@ -24,23 +24,23 @@ const app = createApp({
         /**
          * @property {Object} lightStyleSheet Stylesheet of the light theme
          */
-        lightStyleSheet: () => Object.values(document.styleSheets).find((styleSheet) => styleSheet.href.includes("/light/")),
+        lightStyleSheet: () => Object.values(document.styleSheets).find((styleSheet) => styleSheet.href.includes('/light/')),
 
         /**
          * @property {Object} darkStyleSheet Stylesheet of the dark theme
          */
-        darkStyleSheet: () => Object.values(document.styleSheets).find((styleSheet) => styleSheet.href.includes("/dark/")),
+        darkStyleSheet: () => Object.values(document.styleSheets).find((styleSheet) => styleSheet.href.includes('/dark/')),
 
         /**
          * @property {string} themeModeStorage Name of the local storage variable to store the theme mode
          */
-        themeModeStorage: () => "eTraxis.isDarkMode"
+        themeModeStorage: () => 'eTraxis.isDarkMode'
     },
 
     created() {
         // Restore theme mode from local storage.
-        let isDarkMode = !!JSON.parse(localStorage[this.themeModeStorage] || "false");
-        document.querySelector("html").classList.add(isDarkMode ? "dark" : "light");
+        let isDarkMode = !!JSON.parse(localStorage[this.themeModeStorage] || 'false');
+        document.querySelector('html').classList.add(isDarkMode ? 'dark' : 'light');
         this.lightStyleSheet.disabled = isDarkMode;
         this.darkStyleSheet.disabled = !isDarkMode;
     }
@@ -49,4 +49,4 @@ const app = createApp({
 const router = createRouter(routerConfig);
 
 app.use(router);
-app.mount("#vue-login");
+app.mount('#vue-login');

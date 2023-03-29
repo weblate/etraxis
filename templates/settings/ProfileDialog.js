@@ -9,12 +9,12 @@
 //
 //----------------------------------------------------------------------
 
-import Modal from "@components/modal/modal.vue";
+import Modal from '@components/modal/modal.vue';
 
-import LocaleEnum from "@enums/locale";
-import ThemeEnum from "@enums/theme";
+import LocaleEnum from '@enums/locale';
+import ThemeEnum from '@enums/theme';
 
-import generateUid from "@utilities/uid";
+import generateUid from '@utilities/uid';
 
 /**
  * "Profile" dialog.
@@ -58,10 +58,10 @@ export default {
         /**
          * @param {Object} values Submitted form values
          */
-        submit: (values) => typeof values === "object"
+        submit: (values) => typeof values === 'object'
     },
 
-    expose: ["open", "close"],
+    expose: ['open', 'close'],
 
     components: {
         modal: Modal
@@ -122,7 +122,7 @@ export default {
          * @property {Object} cities Available cities in the current country
          */
         cities() {
-            return this.country === "UTC" ? { UTC: "UTC" } : this.timezones[this.country] ?? {};
+            return this.country === 'UTC' ? { UTC: 'UTC' } : this.timezones[this.country] ?? {};
         }
     },
 
@@ -134,7 +134,7 @@ export default {
          */
         open(defaults = {}) {
             this.values = { ...defaults };
-            this.country = "UTC";
+            this.country = 'UTC';
 
             for (let country in this.timezones) {
                 if (Object.keys(this.timezones[country]).includes(this.values.timezone)) {
@@ -160,8 +160,8 @@ export default {
          * Submits the dialog's form.
          */
         submit() {
-            this.values.timezone = this.city ?? "UTC";
-            this.$emit("submit", this.values);
+            this.values.timezone = this.city ?? 'UTC';
+            this.$emit('submit', this.values);
         }
     },
 
@@ -172,7 +172,7 @@ export default {
          * @param value New country
          */
         country(value) {
-            if (value === "UTC") {
+            if (value === 'UTC') {
                 this.city = null;
             } else {
                 let timezones = Object.keys(this.timezones[value] ?? {});

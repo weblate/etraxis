@@ -9,27 +9,27 @@
 //
 //----------------------------------------------------------------------
 
-import axios from "axios";
+import axios from 'axios';
 
-import AccountProviderEnum from "@enums/accountprovider";
-import LocaleEnum from "@enums/locale";
-import ThemeEnum from "@enums/theme";
+import AccountProviderEnum from '@enums/accountprovider';
+import LocaleEnum from '@enums/locale';
+import ThemeEnum from '@enums/theme';
 
-import * as ui from "@utilities/blockui";
-import * as msg from "@utilities/messagebox";
-import parseErrors from "@utilities/parseErrors";
-import url from "@utilities/url";
+import * as ui from '@utilities/blockui';
+import * as msg from '@utilities/messagebox';
+import parseErrors from '@utilities/parseErrors';
+import url from '@utilities/url';
 
-import ProfileDialog from "./ProfileDialog.vue";
-import PasswordDialog from "./PasswordDialog.vue";
+import ProfileDialog from './ProfileDialog.vue';
+import PasswordDialog from './PasswordDialog.vue';
 
 /**
  * "Profile" tab.
  */
 export default {
     components: {
-        "profile-dialog": ProfileDialog,
-        "password-dialog": PasswordDialog
+        'profile-dialog': ProfileDialog,
+        'password-dialog': PasswordDialog
     },
 
     data: () => ({
@@ -95,7 +95,7 @@ export default {
          * @property {boolean} isExternal Whether the user's account is external
          */
         isExternal() {
-            return this.profile.accountProvider !== "etraxis";
+            return this.profile.accountProvider !== 'etraxis';
         }
     },
 
@@ -125,9 +125,9 @@ export default {
             ui.block();
 
             axios
-                .patch(url("/api/my/profile"), data)
+                .patch(url('/api/my/profile'), data)
                 .then(() => {
-                    msg.info(this.i18n["text.changes_saved"]).then(() => {
+                    msg.info(this.i18n['text.changes_saved']).then(() => {
                         this.profileDialog.close();
                         location.reload();
                     });
@@ -152,7 +152,7 @@ export default {
         updatePassword(event) {
             if (event.new !== event.confirmation) {
                 this.errors = {
-                    confirmation: this.i18n["password.dont_match"]
+                    confirmation: this.i18n['password.dont_match']
                 };
             } else {
                 let data = {
@@ -163,11 +163,11 @@ export default {
                 ui.block();
 
                 axios
-                    .put(url("/api/my/password"), data)
+                    .put(url('/api/my/password'), data)
                     .then(() => {
-                        msg.info(this.i18n["password.changed"]).then(() => {
+                        msg.info(this.i18n['password.changed']).then(() => {
                             ui.block();
-                            location.href = url("/logout");
+                            location.href = url('/logout');
                         });
                     })
                     .catch((exception) => (this.errors = parseErrors(exception)))
@@ -177,7 +177,7 @@ export default {
     },
 
     created() {
-        const urls = [url("/api/my/profile"), url("/timezones")];
+        const urls = [url('/api/my/profile'), url('/timezones')];
 
         ui.block();
 

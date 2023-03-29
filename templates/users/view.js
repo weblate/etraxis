@@ -9,18 +9,18 @@
 //
 //----------------------------------------------------------------------
 
-import { createApp } from "vue";
+import { createApp } from 'vue';
 
-import axios from "axios";
+import axios from 'axios';
 
-import * as ui from "@utilities/blockui";
-import parseErrors from "@utilities/parseErrors";
-import url from "@utilities/url";
+import * as ui from '@utilities/blockui';
+import parseErrors from '@utilities/parseErrors';
+import url from '@utilities/url';
 
-import Tabs from "@components/tabs/tabs.vue";
-import Tab from "@components/tabs/tab.vue";
+import Tabs from '@components/tabs/tabs.vue';
+import Tab from '@components/tabs/tab.vue';
 
-import ProfileTab from "./ProfileTab.vue";
+import ProfileTab from './ProfileTab.vue';
 
 /**
  * "View user" page.
@@ -30,7 +30,7 @@ const app = createApp({
         /**
          * @property {string} tab ID of the current tab
          */
-        tab: "profile",
+        tab: 'profile',
 
         /**
          * @property {Object} profile User's profile
@@ -89,8 +89,8 @@ const app = createApp({
     }
 });
 
-app.component("tabs", Tabs);
-app.component("tab", Tab);
-app.component("profile-tab", ProfileTab);
+app.component('tabs', Tabs);
+app.component('tab', Tab);
+app.component('profile-tab', ProfileTab);
 
-app.mount("#vue-user");
+app.mount('#vue-user');

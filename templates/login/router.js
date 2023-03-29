@@ -9,25 +9,25 @@
 //
 //----------------------------------------------------------------------
 
-import { createWebHistory } from "vue-router";
+import { createWebHistory } from 'vue-router';
 
-import LoginPage from "./LoginPage.vue";
-import ForgotPasswordPage from "./ForgotPasswordPage.vue";
-import ResetPasswordPage from "./ResetPasswordPage.vue";
+import LoginPage from './LoginPage.vue';
+import ForgotPasswordPage from './ForgotPasswordPage.vue';
+import ResetPasswordPage from './ResetPasswordPage.vue';
 
 export default {
     history: createWebHistory(),
     routes: [
         {
-            path: "/login",
+            path: '/login',
             component: LoginPage
         },
         {
-            path: "/forgot",
+            path: '/forgot',
             component: ForgotPasswordPage
         },
         {
-            path: "/reset/:token",
+            path: '/reset/:token',
             component: ResetPasswordPage
         }
     ]

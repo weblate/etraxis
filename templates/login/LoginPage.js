@@ -9,11 +9,11 @@
 //
 //----------------------------------------------------------------------
 
-import axios from "axios";
+import axios from 'axios';
 
-import * as ui from "@utilities/blockui";
-import * as msg from "@utilities/messagebox";
-import url from "@utilities/url";
+import * as ui from '@utilities/blockui';
+import * as msg from '@utilities/messagebox';
+import url from '@utilities/url';
 
 /**
  * Login page.
@@ -58,7 +58,7 @@ export default {
             };
 
             axios
-                .post(url("/login"), data)
+                .post(url('/login'), data)
                 .then(() => location.reload())
                 .catch((error) => msg.alert(error.response.data))
                 .then(() => ui.unblock());

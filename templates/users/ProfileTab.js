@@ -9,17 +9,17 @@
 //
 //----------------------------------------------------------------------
 
-import axios from "axios";
+import axios from 'axios';
 
-import AccountProviderEnum from "@enums/accountprovider";
-import LocaleEnum from "@enums/locale";
+import AccountProviderEnum from '@enums/accountprovider';
+import LocaleEnum from '@enums/locale';
 
-import * as ui from "@utilities/blockui";
-import * as msg from "@utilities/messagebox";
-import parseErrors from "@utilities/parseErrors";
-import url from "@utilities/url";
+import * as ui from '@utilities/blockui';
+import * as msg from '@utilities/messagebox';
+import parseErrors from '@utilities/parseErrors';
+import url from '@utilities/url';
 
-import EditUserDialog from "./EditUserDialog.vue";
+import EditUserDialog from './EditUserDialog.vue';
 
 /**
  * "Profile" tab.
@@ -38,10 +38,10 @@ export default {
         actions: Object
     },
 
-    emits: ["update:profile"],
+    emits: ['update:profile'],
 
     components: {
-        "edit-user-dialog": EditUserDialog
+        'edit-user-dialog': EditUserDialog
     },
 
     data: () => ({
@@ -118,7 +118,7 @@ export default {
          * Redirects back to the users list.
          */
         goBack() {
-            location.href = url("/admin/users");
+            location.href = url('/admin/users');
         },
 
         /**
@@ -136,7 +136,7 @@ export default {
             };
 
             this.errors = {};
-            this.editUserDialog.open(this.isCurrentUser, this.accountProvider !== "etraxis", defaults);
+            this.editUserDialog.open(this.isCurrentUser, this.accountProvider !== 'etraxis', defaults);
         },
 
         /**
@@ -160,9 +160,9 @@ export default {
             axios
                 .put(url(`/api/users/${this.id}`), data)
                 .then(() => {
-                    msg.info(this.i18n["text.changes_saved"]).then(() => {
+                    msg.info(this.i18n['text.changes_saved']).then(() => {
                         this.editUserDialog.close();
-                        this.$emit("update:profile");
+                        this.$emit('update:profile');
                     });
                 })
                 .catch((exception) => (this.errors = parseErrors(exception)))
@@ -176,8 +176,8 @@ export default {
             ui.block();
 
             axios
-                .post(url(`/api/users/${this.id}/${this.disabled ? "enable" : "disable"}`))
-                .then(() => this.$emit("update:profile"))
+                .post(url(`/api/users/${this.id}/${this.disabled ? 'enable' : 'disable'}`))
+                .then(() => this.$emit('update:profile'))
                 .catch((exception) => parseErrors(exception))
                 .then(() => ui.unblock());
         }
@@ -187,12 +187,12 @@ export default {
         ui.block();
 
         axios
-            .get(url("/timezones"))
+            .get(url('/timezones'))
             .then((response) => {
                 this.timezones = Object.values(response.data)
                     .reduce((result, entry) => [...result, ...Object.keys(entry)], [])
                     .sort();
-                this.timezones.unshift("UTC");
+                this.timezones.unshift('UTC');
             })
             .catch((exception) => parseErrors(exception))
             .then(() => ui.unblock());

@@ -9,7 +9,7 @@
 //
 //----------------------------------------------------------------------
 
-import generateUid from "@utilities/uid";
+import generateUid from '@utilities/uid';
 
 /**
  * Dropdown button.
@@ -61,7 +61,7 @@ export default {
          * @param {MouseEvent} event
          */
         eventListener(event) {
-            if (!this.$el.querySelector(".dropdown-trigger").contains(event.target)) {
+            if (!this.$el.querySelector('.dropdown-trigger').contains(event.target)) {
                 this.isActive = false;
             }
         }
@@ -75,14 +75,14 @@ export default {
          */
         isActive(value) {
             if (value) {
-                document.addEventListener("click", this.eventListener);
+                document.addEventListener('click', this.eventListener);
             } else {
-                document.removeEventListener("click", this.eventListener);
+                document.removeEventListener('click', this.eventListener);
             }
         }
     },
 
     beforeUnmount() {
-        document.removeEventListener("click", this.eventListener);
+        document.removeEventListener('click', this.eventListener);
     }
 };

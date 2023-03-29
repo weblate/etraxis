@@ -9,12 +9,12 @@
 //
 //----------------------------------------------------------------------
 
-import { createApp } from "vue";
+import { createApp } from 'vue';
 
-import Tabs from "@components/tabs/tabs.vue";
-import Tab from "@components/tabs/tab.vue";
+import Tabs from '@components/tabs/tabs.vue';
+import Tab from '@components/tabs/tab.vue';
 
-import ProfileTab from "./ProfileTab.vue";
+import ProfileTab from './ProfileTab.vue';
 
 /**
  * "Settings" page.
@@ -24,7 +24,7 @@ const app = createApp({
         /**
          * @property {string} tab ID of the current tab
          */
-        tab: "profile"
+        tab: 'profile'
     }),
 
     computed: {
@@ -35,8 +35,8 @@ const app = createApp({
     }
 });
 
-app.component("tabs", Tabs);
-app.component("tab", Tab);
-app.component("profile-tab", ProfileTab);
+app.component('tabs', Tabs);
+app.component('tab', Tab);
+app.component('profile-tab', ProfileTab);
 
-app.mount("#vue-settings");
+app.mount('#vue-settings');

@@ -9,11 +9,11 @@
 //
 //----------------------------------------------------------------------
 
-import axios from "axios";
+import axios from 'axios';
 
-import * as ui from "@utilities/blockui";
-import * as msg from "@utilities/messagebox";
-import url from "@utilities/url";
+import * as ui from '@utilities/blockui';
+import * as msg from '@utilities/messagebox';
+import url from '@utilities/url';
 
 /**
  * "Reset password" page.
@@ -38,7 +38,7 @@ export default {
          */
         submit() {
             if (this.password !== this.confirmation) {
-                alert(this.i18n["password.dont_match"]);
+                alert(this.i18n['password.dont_match']);
                 return;
             }
 
@@ -50,9 +50,9 @@ export default {
             };
 
             axios
-                .post(url("/api/reset"), data)
+                .post(url('/api/reset'), data)
                 .then(() => {
-                    msg.info(this.i18n["password.changed"]).then(() => this.$router.push("/login"));
+                    msg.info(this.i18n['password.changed']).then(() => this.$router.push('/login'));
                 })
                 .catch((error) => msg.alert(error.response.data))
                 .then(() => ui.unblock());

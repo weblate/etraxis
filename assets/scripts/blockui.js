@@ -15,20 +15,20 @@
  * @param {null|string} message Optional message
  */
 export const block = (message = null) => {
-    const id = "__etraxis_blockui";
+    const id = '__etraxis_blockui';
 
     const template = `
         <dialog id="${id}" class="blockui">
-            <p class="has-text-centered">${message ?? window.i18n["text.please_wait"]}</p>
+            <p class="has-text-centered">${message ?? window.i18n['text.please_wait']}</p>
         </dialog>`;
 
     if (!document.getElementById(id)) {
-        document.querySelector("body").insertAdjacentHTML("beforeend", template);
+        document.querySelector('body').insertAdjacentHTML('beforeend', template);
 
         let modal = document.getElementById(id);
 
-        modal.addEventListener("cancel", (event) => event.preventDefault());
-        modal.addEventListener("close", () => modal.parentNode.removeChild(modal));
+        modal.addEventListener('cancel', (event) => event.preventDefault());
+        modal.addEventListener('close', () => modal.parentNode.removeChild(modal));
 
         modal.showModal();
     }
@@ -38,7 +38,7 @@ export const block = (message = null) => {
  * Unblocks UI.
  */
 export const unblock = () => {
-    let modal = document.getElementById("__etraxis_blockui");
+    let modal = document.getElementById('__etraxis_blockui');
 
     if (modal) {
         modal.close();

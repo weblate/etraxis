@@ -9,6 +9,6 @@
 //
 //----------------------------------------------------------------------
 
-import translations from "@translations/messages.en.yaml";
+import translations from '@translations/messages.en.yaml';
 
 window.i18n = translations;

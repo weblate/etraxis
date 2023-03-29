@@ -9,11 +9,11 @@
 //
 //----------------------------------------------------------------------
 
-import Modal from "@components/modal/modal.vue";
+import Modal from '@components/modal/modal.vue';
 
-import LocaleEnum from "@enums/locale";
+import LocaleEnum from '@enums/locale';
 
-import generateUid from "@utilities/uid";
+import generateUid from '@utilities/uid';
 
 /**
  * "Edit user" dialog.
@@ -49,10 +49,10 @@ export default {
         /**
          * @param {Object} values Submitted form values
          */
-        submit: (values) => typeof values === "object"
+        submit: (values) => typeof values === 'object'
     },
 
-    expose: ["open", "close"],
+    expose: ['open', 'close'],
 
     components: {
         modal: Modal
@@ -129,7 +129,7 @@ export default {
          * Submits the dialog's form.
          */
         submit() {
-            this.$emit("submit", this.values);
+            this.$emit('submit', this.values);
         }
     }
 };

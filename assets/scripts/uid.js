@@ -16,4 +16,4 @@
  *
  * @return {string} Generated ID
  */
-export default (prefix = "__etraxis_") => prefix + Math.random().toString(36).substring(2);
+export default (prefix = '__etraxis_') => prefix + Math.random().toString(36).substring(2);

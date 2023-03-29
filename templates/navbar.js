@@ -9,13 +9,13 @@
 //
 //----------------------------------------------------------------------
 
-import { createApp } from "vue";
+import { createApp } from 'vue';
 
-import axios from "axios";
+import axios from 'axios';
 
-import * as ui from "@utilities/blockui";
-import * as msg from "@utilities/messagebox";
-import url from "@utilities/url";
+import * as ui from '@utilities/blockui';
+import * as msg from '@utilities/messagebox';
+import url from '@utilities/url';
 
 /**
  * Main menu (navigation).
@@ -37,30 +37,30 @@ const app = createApp({
         /**
          * @property {Object} lightStyleSheet Stylesheet of the light theme
          */
-        lightStyleSheet: () => Object.values(document.styleSheets).find((styleSheet) => styleSheet.href.includes("/light/")),
+        lightStyleSheet: () => Object.values(document.styleSheets).find((styleSheet) => styleSheet.href.includes('/light/')),
 
         /**
          * @property {Object} darkStyleSheet Stylesheet of the dark theme
          */
-        darkStyleSheet: () => Object.values(document.styleSheets).find((styleSheet) => styleSheet.href.includes("/dark/")),
+        darkStyleSheet: () => Object.values(document.styleSheets).find((styleSheet) => styleSheet.href.includes('/dark/')),
 
         /**
          * @property {string} themeModeStorage Name of the local storage variable to store the theme mode
          */
-        themeModeStorage: () => "eTraxis.isDarkMode",
+        themeModeStorage: () => 'eTraxis.isDarkMode',
 
         /**
          * @property {string} themeModeClass Class name for the current theme mode
          */
         themeModeClass() {
-            return this.isDarkMode ? "dark" : "light";
+            return this.isDarkMode ? 'dark' : 'light';
         },
 
         /**
          * @property {string} themeModeIcon Icon for the current theme mode
          */
         themeModeIcon() {
-            return this.isDarkMode ? "fa-moon-o" : "fa-sun-o";
+            return this.isDarkMode ? 'fa-moon-o' : 'fa-sun-o';
         }
     },
 
@@ -76,13 +76,13 @@ const app = createApp({
          * Toggles theme mode.
          */
         toggleThemeMode() {
-            let html = document.querySelector("html");
+            let html = document.querySelector('html');
 
             html.classList.remove(this.themeModeClass);
             this.isDarkMode = !this.isDarkMode;
             html.classList.add(this.themeModeClass);
 
-            axios.patch(url("/api/my/profile"), { darkMode: this.isDarkMode });
+            axios.patch(url('/api/my/profile'), { darkMode: this.isDarkMode });
         },
 
         /**
@@ -93,7 +93,7 @@ const app = createApp({
         logout(url) {
             this.isActive = false;
 
-            msg.confirm(window.i18n["confirm.logout"]).then(() => {
+            msg.confirm(window.i18n['confirm.logout']).then(() => {
                 ui.block();
                 location.href = url;
             });
@@ -120,9 +120,9 @@ const app = createApp({
         this.darkStyleSheet.disabled = true;
 
         // Detect current theme mode.
-        this.isDarkMode = document.querySelector("html").classList.contains("dark");
+        this.isDarkMode = document.querySelector('html').classList.contains('dark');
         localStorage[this.themeModeStorage] = JSON.stringify(this.isDarkMode);
     }
 });
 
-app.mount("#vue-navbar");
+app.mount('#vue-navbar');

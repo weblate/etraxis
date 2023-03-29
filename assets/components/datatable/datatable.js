@@ -161,7 +161,7 @@ export default {
          * @property {boolean} hasToolbar Whether the custom toolbar is present
          */
         hasToolbar() {
-            return !!this.$slots["toolbar"];
+            return !!this.$slots.toolbar;
         },
 
         /**
@@ -206,7 +206,7 @@ export default {
                 return this.checked.length === this.rows.filter((row) => this.isRowCheckable(row)).length;
             },
             set(value) {
-                this.$emit('update:checked', value ? this.rows.filter((row) => this.isRowCheckable(row)).map((row) => row['DT_id']) : []);
+                this.$emit('update:checked', value ? this.rows.filter((row) => this.isRowCheckable(row)).map((row) => row.DT_id) : []);
             }
         },
 
@@ -256,11 +256,11 @@ export default {
 
             this.blocked = true;
 
-            let offset = this.paging ? (this.page - 1) * this.pageSize : 0;
-            let limit = this.paging ? this.pageSize : Number.MAX_SAFE_INTEGER;
+            const offset = this.paging ? (this.page - 1) * this.pageSize : 0;
+            const limit = this.paging ? this.pageSize : Number.MAX_SAFE_INTEGER;
 
             try {
-                let response = await this.data(offset, limit, this.search, this.normalizedFilters, this.order);
+                const response = await this.data(offset, limit, this.search, this.normalizedFilters, this.order);
 
                 this.total = response.total;
                 this.rows = response.rows;
@@ -293,7 +293,7 @@ export default {
          */
         saveState(name, value) {
             if (typeof value === 'object') {
-                let values = Object.entries(value).reduce(
+                const values = Object.entries(value).reduce(
                     (result, entry) => ({
                         ...result,
                         [entry[0]]: entry[1]
@@ -322,7 +322,7 @@ export default {
          * Determines whether the specified row can be ticked.
          */
         isRowCheckable(row) {
-            return (row["DT_checkable"] || false) !== false;
+            return (row.DT_checkable || false) !== false;
         },
 
         /**
@@ -331,7 +331,7 @@ export default {
          * @param {string} id ID of the row (`DT_id` property)
          */
         toggleCheck(id) {
-            let checked = new Set(this.checked);
+            const checked = new Set(this.checked);
 
             if (checked.has(id)) {
                 checked.delete(id);
@@ -477,7 +477,7 @@ export default {
         this.search = this.loadState('search') || '';
 
         // Restore saved table state (filters).
-        let filters = this.loadState('filters') || {};
+        const filters = this.loadState('filters') || {};
 
         this.columns.forEach((column) => {
             if (filters[column.props.id] !== undefined && this.isColumnFilterable(column)) {
@@ -488,7 +488,7 @@ export default {
         });
 
         // Restore saved table state (sorting order).
-        let order = this.loadState('order') || {};
+        const order = this.loadState('order') || {};
 
         this.columns.forEach((column) => {
             if (order[column.props.id] !== undefined && this.isColumnSortable(column)) {

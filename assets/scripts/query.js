@@ -26,7 +26,7 @@ import axios from 'axios';
  *   {Array}  rows  - returned entries
  */
 export default async (url, offset, limit, search, filters, order) => {
-    let params = {
+    const params = {
         offset,
         limit,
         search,
@@ -35,7 +35,7 @@ export default async (url, offset, limit, search, filters, order) => {
     };
 
     try {
-        let response = await axios.get(url, { params });
+        const response = await axios.get(url, { params });
 
         return {
             total: response.data.total,

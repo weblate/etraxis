@@ -23,11 +23,11 @@ import { alert } from '@utilities/messagebox';
  * @return {Object} List of errors
  */
 export default (exception) => {
-    let errors = {};
+    const errors = {};
 
     if (typeof exception.response.data === 'object') {
-        for (let entry of exception.response.data) {
-            errors[entry['property']] = entry['message'];
+        for (const entry of exception.response.data) {
+            errors[entry.property] = entry.message;
         }
     } else {
         alert(exception.response.data);

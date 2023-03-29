@@ -129,12 +129,12 @@ const app = createApp({
          * @return {Object} Table data
          */
         async users(offset, limit, search, filters, order) {
-            let data = await query(url('/api/users'), offset, limit, search, filters, order);
+            const data = await query(url('/api/users'), offset, limit, search, filters, order);
 
             return {
                 total: data.total,
                 rows: data.rows.map((user) => {
-                    let icons = [
+                    const icons = [
                         new Icon(ICON_IMPERSONATE, this.i18n['user.impersonate'], 'fa-user-circle-o', user.id === this.currentUser),
                         new Icon(ICON_UPDATE, this.i18n['user.edit'], 'fa-pencil'),
                         user.disabled
@@ -218,7 +218,7 @@ const app = createApp({
          * Opens "New user" dialog.
          */
         openNewUserDialog() {
-            let defaults = {
+            const defaults = {
                 email: '',
                 password: '',
                 fullname: '',
@@ -240,7 +240,7 @@ const app = createApp({
          * @param {Object} event Submitted values
          */
         createUser(event) {
-            let data = {
+            const data = {
                 email: event.email,
                 password: event.password,
                 fullname: event.fullname,
@@ -289,7 +289,7 @@ const app = createApp({
          * @param {Object} event Submitted values
          */
         updateUser(event) {
-            let data = {
+            const data = {
                 email: event.email,
                 fullname: event.fullname,
                 description: event.description || null,

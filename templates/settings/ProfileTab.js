@@ -114,7 +114,7 @@ export default {
          * @param {Object} event Submitted values
          */
         updateProfile(event) {
-            let data = {
+            const data = {
                 email: event.email,
                 fullname: event.fullname,
                 locale: event.locale,
@@ -155,7 +155,7 @@ export default {
                     confirmation: this.i18n['password.dont_match']
                 };
             } else {
-                let data = {
+                const data = {
                     current: event.current,
                     new: event.new
                 };

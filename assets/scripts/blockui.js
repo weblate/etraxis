@@ -25,7 +25,7 @@ export const block = (message = null) => {
     if (!document.getElementById(id)) {
         document.querySelector('body').insertAdjacentHTML('beforeend', template);
 
-        let modal = document.getElementById(id);
+        const modal = document.getElementById(id);
 
         modal.addEventListener('cancel', (event) => event.preventDefault());
         modal.addEventListener('close', () => modal.parentNode.removeChild(modal));
@@ -38,7 +38,7 @@ export const block = (message = null) => {
  * Unblocks UI.
  */
 export const unblock = () => {
-    let modal = document.getElementById('__etraxis_blockui');
+    const modal = document.getElementById('__etraxis_blockui');
 
     if (modal) {
         modal.close();

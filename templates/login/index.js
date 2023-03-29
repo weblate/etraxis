@@ -39,7 +39,7 @@ const app = createApp({
 
     created() {
         // Restore theme mode from local storage.
-        let isDarkMode = !!JSON.parse(localStorage[this.themeModeStorage] || 'false');
+        const isDarkMode = !!JSON.parse(localStorage[this.themeModeStorage] || 'false');
         document.querySelector('html').classList.add(isDarkMode ? 'dark' : 'light');
         this.lightStyleSheet.disabled = isDarkMode;
         this.darkStyleSheet.disabled = !isDarkMode;

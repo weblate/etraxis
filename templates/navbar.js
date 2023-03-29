@@ -76,7 +76,7 @@ const app = createApp({
          * Toggles theme mode.
          */
         toggleThemeMode() {
-            let html = document.querySelector('html');
+            const html = document.querySelector('html');
 
             html.classList.remove(this.themeModeClass);
             this.isDarkMode = !this.isDarkMode;

@@ -87,11 +87,11 @@ const messageBox = (header, message, iconGlyph, iconClass, singleButton) =>
 
         document.querySelector('body').insertAdjacentHTML('beforeend', template);
 
-        let modal = document.getElementById(uid);
+        const modal = document.getElementById(uid);
 
-        let btnYes = modal.querySelector('footer button[data-id="yes"]');
-        let btnNo = modal.querySelector('footer button[data-id="no"]');
-        let btnClose = modal.querySelector('header .delete');
+        const btnYes = modal.querySelector('footer button[data-id="yes"]');
+        const btnNo = modal.querySelector('footer button[data-id="no"]');
+        const btnClose = modal.querySelector('header .delete');
 
         // Button "Yes" is clicked.
         btnYes.addEventListener('click', () => modal.close('yes'));

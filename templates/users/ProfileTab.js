@@ -125,7 +125,7 @@ export default {
          * Opens "Edit user" dialog.
          */
         openEditUserDialog() {
-            let defaults = {
+            const defaults = {
                 email: this.email,
                 fullname: this.fullname,
                 description: this.description,
@@ -145,7 +145,7 @@ export default {
          * @param {Object} event Submitted values
          */
         updateUser(event) {
-            let data = {
+            const data = {
                 email: event.email,
                 fullname: event.fullname,
                 description: event.description || null,

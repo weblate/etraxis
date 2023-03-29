@@ -136,7 +136,7 @@ export default {
             this.values = { ...defaults };
             this.country = 'UTC';
 
-            for (let country in this.timezones) {
+            for (const country in this.timezones) {
                 if (Object.keys(this.timezones[country]).includes(this.values.timezone)) {
                     this.country = country;
                     this.city = this.values.timezone;
@@ -175,7 +175,7 @@ export default {
             if (value === 'UTC') {
                 this.city = null;
             } else {
-                let timezones = Object.keys(this.timezones[value] ?? {});
+                const timezones = Object.keys(this.timezones[value] ?? {});
                 this.city = timezones.includes(this.values.timezone) ? this.values.timezone : timezones[0];
             }
         }

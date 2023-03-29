@@ -34,7 +34,8 @@ export default {
         disabled: Boolean,
         accountProvider: String,
         locale: String,
-        timezone: String
+        timezone: String,
+        actions: Object
     },
 
     emits: ["update:profile"],
@@ -75,6 +76,27 @@ export default {
          * @property {Object} locales Available locales
          */
         locales: () => LocaleEnum,
+
+        /**
+         * @property {boolean} canUpdate Whether the user can be updated
+         */
+        canUpdate() {
+            return this.actions.update;
+        },
+
+        /**
+         * @property {boolean} canDisable Whether the user can be disabled
+         */
+        canDisable() {
+            return this.actions.disable;
+        },
+
+        /**
+         * @property {boolean} canEnable Whether the user can be enabled
+         */
+        canEnable() {
+            return this.actions.enable;
+        },
 
         /**
          * @property {boolean} isCurrentUser Whether the user is the current one

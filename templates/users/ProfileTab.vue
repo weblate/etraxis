@@ -2,10 +2,9 @@
     <section>
         <div class="buttons">
             <button class="button" type="button" @click="goBack">{{ i18n["button.back"] }}</button>
-            <button class="button" type="button" @click="openEditUserDialog">{{ i18n["button.edit"] }}</button>
-            <button class="button" type="button" :disabled="isCurrentUser" @click="toggleStatus">
-                {{ disabled ? i18n["button.enable"] : i18n["button.disable"] }}
-            </button>
+            <button class="button" type="button" :disabled="!canUpdate" @click="openEditUserDialog">{{ i18n["button.edit"] }}</button>
+            <button v-show="!disabled" class="button" type="button" :disabled="!canDisable" @click="toggleStatus">{{ i18n["button.disable"] }}</button>
+            <button v-show="disabled" class="button" type="button" :disabled="!canEnable" @click="toggleStatus">{{ i18n["button.enable"] }}</button>
         </div>
         <div class="columns">
             <div class="column is-half-tablet">

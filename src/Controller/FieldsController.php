@@ -26,6 +26,8 @@ use App\Message\ListItems\UpdateListItemCommand;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\MessageBus\Contracts\QueryBusInterface;
 use App\Repository\Contracts\ListItemRepositoryInterface;
+use App\Utils\OpenApi\FieldExtended;
+use App\Utils\OpenApiInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as API;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -111,7 +113,7 @@ class FieldsController extends AbstractController implements ApiControllerInterf
      */
     #[Route('', name: 'api_fields_create', methods: [Request::METHOD_POST])]
     #[API\RequestBody(content: new Model(type: Message\CreateFieldCommand::class, groups: ['api']))]
-    #[API\Response(response: 201, description: 'Success.', content: new Model(type: Field::class, groups: ['api']), headers: [
+    #[API\Response(response: 201, description: 'Success.', content: new Model(type: FieldExtended::class, groups: ['api']), headers: [
         new API\Header(header: 'Location', description: 'URI for the created field.', schema: new API\Schema(type: self::TYPE_STRING)),
     ])]
     #[API\Response(response: 400, description: 'The request is malformed.')]
@@ -120,7 +122,10 @@ class FieldsController extends AbstractController implements ApiControllerInterf
     {
         $field = $this->commandBus->handleWithResult($command);
 
-        $json = $normalizer->normalize($field, 'json', [AbstractNormalizer::GROUPS => 'api']);
+        $json = $normalizer->normalize($field, 'json', [
+            AbstractNormalizer::GROUPS => 'api',
+            OpenApiInterface::ACTIONS  => true,
+        ]);
 
         $url = $this->generateUrl('api_fields_get', [
             'id' => $field->getId(),
@@ -134,11 +139,14 @@ class FieldsController extends AbstractController implements ApiControllerInterf
      */
     #[Route('/{id}', name: 'api_fields_get', methods: [Request::METHOD_GET], requirements: ['id' => '\d+'])]
     #[API\Parameter(name: 'id', in: self::PARAMETER_PATH, description: 'Field ID.', schema: new API\Schema(type: self::TYPE_INTEGER))]
-    #[API\Response(response: 200, description: 'Success.', content: new Model(type: Field::class, groups: ['api']))]
+    #[API\Response(response: 200, description: 'Success.', content: new Model(type: FieldExtended::class, groups: ['api']))]
     #[API\Response(response: 404, description: 'Resource not found.')]
     public function getField(Field $field, NormalizerInterface $normalizer): JsonResponse
     {
-        return $this->json($normalizer->normalize($field, 'json', [AbstractNormalizer::GROUPS => 'api']));
+        return $this->json($normalizer->normalize($field, 'json', [
+            AbstractNormalizer::GROUPS => 'api',
+            OpenApiInterface::ACTIONS  => true,
+        ]));
     }
 
     /**

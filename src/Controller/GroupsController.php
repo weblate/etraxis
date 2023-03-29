@@ -19,6 +19,8 @@ use App\Message\AbstractCollectionQuery;
 use App\Message\Groups as Message;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\MessageBus\Contracts\QueryBusInterface;
+use App\Utils\OpenApi\GroupExtended;
+use App\Utils\OpenApiInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as API;
@@ -97,7 +99,7 @@ class GroupsController extends AbstractController implements ApiControllerInterf
      */
     #[Route('', name: 'api_groups_create', methods: [Request::METHOD_POST])]
     #[API\RequestBody(content: new Model(type: Message\CreateGroupCommand::class, groups: ['api']))]
-    #[API\Response(response: 201, description: 'Success.', content: new Model(type: Group::class, groups: ['api']), headers: [
+    #[API\Response(response: 201, description: 'Success.', content: new Model(type: GroupExtended::class, groups: ['api']), headers: [
         new API\Header(header: 'Location', description: 'URI for the created group.', schema: new API\Schema(type: self::TYPE_STRING)),
     ])]
     #[API\Response(response: 400, description: 'The request is malformed.')]
@@ -106,7 +108,10 @@ class GroupsController extends AbstractController implements ApiControllerInterf
     {
         $group = $this->commandBus->handleWithResult($command);
 
-        $json = $normalizer->normalize($group, 'json', [AbstractNormalizer::GROUPS => 'api']);
+        $json = $normalizer->normalize($group, 'json', [
+            AbstractNormalizer::GROUPS => 'api',
+            OpenApiInterface::ACTIONS  => true,
+        ]);
 
         $url = $this->generateUrl('api_groups_get', [
             'id' => $group->getId(),
@@ -120,11 +125,14 @@ class GroupsController extends AbstractController implements ApiControllerInterf
      */
     #[Route('/{id}', name: 'api_groups_get', methods: [Request::METHOD_GET], requirements: ['id' => '\d+'])]
     #[API\Parameter(name: 'id', in: self::PARAMETER_PATH, description: 'Group ID.', schema: new API\Schema(type: self::TYPE_INTEGER))]
-    #[API\Response(response: 200, description: 'Success.', content: new Model(type: Group::class, groups: ['api']))]
+    #[API\Response(response: 200, description: 'Success.', content: new Model(type: GroupExtended::class, groups: ['api']))]
     #[API\Response(response: 404, description: 'Resource not found.')]
     public function getGroup(Group $group, NormalizerInterface $normalizer): JsonResponse
     {
-        return $this->json($normalizer->normalize($group, 'json', [AbstractNormalizer::GROUPS => 'api']));
+        return $this->json($normalizer->normalize($group, 'json', [
+            AbstractNormalizer::GROUPS => 'api',
+            OpenApiInterface::ACTIONS  => true,
+        ]));
     }
 
     /**

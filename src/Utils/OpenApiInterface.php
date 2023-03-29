@@ -25,4 +25,7 @@ interface OpenApiInterface
     public const TYPE_STRING  = 'string';
     public const TYPE_ARRAY   = 'array';
     public const TYPE_OBJECT  = 'object';
+
+    // Available actions.
+    public const ACTIONS = 'actions';
 }

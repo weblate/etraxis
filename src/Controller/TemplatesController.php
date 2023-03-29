@@ -20,6 +20,8 @@ use App\Message\AbstractCollectionQuery;
 use App\Message\Templates as Message;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\MessageBus\Contracts\QueryBusInterface;
+use App\Utils\OpenApi\TemplateExtended;
+use App\Utils\OpenApiInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as API;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -103,7 +105,7 @@ class TemplatesController extends AbstractController implements ApiControllerInt
      */
     #[Route('', name: 'api_templates_create', methods: [Request::METHOD_POST])]
     #[API\RequestBody(content: new Model(type: Message\CreateTemplateCommand::class, groups: ['api']))]
-    #[API\Response(response: 201, description: 'Success.', content: new Model(type: Template::class, groups: ['api']), headers: [
+    #[API\Response(response: 201, description: 'Success.', content: new Model(type: TemplateExtended::class, groups: ['api']), headers: [
         new API\Header(header: 'Location', description: 'URI for the created template.', schema: new API\Schema(type: self::TYPE_STRING)),
     ])]
     #[API\Response(response: 400, description: 'The request is malformed.')]
@@ -112,7 +114,10 @@ class TemplatesController extends AbstractController implements ApiControllerInt
     {
         $template = $this->commandBus->handleWithResult($command);
 
-        $json = $normalizer->normalize($template, 'json', [AbstractNormalizer::GROUPS => 'api']);
+        $json = $normalizer->normalize($template, 'json', [
+            AbstractNormalizer::GROUPS => 'api',
+            OpenApiInterface::ACTIONS  => true,
+        ]);
 
         $url = $this->generateUrl('api_templates_get', [
             'id' => $template->getId(),
@@ -126,11 +131,14 @@ class TemplatesController extends AbstractController implements ApiControllerInt
      */
     #[Route('/{id}', name: 'api_templates_get', methods: [Request::METHOD_GET], requirements: ['id' => '\d+'])]
     #[API\Parameter(name: 'id', in: self::PARAMETER_PATH, description: 'Template ID.', schema: new API\Schema(type: self::TYPE_INTEGER))]
-    #[API\Response(response: 200, description: 'Success.', content: new Model(type: Template::class, groups: ['api']))]
+    #[API\Response(response: 200, description: 'Success.', content: new Model(type: TemplateExtended::class, groups: ['api']))]
     #[API\Response(response: 404, description: 'Resource not found.')]
     public function getTemplate(Template $template, NormalizerInterface $normalizer): JsonResponse
     {
-        return $this->json($normalizer->normalize($template, 'json', [AbstractNormalizer::GROUPS => 'api']));
+        return $this->json($normalizer->normalize($template, 'json', [
+            AbstractNormalizer::GROUPS => 'api',
+            OpenApiInterface::ACTIONS  => true,
+        ]));
     }
 
     /**
@@ -139,7 +147,7 @@ class TemplatesController extends AbstractController implements ApiControllerInt
     #[Route('/{id}', name: 'api_templates_clone', methods: [Request::METHOD_POST], requirements: ['id' => '\d+'])]
     #[API\Parameter(name: 'id', in: self::PARAMETER_PATH, description: 'Template ID.', schema: new API\Schema(type: self::TYPE_INTEGER))]
     #[API\RequestBody(content: new Model(type: Message\CloneTemplateCommand::class, groups: ['api']))]
-    #[API\Response(response: 201, description: 'Success.', content: new Model(type: Template::class, groups: ['api']), headers: [
+    #[API\Response(response: 201, description: 'Success.', content: new Model(type: TemplateExtended::class, groups: ['api']), headers: [
         new API\Header(header: 'Location', description: 'URI for the created template.', schema: new API\Schema(type: self::TYPE_STRING)),
     ])]
     #[API\Response(response: 400, description: 'The request is malformed.')]
@@ -149,7 +157,10 @@ class TemplatesController extends AbstractController implements ApiControllerInt
     {
         $template = $this->commandBus->handleWithResult($command);
 
-        $json = $normalizer->normalize($template, 'json', [AbstractNormalizer::GROUPS => 'api']);
+        $json = $normalizer->normalize($template, 'json', [
+            AbstractNormalizer::GROUPS => 'api',
+            OpenApiInterface::ACTIONS  => true,
+        ]);
 
         $url = $this->generateUrl('api_templates_get', [
             'id' => $template->getId(),

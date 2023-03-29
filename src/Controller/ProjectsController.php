@@ -18,6 +18,8 @@ use App\Message\AbstractCollectionQuery;
 use App\Message\Projects as Message;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\MessageBus\Contracts\QueryBusInterface;
+use App\Utils\OpenApi\ProjectExtended;
+use App\Utils\OpenApiInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as API;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -94,7 +96,7 @@ class ProjectsController extends AbstractController implements ApiControllerInte
      */
     #[Route('', name: 'api_projects_create', methods: [Request::METHOD_POST])]
     #[API\RequestBody(content: new Model(type: Message\CreateProjectCommand::class, groups: ['api']))]
-    #[API\Response(response: 201, description: 'Success.', content: new Model(type: Project::class, groups: ['api']), headers: [
+    #[API\Response(response: 201, description: 'Success.', content: new Model(type: ProjectExtended::class, groups: ['api']), headers: [
         new API\Header(header: 'Location', description: 'URI for the created project.', schema: new API\Schema(type: self::TYPE_STRING)),
     ])]
     #[API\Response(response: 400, description: 'The request is malformed.')]
@@ -103,7 +105,10 @@ class ProjectsController extends AbstractController implements ApiControllerInte
     {
         $project = $this->commandBus->handleWithResult($command);
 
-        $json = $normalizer->normalize($project, 'json', [AbstractNormalizer::GROUPS => 'api']);
+        $json = $normalizer->normalize($project, 'json', [
+            AbstractNormalizer::GROUPS => 'api',
+            OpenApiInterface::ACTIONS  => true,
+        ]);
 
         $url = $this->generateUrl('api_projects_get', [
             'id' => $project->getId(),
@@ -117,11 +122,14 @@ class ProjectsController extends AbstractController implements ApiControllerInte
      */
     #[Route('/{id}', name: 'api_projects_get', methods: [Request::METHOD_GET], requirements: ['id' => '\d+'])]
     #[API\Parameter(name: 'id', in: self::PARAMETER_PATH, description: 'Project ID.', schema: new API\Schema(type: self::TYPE_INTEGER))]
-    #[API\Response(response: 200, description: 'Success.', content: new Model(type: Project::class, groups: ['api']))]
+    #[API\Response(response: 200, description: 'Success.', content: new Model(type: ProjectExtended::class, groups: ['api']))]
     #[API\Response(response: 404, description: 'Resource not found.')]
     public function getProject(Project $project, NormalizerInterface $normalizer): JsonResponse
     {
-        return $this->json($normalizer->normalize($project, 'json', [AbstractNormalizer::GROUPS => 'api']));
+        return $this->json($normalizer->normalize($project, 'json', [
+            AbstractNormalizer::GROUPS => 'api',
+            OpenApiInterface::ACTIONS  => true,
+        ]));
     }
 
     /**

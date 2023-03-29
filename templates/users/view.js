@@ -44,7 +44,12 @@ const app = createApp({
             disabled: null,
             accountProvider: null,
             locale: null,
-            timezone: null
+            timezone: null,
+            actions: {
+                update: false,
+                disable: false,
+                enable: false
+            }
         }
     }),
 

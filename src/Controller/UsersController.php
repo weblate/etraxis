@@ -20,6 +20,8 @@ use App\Message\Users as Message;
 use App\Message\UserSettings\SetPasswordCommand;
 use App\MessageBus\Contracts\CommandBusInterface;
 use App\MessageBus\Contracts\QueryBusInterface;
+use App\Utils\OpenApi\UserExtended;
+use App\Utils\OpenApiInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as API;
@@ -101,7 +103,7 @@ class UsersController extends AbstractController implements ApiControllerInterfa
      */
     #[Route('', name: 'api_users_create', methods: [Request::METHOD_POST])]
     #[API\RequestBody(content: new Model(type: Message\CreateUserCommand::class, groups: ['api']))]
-    #[API\Response(response: 201, description: 'Success.', content: new Model(type: User::class, groups: ['api']), headers: [
+    #[API\Response(response: 201, description: 'Success.', content: new Model(type: UserExtended::class, groups: ['api']), headers: [
         new API\Header(header: 'Location', description: 'URI for the created user.', schema: new API\Schema(type: self::TYPE_STRING)),
     ])]
     #[API\Response(response: 400, description: 'The request is malformed.')]
@@ -110,7 +112,10 @@ class UsersController extends AbstractController implements ApiControllerInterfa
     {
         $user = $this->commandBus->handleWithResult($command);
 
-        $json = $normalizer->normalize($user, 'json', [AbstractNormalizer::GROUPS => 'api']);
+        $json = $normalizer->normalize($user, 'json', [
+            AbstractNormalizer::GROUPS => 'api',
+            OpenApiInterface::ACTIONS  => true,
+        ]);
 
         $url = $this->generateUrl('api_users_get', [
             'id' => $user->getId(),
@@ -154,11 +159,14 @@ class UsersController extends AbstractController implements ApiControllerInterfa
      */
     #[Route('/{id}', name: 'api_users_get', methods: [Request::METHOD_GET], requirements: ['id' => '\d+'])]
     #[API\Parameter(name: 'id', in: self::PARAMETER_PATH, description: 'User ID.', schema: new API\Schema(type: self::TYPE_INTEGER))]
-    #[API\Response(response: 200, description: 'Success.', content: new Model(type: User::class, groups: ['api']))]
+    #[API\Response(response: 200, description: 'Success.', content: new Model(type: UserExtended::class, groups: ['api']))]
     #[API\Response(response: 404, description: 'Resource not found.')]
     public function retrieveUser(User $user, NormalizerInterface $normalizer): JsonResponse
     {
-        return $this->json($normalizer->normalize($user, 'json', [AbstractNormalizer::GROUPS => 'api']));
+        return $this->json($normalizer->normalize($user, 'json', [
+            AbstractNormalizer::GROUPS => 'api',
+            OpenApiInterface::ACTIONS  => true,
+        ]));
     }
 
     /**

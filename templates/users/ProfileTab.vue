@@ -5,6 +5,7 @@
             <button class="button" type="button" :disabled="!canUpdate" @click="openEditUserDialog">{{ i18n["button.edit"] }}</button>
             <button v-show="!disabled" class="button" type="button" :disabled="!canDisable" @click="toggleStatus">{{ i18n["button.disable"] }}</button>
             <button v-show="disabled" class="button" type="button" :disabled="!canEnable" @click="toggleStatus">{{ i18n["button.enable"] }}</button>
+            <button class="button is-danger" type="button" :disabled="!canDelete" @click="deleteUser">{{ i18n["button.delete"] }}</button>
         </div>
         <div class="columns">
             <div class="column is-half-tablet">

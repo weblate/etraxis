@@ -85,6 +85,13 @@ export default {
         },
 
         /**
+         * @property {boolean} canDelete Whether the user can be deleted
+         */
+        canDelete() {
+            return this.actions.delete;
+        },
+
+        /**
          * @property {boolean} canDisable Whether the user can be disabled
          */
         canDisable() {
@@ -180,6 +187,21 @@ export default {
                 .then(() => this.$emit('update:profile'))
                 .catch((exception) => parseErrors(exception))
                 .then(() => ui.unblock());
+        },
+
+        /**
+         * Deletes the user.
+         */
+        deleteUser() {
+            msg.confirm(this.i18n['confirm.user.delete']).then(() => {
+                ui.block();
+
+                axios
+                    .delete(url(`/api/users/${this.id}`))
+                    .then(() => this.goBack())
+                    .catch((exception) => parseErrors(exception))
+                    .then(() => ui.unblock());
+            });
         }
     },
 

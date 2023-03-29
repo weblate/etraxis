@@ -47,6 +47,7 @@ const app = createApp({
             timezone: null,
             actions: {
                 update: false,
+                delete: false,
                 disable: false,
                 enable: false
             }

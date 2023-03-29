@@ -3,6 +3,7 @@ button.back: Назад
 button.cancel: Отмена
 button.close: Закрыть
 button.create: Создать
+button.delete: Удалить
 button.disable: Заблокировать
 button.edit: Редактировать
 button.enable: Разблокировать
@@ -11,6 +12,7 @@ button.ok: ОК
 button.save: Сохранить
 button.yes: Да
 confirm.logout: 'Вы уверены что хотите выйти?'
+confirm.user.delete: 'Вы уверены что хотите удалить этого пользователя?'
 email.account_created.line1: 'Для вас была создана новая учетная запись в eTraxis.'
 email.account_created.line2: 'Пожалуйста, используйте для входа свой электронный почтовый адрес и указанный ниже пароль.'
 email.account_created.subject: 'Ваша новая учетная запись в eTraxis'

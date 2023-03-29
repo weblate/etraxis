@@ -3,6 +3,7 @@ button.back: Back
 button.cancel: Cancel
 button.close: Close
 button.create: Create
+button.delete: Delete
 button.disable: Disable
 button.edit: Edit
 button.enable: Enable
@@ -11,6 +12,7 @@ button.ok: OK
 button.save: Save
 button.yes: Yes
 confirm.logout: 'Are you sure you want exit?'
+confirm.user.delete: 'Are you sure you want delete this user?'
 email.account_created.line1: 'A new account in eTraxis has been created for you.'
 email.account_created.line2: 'Please use your email address and the password below to login.'
 email.account_created.subject: 'Your new account in eTraxis'

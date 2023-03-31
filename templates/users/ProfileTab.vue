@@ -5,6 +5,7 @@
             <button class="button" type="button" :disabled="!canUpdate" @click="openEditUserDialog">{{ i18n["button.edit"] }}</button>
             <button v-show="!disabled" class="button" type="button" :disabled="!canDisable" @click="toggleStatus">{{ i18n["button.disable"] }}</button>
             <button v-show="disabled" class="button" type="button" :disabled="!canEnable" @click="toggleStatus">{{ i18n["button.enable"] }}</button>
+            <button v-show="!isExternalUser" class="button" type="button" @click="openSetPasswordDialog">{{ i18n["password.change"] }}</button>
             <button class="button is-danger" type="button" :disabled="!canDelete" @click="deleteUser">{{ i18n["button.delete"] }}</button>
         </div>
         <div class="columns">
@@ -102,6 +103,12 @@
             :errors="errors"
             @submit="updateUser"
         ></edit-user-dialog>
+        <set-password-dialog
+            ref="dlgSetPassword"
+            :header="i18n['password.change']"
+            :errors="errors"
+            @submit="setPassword"
+        ></set-password-dialog>
     </section>
 </template>
 

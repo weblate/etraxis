@@ -20,6 +20,7 @@ import parseErrors from '@utilities/parseErrors';
 import url from '@utilities/url';
 
 import EditUserDialog from './EditUserDialog.vue';
+import SetPasswordDialog from './SetPasswordDialog.vue';
 
 /**
  * "Profile" tab.
@@ -41,7 +42,8 @@ export default {
     emits: ['update:profile'],
 
     components: {
-        'edit-user-dialog': EditUserDialog
+        'edit-user-dialog': EditUserDialog,
+        'set-password-dialog': SetPasswordDialog
     },
 
     data: () => ({
@@ -113,10 +115,24 @@ export default {
         },
 
         /**
+         * @property {boolean} isExternalUser Whether the user is an external
+         */
+        isExternalUser() {
+            return this.accountProvider !== 'etraxis';
+        },
+
+        /**
          * @property {Object} editUserDialog "Edit user" dialog instance
          */
         editUserDialog() {
             return this.$refs.dlgEditUser;
+        },
+
+        /**
+         * @property {Object} setPasswordDialog "Set password" dialog instance
+         */
+        setPasswordDialog() {
+            return this.$refs.dlgSetPassword;
         }
     },
 
@@ -143,7 +159,7 @@ export default {
             };
 
             this.errors = {};
-            this.editUserDialog.open(this.isCurrentUser, this.accountProvider !== 'etraxis', defaults);
+            this.editUserDialog.open(this.isCurrentUser, this.isExternalUser, defaults);
         },
 
         /**
@@ -186,6 +202,37 @@ export default {
                 .post(url(`/api/users/${this.id}/${this.disabled ? 'enable' : 'disable'}`))
                 .then(() => this.$emit('update:profile'))
                 .catch((exception) => parseErrors(exception))
+                .then(() => ui.unblock());
+        },
+
+        /**
+         * Opens "Set password" dialog.
+         */
+        openSetPasswordDialog() {
+            this.errors = {};
+            this.setPasswordDialog.open();
+        },
+
+        /**
+         * Sets new password for the user.
+         *
+         * @param {Object} event Submitted values
+         */
+        setPassword(event) {
+            const data = {
+                password: event
+            };
+
+            ui.block();
+
+            axios
+                .put(url(`/api/users/${this.id}/password`), data)
+                .then(() => {
+                    msg.info(this.i18n['password.changed']).then(() => {
+                        this.setPasswordDialog.close();
+                    });
+                })
+                .catch((exception) => (this.errors = parseErrors(exception)))
                 .then(() => ui.unblock());
         },
 

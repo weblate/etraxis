@@ -25,6 +25,7 @@ export const block = (message = null) => {
     if (!document.getElementById(id)) {
         document.querySelector('body').insertAdjacentHTML('beforeend', template);
 
+        /** @type {Node} */
         const modal = document.getElementById(id);
 
         modal.addEventListener('cancel', (event) => event.preventDefault());

@@ -44,6 +44,7 @@ export default {
          * @property {boolean} isActive Whether the tab is active
          */
         isActive() {
+            // noinspection JSUnresolvedVariable
             return this.$parent.modelValue === this.id;
         }
     }

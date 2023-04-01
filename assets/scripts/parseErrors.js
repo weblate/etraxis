@@ -20,12 +20,13 @@ import { alert } from '@utilities/messagebox';
  *
  * @param {Object} exception Axios exception
  *
- * @return {Object} List of errors
+ * @return {{ property: string, message: string }} List of errors
  */
 export default (exception) => {
     const errors = {};
 
     if (typeof exception.response.data === 'object') {
+        /** @var {{ property: string, message: string }} entry */
         for (const entry of exception.response.data) {
             errors[entry.property] = entry.message;
         }

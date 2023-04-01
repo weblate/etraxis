@@ -21,7 +21,7 @@ import axios from 'axios';
  * @param {Object} filters Current values of the column filters ({ "column id": value })
  * @param {Object} order   Current sorting order ({ "column id": "asc"|"desc" })
  *
- * @return {Object} An object with the following properties:
+ * @return {{ total: number, rows: Array }} An object with the following properties:
  *   {number} total - total number of entries in the source
  *   {Array}  rows  - returned entries
  */

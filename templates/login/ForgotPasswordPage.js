@@ -45,6 +45,7 @@ export default {
             axios
                 .post(url('/api/forgot'), data)
                 .then(() => {
+                    // noinspection JSUnresolvedFunction
                     msg.info(this.i18n['password.forgot.email_sent']).then(() => this.$router.push('/login'));
                 })
                 .catch((error) => msg.alert(error.response.data))

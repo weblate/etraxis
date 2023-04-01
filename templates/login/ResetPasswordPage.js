@@ -44,6 +44,7 @@ export default {
 
             ui.block();
 
+            // noinspection JSUnresolvedVariable
             const data = {
                 token: this.$route.params.token,
                 password: this.password
@@ -52,6 +53,7 @@ export default {
             axios
                 .post(url('/api/reset'), data)
                 .then(() => {
+                    // noinspection JSUnresolvedFunction
                     msg.info(this.i18n['password.changed']).then(() => this.$router.push('/login'));
                 })
                 .catch((error) => msg.alert(error.response.data))

@@ -36,6 +36,8 @@
             "ignores": [
                 "column",
                 "datatable",
+                "dropdown",
+                "modal",
                 "tab",
                 "tabs"
             ]

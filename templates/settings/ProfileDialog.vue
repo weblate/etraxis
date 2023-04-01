@@ -92,7 +92,7 @@
                             <div class="select is-fullwidth">
                                 <select :id="`${uid}-country`" v-model="country">
                                     <option value="UTC">UTC</option>
-                                    <option v-for="country in countries" :value="country">{{ country }}</option>
+                                    <option v-for="country in countries" :key="country" :value="country">{{ country }}</option>
                                 </select>
                             </div>
                         </div>
@@ -108,7 +108,7 @@
                         <div class="control">
                             <div class="select is-fullwidth">
                                 <select :id="`${uid}-city`" :disabled="country === 'UTC'" v-model="city">
-                                    <option v-for="(city, timezone) in cities" :value="timezone">{{ city }}</option>
+                                    <option v-for="(city, timezone) in cities" :key="timezone" :value="timezone">{{ city }}</option>
                                 </select>
                             </div>
                         </div>

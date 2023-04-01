@@ -19,8 +19,8 @@ import * as msg from '@utilities/messagebox';
 import parseErrors from '@utilities/parseErrors';
 import url from '@utilities/url';
 
-import EditUserDialog from './EditUserDialog.vue';
-import SetPasswordDialog from './SetPasswordDialog.vue';
+import EditUserDialog from '../dialogs/EditUserDialog.vue';
+import SetPasswordDialog from '../dialogs/SetPasswordDialog.vue';
 
 /**
  * "Profile" tab.

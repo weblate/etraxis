@@ -20,8 +20,8 @@ import * as msg from '@utilities/messagebox';
 import parseErrors from '@utilities/parseErrors';
 import url from '@utilities/url';
 
-import ProfileDialog from './ProfileDialog.vue';
-import PasswordDialog from './PasswordDialog.vue';
+import ProfileDialog from '../dialogs/ProfileDialog.vue';
+import PasswordDialog from '../dialogs/PasswordDialog.vue';
 
 /**
  * "Profile" tab.

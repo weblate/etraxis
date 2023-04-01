@@ -14,7 +14,7 @@ import { createApp } from 'vue';
 import Tabs from '@components/tabs/tabs.vue';
 import Tab from '@components/tabs/tab.vue';
 
-import ProfileTab from './ProfileTab.vue';
+import ProfileTab from './tabs/ProfileTab.vue';
 
 /**
  * "Settings" page.

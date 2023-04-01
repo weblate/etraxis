@@ -20,7 +20,7 @@ import url from '@utilities/url';
 import Tabs from '@components/tabs/tabs.vue';
 import Tab from '@components/tabs/tab.vue';
 
-import ProfileTab from './ProfileTab.vue';
+import ProfileTab from './tabs/ProfileTab.vue';
 
 /**
  * "View user" page.

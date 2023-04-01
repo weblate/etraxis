@@ -25,8 +25,8 @@ import DataTable from '@components/datatable/datatable.vue';
 import Column from '@components/datatable/column.vue';
 import Icon from '@components/datatable/icon';
 
-import NewUserDialog from './NewUserDialog.vue';
-import EditUserDialog from './EditUserDialog.vue';
+import NewUserDialog from './dialogs/NewUserDialog.vue';
+import EditUserDialog from './dialogs/EditUserDialog.vue';
 
 const ICON_IMPERSONATE = 'impersonate';
 const ICON_UPDATE = 'update';

@@ -11,9 +11,9 @@
 
 import { createWebHistory } from 'vue-router';
 
-import LoginPage from './LoginPage.vue';
-import ForgotPasswordPage from './ForgotPasswordPage.vue';
-import ResetPasswordPage from './ResetPasswordPage.vue';
+import LoginPage from './pages/LoginPage.vue';
+import ForgotPasswordPage from './pages/ForgotPasswordPage.vue';
+import ResetPasswordPage from './pages/ResetPasswordPage.vue';
 
 export default {
     history: createWebHistory(),

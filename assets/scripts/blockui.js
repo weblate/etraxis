@@ -10,28 +10,35 @@
 //----------------------------------------------------------------------
 
 /**
+ * @type {number} Number of blocking calls.
+ */
+let blocks = 0;
+
+/**
  * Blocks UI from user interaction.
  *
  * @param {null|string} message Optional message
  */
 export const block = (message = null) => {
-    const id = '__etraxis_blockui';
+    if (blocks++ === 0) {
+        const id = '__etraxis_blockui';
 
-    const template = `
-        <dialog id="${id}" class="blockui">
-            <p class="has-text-centered">${message ?? window.i18n['text.please_wait']}</p>
-        </dialog>`;
+        const template = `
+            <dialog id="${id}" class="blockui">
+                <p class="has-text-centered">${message ?? window.i18n['text.please_wait']}</p>
+            </dialog>`;
 
-    if (!document.getElementById(id)) {
-        document.querySelector('body').insertAdjacentHTML('beforeend', template);
+        if (!document.getElementById(id)) {
+            document.querySelector('body').insertAdjacentHTML('beforeend', template);
 
-        /** @type {Node} */
-        const modal = document.getElementById(id);
+            /** @type {Node} */
+            const modal = document.getElementById(id);
 
-        modal.addEventListener('cancel', (event) => event.preventDefault());
-        modal.addEventListener('close', () => modal.parentNode.removeChild(modal));
+            modal.addEventListener('cancel', (event) => event.preventDefault());
+            modal.addEventListener('close', () => modal.parentNode.removeChild(modal));
 
-        modal.showModal();
+            modal.showModal();
+        }
     }
 };
 
@@ -39,9 +46,11 @@ export const block = (message = null) => {
  * Unblocks UI.
  */
 export const unblock = () => {
-    const modal = document.getElementById('__etraxis_blockui');
+    if (--blocks === 0) {
+        const modal = document.getElementById('__etraxis_blockui');
 
-    if (modal) {
-        modal.close();
+        if (modal) {
+            modal.close();
+        }
     }
 };

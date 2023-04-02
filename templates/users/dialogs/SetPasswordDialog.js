@@ -37,9 +37,9 @@ export default {
 
     emits: {
         /**
-         * @param {Object} values Submitted form values
+         * @param {string} value Submitted form value
          */
-        submit: (values) => typeof values === 'object'
+        submit: (value) => typeof value === 'string'
     },
 
     expose: ['open', 'close'],

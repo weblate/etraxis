@@ -1,4 +1,5 @@
 administration: Administration
+button.add: Add
 button.back: Back
 button.cancel: Cancel
 button.close: Close
@@ -9,6 +10,7 @@ button.edit: Edit
 button.enable: Enable
 button.no: No
 button.ok: OK
+button.remove: Remove
 button.save: Save
 button.yes: Yes
 confirm.logout: 'Are you sure you want exit?'
@@ -31,6 +33,9 @@ field.error.default_value_range: 'Default value should be in range from %minimum
 field.error.min_max_values: 'Maximum value should not be less then minimum one.'
 field.error.value_boolean: '''%name%'' should be ''false'' or ''true''.'
 field.error.value_range: '''%name%'' should be in range from %minimum% to %maximum%.'
+group.global: Global
+groups: Groups
+groups.others: 'Other groups'
 page.first: 'First page'
 page.last: 'Last page'
 page.next: 'Next page'
@@ -69,6 +74,7 @@ user.edit: 'Edit user'
 user.email: Email
 user.enabled: Enabled
 user.fullname: 'Full name'
+user.groups: 'User groups'
 user.impersonate: Impersonate
 user.language: Language
 user.new: 'New user'

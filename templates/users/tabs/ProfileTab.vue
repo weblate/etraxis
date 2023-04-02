@@ -95,20 +95,20 @@
                     </div>
                 </fieldset>
             </div>
+            <edit-user-dialog
+                ref="dlgEditUser"
+                :header="i18n['user.edit']"
+                :timezones="timezones"
+                :errors="errors"
+                @submit="updateUser"
+            ></edit-user-dialog>
+            <set-password-dialog
+                ref="dlgSetPassword"
+                :header="i18n['password.change']"
+                :errors="errors"
+                @submit="setPassword"
+            ></set-password-dialog>
         </div>
-        <edit-user-dialog
-            ref="dlgEditUser"
-            :header="i18n['user.edit']"
-            :timezones="timezones"
-            :errors="errors"
-            @submit="updateUser"
-        ></edit-user-dialog>
-        <set-password-dialog
-            ref="dlgSetPassword"
-            :header="i18n['password.change']"
-            :errors="errors"
-            @submit="setPassword"
-        ></set-password-dialog>
     </section>
 </template>
 

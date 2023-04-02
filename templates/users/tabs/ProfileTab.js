@@ -9,6 +9,8 @@
 //
 //----------------------------------------------------------------------
 
+import { mapStores } from 'pinia';
+
 import axios from 'axios';
 
 import AccountProviderEnum from '@enums/accountprovider';
@@ -19,6 +21,8 @@ import * as msg from '@utilities/messagebox';
 import parseErrors from '@utilities/parseErrors';
 import url from '@utilities/url';
 
+import { useProfileStore } from '../stores/ProfileStore';
+
 import EditUserDialog from '../dialogs/EditUserDialog.vue';
 import SetPasswordDialog from '../dialogs/SetPasswordDialog.vue';
 
@@ -26,21 +30,6 @@ import SetPasswordDialog from '../dialogs/SetPasswordDialog.vue';
  * "Profile" tab.
  */
 export default {
-    props: {
-        id: Number,
-        email: String,
-        fullname: String,
-        description: String,
-        admin: Boolean,
-        disabled: Boolean,
-        accountProvider: String,
-        locale: String,
-        timezone: String,
-        actions: Object
-    },
-
-    emits: ['update:profile'],
-
     components: {
         'edit-user-dialog': EditUserDialog,
         'set-password-dialog': SetPasswordDialog
@@ -65,6 +54,11 @@ export default {
 
     computed: {
         /**
+         * @property {Object} profileStore Store for user profile data
+         */
+        ...mapStores(useProfileStore),
+
+        /**
          * @property {Object} i18n Translation resources
          */
         i18n: () => window.i18n,
@@ -80,45 +74,10 @@ export default {
         locales: () => LocaleEnum,
 
         /**
-         * @property {boolean} canUpdate Whether the user can be updated
-         */
-        canUpdate() {
-            return this.actions.update;
-        },
-
-        /**
-         * @property {boolean} canDelete Whether the user can be deleted
-         */
-        canDelete() {
-            return this.actions.delete;
-        },
-
-        /**
-         * @property {boolean} canDisable Whether the user can be disabled
-         */
-        canDisable() {
-            return this.actions.disable;
-        },
-
-        /**
-         * @property {boolean} canEnable Whether the user can be enabled
-         */
-        canEnable() {
-            return this.actions.enable;
-        },
-
-        /**
          * @property {boolean} isCurrentUser Whether the user is the current one
          */
         isCurrentUser() {
-            return this.id === this.currentUser;
-        },
-
-        /**
-         * @property {boolean} isExternalUser Whether the user is an external
-         */
-        isExternalUser() {
-            return this.accountProvider !== 'etraxis';
+            return this.profileStore.userId === this.currentUser;
         },
 
         /**
@@ -149,17 +108,17 @@ export default {
          */
         openEditUserDialog() {
             const defaults = {
-                email: this.email,
-                fullname: this.fullname,
-                description: this.description,
-                admin: this.admin,
-                disabled: this.disabled,
-                locale: this.locale,
-                timezone: this.timezone
+                email: this.profileStore.email,
+                fullname: this.profileStore.fullname,
+                description: this.profileStore.description,
+                admin: this.profileStore.isAdmin,
+                disabled: this.profileStore.isDisabled,
+                locale: this.profileStore.locale,
+                timezone: this.profileStore.timezone
             };
 
             this.errors = {};
-            this.editUserDialog.open(this.isCurrentUser, this.isExternalUser, defaults);
+            this.editUserDialog.open(this.isCurrentUser, this.profileStore.isExternalUser, defaults);
         },
 
         /**
@@ -181,11 +140,11 @@ export default {
             ui.block();
 
             axios
-                .put(url(`/api/users/${this.id}`), data)
+                .put(url(`/api/users/${this.profileStore.userId}`), data)
                 .then(() => {
+                    this.profileStore.loadProfile();
                     msg.info(this.i18n['text.changes_saved']).then(() => {
                         this.editUserDialog.close();
-                        this.$emit('update:profile');
                     });
                 })
                 .catch((exception) => (this.errors = parseErrors(exception)))
@@ -199,8 +158,8 @@ export default {
             ui.block();
 
             axios
-                .post(url(`/api/users/${this.id}/${this.disabled ? 'enable' : 'disable'}`))
-                .then(() => this.$emit('update:profile'))
+                .post(url(`/api/users/${this.profileStore.userId}/${this.profileStore.isDisabled ? 'enable' : 'disable'}`))
+                .then(() => this.profileStore.loadProfile())
                 .catch((exception) => parseErrors(exception))
                 .then(() => ui.unblock());
         },
@@ -226,7 +185,7 @@ export default {
             ui.block();
 
             axios
-                .put(url(`/api/users/${this.id}/password`), data)
+                .put(url(`/api/users/${this.profileStore.userId}/password`), data)
                 .then(() => {
                     msg.info(this.i18n['password.changed']).then(() => {
                         this.setPasswordDialog.close();
@@ -244,7 +203,7 @@ export default {
                 ui.block();
 
                 axios
-                    .delete(url(`/api/users/${this.id}`))
+                    .delete(url(`/api/users/${this.profileStore.userId}`))
                     .then(() => this.goBack())
                     .catch((exception) => parseErrors(exception))
                     .then(() => ui.unblock());

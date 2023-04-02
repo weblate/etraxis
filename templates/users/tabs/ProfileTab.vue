@@ -2,11 +2,11 @@
     <section>
         <div class="buttons">
             <button class="button" type="button" @click="goBack">{{ i18n["button.back"] }}</button>
-            <button class="button" type="button" :disabled="!canUpdate" @click="openEditUserDialog">{{ i18n["button.edit"] }}</button>
-            <button v-show="!disabled" class="button" type="button" :disabled="!canDisable" @click="toggleStatus">{{ i18n["button.disable"] }}</button>
-            <button v-show="disabled" class="button" type="button" :disabled="!canEnable" @click="toggleStatus">{{ i18n["button.enable"] }}</button>
-            <button v-show="!isExternalUser" class="button" type="button" @click="openSetPasswordDialog">{{ i18n["password.change"] }}</button>
-            <button class="button is-danger" type="button" :disabled="!canDelete" @click="deleteUser">{{ i18n["button.delete"] }}</button>
+            <button class="button" type="button" :disabled="!profileStore.canUpdate" @click="openEditUserDialog">{{ i18n["button.edit"] }}</button>
+            <button v-show="!profileStore.isDisabled" class="button" type="button" :disabled="!profileStore.canDisable" @click="toggleStatus">{{ i18n["button.disable"] }}</button>
+            <button v-show="profileStore.isDisabled" class="button" type="button" :disabled="!profileStore.canEnable" @click="toggleStatus">{{ i18n["button.enable"] }}</button>
+            <button v-show="!profileStore.isExternalUser" class="button" type="button" @click="openSetPasswordDialog">{{ i18n["password.change"] }}</button>
+            <button class="button is-danger" type="button" :disabled="!profileStore.canDelete" @click="deleteUser">{{ i18n["button.delete"] }}</button>
         </div>
         <div class="columns">
             <div class="column is-half-tablet">
@@ -17,7 +17,7 @@
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ fullname }}</p>
+                                <p>{{ profileStore.fullname }}</p>
                             </div>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ email }}</p>
+                                <p>{{ profileStore.email }}</p>
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ accountProviders[accountProvider] ?? null }}</p>
+                                <p>{{ accountProviders[profileStore.accountProvider] ?? null }}</p>
                             </div>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ admin ? i18n["role.admin"] : i18n["role.user"] }}</p>
+                                <p>{{ profileStore.isAdmin ? i18n["role.admin"] : i18n["role.user"] }}</p>
                             </div>
                         </div>
                     </div>
@@ -57,8 +57,8 @@
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p :class="{ 'has-text-danger': disabled }">
-                                    {{ disabled ? i18n["user.disabled"] : i18n["user.enabled"] }}
+                                <p :class="{ 'has-text-danger': profileStore.isDisabled }">
+                                    {{ profileStore.isDisabled ? i18n["user.disabled"] : i18n["user.enabled"] }}
                                 </p>
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ description || "&mdash;" }}</p>
+                                <p>{{ profileStore.description || "&mdash;" }}</p>
                             </div>
                         </div>
                     </div>
@@ -79,7 +79,7 @@
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ locales[locale] ?? null }}</p>
+                                <p>{{ locales[profileStore.locale] ?? null }}</p>
                             </div>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ timezone }}</p>
+                                <p>{{ profileStore.timezone }}</p>
                             </div>
                         </div>
                     </div>

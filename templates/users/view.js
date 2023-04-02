@@ -10,15 +10,12 @@
 //----------------------------------------------------------------------
 
 import { createApp } from 'vue';
-
-import axios from 'axios';
-
-import * as ui from '@utilities/blockui';
-import parseErrors from '@utilities/parseErrors';
-import url from '@utilities/url';
+import { createPinia, mapStores } from 'pinia';
 
 import Tabs from '@components/tabs/tabs.vue';
 import Tab from '@components/tabs/tab.vue';
+
+import { useProfileStore } from './stores/ProfileStore';
 
 import ProfileTab from './tabs/ProfileTab.vue';
 
@@ -30,68 +27,28 @@ const app = createApp({
         /**
          * @property {string} tab ID of the current tab
          */
-        tab: 'profile',
-
-        /**
-         * @property {Object} profile User's profile
-         */
-        profile: {
-            id: null,
-            email: null,
-            fullname: null,
-            description: null,
-            admin: null,
-            disabled: null,
-            accountProvider: null,
-            locale: null,
-            timezone: null,
-            actions: {
-                update: false,
-                delete: false,
-                disable: false,
-                enable: false
-            }
-        }
+        tab: 'profile'
     }),
 
     computed: {
         /**
-         * @property {Object} i18n Translation resources
+         * @property {Object} profileStore Store for user profile data
          */
-        i18n: () => window.i18n,
-
-        /**
-         * @property {number} userId User ID
-         */
-        userId() {
-            return Number(this.$el.dataset.id);
-        }
-    },
-
-    methods: {
-        /**
-         * Loads user's profile from the server.
-         */
-        loadProfile() {
-            ui.block();
-
-            axios
-                .get(url(`/api/users/${this.userId}`))
-                .then((response) => {
-                    this.profile = { ...response.data };
-                })
-                .catch((exception) => parseErrors(exception))
-                .then(() => ui.unblock());
-        }
+        ...mapStores(useProfileStore)
     },
 
     mounted() {
-        this.loadProfile();
+        const userId = Number(this.$el.dataset.id);
+
+        this.profileStore.loadProfile(userId);
     }
 });
+
+const pinia = createPinia();
 
 app.component('tabs', Tabs);
 app.component('tab', Tab);
 app.component('profile-tab', ProfileTab);
 
+app.use(pinia);
 app.mount('#vue-user');

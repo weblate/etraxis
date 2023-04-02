@@ -415,7 +415,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Sets user's timezone.
+     * Sets user's theme.
      */
     public function setTheme(ThemeEnum $theme): self
     {

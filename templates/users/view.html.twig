@@ -6,8 +6,8 @@
     <div v-cloak id="vue-user">
         <div data-id="{{ user.id }}">
             <tabs v-model="tab">
-                <tab id="profile" :title="i18n['user.profile']">
-                    <profile-tab data-id="{{ app.user.id }}" v-bind="profile" @update:profile="loadProfile"></profile-tab>
+                <tab id="profile" title="{{ 'user.profile' | trans }}">
+                    <profile-tab data-id="{{ app.user.id }}"></profile-tab>
                 </tab>
             </tabs>
         </div>

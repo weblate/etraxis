@@ -206,7 +206,7 @@ export default {
                 return this.checked.length === this.rows.filter((row) => this.isRowCheckable(row)).length;
             },
             set(value) {
-                this.$emit('update:checked', value ? this.rows.filter((row) => this.isRowCheckable(row)).map((row) => row.DT_id) : []);
+                this.emitUpdateCheckedEvent(value ? this.rows.filter((row) => this.isRowCheckable(row)).map((row) => row.DT_id) : []);
             }
         },
 
@@ -271,7 +271,7 @@ export default {
 
                 this.blocked = false;
 
-                this.$emit('update:checked', []);
+                this.emitUpdateCheckedEvent([]);
             } catch (error) {
                 alert(error).then(() => (this.blocked = false));
             }
@@ -319,6 +319,15 @@ export default {
         },
 
         /**
+         * Sends the 'update:checked' event.
+         *
+         * @param {Array<string>} data Event payload
+         */
+        emitUpdateCheckedEvent(data) {
+            this.$emit('update:checked', data);
+        },
+
+        /**
          * Determines whether the specified row can be ticked.
          */
         isRowCheckable(row) {
@@ -339,7 +348,7 @@ export default {
                 checked.add(id);
             }
 
-            this.$emit('update:checked', Array.from(checked));
+            this.emitUpdateCheckedEvent(Array.from(checked));
         },
 
         /**
@@ -457,6 +466,7 @@ export default {
         }
     },
 
+    // eslint-disable-next-line sonarjs/cognitive-complexity
     mounted() {
         // Restore saved table state (paging).
         if (this.paging) {
@@ -480,7 +490,7 @@ export default {
         const filters = this.loadState('filters') || {};
 
         this.columns.forEach((column) => {
-            if (filters[column.props.id] !== undefined && this.isColumnFilterable(column)) {
+            if (Object.hasOwn(filters, column.props.id) && this.isColumnFilterable(column)) {
                 this.filters[column.props.id] = filters[column.props.id];
             } else {
                 this.filters[column.props.id] = '';
@@ -491,7 +501,7 @@ export default {
         const order = this.loadState('order') || {};
 
         this.columns.forEach((column) => {
-            if (order[column.props.id] !== undefined && this.isColumnSortable(column)) {
+            if (Object.hasOwn(order, column.props.id) && this.isColumnSortable(column)) {
                 this.order[column.props.id] = order[column.props.id];
             }
         });

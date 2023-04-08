@@ -9,10 +9,17 @@
 //
 //----------------------------------------------------------------------
 
+const dialogId = '__etraxis_blockui';
+
 /**
  * @type {number} Number of blocking calls.
  */
 let blocks = 0;
+
+/**
+ * @type {Array<string>} Stack of previous blocking messages.
+ */
+const messageStack = [];
 
 /**
  * Blocks UI from user interaction.
@@ -21,24 +28,27 @@ let blocks = 0;
  */
 export const block = (message = null) => {
     if (blocks++ === 0) {
-        const id = '__etraxis_blockui';
-
+        // This is a first time block.
         const template = `
-            <dialog id="${id}" class="blockui">
+            <dialog id="${dialogId}" class="blockui">
                 <p class="has-text-centered">${message ?? window.i18n['text.please_wait']}</p>
             </dialog>`;
 
-        if (!document.getElementById(id)) {
-            document.querySelector('body').insertAdjacentHTML('beforeend', template);
+        document.querySelector('body').insertAdjacentHTML('beforeend', template);
 
-            /** @type {Node} */
-            const modal = document.getElementById(id);
+        /** @type {Node} */
+        const modal = document.getElementById(dialogId);
 
-            modal.addEventListener('cancel', (event) => event.preventDefault());
-            modal.addEventListener('close', () => modal.parentNode.removeChild(modal));
+        modal.addEventListener('cancel', (event) => event.preventDefault());
+        modal.addEventListener('close', () => modal.parentNode.removeChild(modal));
 
-            modal.showModal();
-        }
+        modal.showModal();
+        modal.blur();
+    } else {
+        // This is a repeated block - push the current message to the stack and replace it with the new one.
+        const element = document.querySelector(`#${dialogId} p`);
+        messageStack.push(element.innerHTML);
+        element.innerHTML = message ?? window.i18n['text.please_wait'];
     }
 };
 
@@ -47,10 +57,12 @@ export const block = (message = null) => {
  */
 export const unblock = () => {
     if (--blocks === 0) {
-        const modal = document.getElementById('__etraxis_blockui');
-
-        if (modal) {
-            modal.close();
-        }
+        // This was a last block.
+        const modal = document.getElementById(dialogId);
+        modal.close();
+    } else {
+        // There is a previous block there - restore its message from the stack.
+        const element = document.querySelector(`#${dialogId} p`);
+        element.innerHTML = messageStack.pop();
     }
 };

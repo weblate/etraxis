@@ -4,6 +4,7 @@
         "es2021": true
     },
     "extends": [
+        "plugin:sonarjs/recommended",
         "plugin:vue/vue3-essential",
         "standard"
     ],
@@ -14,6 +15,7 @@
         "sourceType": "module"
     },
     "plugins": [
+        "sonarjs",
         "vue"
     ],
     "rules": {

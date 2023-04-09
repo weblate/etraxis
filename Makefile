@@ -7,6 +7,7 @@ SHELL=/bin/bash
 .PHONY: cloc
 .PHONY: test
 .PHONY: coverage
+.PHONY: jest
 .PHONY: update
 .PHONY: watch
 
@@ -17,6 +18,7 @@ help:
 	@echo "make cloc	Count lines of source code in the project"
 	@echo "make test	Executes PHPUnit tests"
 	@echo "make coverage	Executes PHPUnit tests with code coverage"
+	@echo "make jest	Executes JavaScript tests"
 	@echo "make update	Updates Symfony framework"
 	@echo "make watch	Watches for changes in frontend sources"
 
@@ -48,6 +50,9 @@ test:
 coverage:
 	./bin/console doctrine:fixtures:load -n
 	XDEBUG_MODE=coverage ./bin/phpunit --coverage-html=var/coverage
+
+jest:
+	npm test
 
 update:
 	composer update "symfony/*" --with-all-dependencies

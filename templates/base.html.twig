@@ -11,6 +11,11 @@
         {{ encore_entry_link_tags('light/' ~ (app.user.theme.value ?? theme)) }}
         {{ encore_entry_link_tags('dark/'  ~ (app.user.theme.value ?? theme)) }}
         {% block styles %}{% endblock %}
+        {% if app.user %}
+            {{ encore_entry_script_tags('navbar') }}
+        {% endif %}
+        {{ encore_entry_script_tags('i18n/' ~ (app.user.locale.value ?? locale)) }}
+        {% block scripts %}{% endblock %}
     </head>
     <body class="is-flex is-flex-direction-column has-navbar-fixed-top">
         {% if app.user %}
@@ -26,10 +31,5 @@
                 <p class="content is-small"><strong>eTraxis</strong> &copy; 2017-2023 Artem Rodygin</p>
             </div>
         </footer>
-        {% if app.user %}
-            {{ encore_entry_script_tags('navbar') }}
-        {% endif %}
-        {{ encore_entry_script_tags('i18n/' ~ (app.user.locale.value ?? locale)) }}
-        {% block scripts %}{% endblock %}
     </body>
 </html>

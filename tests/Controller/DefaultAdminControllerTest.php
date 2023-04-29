@@ -13,6 +13,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Project;
 use App\Entity\User;
 use App\LoginTrait;
 use Doctrine\Persistence\ManagerRegistry;
@@ -45,6 +46,7 @@ final class DefaultAdminControllerTest extends WebTestCase
      * @covers ::index
      * @covers ::projects
      * @covers ::users
+     * @covers ::viewProject
      * @covers ::viewUser
      */
     public function testAnonymous(): void
@@ -62,12 +64,18 @@ final class DefaultAdminControllerTest extends WebTestCase
 
         $this->client->request(Request::METHOD_GET, '/admin/projects');
         self::assertTrue($this->client->getResponse()->isRedirect('/login'));
+
+        /** @var Project $project */
+        $project = $this->doctrine->getRepository(Project::class)->findOneBy(['name' => 'Distinctio']);
+        $this->client->request(Request::METHOD_GET, sprintf('/admin/projects/%s', $project->getId()));
+        self::assertTrue($this->client->getResponse()->isRedirect('/login'));
     }
 
     /**
      * @covers ::index
      * @covers ::projects
      * @covers ::users
+     * @covers ::viewProject
      * @covers ::viewUser
      */
     public function testUser(): void
@@ -87,12 +95,18 @@ final class DefaultAdminControllerTest extends WebTestCase
 
         $this->client->request(Request::METHOD_GET, '/admin/projects');
         self::assertTrue($this->client->getResponse()->isForbidden());
+
+        /** @var Project $project */
+        $project = $this->doctrine->getRepository(Project::class)->findOneBy(['name' => 'Distinctio']);
+        $this->client->request(Request::METHOD_GET, sprintf('/admin/projects/%s', $project->getId()));
+        self::assertTrue($this->client->getResponse()->isForbidden());
     }
 
     /**
      * @covers ::index
      * @covers ::projects
      * @covers ::users
+     * @covers ::viewProject
      * @covers ::viewUser
      */
     public function testAdmin(): void
@@ -111,6 +125,11 @@ final class DefaultAdminControllerTest extends WebTestCase
         self::assertTrue($this->client->getResponse()->isOk());
 
         $this->client->request(Request::METHOD_GET, '/admin/projects');
+        self::assertTrue($this->client->getResponse()->isOk());
+
+        /** @var Project $project */
+        $project = $this->doctrine->getRepository(Project::class)->findOneBy(['name' => 'Distinctio']);
+        $this->client->request(Request::METHOD_GET, sprintf('/admin/projects/%s', $project->getId()));
         self::assertTrue($this->client->getResponse()->isOk());
     }
 }

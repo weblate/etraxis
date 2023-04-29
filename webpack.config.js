@@ -33,6 +33,7 @@ Encore
     .addEntry('login/index',    './templates/login/index.js')
     .addEntry('navbar',         './templates/navbar.js')
     .addEntry('projects/index', './templates/projects/index.js')
+    .addEntry('projects/view',  './templates/projects/view.js')
     .addEntry('settings/index', './templates/settings/index.js')
     .addEntry('users/index',    './templates/users/index.js')
     .addEntry('users/view',     './templates/users/view.js')

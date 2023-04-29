@@ -13,6 +13,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Project;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,5 +51,13 @@ class DefaultAdminController extends AbstractController
     public function projects(): Response
     {
         return $this->render('projects/index.html.twig');
+    }
+
+    #[Route('/projects/{id}', requirements: ['id' => '\d+'])]
+    public function viewProject(Project $project): Response
+    {
+        return $this->render('projects/view.html.twig', [
+            'project' => $project,
+        ]);
     }
 }

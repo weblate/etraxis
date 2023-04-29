@@ -66,6 +66,20 @@ const app = createApp({
                     };
                 })
             };
+        },
+
+        /**
+         * A table row is clicked.
+         *
+         * @param {MouseEvent} event Original event
+         * @param {number}     id    Project ID
+         */
+        viewProject(event, id) {
+            if (event.ctrlKey) {
+                window.open(url(`/admin/projects/${id}`), '_blank');
+            } else {
+                location.href = url(`/admin/projects/${id}`);
+            }
         }
     }
 });

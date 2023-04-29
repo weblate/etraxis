@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% set title = project.name %}
+
+{% block content %}
+    <div v-cloak id="vue-project">
+        <div data-id="{{ project.id }}">
+            <tabs v-model="tab">
+                <tab id="project" title="{{ 'project' | trans }}">
+                    <project-tab></project-tab>
+                </tab>
+            </tabs>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ encore_entry_script_tags('projects/view') }}
+{% endblock %}

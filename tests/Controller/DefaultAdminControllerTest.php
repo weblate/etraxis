@@ -43,6 +43,7 @@ final class DefaultAdminControllerTest extends WebTestCase
 
     /**
      * @covers ::index
+     * @covers ::projects
      * @covers ::users
      * @covers ::viewUser
      */
@@ -58,10 +59,14 @@ final class DefaultAdminControllerTest extends WebTestCase
         $user = $this->doctrine->getRepository(User::class)->findOneByEmail('artem@example.com');
         $this->client->request(Request::METHOD_GET, sprintf('/admin/users/%s', $user->getId()));
         self::assertTrue($this->client->getResponse()->isRedirect('/login'));
+
+        $this->client->request(Request::METHOD_GET, '/admin/projects');
+        self::assertTrue($this->client->getResponse()->isRedirect('/login'));
     }
 
     /**
      * @covers ::index
+     * @covers ::projects
      * @covers ::users
      * @covers ::viewUser
      */
@@ -79,10 +84,14 @@ final class DefaultAdminControllerTest extends WebTestCase
         $user = $this->doctrine->getRepository(User::class)->findOneByEmail('artem@example.com');
         $this->client->request(Request::METHOD_GET, sprintf('/admin/users/%s', $user->getId()));
         self::assertTrue($this->client->getResponse()->isForbidden());
+
+        $this->client->request(Request::METHOD_GET, '/admin/projects');
+        self::assertTrue($this->client->getResponse()->isForbidden());
     }
 
     /**
      * @covers ::index
+     * @covers ::projects
      * @covers ::users
      * @covers ::viewUser
      */
@@ -99,6 +108,9 @@ final class DefaultAdminControllerTest extends WebTestCase
         /** @var User $user */
         $user = $this->doctrine->getRepository(User::class)->findOneByEmail('artem@example.com');
         $this->client->request(Request::METHOD_GET, sprintf('/admin/users/%s', $user->getId()));
+        self::assertTrue($this->client->getResponse()->isOk());
+
+        $this->client->request(Request::METHOD_GET, '/admin/projects');
         self::assertTrue($this->client->getResponse()->isOk());
     }
 }

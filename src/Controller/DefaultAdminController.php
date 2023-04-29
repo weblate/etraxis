@@ -45,4 +45,10 @@ class DefaultAdminController extends AbstractController
             'user' => $user,
         ]);
     }
+
+    #[Route('/projects', name: 'admin_projects')]
+    public function projects(): Response
+    {
+        return $this->render('projects/index.html.twig');
+    }
 }

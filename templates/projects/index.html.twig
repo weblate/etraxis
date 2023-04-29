@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'projects' | trans %}
+
+{% block content %}
+    <div v-cloak id="vue-projects">
+        <div class="columns">
+            <div class="column">
+                <datatable ref="projects" id="projects" :data="projects" paging>
+                    <column sortable filterable id="name">{{ 'project.name' | trans }}</column>
+                    <column sortable id="createdAt">{{ 'project.start_date' | trans }}</column>
+                    <column sortable filterable id="description" wrappable>{{ 'project.description' | trans }}</column>
+                </datatable>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ encore_entry_script_tags('projects/index') }}
+{% endblock %}

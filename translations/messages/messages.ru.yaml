@@ -16,6 +16,7 @@ button.save: Сохранить
 button.suspend: Остановить
 button.yes: Да
 confirm.logout: 'Вы уверены что хотите выйти?'
+confirm.project.delete: 'Вы уверены что хотите удалить этот проект?'
 confirm.user.delete: 'Вы уверены что хотите удалить этого пользователя?'
 email.account_created.line1: 'Для вас была создана новая учетная запись в eTraxis.'
 email.account_created.line2: 'Пожалуйста, используйте для входа свой электронный почтовый адрес и указанный ниже пароль.'

@@ -5,6 +5,7 @@
             <button class="button" type="button" :disabled="!projectStore.canUpdate" @click="openEditProjectDialog">{{ i18n['button.edit'] }}</button>
             <button v-show="!projectStore.isSuspended" class="button" type="button" :disabled="!projectStore.canSuspend" @click="toggleStatus">{{ i18n['button.suspend'] }}</button>
             <button v-show="projectStore.isSuspended" class="button" type="button" :disabled="!projectStore.canResume" @click="toggleStatus">{{ i18n['button.resume'] }}</button>
+            <button class="button is-danger" type="button" :disabled="!projectStore.canDelete" @click="deleteProject">{{ i18n['button.delete'] }}</button>
         </div>
         <div class="columns">
             <div class="column is-half-tablet">

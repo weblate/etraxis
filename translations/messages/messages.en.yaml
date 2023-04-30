@@ -16,6 +16,7 @@ button.save: Save
 button.suspend: Suspend
 button.yes: Yes
 confirm.logout: 'Are you sure you want exit?'
+confirm.project.delete: 'Are you sure you want delete this project?'
 confirm.user.delete: 'Are you sure you want delete this user?'
 email.account_created.line1: 'A new account in eTraxis has been created for you.'
 email.account_created.line2: 'Please use your email address and the password below to login.'

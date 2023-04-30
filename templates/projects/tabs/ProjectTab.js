@@ -114,6 +114,21 @@ export default {
                 .then(() => this.projectStore.loadProject())
                 .catch((exception) => parseErrors(exception))
                 .then(() => ui.unblock());
+        },
+
+        /**
+         * Deletes the project.
+         */
+        deleteProject() {
+            msg.confirm(this.i18n['confirm.project.delete']).then(() => {
+                ui.block();
+
+                axios
+                    .delete(url(`/api/projects/${this.projectStore.projectId}`))
+                    .then(() => this.goBack())
+                    .catch((exception) => parseErrors(exception))
+                    .then(() => ui.unblock());
+            });
         }
     }
 };

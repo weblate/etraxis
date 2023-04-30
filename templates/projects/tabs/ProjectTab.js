@@ -101,6 +101,19 @@ export default {
                 })
                 .catch((exception) => (this.errors = parseErrors(exception)))
                 .then(() => ui.unblock());
+        },
+
+        /**
+         * Toggles the project's status.
+         */
+        toggleStatus() {
+            ui.block();
+
+            axios
+                .post(url(`/api/projects/${this.projectStore.projectId}/${this.projectStore.isSuspended ? 'resume' : 'suspend'}`))
+                .then(() => this.projectStore.loadProject())
+                .catch((exception) => parseErrors(exception))
+                .then(() => ui.unblock());
         }
     }
 };

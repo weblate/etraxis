@@ -27,6 +27,8 @@ import Icon from '@components/datatable/icon';
 import ProjectDialog from './dialogs/ProjectDialog.vue';
 
 const ICON_UPDATE = 'update';
+const ICON_SUSPEND = 'suspend';
+const ICON_RESUME = 'resume';
 
 /**
  * "Projects" page.
@@ -86,7 +88,10 @@ const app = createApp({
                 total: data.total,
                 rows: data.rows.map((project) => {
                     const icons = [
-                        new Icon(ICON_UPDATE, this.i18n['project.edit'], 'fa-pencil')
+                        new Icon(ICON_UPDATE, this.i18n['project.edit'], 'fa-pencil'),
+                        project.suspended
+                            ? new Icon(ICON_RESUME, this.i18n['button.resume'], 'fa-toggle-off')
+                            : new Icon(ICON_SUSPEND, this.i18n['button.suspend'], 'fa-toggle-on')
                     ];
 
                     return {
@@ -112,6 +117,12 @@ const app = createApp({
             switch (icon) {
                 case ICON_UPDATE:
                     this.openEditProjectDialog(id);
+                    break;
+                case ICON_SUSPEND:
+                    this.suspendProject(id);
+                    break;
+                case ICON_RESUME:
+                    this.resumeProject(id);
                     break;
             }
         },
@@ -211,6 +222,36 @@ const app = createApp({
                     });
                 })
                 .catch((exception) => (this.errors = parseErrors(exception)))
+                .then(() => ui.unblock());
+        },
+
+        /**
+         * Suspends specified project.
+         *
+         * @param {number} id Project ID
+         */
+        suspendProject(id) {
+            ui.block();
+
+            axios
+                .post(url(`/api/projects/${id}/suspend`))
+                .then(() => this.projectsTable.refresh())
+                .catch((exception) => parseErrors(exception))
+                .then(() => ui.unblock());
+        },
+
+        /**
+         * Resumes specified project.
+         *
+         * @param {number} id Project ID
+         */
+        resumeProject(id) {
+            ui.block();
+
+            axios
+                .post(url(`/api/projects/${id}/resume`))
+                .then(() => this.projectsTable.refresh())
+                .catch((exception) => parseErrors(exception))
                 .then(() => ui.unblock());
         }
     }

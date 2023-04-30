@@ -11,7 +11,9 @@ button.enable: Разблокировать
 button.no: Нет
 button.ok: ОК
 button.remove: Убрать
+button.resume: Возобновить
 button.save: Сохранить
+button.suspend: Остановить
 button.yes: Да
 confirm.logout: 'Вы уверены что хотите выйти?'
 confirm.user.delete: 'Вы уверены что хотите удалить этого пользователя?'

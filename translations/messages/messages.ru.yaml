@@ -51,6 +51,7 @@ password.new: 'Новый пароль'
 project: Проект
 project.active: Действующий
 project.description: Описание
+project.edit: 'Редактирование проекта'
 project.name: 'Название проекта'
 project.new: 'Новый проект'
 project.start_date: 'Начало проекта'

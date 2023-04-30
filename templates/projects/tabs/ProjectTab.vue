@@ -2,6 +2,7 @@
     <section>
         <div class="buttons">
             <button class="button" type="button" @click="goBack">{{ i18n['button.back'] }}</button>
+            <button class="button" type="button" :disabled="!projectStore.canUpdate" @click="openEditProjectDialog">{{ i18n['button.edit'] }}</button>
         </div>
         <div class="columns">
             <div class="column is-half-tablet">
@@ -50,6 +51,12 @@
                     </div>
                 </fieldset>
             </div>
+            <edit-project-dialog
+                ref="dlgEditProject"
+                :header="i18n['project.edit']"
+                :errors="errors"
+                @submit="updateProject"
+            ></edit-project-dialog>
         </div>
     </section>
 </template>

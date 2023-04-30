@@ -22,8 +22,11 @@ import url from '@utilities/url';
 
 import DataTable from '@components/datatable/datatable.vue';
 import Column from '@components/datatable/column.vue';
+import Icon from '@components/datatable/icon';
 
 import ProjectDialog from './dialogs/ProjectDialog.vue';
+
+const ICON_UPDATE = 'update';
 
 /**
  * "Projects" page.
@@ -54,6 +57,13 @@ const app = createApp({
          */
         newProjectDialog() {
             return this.$refs.dlgNewProject;
+        },
+
+        /**
+         * @property {Object} editProjectDialog "Edit project" dialog instance
+         */
+        editProjectDialog() {
+            return this.$refs.dlgEditProject;
         }
     },
 
@@ -75,15 +85,35 @@ const app = createApp({
             return {
                 total: data.total,
                 rows: data.rows.map((project) => {
+                    const icons = [
+                        new Icon(ICON_UPDATE, this.i18n['project.edit'], 'fa-pencil')
+                    ];
+
                     return {
                         DT_id: project.id,
                         DT_class: project.suspended ? 'has-text-grey' : null,
+                        DT_icons: icons,
                         name: project.name,
                         createdAt: date(project.createdAt),
                         description: project.description
                     };
                 })
             };
+        },
+
+        /**
+         * An icon is clicked.
+         *
+         * @param {MouseEvent} event Original event
+         * @param {number}     id    Project ID
+         * @param {string}     icon  Icon ID
+         */
+        onIcon(event, id, icon) {
+            switch (icon) {
+                case ICON_UPDATE:
+                    this.openEditProjectDialog(id);
+                    break;
+            }
         },
 
         /**
@@ -138,6 +168,50 @@ const app = createApp({
                 })
                 .catch((exception) => (this.errors = parseErrors(exception)))
                 .then(() => ui.unblock());
+        },
+
+        /**
+         * Opens "Edit project" dialog.
+         *
+         * @param {number} id Project ID
+         */
+        openEditProjectDialog(id) {
+            ui.block();
+
+            axios
+                .get(url(`/api/projects/${id}`))
+                .then((response) => {
+                    this.errors = {};
+                    this.editProjectDialog.open(response.data);
+                })
+                .catch((exception) => parseErrors(exception))
+                .then(() => ui.unblock());
+        },
+
+        /**
+         * Updates project.
+         *
+         * @param {Object} event Submitted values
+         */
+        updateProject(event) {
+            const data = {
+                name: event.name,
+                description: event.description || null,
+                suspended: event.suspended
+            };
+
+            ui.block();
+
+            axios
+                .put(url(`/api/projects/${event.id}`), data)
+                .then(() => {
+                    msg.info(this.i18n['text.changes_saved']).then(() => {
+                        this.editProjectDialog.close();
+                        this.projectsTable.refresh();
+                    });
+                })
+                .catch((exception) => (this.errors = parseErrors(exception)))
+                .then(() => ui.unblock());
         }
     }
 });
@@ -145,5 +219,6 @@ const app = createApp({
 app.component('datatable', DataTable);
 app.component('column', Column);
 app.component('new-project-dialog', ProjectDialog);
+app.component('edit-project-dialog', ProjectDialog);
 
 app.mount('#vue-projects');

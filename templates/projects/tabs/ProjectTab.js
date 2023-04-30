@@ -11,14 +11,32 @@
 
 import { mapStores } from 'pinia';
 
+import axios from 'axios';
+
+import * as ui from '@utilities/blockui';
+import * as msg from '@utilities/messagebox';
+import parseErrors from '@utilities/parseErrors';
 import url from '@utilities/url';
 
 import { useProjectStore } from '../stores/ProjectStore';
+
+import ProjectDialog from '../dialogs/ProjectDialog.vue';
 
 /**
  * "Project" tab.
  */
 export default {
+    components: {
+        'edit-project-dialog': ProjectDialog
+    },
+
+    data: () => ({
+        /**
+         * @property {Object} errors Dialog errors
+         */
+        errors: {}
+    }),
+
     computed: {
         /**
          * @property {Object} projectStore Store for project data
@@ -28,7 +46,14 @@ export default {
         /**
          * @property {Object} i18n Translation resources
          */
-        i18n: () => window.i18n
+        i18n: () => window.i18n,
+
+        /**
+         * @property {Object} editProjectDialog "Edit project" dialog instance
+         */
+        editProjectDialog() {
+            return this.$refs.dlgEditProject;
+        }
     },
 
     methods: {
@@ -37,6 +62,45 @@ export default {
          */
         goBack() {
             location.href = url('/admin/projects');
+        },
+
+        /**
+         * Opens "Edit project" dialog.
+         */
+        openEditProjectDialog() {
+            const defaults = {
+                name: this.projectStore.name,
+                description: this.projectStore.description
+            };
+
+            this.errors = {};
+            this.editProjectDialog.open(defaults);
+        },
+
+        /**
+         * Updates project.
+         *
+         * @param {Object} event Submitted values
+         */
+        updateProject(event) {
+            const data = {
+                name: event.name,
+                description: event.description || null,
+                suspended: this.projectStore.isSuspended
+            };
+
+            ui.block();
+
+            axios
+                .put(url(`/api/projects/${this.projectStore.projectId}`), data)
+                .then(() => {
+                    this.projectStore.loadProject();
+                    msg.info(this.i18n['text.changes_saved']).then(() => {
+                        this.editProjectDialog.close();
+                    });
+                })
+                .catch((exception) => (this.errors = parseErrors(exception)))
+                .then(() => ui.unblock());
         }
     }
 };

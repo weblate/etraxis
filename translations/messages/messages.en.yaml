@@ -51,6 +51,7 @@ password.new: 'New password'
 project: Project
 project.active: Active
 project.description: Description
+project.edit: 'Edit project'
 project.name: 'Project name'
 project.new: 'New project'
 project.start_date: 'Start date'

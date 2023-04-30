@@ -15,7 +15,7 @@
                 <div class="control">
                     <label class="checkbox">
                         <input type="checkbox" v-model="remember" />
-                        <span>{{ i18n["security.remember_me"] }}</span>
+                        <span>{{ i18n['security.remember_me'] }}</span>
                     </label>
                 </div>
             </div>
@@ -23,14 +23,14 @@
                 <div class="column is-narrow">
                     <div class="field">
                         <div class="control">
-                            <button class="button" type="submit">{{ i18n["security.login"] }}</button>
+                            <button class="button" type="submit">{{ i18n['security.login'] }}</button>
                         </div>
                     </div>
                 </div>
                 <div class="column">
                     <div class="field">
                         <div class="control has-text-right">
-                            <router-link to="/forgot">{{ i18n["password.forgot"] }}</router-link>
+                            <router-link to="/forgot">{{ i18n['password.forgot'] }}</router-link>
                         </div>
                     </div>
                 </div>

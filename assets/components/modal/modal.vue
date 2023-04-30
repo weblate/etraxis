@@ -13,8 +13,8 @@
                     <footer class="modal-card-foot is-justify-content-right">
                         <button v-show="false" type="submit"></button>
                         <slot name="footer">
-                            <button class="button" type="button" @click="onSubmit">{{ i18n["button.ok"] }}</button>
-                            <button class="button" type="button" @click="onCancel">{{ i18n["button.cancel"] }}</button>
+                            <button class="button" type="button" @click="onSubmit">{{ i18n['button.ok'] }}</button>
+                            <button class="button" type="button" @click="onCancel">{{ i18n['button.cancel'] }}</button>
                         </slot>
                     </footer>
                 </div>

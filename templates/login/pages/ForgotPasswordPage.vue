@@ -8,10 +8,10 @@
             </div>
             <div class="field is-grouped">
                 <div class="control">
-                    <button class="button" type="submit">{{ i18n["button.ok"] }}</button>
+                    <button class="button" type="submit">{{ i18n['button.ok'] }}</button>
                 </div>
                 <div class="control">
-                    <router-link to="/login" class="button">{{ i18n["button.cancel"] }}</router-link>
+                    <router-link to="/login" class="button">{{ i18n['button.cancel'] }}</router-link>
                 </div>
             </div>
         </form>

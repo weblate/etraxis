@@ -1,7 +1,7 @@
 <template>
     <section>
         <div class="buttons">
-            <button class="button" type="button" @click="goBack">{{ i18n["button.back"] }}</button>
+            <button class="button" type="button" @click="goBack">{{ i18n['button.back'] }}</button>
         </div>
         <div class="columns">
             <div class="column is-half-tablet">

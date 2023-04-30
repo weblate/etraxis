@@ -1,10 +1,10 @@
 <template>
     <modal ref="modal" :header="header" auto-close @submit="submit">
         <fieldset v-if="!isExternal" class="fieldset has-legend">
-            <legend>{{ i18n["user.account"] }}</legend>
+            <legend>{{ i18n['user.account'] }}</legend>
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" :for="`${uid}-fullname`">{{ i18n["user.fullname"] }}:</label>
+                    <label class="label" :for="`${uid}-fullname`">{{ i18n['user.fullname'] }}:</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -18,13 +18,13 @@
                                 v-model="values.fullname"
                             />
                         </div>
-                        <p class="help is-danger">{{ errors["fullname"] }}</p>
+                        <p class="help is-danger">{{ errors['fullname'] }}</p>
                     </div>
                 </div>
             </div>
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" :for="`${uid}-email`">{{ i18n["user.email"] }}:</label>
+                    <label class="label" :for="`${uid}-email`">{{ i18n['user.email'] }}:</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -38,16 +38,16 @@
                                 v-model="values.email"
                             />
                         </div>
-                        <p class="help is-danger">{{ errors["email"] }}</p>
+                        <p class="help is-danger">{{ errors['email'] }}</p>
                     </div>
                 </div>
             </div>
         </fieldset>
         <fieldset class="fieldset has-legend">
-            <legend>{{ i18n["user.appearance"] }}</legend>
+            <legend>{{ i18n['user.appearance'] }}</legend>
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" :for="`${uid}-locale`">{{ i18n["user.language"] }}:</label>
+                    <label class="label" :for="`${uid}-locale`">{{ i18n['user.language'] }}:</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -58,13 +58,13 @@
                                 </select>
                             </div>
                         </div>
-                        <p class="help is-danger">{{ errors["locale"] }}</p>
+                        <p class="help is-danger">{{ errors['locale'] }}</p>
                     </div>
                 </div>
             </div>
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" :for="`${uid}-theme`">{{ i18n["user.theme"] }}:</label>
+                    <label class="label" :for="`${uid}-theme`">{{ i18n['user.theme'] }}:</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -75,16 +75,16 @@
                                 </select>
                             </div>
                         </div>
-                        <p class="help is-danger">{{ errors["theme"] }}</p>
+                        <p class="help is-danger">{{ errors['theme'] }}</p>
                     </div>
                 </div>
             </div>
         </fieldset>
         <fieldset class="fieldset has-legend">
-            <legend>{{ i18n["user.timezone"] }}</legend>
+            <legend>{{ i18n['user.timezone'] }}</legend>
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" :for="`${uid}-country`">{{ i18n["user.country"] }}:</label>
+                    <label class="label" :for="`${uid}-country`">{{ i18n['user.country'] }}:</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -101,7 +101,7 @@
             </div>
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" :for="`${uid}-city`">{{ i18n["user.city"] }}:</label>
+                    <label class="label" :for="`${uid}-city`">{{ i18n['user.city'] }}:</label>
                 </div>
                 <div class="field-body">
                     <div class="field">

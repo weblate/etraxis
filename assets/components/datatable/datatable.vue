@@ -9,7 +9,7 @@
                     <div class="control select">
                         <select class="page-size" :disabled="blocked" v-model="pageSize">
                             <option v-for="pageSize in allowedPageSizes" :key="pageSize" :value="pageSize">
-                                {{ i18n["table.size"].replace("%size%", pageSize) }}
+                                {{ i18n['table.size'].replace('%size%', pageSize) }}
                             </option>
                         </select>
                     </div>
@@ -137,7 +137,7 @@
             </tfoot>
             <tbody>
                 <tr v-if="rows.length === 0" class="empty">
-                    <td :colspan="checkboxes ? columns.length + 1 : columns.length">{{ i18n["table.empty"] }}</td>
+                    <td :colspan="checkboxes ? columns.length + 1 : columns.length">{{ i18n['table.empty'] }}</td>
                 </tr>
                 <tr v-for="row in rows" :key="row['DT_id']">
                     <td
@@ -153,7 +153,7 @@
                         :class="[row['DT_class'] || '', { wrappable: column.props.wrappable }]"
                         @click="clickable ? $emit('cell-click', $event, row['DT_id'], column.props.id) : null"
                     >
-                        <span>{{ row[column.props.id] || "&mdash;" }}</span>
+                        <span>{{ row[column.props.id] || '&mdash;' }}</span>
                     </td>
                     <td v-if="icons">
                         <span

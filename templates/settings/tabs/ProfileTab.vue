@@ -1,16 +1,16 @@
 <template>
     <section>
         <div class="buttons">
-            <button class="button" type="button" @click="openProfileDialog">{{ i18n["button.edit"] }}</button>
-            <button v-if="!isExternal" class="button" type="button" @click="openPasswordDialog">{{ i18n["password.change"] }}</button>
+            <button class="button" type="button" @click="openProfileDialog">{{ i18n['button.edit'] }}</button>
+            <button v-if="!isExternal" class="button" type="button" @click="openPasswordDialog">{{ i18n['password.change'] }}</button>
         </div>
         <div class="columns">
             <div class="column">
                 <fieldset class="fieldset has-legend">
-                    <legend>{{ i18n["user.account"] }}</legend>
+                    <legend>{{ i18n['user.account'] }}</legend>
                     <div class="field is-horizontal">
                         <div class="field-label">
-                            <p class="label">{{ i18n["user.fullname"] }}:</p>
+                            <p class="label">{{ i18n['user.fullname'] }}:</p>
                         </div>
                         <div class="field-body">
                             <div class="content">
@@ -20,7 +20,7 @@
                     </div>
                     <div class="field is-horizontal">
                         <div class="field-label">
-                            <p class="label">{{ i18n["user.email"] }}:</p>
+                            <p class="label">{{ i18n['user.email'] }}:</p>
                         </div>
                         <div class="field-body">
                             <div class="content">
@@ -30,7 +30,7 @@
                     </div>
                     <div class="field is-horizontal">
                         <div class="field-label">
-                            <p class="label">{{ i18n["user.authentication"] }}:</p>
+                            <p class="label">{{ i18n['user.authentication'] }}:</p>
                         </div>
                         <div class="field-body">
                             <div class="content">
@@ -42,10 +42,10 @@
             </div>
             <div class="column">
                 <fieldset class="fieldset has-legend">
-                    <legend>{{ i18n["user.appearance"] }}</legend>
+                    <legend>{{ i18n['user.appearance'] }}</legend>
                     <div class="field is-horizontal">
                         <div class="field-label">
-                            <p class="label">{{ i18n["user.language"] }}:</p>
+                            <p class="label">{{ i18n['user.language'] }}:</p>
                         </div>
                         <div class="field-body">
                             <div class="content">
@@ -55,7 +55,7 @@
                     </div>
                     <div class="field is-horizontal">
                         <div class="field-label">
-                            <p class="label">{{ i18n["user.theme"] }}:</p>
+                            <p class="label">{{ i18n['user.theme'] }}:</p>
                         </div>
                         <div class="field-body">
                             <div class="content">
@@ -65,7 +65,7 @@
                     </div>
                     <div class="field is-horizontal">
                         <div class="field-label">
-                            <p class="label">{{ i18n["user.timezone"] }}:</p>
+                            <p class="label">{{ i18n['user.timezone'] }}:</p>
                         </div>
                         <div class="field-body">
                             <div class="content">

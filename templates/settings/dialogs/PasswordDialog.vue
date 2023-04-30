@@ -3,7 +3,7 @@
         <fieldset class="fieldset">
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" :for="`${uid}-current`">{{ i18n["password.current"] }}:</label>
+                    <label class="label" :for="`${uid}-current`">{{ i18n['password.current'] }}:</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -17,13 +17,13 @@
                                 v-model="values.current"
                             />
                         </div>
-                        <p class="help is-danger">{{ errors["current"] }}</p>
+                        <p class="help is-danger">{{ errors['current'] }}</p>
                     </div>
                 </div>
             </div>
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" :for="`${uid}-new`">{{ i18n["password.new"] }}:</label>
+                    <label class="label" :for="`${uid}-new`">{{ i18n['password.new'] }}:</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -37,13 +37,13 @@
                                 v-model="values.new"
                             />
                         </div>
-                        <p class="help is-danger">{{ errors["password"] }}</p>
+                        <p class="help is-danger">{{ errors['password'] }}</p>
                     </div>
                 </div>
             </div>
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" :for="`${uid}-confirmation`">{{ i18n["password.confirmation"] }}:</label>
+                    <label class="label" :for="`${uid}-confirmation`">{{ i18n['password.confirmation'] }}:</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -57,7 +57,7 @@
                                 v-model="values.confirmation"
                             />
                         </div>
-                        <p class="help is-danger">{{ errors["confirmation"] }}</p>
+                        <p class="help is-danger">{{ errors['confirmation'] }}</p>
                     </div>
                 </div>
             </div>

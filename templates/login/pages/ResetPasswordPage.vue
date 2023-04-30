@@ -28,7 +28,7 @@
             </div>
             <div class="field">
                 <div class="control">
-                    <button class="button" type="submit">{{ i18n["button.save"] }}</button>
+                    <button class="button" type="submit">{{ i18n['button.save'] }}</button>
                 </div>
             </div>
         </form>

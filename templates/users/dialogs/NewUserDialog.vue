@@ -3,7 +3,7 @@
         <fieldset class="fieldset">
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" :for="`${uid}-fullname`">{{ i18n["user.fullname"] }}:</label>
+                    <label class="label" :for="`${uid}-fullname`">{{ i18n['user.fullname'] }}:</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -17,13 +17,13 @@
                                 v-model="values.fullname"
                             />
                         </div>
-                        <p class="help is-danger">{{ errors["fullname"] }}</p>
+                        <p class="help is-danger">{{ errors['fullname'] }}</p>
                     </div>
                 </div>
             </div>
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" :for="`${uid}-email`">{{ i18n["user.email"] }}:</label>
+                    <label class="label" :for="`${uid}-email`">{{ i18n['user.email'] }}:</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -37,13 +37,13 @@
                                 v-model="values.email"
                             />
                         </div>
-                        <p class="help is-danger">{{ errors["email"] }}</p>
+                        <p class="help is-danger">{{ errors['email'] }}</p>
                     </div>
                 </div>
             </div>
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" :for="`${uid}-description`">{{ i18n["user.description"] }}:</label>
+                    <label class="label" :for="`${uid}-description`">{{ i18n['user.description'] }}:</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -56,13 +56,13 @@
                                 v-model="values.description"
                             />
                         </div>
-                        <p class="help is-danger">{{ errors["description"] }}</p>
+                        <p class="help is-danger">{{ errors['description'] }}</p>
                     </div>
                 </div>
             </div>
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" :for="`${uid}-password`">{{ i18n["password.new"] }}:</label>
+                    <label class="label" :for="`${uid}-password`">{{ i18n['password.new'] }}:</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -76,13 +76,13 @@
                                 v-model="values.password"
                             />
                         </div>
-                        <p class="help is-danger">{{ errors["password"] }}</p>
+                        <p class="help is-danger">{{ errors['password'] }}</p>
                     </div>
                 </div>
             </div>
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" :for="`${uid}-confirmation`">{{ i18n["password.confirmation"] }}:</label>
+                    <label class="label" :for="`${uid}-confirmation`">{{ i18n['password.confirmation'] }}:</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -96,13 +96,13 @@
                                 v-model="confirmation"
                             />
                         </div>
-                        <p class="help is-danger">{{ errors["confirmation"] }}</p>
+                        <p class="help is-danger">{{ errors['confirmation'] }}</p>
                     </div>
                 </div>
             </div>
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" :for="`${uid}-locale`">{{ i18n["user.language"] }}:</label>
+                    <label class="label" :for="`${uid}-locale`">{{ i18n['user.language'] }}:</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -113,13 +113,13 @@
                                 </select>
                             </div>
                         </div>
-                        <p class="help is-danger">{{ errors["locale"] }}</p>
+                        <p class="help is-danger">{{ errors['locale'] }}</p>
                     </div>
                 </div>
             </div>
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" :for="`${uid}-timezone`">{{ i18n["user.timezone"] }}:</label>
+                    <label class="label" :for="`${uid}-timezone`">{{ i18n['user.timezone'] }}:</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -130,7 +130,7 @@
                                 </select>
                             </div>
                         </div>
-                        <p class="help is-danger">{{ errors["timezone"] }}</p>
+                        <p class="help is-danger">{{ errors['timezone'] }}</p>
                     </div>
                 </div>
             </div>
@@ -141,10 +141,10 @@
                         <div class="control">
                             <label class="checkbox">
                                 <input type="checkbox" v-model="values.admin" />
-                                <span>{{ i18n["role.admin"] }}</span>
+                                <span>{{ i18n['role.admin'] }}</span>
                             </label>
                         </div>
-                        <p class="help is-danger">{{ errors["admin"] }}</p>
+                        <p class="help is-danger">{{ errors['admin'] }}</p>
                     </div>
                 </div>
             </div>
@@ -155,10 +155,10 @@
                         <div class="control">
                             <label class="checkbox">
                                 <input type="checkbox" v-model="values.disabled" />
-                                <span>{{ i18n["user.disabled"] }}</span>
+                                <span>{{ i18n['user.disabled'] }}</span>
                             </label>
                         </div>
-                        <p class="help is-danger">{{ errors["disabled"] }}</p>
+                        <p class="help is-danger">{{ errors['disabled'] }}</p>
                     </div>
                 </div>
             </div>

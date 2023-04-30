@@ -11,18 +11,29 @@
 
 import { createApp } from 'vue';
 
+import axios from 'axios';
+
+import * as ui from '@utilities/blockui';
+import * as msg from '@utilities/messagebox';
 import { date } from '@utilities/epoch';
+import parseErrors from '@utilities/parseErrors';
 import query from '@utilities/query';
 import url from '@utilities/url';
 
 import DataTable from '@components/datatable/datatable.vue';
 import Column from '@components/datatable/column.vue';
 
+import ProjectDialog from './dialogs/ProjectDialog.vue';
+
 /**
  * "Projects" page.
  */
 const app = createApp({
     data: () => ({
+        /**
+         * @property {Object} errors Dialog errors
+         */
+        errors: {}
     }),
 
     computed: {
@@ -36,6 +47,13 @@ const app = createApp({
          */
         projectsTable() {
             return this.$refs.projects;
+        },
+
+        /**
+         * @property {Object} newProjectDialog "New project" dialog instance
+         */
+        newProjectDialog() {
+            return this.$refs.dlgNewProject;
         }
     },
 
@@ -80,11 +98,52 @@ const app = createApp({
             } else {
                 location.href = url(`/admin/projects/${id}`);
             }
+        },
+
+        /**
+         * Opens "New project" dialog.
+         */
+        openNewProjectDialog() {
+            const defaults = {
+                name: '',
+                description: ''
+            };
+
+            this.errors = {};
+
+            this.newProjectDialog.open(defaults);
+        },
+
+        /**
+         * Creates new project.
+         *
+         * @param {Object} event Submitted values
+         */
+        createProject(event) {
+            const data = {
+                name: event.name,
+                description: event.description || null,
+                suspended: true
+            };
+
+            ui.block();
+
+            axios
+                .post(url('/api/projects'), data)
+                .then(() => {
+                    msg.info(this.i18n['project.successfully_created']).then(() => {
+                        this.newProjectDialog.close();
+                        this.projectsTable.refresh();
+                    });
+                })
+                .catch((exception) => (this.errors = parseErrors(exception)))
+                .then(() => ui.unblock());
         }
     }
 });
 
 app.component('datatable', DataTable);
 app.component('column', Column);
+app.component('new-project-dialog', ProjectDialog);
 
 app.mount('#vue-projects');

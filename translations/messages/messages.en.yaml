@@ -52,8 +52,10 @@ project: Project
 project.active: Active
 project.description: Description
 project.name: 'Project name'
+project.new: 'New project'
 project.start_date: 'Start date'
 project.status: Status
+project.successfully_created: 'New project was successfully created.'
 project.suspended: Suspended
 projects: Projects
 role.admin: Administrator

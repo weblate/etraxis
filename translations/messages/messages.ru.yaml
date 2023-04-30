@@ -52,8 +52,10 @@ project: Проект
 project.active: Действующий
 project.description: Описание
 project.name: 'Название проекта'
+project.new: 'Новый проект'
 project.start_date: 'Начало проекта'
 project.status: Состояние
+project.successfully_created: 'Новый проект успешно создан.'
 project.suspended: Остановлен
 projects: Проекты
 role.admin: Администратор

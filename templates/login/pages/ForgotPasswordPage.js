@@ -35,23 +35,25 @@ export default {
         /**
          * Submits the form.
          */
-        submit() {
+        async submit() {
             ui.block();
 
             const data = {
                 email: this.email
             };
 
-            axios
-                .post(url('/api/forgot'), data)
-                .then(() => {
-                    msg.info(this.i18n['password.forgot.email_sent'], () => {
-                        // noinspection JSUnresolvedFunction
-                        this.$router.push('/login');
-                    });
-                })
-                .catch((error) => msg.alert(error.response.data))
-                .then(() => ui.unblock());
+            try {
+                await axios.post(url('/api/forgot'), data);
+
+                msg.info(this.i18n['password.forgot.email_sent'], () => {
+                    // noinspection JSUnresolvedFunction
+                    this.$router.push('/login');
+                });
+            } catch (error) {
+                msg.alert(error.response.data);
+            } finally {
+                ui.unblock();
+            }
         }
     }
 };

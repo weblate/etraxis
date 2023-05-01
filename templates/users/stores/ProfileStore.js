@@ -136,16 +136,17 @@ export const useProfileStore = defineStore('profile', {
          *
          * @param {null|number} id User ID
          */
-        loadProfile(id = null) {
+        async loadProfile(id = null) {
             ui.block();
 
-            axios
-                .get(url(`/api/users/${id || this.profile.id}`))
-                .then((response) => {
-                    this.profile = { ...response.data };
-                })
-                .catch((exception) => parseErrors(exception))
-                .then(() => ui.unblock());
+            try {
+                const response = await axios.get(url(`/api/users/${id || this.profile.id}`));
+                this.profile = { ...response.data };
+            } catch (exception) {
+                parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         }
     }
 });

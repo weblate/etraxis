@@ -126,7 +126,7 @@ export default {
          *
          * @param {Object} event Submitted values
          */
-        updateUser(event) {
+        async updateUser(event) {
             const data = {
                 email: event.email,
                 fullname: event.fullname,
@@ -139,29 +139,34 @@ export default {
 
             ui.block();
 
-            axios
-                .put(url(`/api/users/${this.profileStore.userId}`), data)
-                .then(() => {
-                    this.profileStore.loadProfile();
-                    msg.info(this.i18n['text.changes_saved'], () => {
-                        this.editUserDialog.close();
-                    });
-                })
-                .catch((exception) => (this.errors = parseErrors(exception)))
-                .then(() => ui.unblock());
+            try {
+                await axios.put(url(`/api/users/${this.profileStore.userId}`), data);
+                await this.profileStore.loadProfile();
+
+                msg.info(this.i18n['text.changes_saved'], () => {
+                    this.editUserDialog.close();
+                });
+            } catch (exception) {
+                this.errors = parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         },
 
         /**
          * Toggles the user's status.
          */
-        toggleStatus() {
+        async toggleStatus() {
             ui.block();
 
-            axios
-                .post(url(`/api/users/${this.profileStore.userId}/${this.profileStore.isDisabled ? 'enable' : 'disable'}`))
-                .then(() => this.profileStore.loadProfile())
-                .catch((exception) => parseErrors(exception))
-                .then(() => ui.unblock());
+            try {
+                await axios.post(url(`/api/users/${this.profileStore.userId}/${this.profileStore.isDisabled ? 'enable' : 'disable'}`));
+                await this.profileStore.loadProfile();
+            } catch (exception) {
+                parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         },
 
         /**
@@ -177,53 +182,60 @@ export default {
          *
          * @param {Object} event Submitted values
          */
-        setPassword(event) {
+        async setPassword(event) {
             const data = {
                 password: event
             };
 
             ui.block();
 
-            axios
-                .put(url(`/api/users/${this.profileStore.userId}/password`), data)
-                .then(() => {
-                    msg.info(this.i18n['password.changed'], () => {
-                        this.setPasswordDialog.close();
-                    });
-                })
-                .catch((exception) => (this.errors = parseErrors(exception)))
-                .then(() => ui.unblock());
+            try {
+                await axios.put(url(`/api/users/${this.profileStore.userId}/password`), data);
+
+                msg.info(this.i18n['password.changed'], () => {
+                    this.setPasswordDialog.close();
+                });
+            } catch (exception) {
+                this.errors = parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         },
 
         /**
          * Deletes the user.
          */
         deleteUser() {
-            msg.confirm(this.i18n['confirm.user.delete'], () => {
+            msg.confirm(this.i18n['confirm.user.delete'], async () => {
                 ui.block();
 
-                axios
-                    .delete(url(`/api/users/${this.profileStore.userId}`))
-                    .then(() => this.goBack())
-                    .catch((exception) => parseErrors(exception))
-                    .then(() => ui.unblock());
+                try {
+                    await axios.delete(url(`/api/users/${this.profileStore.userId}`));
+                    this.goBack();
+                } catch (exception) {
+                    parseErrors(exception);
+                } finally {
+                    ui.unblock();
+                }
             });
         }
     },
 
-    created() {
+    async created() {
         ui.block();
 
-        axios
-            .get(url('/timezones'))
-            .then((response) => {
-                this.timezones = Object.values(response.data)
-                    .reduce((result, entry) => [...result, ...Object.keys(entry)], [])
-                    .sort();
-                this.timezones.unshift('UTC');
-            })
-            .catch((exception) => parseErrors(exception))
-            .then(() => ui.unblock());
+        try {
+            const response = await axios.get(url('/timezones'));
+
+            this.timezones = Object.values(response.data)
+                .reduce((result, entry) => [...result, ...Object.keys(entry)], [])
+                .sort();
+            this.timezones.unshift('UTC');
+        } catch (exception) {
+            parseErrors(exception);
+        } finally {
+            ui.unblock();
+        }
     },
 
     mounted() {

@@ -47,7 +47,7 @@ export default {
         /**
          * Submits the login form.
          */
-        login() {
+        async login() {
             ui.block();
 
             const data = {
@@ -57,11 +57,13 @@ export default {
                 csrf: this.csrf
             };
 
-            axios
-                .post(url('/login'), data)
-                .then(() => location.reload())
-                .catch((error) => msg.alert(error.response.data))
-                .then(() => ui.unblock());
+            try {
+                await axios.post(url('/login'), data);
+                location.reload();
+            } catch (error) {
+                msg.alert(error.response.data);
+                ui.unblock();
+            }
         }
     }
 };

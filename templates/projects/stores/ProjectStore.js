@@ -103,16 +103,17 @@ export const useProjectStore = defineStore('project', {
          *
          * @param {null|number} id Project ID
          */
-        loadProject(id = null) {
+        async loadProject(id = null) {
             ui.block();
 
-            axios
-                .get(url(`/api/projects/${id || this.project.id}`))
-                .then((response) => {
-                    this.project = { ...response.data };
-                })
-                .catch((exception) => parseErrors(exception))
-                .then(() => ui.unblock());
+            try {
+                const response = await axios.get(url(`/api/projects/${id || this.project.id}`));
+                this.project = { ...response.data };
+            } catch (exception) {
+                parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         }
     }
 });

@@ -160,7 +160,7 @@ const app = createApp({
          *
          * @param {Object} event Submitted values
          */
-        createProject(event) {
+        async createProject(event) {
             const data = {
                 name: event.name,
                 description: event.description || null,
@@ -169,16 +169,18 @@ const app = createApp({
 
             ui.block();
 
-            axios
-                .post(url('/api/projects'), data)
-                .then(() => {
-                    msg.info(this.i18n['project.successfully_created'], () => {
-                        this.newProjectDialog.close();
-                        this.projectsTable.refresh();
-                    });
-                })
-                .catch((exception) => (this.errors = parseErrors(exception)))
-                .then(() => ui.unblock());
+            try {
+                await axios.post(url('/api/projects'), data);
+
+                msg.info(this.i18n['project.successfully_created'], () => {
+                    this.newProjectDialog.close();
+                    this.projectsTable.refresh();
+                });
+            } catch (exception) {
+                this.errors = parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         },
 
         /**
@@ -186,17 +188,19 @@ const app = createApp({
          *
          * @param {number} id Project ID
          */
-        openEditProjectDialog(id) {
+        async openEditProjectDialog(id) {
             ui.block();
 
-            axios
-                .get(url(`/api/projects/${id}`))
-                .then((response) => {
-                    this.errors = {};
-                    this.editProjectDialog.open(response.data);
-                })
-                .catch((exception) => parseErrors(exception))
-                .then(() => ui.unblock());
+            try {
+                const response = await axios.get(url(`/api/projects/${id}`));
+
+                this.errors = {};
+                this.editProjectDialog.open(response.data);
+            } catch (exception) {
+                parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         },
 
         /**
@@ -204,7 +208,7 @@ const app = createApp({
          *
          * @param {Object} event Submitted values
          */
-        updateProject(event) {
+        async updateProject(event) {
             const data = {
                 name: event.name,
                 description: event.description || null,
@@ -213,16 +217,18 @@ const app = createApp({
 
             ui.block();
 
-            axios
-                .put(url(`/api/projects/${event.id}`), data)
-                .then(() => {
-                    msg.info(this.i18n['text.changes_saved'], () => {
-                        this.editProjectDialog.close();
-                        this.projectsTable.refresh();
-                    });
-                })
-                .catch((exception) => (this.errors = parseErrors(exception)))
-                .then(() => ui.unblock());
+            try {
+                await axios.put(url(`/api/projects/${event.id}`), data);
+
+                msg.info(this.i18n['text.changes_saved'], () => {
+                    this.editProjectDialog.close();
+                    this.projectsTable.refresh();
+                });
+            } catch (exception) {
+                this.errors = parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         },
 
         /**
@@ -230,14 +236,17 @@ const app = createApp({
          *
          * @param {number} id Project ID
          */
-        suspendProject(id) {
+        async suspendProject(id) {
             ui.block();
 
-            axios
-                .post(url(`/api/projects/${id}/suspend`))
-                .then(() => this.projectsTable.refresh())
-                .catch((exception) => parseErrors(exception))
-                .then(() => ui.unblock());
+            try {
+                await axios.post(url(`/api/projects/${id}/suspend`));
+                this.projectsTable.refresh();
+            } catch (exception) {
+                parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         },
 
         /**
@@ -245,14 +254,17 @@ const app = createApp({
          *
          * @param {number} id Project ID
          */
-        resumeProject(id) {
+        async resumeProject(id) {
             ui.block();
 
-            axios
-                .post(url(`/api/projects/${id}/resume`))
-                .then(() => this.projectsTable.refresh())
-                .catch((exception) => parseErrors(exception))
-                .then(() => ui.unblock());
+            try {
+                await axios.post(url(`/api/projects/${id}/resume`));
+                this.projectsTable.refresh();
+            } catch (exception) {
+                parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         }
     }
 });

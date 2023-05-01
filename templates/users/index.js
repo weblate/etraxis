@@ -200,17 +200,18 @@ const app = createApp({
          *
          * @param {number} id Account ID
          */
-        impersonateUser(id) {
+        async impersonateUser(id) {
             if (id !== this.currentUser) {
                 ui.block();
 
-                axios
-                    .get(url(`/api/users/${id}`))
-                    .then((response) => {
-                        location.href = url(`/?_switch_user=${response.data.email}`);
-                    })
-                    .catch((exception) => parseErrors(exception))
-                    .then(() => ui.unblock());
+                try {
+                    const response = await axios.get(url(`/api/users/${id}`));
+                    location.href = url(`/?_switch_user=${response.data.email}`);
+                } catch (exception) {
+                    parseErrors(exception);
+                } finally {
+                    ui.unblock();
+                }
             }
         },
 
@@ -239,7 +240,7 @@ const app = createApp({
          *
          * @param {Object} event Submitted values
          */
-        createUser(event) {
+        async createUser(event) {
             const data = {
                 email: event.email,
                 password: event.password,
@@ -253,16 +254,18 @@ const app = createApp({
 
             ui.block();
 
-            axios
-                .post(url('/api/users'), data)
-                .then(() => {
-                    msg.info(this.i18n['user.successfully_created'], () => {
-                        this.newUserDialog.close();
-                        this.usersTable.refresh();
-                    });
-                })
-                .catch((exception) => (this.errors = parseErrors(exception)))
-                .then(() => ui.unblock());
+            try {
+                await axios.post(url('/api/users'), data);
+
+                msg.info(this.i18n['user.successfully_created'], () => {
+                    this.newUserDialog.close();
+                    this.usersTable.refresh();
+                });
+            } catch (exception) {
+                this.errors = parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         },
 
         /**
@@ -270,17 +273,19 @@ const app = createApp({
          *
          * @param {number} id Account ID
          */
-        openEditUserDialog(id) {
+        async openEditUserDialog(id) {
             ui.block();
 
-            axios
-                .get(url(`/api/users/${id}`))
-                .then((response) => {
-                    this.errors = {};
-                    this.editUserDialog.open(id === this.currentUser, response.data.accountProvider !== 'etraxis', response.data);
-                })
-                .catch((exception) => parseErrors(exception))
-                .then(() => ui.unblock());
+            try {
+                const response = await axios.get(url(`/api/users/${id}`));
+
+                this.errors = {};
+                this.editUserDialog.open(id === this.currentUser, response.data.accountProvider !== 'etraxis', response.data);
+            } catch (exception) {
+                parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         },
 
         /**
@@ -288,7 +293,7 @@ const app = createApp({
          *
          * @param {Object} event Submitted values
          */
-        updateUser(event) {
+        async updateUser(event) {
             const data = {
                 email: event.email,
                 fullname: event.fullname,
@@ -301,16 +306,18 @@ const app = createApp({
 
             ui.block();
 
-            axios
-                .put(url(`/api/users/${event.id}`), data)
-                .then(() => {
-                    msg.info(this.i18n['text.changes_saved'], () => {
-                        this.editUserDialog.close();
-                        this.usersTable.refresh();
-                    });
-                })
-                .catch((exception) => (this.errors = parseErrors(exception)))
-                .then(() => ui.unblock());
+            try {
+                await axios.put(url(`/api/users/${event.id}`), data);
+
+                msg.info(this.i18n['text.changes_saved'], () => {
+                    this.editUserDialog.close();
+                    this.usersTable.refresh();
+                });
+            } catch (exception) {
+                this.errors = parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         },
 
         /**
@@ -318,14 +325,17 @@ const app = createApp({
          *
          * @param {number} id Account ID
          */
-        disableUser(id) {
+        async disableUser(id) {
             ui.block();
 
-            axios
-                .post(url(`/api/users/${id}/disable`))
-                .then(() => this.usersTable.refresh())
-                .catch((exception) => parseErrors(exception))
-                .then(() => ui.unblock());
+            try {
+                await axios.post(url(`/api/users/${id}/disable`));
+                this.usersTable.refresh();
+            } catch (exception) {
+                parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         },
 
         /**
@@ -333,56 +343,67 @@ const app = createApp({
          *
          * @param {number} id Account ID
          */
-        enableUser(id) {
+        async enableUser(id) {
             ui.block();
 
-            axios
-                .post(url(`/api/users/${id}/enable`))
-                .then(() => this.usersTable.refresh())
-                .catch((exception) => parseErrors(exception))
-                .then(() => ui.unblock());
+            try {
+                await axios.post(url(`/api/users/${id}/enable`));
+                this.usersTable.refresh();
+            } catch (exception) {
+                parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         },
 
         /**
          * Disables currently checked accounts.
          */
-        disableMultipleUsers() {
+        async disableMultipleUsers() {
             ui.block();
 
-            axios
-                .post(url('/api/users/disable'), { users: this.checked })
-                .then(() => this.usersTable.refresh())
-                .catch((exception) => parseErrors(exception))
-                .then(() => ui.unblock());
+            try {
+                await axios.post(url('/api/users/disable'), { users: this.checked });
+                this.usersTable.refresh();
+            } catch (exception) {
+                parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         },
 
         /**
          * Enables currently checked accounts.
          */
-        enableMultipleUsers() {
+        async enableMultipleUsers() {
             ui.block();
 
-            axios
-                .post(url('/api/users/enable'), { users: this.checked })
-                .then(() => this.usersTable.refresh())
-                .catch((exception) => parseErrors(exception))
-                .then(() => ui.unblock());
+            try {
+                await axios.post(url('/api/users/enable'), { users: this.checked });
+                this.usersTable.refresh();
+            } catch (exception) {
+                parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         }
     },
 
-    created() {
+    async created() {
         ui.block();
 
-        axios
-            .get(url('/timezones'))
-            .then((response) => {
-                this.timezones = Object.values(response.data)
-                    .reduce((result, entry) => [...result, ...Object.keys(entry)], [])
-                    .sort();
-                this.timezones.unshift('UTC');
-            })
-            .catch((exception) => parseErrors(exception))
-            .then(() => ui.unblock());
+        try {
+            const response = await axios.get(url('/timezones'));
+
+            this.timezones = Object.values(response.data)
+                .reduce((result, entry) => [...result, ...Object.keys(entry)], [])
+                .sort();
+            this.timezones.unshift('UTC');
+        } catch (exception) {
+            parseErrors(exception);
+        } finally {
+            ui.unblock();
+        }
     }
 });
 

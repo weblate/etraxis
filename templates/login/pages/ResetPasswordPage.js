@@ -36,7 +36,7 @@ export default {
         /**
          * Submits the form.
          */
-        submit() {
+        async submit() {
             if (this.password !== this.confirmation) {
                 msg.alert(this.i18n['password.dont_match']);
                 return;
@@ -50,16 +50,18 @@ export default {
                 password: this.password
             };
 
-            axios
-                .post(url('/api/reset'), data)
-                .then(() => {
-                    msg.info(this.i18n['password.changed'], () => {
-                        // noinspection JSUnresolvedFunction
-                        this.$router.push('/login');
-                    });
-                })
-                .catch((error) => msg.alert(error.response.data))
-                .then(() => ui.unblock());
+            try {
+                await axios.post(url('/api/reset'), data);
+
+                msg.info(this.i18n['password.changed'], () => {
+                    // noinspection JSUnresolvedFunction
+                    this.$router.push('/login');
+                });
+            } catch (error) {
+                msg.alert(error.response.data);
+            } finally {
+                ui.unblock();
+            }
         }
     }
 };

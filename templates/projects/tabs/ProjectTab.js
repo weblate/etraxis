@@ -82,7 +82,7 @@ export default {
          *
          * @param {Object} event Submitted values
          */
-        updateProject(event) {
+        async updateProject(event) {
             const data = {
                 name: event.name,
                 description: event.description || null,
@@ -91,43 +91,51 @@ export default {
 
             ui.block();
 
-            axios
-                .put(url(`/api/projects/${this.projectStore.projectId}`), data)
-                .then(() => {
-                    this.projectStore.loadProject();
-                    msg.info(this.i18n['text.changes_saved'], () => {
-                        this.editProjectDialog.close();
-                    });
-                })
-                .catch((exception) => (this.errors = parseErrors(exception)))
-                .then(() => ui.unblock());
+            try {
+                await axios.put(url(`/api/projects/${this.projectStore.projectId}`), data);
+                await this.projectStore.loadProject();
+
+                msg.info(this.i18n['text.changes_saved'], () => {
+                    this.editProjectDialog.close();
+                });
+            } catch (exception) {
+                this.errors = parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         },
 
         /**
          * Toggles the project's status.
          */
-        toggleStatus() {
+        async toggleStatus() {
             ui.block();
 
-            axios
-                .post(url(`/api/projects/${this.projectStore.projectId}/${this.projectStore.isSuspended ? 'resume' : 'suspend'}`))
-                .then(() => this.projectStore.loadProject())
-                .catch((exception) => parseErrors(exception))
-                .then(() => ui.unblock());
+            try {
+                await axios.post(url(`/api/projects/${this.projectStore.projectId}/${this.projectStore.isSuspended ? 'resume' : 'suspend'}`));
+                await this.projectStore.loadProject();
+            } catch (exception) {
+                parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         },
 
         /**
          * Deletes the project.
          */
         deleteProject() {
-            msg.confirm(this.i18n['confirm.project.delete'], () => {
+            msg.confirm(this.i18n['confirm.project.delete'], async () => {
                 ui.block();
 
-                axios
-                    .delete(url(`/api/projects/${this.projectStore.projectId}`))
-                    .then(() => this.goBack())
-                    .catch((exception) => parseErrors(exception))
-                    .then(() => ui.unblock());
+                try {
+                    await axios.delete(url(`/api/projects/${this.projectStore.projectId}`));
+                    this.goBack();
+                } catch (exception) {
+                    parseErrors(exception);
+                } finally {
+                    ui.unblock();
+                }
             });
         }
     }

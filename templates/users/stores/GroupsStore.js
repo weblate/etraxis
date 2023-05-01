@@ -57,27 +57,29 @@ export const useGroupsStore = defineStore('groups', {
          *
          * @param {null|number} id User ID
          */
-        loadUserGroups(id = null) {
+        async loadUserGroups(id = null) {
             ui.block();
 
             if (id) {
                 this.userId = id;
             }
 
-            axios
-                .get(url(`/api/users/${this.userId}/groups`))
-                .then((response) => {
-                    /** @var {{ project: { name: string } }} group1 */
-                    /** @var {{ project: { name: string } }} group2 */
-                    this.userGroups = response.data.sort((group1, group2) =>
-                        (group1.project === null && group2.project !== null ? -1 : 0) ||
-                        (group1.project !== null && group2.project === null ? +1 : 0) ||
-                        (group1.project !== null && group2.project !== null && group1.project.name.localeCompare(group2.project.name)) ||
-                        (group1.name.localeCompare(group2.name))
-                    );
-                })
-                .catch((exception) => parseErrors(exception))
-                .then(() => ui.unblock());
+            try {
+                const response = await axios.get(url(`/api/users/${this.userId}/groups`));
+
+                /** @var {{ project: { name: string } }} group1 */
+                /** @var {{ project: { name: string } }} group2 */
+                this.userGroups = response.data.sort((group1, group2) =>
+                    (group1.project === null && group2.project !== null ? -1 : 0) ||
+                    (group1.project !== null && group2.project === null ? +1 : 0) ||
+                    (group1.project !== null && group2.project !== null && group1.project.name.localeCompare(group2.project.name)) ||
+                    (group1.name.localeCompare(group2.name))
+                );
+            } catch (exception) {
+                parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         },
 
         /**

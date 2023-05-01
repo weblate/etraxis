@@ -53,37 +53,43 @@ export default {
         /**
          * Adds the user to selected groups.
          */
-        addGroups() {
+        async addGroups() {
             ui.block();
 
             const data = {
                 add: this.groupsToAdd
             };
 
-            this.groupsToAdd = [];
-
-            axios.patch(url(`/api/users/${this.groupsStore.userId}/groups`), data)
-                .then(() => this.groupsStore.loadUserGroups())
-                .then(() => (this.groupsToAdd = []))
-                .catch((exception) => parseErrors(exception))
-                .then(() => ui.unblock());
+            try {
+                await axios.patch(url(`/api/users/${this.groupsStore.userId}/groups`), data);
+                await this.groupsStore.loadUserGroups();
+                this.groupsToAdd = [];
+            } catch (exception) {
+                parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         },
 
         /**
          * Removes the user from selected groups.
          */
-        removeGroups() {
+        async removeGroups() {
             ui.block();
 
             const data = {
                 remove: this.groupsToRemove
             };
 
-            axios.patch(url(`/api/users/${this.groupsStore.userId}/groups`), data)
-                .then(() => this.groupsStore.loadUserGroups())
-                .then(() => (this.groupsToRemove = []))
-                .catch((exception) => parseErrors(exception))
-                .then(() => ui.unblock());
+            try {
+                await axios.patch(url(`/api/users/${this.groupsStore.userId}/groups`), data);
+                await this.groupsStore.loadUserGroups();
+                this.groupsToRemove = [];
+            } catch (exception) {
+                parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         }
     }
 };

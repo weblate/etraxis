@@ -113,7 +113,7 @@ export default {
          *
          * @param {Object} event Submitted values
          */
-        updateProfile(event) {
+        async updateProfile(event) {
             const data = {
                 email: event.email,
                 fullname: event.fullname,
@@ -124,16 +124,18 @@ export default {
 
             ui.block();
 
-            axios
-                .patch(url('/api/my/profile'), data)
-                .then(() => {
-                    msg.info(this.i18n['text.changes_saved'], () => {
-                        this.profileDialog.close();
-                        location.reload();
-                    });
-                })
-                .catch((exception) => (this.errors = parseErrors(exception)))
-                .then(() => ui.unblock());
+            try {
+                await axios.patch(url('/api/my/profile'), data);
+
+                msg.info(this.i18n['text.changes_saved'], () => {
+                    this.profileDialog.close();
+                    location.reload();
+                });
+            } catch (exception) {
+                this.errors = parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         },
 
         /**
@@ -149,7 +151,7 @@ export default {
          *
          * @param {Object} event Submitted values
          */
-        updatePassword(event) {
+        async updatePassword(event) {
             if (event.new !== event.confirmation) {
                 this.errors = {
                     confirmation: this.i18n['password.dont_match']
@@ -162,33 +164,31 @@ export default {
 
                 ui.block();
 
-                axios
-                    .put(url('/api/my/password'), data)
-                    .then(() => {
-                        msg.info(this.i18n['password.changed'], () => {
-                            ui.block();
-                            location.href = url('/logout');
-                        });
-                    })
-                    .catch((exception) => (this.errors = parseErrors(exception)))
-                    .then(() => ui.unblock());
+                try {
+                    await axios.put(url('/api/my/password'), data);
+
+                    msg.info(this.i18n['password.changed'], () => {
+                        ui.block();
+                        location.href = url('/logout');
+                    });
+                } catch (exception) {
+                    this.errors = parseErrors(exception);
+                } finally {
+                    ui.unblock();
+                }
             }
         }
     },
 
-    created() {
-        const urls = [url('/api/my/profile'), url('/timezones')];
-
+    async mounted() {
         ui.block();
 
-        axios
-            .all(urls.map((endpoint) => axios.get(endpoint)))
-            .then(
-                axios.spread((profile, timezones) => {
-                    this.profile = { ...profile.data };
-                    this.timezones = { ...timezones.data };
-                })
-            )
-            .then(() => ui.unblock());
+        const urls = [url('/api/my/profile'), url('/timezones')];
+        const [profile, timezones] = await axios.all(urls.map((endpoint) => axios.get(endpoint)));
+
+        this.profile = { ...profile.data };
+        this.timezones = { ...timezones.data };
+
+        ui.unblock();
     }
 };

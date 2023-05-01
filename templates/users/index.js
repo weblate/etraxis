@@ -256,7 +256,7 @@ const app = createApp({
             axios
                 .post(url('/api/users'), data)
                 .then(() => {
-                    msg.info(this.i18n['user.successfully_created']).then(() => {
+                    msg.info(this.i18n['user.successfully_created'], () => {
                         this.newUserDialog.close();
                         this.usersTable.refresh();
                     });
@@ -304,7 +304,7 @@ const app = createApp({
             axios
                 .put(url(`/api/users/${event.id}`), data)
                 .then(() => {
-                    msg.info(this.i18n['text.changes_saved']).then(() => {
+                    msg.info(this.i18n['text.changes_saved'], () => {
                         this.editUserDialog.close();
                         this.usersTable.refresh();
                     });

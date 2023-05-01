@@ -172,7 +172,7 @@ const app = createApp({
             axios
                 .post(url('/api/projects'), data)
                 .then(() => {
-                    msg.info(this.i18n['project.successfully_created']).then(() => {
+                    msg.info(this.i18n['project.successfully_created'], () => {
                         this.newProjectDialog.close();
                         this.projectsTable.refresh();
                     });
@@ -216,7 +216,7 @@ const app = createApp({
             axios
                 .put(url(`/api/projects/${event.id}`), data)
                 .then(() => {
-                    msg.info(this.i18n['text.changes_saved']).then(() => {
+                    msg.info(this.i18n['text.changes_saved'], () => {
                         this.editProjectDialog.close();
                         this.projectsTable.refresh();
                     });

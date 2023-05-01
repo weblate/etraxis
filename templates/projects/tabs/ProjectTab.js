@@ -95,7 +95,7 @@ export default {
                 .put(url(`/api/projects/${this.projectStore.projectId}`), data)
                 .then(() => {
                     this.projectStore.loadProject();
-                    msg.info(this.i18n['text.changes_saved']).then(() => {
+                    msg.info(this.i18n['text.changes_saved'], () => {
                         this.editProjectDialog.close();
                     });
                 })
@@ -120,7 +120,7 @@ export default {
          * Deletes the project.
          */
         deleteProject() {
-            msg.confirm(this.i18n['confirm.project.delete']).then(() => {
+            msg.confirm(this.i18n['confirm.project.delete'], () => {
                 ui.block();
 
                 axios

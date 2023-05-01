@@ -11,6 +11,8 @@
 
 import generateUid from '@utilities/uid';
 
+// noinspection JSUnusedGlobalSymbols
+
 /**
  * Dropdown button.
  */

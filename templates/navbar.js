@@ -93,7 +93,7 @@ const app = createApp({
         logout(url) {
             this.isActive = false;
 
-            msg.confirm(window.i18n['confirm.logout']).then(() => {
+            msg.confirm(window.i18n['confirm.logout'], () => {
                 ui.block();
                 location.href = url;
             });

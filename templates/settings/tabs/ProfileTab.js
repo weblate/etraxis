@@ -127,7 +127,7 @@ export default {
             axios
                 .patch(url('/api/my/profile'), data)
                 .then(() => {
-                    msg.info(this.i18n['text.changes_saved']).then(() => {
+                    msg.info(this.i18n['text.changes_saved'], () => {
                         this.profileDialog.close();
                         location.reload();
                     });
@@ -165,7 +165,7 @@ export default {
                 axios
                     .put(url('/api/my/password'), data)
                     .then(() => {
-                        msg.info(this.i18n['password.changed']).then(() => {
+                        msg.info(this.i18n['password.changed'], () => {
                             ui.block();
                             location.href = url('/logout');
                         });

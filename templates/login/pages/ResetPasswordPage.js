@@ -38,7 +38,7 @@ export default {
          */
         submit() {
             if (this.password !== this.confirmation) {
-                alert(this.i18n['password.dont_match']);
+                msg.alert(this.i18n['password.dont_match']);
                 return;
             }
 
@@ -53,8 +53,10 @@ export default {
             axios
                 .post(url('/api/reset'), data)
                 .then(() => {
-                    // noinspection JSUnresolvedFunction
-                    msg.info(this.i18n['password.changed']).then(() => this.$router.push('/login'));
+                    msg.info(this.i18n['password.changed'], () => {
+                        // noinspection JSUnresolvedFunction
+                        this.$router.push('/login');
+                    });
                 })
                 .catch((error) => msg.alert(error.response.data))
                 .then(() => ui.unblock());

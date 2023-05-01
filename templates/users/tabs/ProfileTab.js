@@ -143,7 +143,7 @@ export default {
                 .put(url(`/api/users/${this.profileStore.userId}`), data)
                 .then(() => {
                     this.profileStore.loadProfile();
-                    msg.info(this.i18n['text.changes_saved']).then(() => {
+                    msg.info(this.i18n['text.changes_saved'], () => {
                         this.editUserDialog.close();
                     });
                 })
@@ -187,7 +187,7 @@ export default {
             axios
                 .put(url(`/api/users/${this.profileStore.userId}/password`), data)
                 .then(() => {
-                    msg.info(this.i18n['password.changed']).then(() => {
+                    msg.info(this.i18n['password.changed'], () => {
                         this.setPasswordDialog.close();
                     });
                 })
@@ -199,7 +199,7 @@ export default {
          * Deletes the user.
          */
         deleteUser() {
-            msg.confirm(this.i18n['confirm.user.delete']).then(() => {
+            msg.confirm(this.i18n['confirm.user.delete'], () => {
                 ui.block();
 
                 axios

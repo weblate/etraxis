@@ -273,7 +273,7 @@ export default {
 
                 this.emitUpdateCheckedEvent([]);
             } catch (error) {
-                alert(error).then(() => (this.blocked = false));
+                alert(error, () => (this.blocked = false));
             }
         },
 

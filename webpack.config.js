@@ -30,6 +30,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('font-awesome',   'font-awesome/css/font-awesome.css')
+    .addEntry('groups/index',   './templates/groups/index.js')
     .addEntry('login/index',    './templates/login/index.js')
     .addEntry('navbar',         './templates/navbar.js')
     .addEntry('projects/index', './templates/projects/index.js')

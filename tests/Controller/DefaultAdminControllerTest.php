@@ -43,6 +43,7 @@ final class DefaultAdminControllerTest extends WebTestCase
     }
 
     /**
+     * @covers ::groups
      * @covers ::index
      * @covers ::projects
      * @covers ::users
@@ -62,6 +63,9 @@ final class DefaultAdminControllerTest extends WebTestCase
         $this->client->request(Request::METHOD_GET, sprintf('/admin/users/%s', $user->getId()));
         self::assertTrue($this->client->getResponse()->isRedirect('/login'));
 
+        $this->client->request(Request::METHOD_GET, '/admin/groups');
+        self::assertTrue($this->client->getResponse()->isRedirect('/login'));
+
         $this->client->request(Request::METHOD_GET, '/admin/projects');
         self::assertTrue($this->client->getResponse()->isRedirect('/login'));
 
@@ -72,6 +76,7 @@ final class DefaultAdminControllerTest extends WebTestCase
     }
 
     /**
+     * @covers ::groups
      * @covers ::index
      * @covers ::projects
      * @covers ::users
@@ -93,6 +98,9 @@ final class DefaultAdminControllerTest extends WebTestCase
         $this->client->request(Request::METHOD_GET, sprintf('/admin/users/%s', $user->getId()));
         self::assertTrue($this->client->getResponse()->isForbidden());
 
+        $this->client->request(Request::METHOD_GET, '/admin/groups');
+        self::assertTrue($this->client->getResponse()->isForbidden());
+
         $this->client->request(Request::METHOD_GET, '/admin/projects');
         self::assertTrue($this->client->getResponse()->isForbidden());
 
@@ -103,6 +111,7 @@ final class DefaultAdminControllerTest extends WebTestCase
     }
 
     /**
+     * @covers ::groups
      * @covers ::index
      * @covers ::projects
      * @covers ::users
@@ -122,6 +131,9 @@ final class DefaultAdminControllerTest extends WebTestCase
         /** @var User $user */
         $user = $this->doctrine->getRepository(User::class)->findOneByEmail('artem@example.com');
         $this->client->request(Request::METHOD_GET, sprintf('/admin/users/%s', $user->getId()));
+        self::assertTrue($this->client->getResponse()->isOk());
+
+        $this->client->request(Request::METHOD_GET, '/admin/groups');
         self::assertTrue($this->client->getResponse()->isOk());
 
         $this->client->request(Request::METHOD_GET, '/admin/projects');

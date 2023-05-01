@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% set title = 'groups' | trans %}
+
+{% block content %}
+    <div v-cloak id="vue-groups">
+        <div class="columns">
+            <div class="column">
+                <datatable ref="groups" id="groups" :data="groups" paging>
+                    <column sortable filterable id="name">{{ 'group.name' | trans }}</column>
+                    <column sortable filterable id="project" :filter-with="projects">{{ 'project' | trans }}</column>
+                    <column sortable filterable id="description" wrappable>{{ 'group.description' | trans }}</column>
+                </datatable>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ encore_entry_script_tags('groups/index') }}
+{% endblock %}

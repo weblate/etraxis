@@ -47,6 +47,12 @@ class DefaultAdminController extends AbstractController
         ]);
     }
 
+    #[Route('/groups', name: 'admin_groups')]
+    public function groups(): Response
+    {
+        return $this->render('groups/index.html.twig');
+    }
+
     #[Route('/projects', name: 'admin_projects')]
     public function projects(): Response
     {

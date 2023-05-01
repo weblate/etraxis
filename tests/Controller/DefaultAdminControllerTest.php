@@ -13,6 +13,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Group;
 use App\Entity\Project;
 use App\Entity\User;
 use App\LoginTrait;
@@ -47,6 +48,7 @@ final class DefaultAdminControllerTest extends WebTestCase
      * @covers ::index
      * @covers ::projects
      * @covers ::users
+     * @covers ::viewGroup
      * @covers ::viewProject
      * @covers ::viewUser
      */
@@ -66,6 +68,11 @@ final class DefaultAdminControllerTest extends WebTestCase
         $this->client->request(Request::METHOD_GET, '/admin/groups');
         self::assertTrue($this->client->getResponse()->isRedirect('/login'));
 
+        /** @var Group $group */
+        $group = $this->doctrine->getRepository(Group::class)->findOneBy(['name' => 'Company Staff']);
+        $this->client->request(Request::METHOD_GET, sprintf('/admin/groups/%s', $group->getId()));
+        self::assertTrue($this->client->getResponse()->isRedirect('/login'));
+
         $this->client->request(Request::METHOD_GET, '/admin/projects');
         self::assertTrue($this->client->getResponse()->isRedirect('/login'));
 
@@ -80,6 +87,7 @@ final class DefaultAdminControllerTest extends WebTestCase
      * @covers ::index
      * @covers ::projects
      * @covers ::users
+     * @covers ::viewGroup
      * @covers ::viewProject
      * @covers ::viewUser
      */
@@ -101,6 +109,11 @@ final class DefaultAdminControllerTest extends WebTestCase
         $this->client->request(Request::METHOD_GET, '/admin/groups');
         self::assertTrue($this->client->getResponse()->isForbidden());
 
+        /** @var Group $group */
+        $group = $this->doctrine->getRepository(Group::class)->findOneBy(['name' => 'Company Staff']);
+        $this->client->request(Request::METHOD_GET, sprintf('/admin/groups/%s', $group->getId()));
+        self::assertTrue($this->client->getResponse()->isForbidden());
+
         $this->client->request(Request::METHOD_GET, '/admin/projects');
         self::assertTrue($this->client->getResponse()->isForbidden());
 
@@ -115,6 +128,7 @@ final class DefaultAdminControllerTest extends WebTestCase
      * @covers ::index
      * @covers ::projects
      * @covers ::users
+     * @covers ::viewGroup
      * @covers ::viewProject
      * @covers ::viewUser
      */
@@ -134,6 +148,11 @@ final class DefaultAdminControllerTest extends WebTestCase
         self::assertTrue($this->client->getResponse()->isOk());
 
         $this->client->request(Request::METHOD_GET, '/admin/groups');
+        self::assertTrue($this->client->getResponse()->isOk());
+
+        /** @var Group $group */
+        $group = $this->doctrine->getRepository(Group::class)->findOneBy(['name' => 'Company Staff']);
+        $this->client->request(Request::METHOD_GET, sprintf('/admin/groups/%s', $group->getId()));
         self::assertTrue($this->client->getResponse()->isOk());
 
         $this->client->request(Request::METHOD_GET, '/admin/projects');

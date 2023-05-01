@@ -13,6 +13,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Group;
 use App\Entity\Project;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -51,6 +52,14 @@ class DefaultAdminController extends AbstractController
     public function groups(): Response
     {
         return $this->render('groups/index.html.twig');
+    }
+
+    #[Route('/groups/{id}', requirements: ['id' => '\d+'])]
+    public function viewGroup(Group $group): Response
+    {
+        return $this->render('groups/view.html.twig', [
+            'group' => $group,
+        ]);
     }
 
     #[Route('/projects', name: 'admin_projects')]

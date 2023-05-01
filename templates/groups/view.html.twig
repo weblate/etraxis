@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% set title = group.name %}
+
+{% block content %}
+    <div v-cloak id="vue-group">
+        <div data-id="{{ group.id }}">
+            <tabs v-model="tab">
+                <tab id="group" title="{{ 'group' | trans }}">
+                    <group-tab></group-tab>
+                </tab>
+            </tabs>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ encore_entry_script_tags('groups/view') }}
+{% endblock %}

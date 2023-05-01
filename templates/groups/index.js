@@ -76,6 +76,20 @@ const app = createApp({
                     };
                 })
             };
+        },
+
+        /**
+         * A table row is clicked.
+         *
+         * @param {MouseEvent} event Original event
+         * @param {number}     id    Group ID
+         */
+        viewGroup(event, id) {
+            if (event.ctrlKey) {
+                window.open(url(`/admin/groups/${id}`), '_blank');
+            } else {
+                location.href = url(`/admin/groups/${id}`);
+            }
         }
     },
 

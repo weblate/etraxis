@@ -8,9 +8,17 @@
             <div class="column">
                 <datatable ref="groups" id="groups" :data="groups" paging clickable @cell-click="viewGroup">
                     <column sortable filterable id="name">{{ 'group.name' | trans }}</column>
-                    <column sortable filterable id="project" :filter-with="projects">{{ 'project' | trans }}</column>
+                    <column sortable filterable id="project" :filter-with="projectsFilter">{{ 'project' | trans }}</column>
                     <column sortable filterable id="description" wrappable>{{ 'group.description' | trans }}</column>
+                    <template #toolbar>
+                        <div class="buttons">
+                            <button class="button" type="button" title="{{ 'button.create' | trans }}" @click="openNewGroupDialog">
+                                <span class="icon"><i class="fa fa-plus"></i></span>
+                            </button>
+                        </div>
+                    </template>
                 </datatable>
+                <new-group-dialog ref="dlgNewGroup" :header="i18n['group.new']" :projects="projects" :errors="errors" @submit="createGroup"></new-group-dialog>
             </div>
         </div>
     </div>

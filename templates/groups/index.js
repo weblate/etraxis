@@ -11,7 +11,10 @@
 
 import { createApp } from 'vue';
 
+import axios from 'axios';
+
 import * as ui from '@utilities/blockui';
+import * as msg from '@utilities/messagebox';
 import loadAll from '@utilities/loadAll';
 import parseErrors from '@utilities/parseErrors';
 import query from '@utilities/query';
@@ -20,15 +23,22 @@ import url from '@utilities/url';
 import DataTable from '@components/datatable/datatable.vue';
 import Column from '@components/datatable/column.vue';
 
+import GroupDialog from './dialogs/GroupDialog.vue';
+
 /**
  * "Groups" page.
  */
 const app = createApp({
     data: () => ({
         /**
-         * @property {Object} projects List of all projects
+         * @property {Array<Object>} projects List of all projects
          */
-        projects: {}
+        projects: [],
+
+        /**
+         * @property {Object} errors Dialog errors
+         */
+        errors: {}
     }),
 
     computed: {
@@ -38,10 +48,26 @@ const app = createApp({
         i18n: () => window.i18n,
 
         /**
+         * @property {Object} projectsFilter Object with all the projects, where key is a project ID and value is a project name
+         */
+        projectsFilter() {
+            const projects = this.projects.map((project) => [project.id + '.', project.name]);
+
+            return Object.fromEntries([[0, '—'], ...projects]);
+        },
+
+        /**
          * @property {Object} groupsTable DataTable instance
          */
         groupsTable() {
             return this.$refs.groups;
+        },
+
+        /**
+         * @property {Object} newGroupDialog "New group" dialog instance
+         */
+        newGroupDialog() {
+            return this.$refs.dlgNewGroup;
         }
     },
 
@@ -90,6 +116,49 @@ const app = createApp({
             } else {
                 location.href = url(`/admin/groups/${id}`);
             }
+        },
+
+        /**
+         * Opens "New group" dialog.
+         */
+        openNewGroupDialog() {
+            const defaults = {
+                name: '',
+                project: 0,
+                description: ''
+            };
+
+            this.errors = {};
+
+            this.newGroupDialog.open(defaults);
+        },
+
+        /**
+         * Creates new group.
+         *
+         * @param {Object} event Submitted values
+         */
+        async createGroup(event) {
+            const data = {
+                name: event.name,
+                project: event.project || null,
+                description: event.description || null
+            };
+
+            ui.block();
+
+            try {
+                await axios.post(url('/api/groups'), data);
+
+                msg.info(this.i18n['group.successfully_created'], () => {
+                    this.newGroupDialog.close();
+                    this.groupsTable.refresh();
+                });
+            } catch (exception) {
+                this.errors = parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         }
     },
 
@@ -97,13 +166,8 @@ const app = createApp({
         ui.block();
 
         try {
-            let projects = await loadAll(url('/api/projects'));
-
-            projects = projects
-                .sort((project1, project2) => project1.name.localeCompare(project2.name))
-                .map((project) => [project.id + '.', project.name]);
-
-            this.projects = Object.fromEntries([[0, '—'], ...projects]);
+            const projects = await loadAll(url('/api/projects'));
+            this.projects = projects.sort((project1, project2) => project1.name.localeCompare(project2.name));
         } catch (exception) {
             parseErrors(exception);
         } finally {
@@ -114,5 +178,6 @@ const app = createApp({
 
 app.component('datatable', DataTable);
 app.component('column', Column);
+app.component('new-group-dialog', GroupDialog);
 
 app.mount('#vue-groups');

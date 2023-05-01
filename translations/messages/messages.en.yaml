@@ -40,6 +40,8 @@ group: Group
 group.description: Description
 group.global: Global
 group.name: 'Group name'
+group.new: 'New group'
+group.successfully_created: 'New group was successfully created.'
 groups: Groups
 groups.others: 'Other groups'
 page.first: 'First page'

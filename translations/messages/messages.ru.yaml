@@ -40,6 +40,8 @@ group: Группа
 group.description: Описание
 group.global: Глобальная
 group.name: 'Название группы'
+group.new: 'Новая группа'
+group.successfully_created: 'Новая группа успешно создана.'
 groups: Группы
 groups.others: 'Прочие группы'
 page.first: 'Первая страница'

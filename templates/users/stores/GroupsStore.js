@@ -14,10 +14,9 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 
 import * as ui from '@utilities/blockui';
+import loadAll from '@utilities/loadAll';
 import parseErrors from '@utilities/parseErrors';
 import url from '@utilities/url';
-
-const QUERY_LIMIT = 100;
 
 /**
  * Store for user groups.
@@ -83,29 +82,11 @@ export const useGroupsStore = defineStore('groups', {
 
         /**
          * Loads all existing groups.
-         *
-         * @param {number} offset Skip this number of groups
          */
-        loadAllGroups(offset = 0) {
+        async loadAllGroups() {
             ui.block();
-
-            if (offset === 0) {
-                this.allGroups = [];
-            }
-
-            axios
-                .get(url('/api/groups'), { params: { offset, limit: QUERY_LIMIT } })
-                .then((response) => {
-                    for (const group of response.data.items) {
-                        this.allGroups.push(group);
-                    }
-
-                    if (offset + QUERY_LIMIT < response.data.total) {
-                        this.loadAllGroups(offset + QUERY_LIMIT);
-                    }
-                })
-                .catch((exception) => parseErrors(exception))
-                .then(() => ui.unblock());
+            this.allGroups = await loadAll(url('/api/groups'));
+            ui.unblock();
         }
     }
 });

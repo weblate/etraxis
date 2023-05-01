@@ -14,7 +14,7 @@ import { expect, test } from '@jest/globals';
 import query from '@utilities/query';
 
 test('Successful query', async () => {
-    const result = await query('/months', 0, 10, '', {}, {});
+    const result = await query('/months', 0, 5, '', {}, {});
     expect(result.total).toBe(12);
     expect(Array.isArray(result.rows)).toBeTruthy();
     expect(result.rows.length).toBe(5);
@@ -24,8 +24,8 @@ test('Failed query', async () => {
     expect.assertions(1);
 
     try {
-        await query('/unknown', 0, 10, '', {}, {});
+        await query('/unknown', 0, 5, '', {}, {});
     } catch (exception) {
-        expect(exception).toMatch('Unknown URL');
+        expect(exception).toBe('Unknown URL');
     }
 });

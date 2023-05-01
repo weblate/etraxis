@@ -10,13 +10,28 @@
 //----------------------------------------------------------------------
 
 export default {
-    get(url) {
+    get(url, config = { params: {} }) {
         return new Promise((resolve, reject) => {
             if (url === '/months') {
+                const data = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                const offset = config.params.offset || 0;
+                const limit = config.params.limit || 10;
+
                 resolve({
                     data: {
-                        total: 12,
-                        items: ['January', 'February', 'March', 'April', 'May']
+                        total: data.length,
+                        items: data.slice(offset, offset + limit)
+                    }
+                });
+            } else if (url === '/weekdays') {
+                const data = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                const offset = config.params.offset || 0;
+                const limit = config.params.limit || 10;
+
+                resolve({
+                    data: {
+                        total: data.length,
+                        items: data.slice(offset, offset + limit)
                     }
                 });
             } else {

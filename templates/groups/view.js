@@ -16,8 +16,10 @@ import Tabs from '@components/tabs/tabs.vue';
 import Tab from '@components/tabs/tab.vue';
 
 import { useGroupStore } from './stores/GroupStore';
+import { useMembersStore } from './stores/MembersStore';
 
 import GroupTab from './tabs/GroupTab.vue';
+import MembersTab from './tabs/MembersTab.vue';
 
 /**
  * "View group" page.
@@ -32,15 +34,18 @@ const app = createApp({
 
     computed: {
         /**
-         * @property {Object} groupStore Store for group data
+         * @property {Object} groupStore   Store for group data
+         * @property {Object} membersStore Store for group members
          */
-        ...mapStores(useGroupStore)
+        ...mapStores(useGroupStore, useMembersStore)
     },
 
     mounted() {
         const groupId = Number(this.$el.dataset.id);
 
         this.groupStore.loadGroup(groupId);
+        this.membersStore.loadGroupMembers(groupId);
+        this.membersStore.loadAllUsers();
     }
 });
 
@@ -49,6 +54,7 @@ const pinia = createPinia();
 app.component('tabs', Tabs);
 app.component('tab', Tab);
 app.component('group-tab', GroupTab);
+app.component('members-tab', MembersTab);
 
 app.use(pinia);
 app.mount('#vue-group');

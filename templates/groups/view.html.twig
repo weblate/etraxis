@@ -9,6 +9,9 @@
                 <tab id="group" title="{{ 'group' | trans }}">
                     <group-tab></group-tab>
                 </tab>
+                <tab id="members" title="{{ 'group.membership' | trans }}" :counter="membersStore.groupMembers.length">
+                    <members-tab></members-tab>
+                </tab>
             </tabs>
         </div>
     </div>
@@ -16,4 +19,8 @@
 
 {% block scripts %}
     {{ encore_entry_script_tags('groups/view') }}
+{% endblock %}
+
+{% block styles %}
+    {{ encore_entry_link_tags('groups/view') }}
 {% endblock %}

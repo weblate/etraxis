@@ -41,6 +41,8 @@ group: Group
 group.description: Description
 group.edit: 'Edit group'
 group.global: Global
+group.members: 'Group members'
+group.membership: Membership
 group.name: 'Group name'
 group.new: 'New group'
 group.successfully_created: 'New group was successfully created.'
@@ -107,3 +109,4 @@ user.successfully_created: 'New user was successfully created.'
 user.theme: Theme
 user.timezone: Timezone
 users: Users
+users.others: 'Other users'

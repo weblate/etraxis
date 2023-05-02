@@ -142,6 +142,7 @@ export default {
             try {
                 await axios.put(url(`/api/users/${this.profileStore.userId}`), data);
                 await this.profileStore.loadProfile();
+                document.title = this.profileStore.fullname;
 
                 msg.info(this.i18n['text.changes_saved'], () => {
                     this.editUserDialog.close();

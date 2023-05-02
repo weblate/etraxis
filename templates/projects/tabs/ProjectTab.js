@@ -94,6 +94,7 @@ export default {
             try {
                 await axios.put(url(`/api/projects/${this.projectStore.projectId}`), data);
                 await this.projectStore.loadProject();
+                document.title = this.projectStore.name;
 
                 msg.info(this.i18n['text.changes_saved'], () => {
                     this.editProjectDialog.close();

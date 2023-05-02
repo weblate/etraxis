@@ -93,6 +93,7 @@ export default {
             try {
                 await axios.put(url(`/api/groups/${this.groupStore.groupId}`), data);
                 await this.groupStore.loadGroup();
+                document.title = this.groupStore.name;
 
                 msg.info(this.i18n['text.changes_saved'], () => {
                     this.editGroupDialog.close();

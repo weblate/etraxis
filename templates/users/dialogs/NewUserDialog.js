@@ -11,8 +11,7 @@
 
 import Modal from '@components/modal/modal.vue';
 
-import LocaleEnum from '@enums/locale';
-
+import languages from '@utilities/languages';
 import generateUid from '@utilities/uid';
 
 /**
@@ -91,9 +90,9 @@ export default {
         i18n: () => window.i18n,
 
         /**
-         * @property {Object} locales Available locales
+         * @property {Object} languages Available languages
          */
-        locales: () => LocaleEnum
+        languages: () => languages()
     },
 
     methods: {

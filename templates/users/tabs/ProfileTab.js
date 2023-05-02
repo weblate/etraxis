@@ -14,10 +14,10 @@ import { mapStores } from 'pinia';
 import axios from 'axios';
 
 import AccountProviderEnum from '@enums/accountprovider';
-import LocaleEnum from '@enums/locale';
 
 import * as ui from '@utilities/blockui';
 import * as msg from '@utilities/messagebox';
+import languages from '@utilities/languages';
 import parseErrors from '@utilities/parseErrors';
 import url from '@utilities/url';
 
@@ -69,9 +69,9 @@ export default {
         accountProviders: () => AccountProviderEnum,
 
         /**
-         * @property {Object} locales Available locales
+         * @property {Object} languages Available languages
          */
-        locales: () => LocaleEnum,
+        languages: () => languages(),
 
         /**
          * @property {boolean} isCurrentUser Whether the user is the current one

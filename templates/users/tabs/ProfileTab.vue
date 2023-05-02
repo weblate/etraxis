@@ -79,7 +79,7 @@
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ locales[profileStore.locale] ?? null }}</p>
+                                <p>{{ languages[profileStore.locale] ?? null }}</p>
                             </div>
                         </div>
                     </div>

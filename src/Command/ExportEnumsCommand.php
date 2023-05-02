@@ -14,7 +14,6 @@
 namespace App\Command;
 
 use App\Entity\Enums\AccountProviderEnum;
-use App\Entity\Enums\LocaleEnum;
 use App\Entity\Enums\ThemeEnum;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -37,7 +36,6 @@ class ExportEnumsCommand extends Command
      */
     protected array $enums = [
         AccountProviderEnum::class,
-        LocaleEnum::class,
         ThemeEnum::class,
     ];
 

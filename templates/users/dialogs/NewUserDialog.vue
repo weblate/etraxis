@@ -109,7 +109,7 @@
                         <div class="control">
                             <div class="select is-fullwidth" :class="{ 'is-danger': errors['locale'] }">
                                 <select :id="`${uid}-locale`" v-model="values.locale">
-                                    <option v-for="(locale, key) in locales" :key="key" :value="key">{{ locale }}</option>
+                                    <option v-for="(language, locale) in languages" :key="locale" :value="locale">{{ language }}</option>
                                 </select>
                             </div>
                         </div>

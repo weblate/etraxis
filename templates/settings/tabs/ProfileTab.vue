@@ -49,7 +49,7 @@
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ locales[profile.locale] ?? null }}</p>
+                                <p>{{ languages[profile.locale] ?? null }}</p>
                             </div>
                         </div>
                     </div>

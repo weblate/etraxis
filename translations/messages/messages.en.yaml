@@ -38,6 +38,7 @@ field.error.value_boolean: '''%name%'' should be ''false'' or ''true''.'
 field.error.value_range: '''%name%'' should be in range from %minimum% to %maximum%.'
 group: Group
 group.description: Description
+group.edit: 'Edit group'
 group.global: Global
 group.name: 'Group name'
 group.new: 'New group'

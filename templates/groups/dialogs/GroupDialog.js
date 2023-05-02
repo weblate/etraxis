@@ -31,7 +31,7 @@ export default {
          */
         projects: {
             type: Array,
-            required: true
+            default: null
         },
 
         /**

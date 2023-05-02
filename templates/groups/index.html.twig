@@ -6,7 +6,7 @@
     <div v-cloak id="vue-groups">
         <div class="columns">
             <div class="column">
-                <datatable ref="groups" id="groups" :data="groups" paging clickable @cell-click="viewGroup">
+                <datatable ref="groups" id="groups" :data="groups" paging clickable icons @icon-click="onIcon" @cell-click="viewGroup">
                     <column sortable filterable id="name">{{ 'group.name' | trans }}</column>
                     <column sortable filterable id="project" :filter-with="projectsFilter">{{ 'project' | trans }}</column>
                     <column sortable filterable id="description" wrappable>{{ 'group.description' | trans }}</column>
@@ -19,6 +19,7 @@
                     </template>
                 </datatable>
                 <new-group-dialog ref="dlgNewGroup" :header="i18n['group.new']" :projects="projects" :errors="errors" @submit="createGroup"></new-group-dialog>
+                <edit-group-dialog ref="dlgEditGroup" :header="i18n['group.edit']" :errors="errors" @submit="updateGroup"></edit-group-dialog>
             </div>
         </div>
     </div>

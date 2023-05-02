@@ -21,7 +21,7 @@
                     </div>
                 </div>
             </div>
-            <div class="field is-horizontal">
+            <div v-if="projects" class="field is-horizontal">
                 <div class="field-label is-normal">
                     <label class="label" :for="`${uid}-project`">{{ i18n['project'] }}:</label>
                 </div>

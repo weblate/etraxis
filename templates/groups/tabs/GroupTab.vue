@@ -2,6 +2,7 @@
     <section>
         <div class="buttons">
             <button class="button" type="button" @click="goBack">{{ i18n['button.back'] }}</button>
+            <button class="button" type="button" :disabled="!groupStore.canUpdate" @click="openEditGroupDialog">{{ i18n['button.edit'] }}</button>
         </div>
         <div class="columns">
             <div class="column is-half-tablet">
@@ -38,6 +39,12 @@
                     </div>
                 </fieldset>
             </div>
+            <edit-group-dialog
+                ref="dlgEditGroup"
+                :header="i18n['group.edit']"
+                :errors="errors"
+                @submit="updateGroup"
+            ></edit-group-dialog>
         </div>
     </section>
 </template>

@@ -22,8 +22,11 @@ import url from '@utilities/url';
 
 import DataTable from '@components/datatable/datatable.vue';
 import Column from '@components/datatable/column.vue';
+import Icon from '@components/datatable/icon';
 
 import GroupDialog from './dialogs/GroupDialog.vue';
+
+const ICON_UPDATE = 'update';
 
 /**
  * "Groups" page.
@@ -68,6 +71,13 @@ const app = createApp({
          */
         newGroupDialog() {
             return this.$refs.dlgNewGroup;
+        },
+
+        /**
+         * @property {Object} editGroupDialog "Edit group" dialog instance
+         */
+        editGroupDialog() {
+            return this.$refs.dlgEditGroup;
         }
     },
 
@@ -94,14 +104,32 @@ const app = createApp({
             return {
                 total: data.total,
                 rows: data.rows.map((group) => {
+                    const icons = [
+                        new Icon(ICON_UPDATE, this.i18n['group.edit'], 'fa-pencil')
+                    ];
+
                     return {
                         DT_id: group.id,
+                        DT_icons: icons,
                         name: group.name,
                         project: group.global ? '—' : group.project.name,
                         description: group.description
                     };
                 })
             };
+        },
+
+        /**
+         * An icon is clicked.
+         *
+         * @param {MouseEvent} event Original event
+         * @param {number}     id    Group ID
+         * @param {string}     icon  Icon ID
+         */
+        onIcon(event, id, icon) {
+            if (icon === ICON_UPDATE) {
+                this.openEditGroupDialog(id);
+            }
         },
 
         /**
@@ -159,6 +187,53 @@ const app = createApp({
             } finally {
                 ui.unblock();
             }
+        },
+
+        /**
+         * Opens "Edit group" dialog.
+         *
+         * @param {number} id Group ID
+         */
+        async openEditGroupDialog(id) {
+            ui.block();
+
+            try {
+                const response = await axios.get(url(`/api/groups/${id}`));
+
+                this.errors = {};
+                this.editGroupDialog.open(response.data);
+            } catch (exception) {
+                parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
+        },
+
+        /**
+         * Updates group.
+         *
+         * @param {Object} event Submitted values
+         */
+        async updateGroup(event) {
+            const data = {
+                name: event.name,
+                description: event.description || null
+            };
+
+            ui.block();
+
+            try {
+                await axios.put(url(`/api/groups/${event.id}`), data);
+
+                msg.info(this.i18n['text.changes_saved'], () => {
+                    this.editGroupDialog.close();
+                    this.groupsTable.refresh();
+                });
+            } catch (exception) {
+                this.errors = parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         }
     },
 
@@ -179,5 +254,6 @@ const app = createApp({
 app.component('datatable', DataTable);
 app.component('column', Column);
 app.component('new-group-dialog', GroupDialog);
+app.component('edit-group-dialog', GroupDialog);
 
 app.mount('#vue-groups');

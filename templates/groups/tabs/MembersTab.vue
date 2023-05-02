@@ -30,7 +30,7 @@
             </div>
             <div class="column">
                 <fieldset class="fieldset">
-                    <legend>{{ i18n['users.others'] }}</legend>
+                    <legend>{{ i18n['group.other_users'] }}</legend>
                     <div class="select is-multiple is-fullwidth">
                         <select size="10" multiple="multiple" v-model="usersToAdd">
                             <option v-if="membersStore.otherUsers.length === 0" disabled></option>

@@ -45,9 +45,9 @@ group.members: 'Group members'
 group.membership: Membership
 group.name: 'Group name'
 group.new: 'New group'
+group.other_users: 'Other users'
 group.successfully_created: 'New group was successfully created.'
 groups: Groups
-groups.others: 'Other groups'
 page.first: 'First page'
 page.last: 'Last page'
 page.next: 'Next page'
@@ -101,6 +101,7 @@ user.groups: 'User groups'
 user.impersonate: Impersonate
 user.language: Language
 user.new: 'New user'
+user.other_groups: 'Other groups'
 user.password: Password
 user.permissions: Permissions
 user.profile: Profile
@@ -109,4 +110,3 @@ user.successfully_created: 'New user was successfully created.'
 user.theme: Theme
 user.timezone: Timezone
 users: Users
-users.others: 'Other users'

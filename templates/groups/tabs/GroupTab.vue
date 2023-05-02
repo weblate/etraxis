@@ -3,6 +3,7 @@
         <div class="buttons">
             <button class="button" type="button" @click="goBack">{{ i18n['button.back'] }}</button>
             <button class="button" type="button" :disabled="!groupStore.canUpdate" @click="openEditGroupDialog">{{ i18n['button.edit'] }}</button>
+            <button class="button is-danger" type="button" :disabled="!groupStore.canDelete" @click="deleteGroup">{{ i18n['button.delete'] }}</button>
         </div>
         <div class="columns">
             <div class="column is-half-tablet">

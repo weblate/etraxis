@@ -102,6 +102,24 @@ export default {
             } finally {
                 ui.unblock();
             }
+        },
+
+        /**
+         * Deletes the group.
+         */
+        deleteGroup() {
+            msg.confirm(this.i18n['confirm.group.delete'], async () => {
+                ui.block();
+
+                try {
+                    await axios.delete(url(`/api/groups/${this.groupStore.groupId}`));
+                    this.goBack();
+                } catch (exception) {
+                    parseErrors(exception);
+                } finally {
+                    ui.unblock();
+                }
+            });
         }
     }
 };

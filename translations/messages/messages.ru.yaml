@@ -15,6 +15,7 @@ button.resume: Возобновить
 button.save: Сохранить
 button.suspend: Остановить
 button.yes: Да
+confirm.group.delete: 'Вы уверены что хотите удалить эту группу?'
 confirm.logout: 'Вы уверены что хотите выйти?'
 confirm.project.delete: 'Вы уверены что хотите удалить этот проект?'
 confirm.user.delete: 'Вы уверены что хотите удалить этого пользователя?'

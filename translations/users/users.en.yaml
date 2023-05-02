@@ -1,0 +1,27 @@
+confirm.user.delete: 'Are you sure you want delete this user?'
+role.admin: Administrator
+role.user: User
+user.account: Account
+user.appearance: Appearance
+user.authentication: Authentication
+user.city: City
+user.country: Country
+user.description: Description
+user.disabled: Disabled
+user.edit: 'Edit user'
+user.email: Email
+user.enabled: Enabled
+user.fullname: 'Full name'
+user.groups: 'User groups'
+user.impersonate: Impersonate
+user.language: Language
+user.new: 'New user'
+user.other_groups: 'Other groups'
+user.password: Password
+user.permissions: Permissions
+user.profile: Profile
+user.status: Status
+user.successfully_created: 'New user was successfully created.'
+user.theme: Theme
+user.timezone: Timezone
+users: Users

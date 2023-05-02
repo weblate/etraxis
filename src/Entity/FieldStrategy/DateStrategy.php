@@ -99,14 +99,14 @@ final class DateStrategy extends AbstractFieldStrategy
             'maximum' => [
                 new Assert\Range([
                     'min'        => $this->getParameter(Field::MINIMUM),
-                    'minMessage' => $translator->trans('field.error.min_max_values'),
+                    'minMessage' => $translator->trans('field.error.min_max_values', domain: 'fields'),
                 ]),
             ],
             'default' => [
                 new Assert\Range([
                     'min'               => $this->getParameter(Field::MINIMUM),
                     'max'               => $this->getParameter(Field::MAXIMUM),
-                    'notInRangeMessage' => $translator->trans('field.error.default_value_range', [
+                    'notInRangeMessage' => $translator->trans('field.error.default_value_range', domain: 'fields', parameters: [
                         '%minimum%' => $this->getParameter(Field::MINIMUM),
                         '%maximum%' => $this->getParameter(Field::MAXIMUM),
                     ]),
@@ -132,7 +132,7 @@ final class DateStrategy extends AbstractFieldStrategy
         $constraints[] = new DateRange([
             'min'               => date('Y-m-d', $timestamp + SecondsEnum::OneDay->value * $this->getParameter(Field::MINIMUM)),
             'max'               => date('Y-m-d', $timestamp + SecondsEnum::OneDay->value * $this->getParameter(Field::MAXIMUM)),
-            'notInRangeMessage' => $translator->trans('field.error.value_range', [
+            'notInRangeMessage' => $translator->trans('field.error.value_range', domain: 'fields', parameters: [
                 '%name%'    => $this->field->getName(),
                 '%minimum%' => $formatter->format($timestamp + SecondsEnum::OneDay->value * $this->getParameter(Field::MINIMUM)),
                 '%maximum%' => $formatter->format($timestamp + SecondsEnum::OneDay->value * $this->getParameter(Field::MAXIMUM)),

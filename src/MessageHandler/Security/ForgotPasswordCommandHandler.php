@@ -50,7 +50,7 @@ final class ForgotPasswordCommandHandler implements CommandHandlerInterface
         $token = $user->generateResetToken(new \DateInterval('PT2H'));
 
         $message = new TemplatedEmail();
-        $subject = $this->translator->trans('email.forgot_password.subject', locale: $user->getLocale()->value);
+        $subject = $this->translator->trans('email.forgot_password.subject', domain: 'passwords', locale: $user->getLocale()->value);
 
         $message
             ->to($user->getEmailAddress())

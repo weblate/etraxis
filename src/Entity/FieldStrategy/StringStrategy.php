@@ -120,7 +120,7 @@ final class StringStrategy extends AbstractFieldStrategy
             'default' => [
                 new Assert\Length([
                     'max'        => $this->getParameter(Field::LENGTH),
-                    'maxMessage' => $translator->trans('field.error.default_value_length', [
+                    'maxMessage' => $translator->trans('field.error.default_value_length', domain: 'fields', parameters: [
                         '%maximum%' => $this->getParameter(Field::LENGTH),
                     ]),
                 ]),

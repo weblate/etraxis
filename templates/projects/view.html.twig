@@ -6,7 +6,7 @@
     <div v-cloak id="vue-project">
         <div data-id="{{ project.id }}">
             <tabs v-model="tab">
-                <tab id="project" title="{{ 'project' | trans }}">
+                <tab id="project" title="{{ 'project' | trans([], 'projects') }}">
                     <project-tab></project-tab>
                 </tab>
             </tabs>

@@ -1,0 +1,10 @@
+page.first: 'First page'
+page.last: 'Last page'
+page.next: 'Next page'
+page.previous: 'Previous page'
+table.clear_filters: 'Clear search and filters'
+table.empty: 'No data.'
+table.pages: '%number% pages'
+table.search: Search
+table.size: '%size% rows'
+table.status: 'Showing %from% to %to% of %total% rows'

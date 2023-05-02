@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% set title = 'projects' | trans %}
+{% set title = 'projects' | trans([], 'projects') %}
 
 {% block content %}
     <div v-cloak id="vue-projects">
         <div class="columns">
             <div class="column">
                 <datatable ref="projects" id="projects" :data="projects" paging clickable icons @icon-click="onIcon" @cell-click="viewProject">
-                    <column sortable filterable id="name">{{ 'project.name' | trans }}</column>
-                    <column sortable id="createdAt">{{ 'project.start_date' | trans }}</column>
-                    <column sortable filterable id="description" wrappable>{{ 'project.description' | trans }}</column>
+                    <column sortable filterable id="name">{{ 'project.name' | trans([], 'projects') }}</column>
+                    <column sortable id="createdAt">{{ 'project.start_date' | trans([], 'projects') }}</column>
+                    <column sortable filterable id="description" wrappable>{{ 'project.description' | trans([], 'projects') }}</column>
                     <template #toolbar>
                         <div class="buttons">
-                            <button class="button" type="button" title="{{ 'button.create' | trans }}" @click="openNewProjectDialog">
+                            <button class="button" type="button" title="{{ 'button.create' | trans([], 'buttons') }}" @click="openNewProjectDialog">
                                 <span class="icon"><i class="fa fa-plus"></i></span>
                             </button>
                         </div>

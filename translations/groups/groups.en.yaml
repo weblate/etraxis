@@ -1,0 +1,12 @@
+confirm.group.delete: 'Are you sure you want delete this group?'
+group: Group
+group.description: Description
+group.edit: 'Edit group'
+group.global: Global
+group.members: 'Group members'
+group.membership: Membership
+group.name: 'Group name'
+group.new: 'New group'
+group.other_users: 'Other users'
+group.successfully_created: 'New group was successfully created.'
+groups: Groups

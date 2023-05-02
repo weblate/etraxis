@@ -1,0 +1,5 @@
+field.error.default_value_length: 'Значение по умолчанию не должно быть длиннее %maximum% символов.'
+field.error.default_value_range: 'Значение по умолчанию должно лежать в диапазоне от %minimum% до %maximum%.'
+field.error.min_max_values: 'Максимальное значение должно быть больше минимального.'
+field.error.value_boolean: 'Значение поля "%name%" должно быть "false" или "true".'
+field.error.value_range: 'Значение поля "%name%" должно лежать в диапазоне от %minimum% до %maximum%.'

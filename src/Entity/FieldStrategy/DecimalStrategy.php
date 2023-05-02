@@ -99,14 +99,14 @@ final class DecimalStrategy extends AbstractFieldStrategy
             'maximum' => [
                 new DecimalRange([
                     'min'        => $this->getParameter(Field::MINIMUM),
-                    'minMessage' => $translator->trans('field.error.min_max_values'),
+                    'minMessage' => $translator->trans('field.error.min_max_values', domain: 'fields'),
                 ]),
             ],
             'default' => [
                 new DecimalRange([
                     'min'               => $this->getParameter(Field::MINIMUM),
                     'max'               => $this->getParameter(Field::MAXIMUM),
-                    'notInRangeMessage' => $translator->trans('field.error.default_value_range', [
+                    'notInRangeMessage' => $translator->trans('field.error.default_value_range', domain: 'fields', parameters: [
                         '%minimum%' => $this->getParameter(Field::MINIMUM),
                         '%maximum%' => $this->getParameter(Field::MAXIMUM),
                     ]),
@@ -129,7 +129,7 @@ final class DecimalStrategy extends AbstractFieldStrategy
         $constraints[] = new DecimalRange([
             'min'               => $this->getParameter(Field::MINIMUM),
             'max'               => $this->getParameter(Field::MAXIMUM),
-            'notInRangeMessage' => $translator->trans('field.error.value_range', [
+            'notInRangeMessage' => $translator->trans('field.error.value_range', domain: 'fields', parameters: [
                 '%name%'    => $this->field->getName(),
                 '%minimum%' => $this->getParameter(Field::MINIMUM),
                 '%maximum%' => $this->getParameter(Field::MAXIMUM),

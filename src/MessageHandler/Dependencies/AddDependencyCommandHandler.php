@@ -82,7 +82,7 @@ final class AddDependencyCommandHandler implements CommandHandlerInterface
         }
 
         if (in_array($issue, $this->dependencyRepository->findAllByIssue($dependency), true)) {
-            throw new BadRequestHttpException($this->translator->trans('error.cross_dependency', locale: $user->getLocale()->value));
+            throw new BadRequestHttpException($this->translator->trans('issue.error.cross_dependency', domain: 'issues', locale: $user->getLocale()->value));
         }
 
         $dependencies = $this->dependencyRepository->findAllByIssue($issue);

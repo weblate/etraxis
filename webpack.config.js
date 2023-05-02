@@ -84,7 +84,7 @@ Encore
  *
  * Converts translations in the YAML files to JavaScript objects.
  */
-Encore.addAliases({ '@translations': path.resolve(__dirname, 'translations/messages/') });
+Encore.addAliases({ '@translations': path.resolve(__dirname, 'translations/') });
 Encore.addLoader({ test: /\.ya?ml$/, loader: 'yaml-loader' });
 
 glob.globSync('./templates/i18n/**.js').forEach((name) => Encore.addEntry(

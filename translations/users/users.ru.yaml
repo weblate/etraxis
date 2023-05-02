@@ -1,0 +1,27 @@
+confirm.user.delete: 'Вы уверены что хотите удалить этого пользователя?'
+role.admin: Администратор
+role.user: Пользователь
+user.account: 'Учетная запись'
+user.appearance: 'Внешний вид'
+user.authentication: Авторизация
+user.city: Город
+user.country: Страна
+user.description: Описание
+user.disabled: Заблокирован
+user.edit: 'Редактирование пользователя'
+user.email: 'Эл. почта'
+user.enabled: Незаблокирован
+user.fullname: 'Полное имя'
+user.groups: 'Группы пользователя'
+user.impersonate: 'Зайти от имени пользователя'
+user.language: Язык
+user.new: 'Новый пользователь'
+user.other_groups: 'Прочие группы'
+user.password: Пароль
+user.permissions: 'Права доступа'
+user.profile: Профиль
+user.status: Состояние
+user.successfully_created: 'Новый пользователь успешно создан.'
+user.theme: Оформление
+user.timezone: 'Часовой пояс'
+users: Пользователи

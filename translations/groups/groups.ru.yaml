@@ -1,0 +1,12 @@
+confirm.group.delete: 'Вы уверены что хотите удалить эту группу?'
+group: Группа
+group.description: Описание
+group.edit: 'Редактирование группы'
+group.global: Глобальная
+group.members: 'Члены группы'
+group.membership: 'Состав группы'
+group.name: 'Название группы'
+group.new: 'Новая группа'
+group.other_users: 'Прочие пользователи'
+group.successfully_created: 'Новая группа успешно создана.'
+groups: Группы

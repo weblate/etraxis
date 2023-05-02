@@ -92,7 +92,7 @@ final class CreateUserCommandHandler implements CommandHandlerInterface
         $currentUser = $this->tokenStorage->getToken()->getUser();
 
         $message = new TemplatedEmail();
-        $subject = $this->translator->trans('email.account_created.subject', locale: $user->getLocale()->value);
+        $subject = $this->translator->trans('email.account_created.subject', domain: 'security', locale: $user->getLocale()->value);
 
         $message
             ->from($currentUser->getEmailAddress())

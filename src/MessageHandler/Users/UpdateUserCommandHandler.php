@@ -99,7 +99,7 @@ final class UpdateUserCommandHandler implements CommandHandlerInterface
         // Warn the user about email change, using their previous email address.
         if ($user->getEmail() !== $oldEmail && !$user->isDisabled() && $user !== $currentUser) {
             $message = new TemplatedEmail();
-            $subject = $this->translator->trans('email.login_changed.subject', locale: $user->getLocale()->value);
+            $subject = $this->translator->trans('email.login_changed.subject', domain: 'security', locale: $user->getLocale()->value);
 
             $message
                 ->from($currentUser->getEmailAddress())

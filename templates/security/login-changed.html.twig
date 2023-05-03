@@ -1,5 +1,5 @@
 {% extends 'email.html.twig' %}
 
 {% block message %}
-    <p>{{ 'email.login_changed.line1' | trans({'%email%': newEmail}, null, locale) }}</p>
+    <p>{{ 'email.login_changed.line1' | trans({'%email%': newEmail}, 'security', locale) }}</p>
 {% endblock %}

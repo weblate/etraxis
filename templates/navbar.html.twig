@@ -17,31 +17,31 @@
                     <div class="navbar-item has-dropdown is-hoverable">
                         <div class="icon-text navbar-link is-arrowless">
                             <span class="icon is-hidden-mobile"><i class="fa fa-lg fa-cog"></i></span>
-                            <span class="is-hidden-tablet-only">{{ 'administration' | trans([], 'messages') }}</span>
+                            <span class="is-hidden-tablet-only">{{ 'administration' | trans({}, 'messages') }}</span>
                         </div>
                         <div class="navbar-dropdown is-boxed">
-                            <a class="navbar-item" href="{{ path('admin_users') }}">{{ 'users' | trans([], 'users') }}</a>
-                            <a class="navbar-item" href="{{ path('admin_groups') }}">{{ 'groups' | trans([], 'groups') }}</a>
-                            <a class="navbar-item" href="{{ path('admin_projects') }}">{{ 'projects' | trans([], 'projects') }}</a>
+                            <a class="navbar-item" href="{{ path('admin_users') }}">{{ 'users' | trans({}, 'users') }}</a>
+                            <a class="navbar-item" href="{{ path('admin_groups') }}">{{ 'groups' | trans({}, 'groups') }}</a>
+                            <a class="navbar-item" href="{{ path('admin_projects') }}">{{ 'projects' | trans({}, 'projects') }}</a>
                         </div>
                     </div>
                 {% endif %}
                 <a class="navbar-item" href="{{ path('settings') }}">
                     <div class="icon-text">
                         <span class="icon is-hidden-mobile"><i class="fa fa-lg fa-sliders"></i></span>
-                        <span class="is-hidden-tablet-only">{{ 'settings' | trans([], 'messages') }}</span>
+                        <span class="is-hidden-tablet-only">{{ 'settings' | trans({}, 'messages') }}</span>
                     </div>
                 </a>
                 <a class="navbar-item" @click="toggleThemeMode">
                     <div class="icon-text">
                         <span class="icon is-hidden-mobile"><i class="fa fa-lg" :class="themeModeIcon"></i></span>
-                        <span class="is-hidden-tablet-only">{{ 'user.theme' | trans([], 'users') }}</span>
+                        <span class="is-hidden-tablet-only">{{ 'user.theme' | trans({}, 'users') }}</span>
                     </div>
                 </a>
                 <a class="navbar-item" @click="logout(('{{ is_granted('IS_IMPERSONATOR') ? impersonation_exit_path(path('admin_users')) : path('logout') }}'))">
                     <div class="icon-text">
                         <span class="icon is-hidden-mobile"><i class="fa fa-lg fa-sign-out"></i></span>
-                        <span class="is-hidden-tablet-only">{{ 'security.logout' | trans([], 'security') }}</span>
+                        <span class="is-hidden-tablet-only">{{ 'security.logout' | trans({}, 'security') }}</span>
                     </div>
                 </a>
             </div>

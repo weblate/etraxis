@@ -1,30 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% set title = 'users' | trans([], 'users') %}
+{% set title = 'users' | trans({}, 'users') %}
 
 {% block content %}
     <div v-cloak id="vue-users">
         <div class="columns" data-id="{{ app.user.id }}" data-locale="{{ locale }}" data-timezone="{{ timezone }}">
             <div class="column">
                 <datatable ref="users" id="users" :data="users" paging clickable icons checkboxes v-model:checked="checked" @icon-click="onIcon" @cell-click="viewUser">
-                    <column sortable filterable id="fullname">{{ 'user.fullname' | trans([], 'users') }}</column>
-                    <column sortable filterable id="email">{{ 'user.email' | trans([], 'users') }}</column>
-                    <column sortable filterable id="admin" :filter-with="permissions">{{ 'user.permissions' | trans([], 'users') }}</column>
-                    <column sortable filterable id="accountProvider" :filter-with="providers">{{ 'user.authentication' | trans([], 'users') }}</column>
-                    <column sortable filterable id="description" wrappable>{{ 'user.description' | trans([], 'users') }}</column>
+                    <column sortable filterable id="fullname">{{ 'user.fullname' | trans({}, 'users') }}</column>
+                    <column sortable filterable id="email">{{ 'user.email' | trans({}, 'users') }}</column>
+                    <column sortable filterable id="admin" :filter-with="permissions">{{ 'user.permissions' | trans({}, 'users') }}</column>
+                    <column sortable filterable id="accountProvider" :filter-with="providers">{{ 'user.authentication' | trans({}, 'users') }}</column>
+                    <column sortable filterable id="description" wrappable>{{ 'user.description' | trans({}, 'users') }}</column>
                     <template #toolbar>
                         <div class="buttons">
-                            <button class="button" type="button" title="{{ 'button.create' | trans([], 'buttons') }}" @click="openNewUserDialog">
+                            <button class="button" type="button" title="{{ 'button.create' | trans({}, 'buttons') }}" @click="openNewUserDialog">
                                 <span class="icon"><i class="fa fa-plus"></i></span>
                             </button>
                             <div class="field has-addons">
                                 <div class="control">
-                                    <button class="button" type="button" title="{{ 'button.disable' | trans([], 'buttons') }}" :disabled="checked.length === 0" @click="disableMultipleUsers">
+                                    <button class="button" type="button" title="{{ 'button.disable' | trans({}, 'buttons') }}" :disabled="checked.length === 0" @click="disableMultipleUsers">
                                         <span class="icon is-small"><i class="fa fa-lock"></i></span>
                                     </button>
                                 </div>
                                 <div class="control">
-                                    <button class="button" type="button" title="{{ 'button.enable' | trans([], 'buttons') }}" :disabled="checked.length === 0" @click="enableMultipleUsers">
+                                    <button class="button" type="button" title="{{ 'button.enable' | trans({}, 'buttons') }}" :disabled="checked.length === 0" @click="enableMultipleUsers">
                                         <span class="icon is-small"><i class="fa fa-unlock-alt"></i></span>
                                     </button>
                                 </div>

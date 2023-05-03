@@ -1,7 +1,7 @@
 {% extends 'email.html.twig' %}
 
 {% block message %}
-    <p>{{ 'email.account_created.line1' | trans({}, null, locale) }}</p>
-    <p>{{ 'email.account_created.line2' | trans({}, null, locale) }}</p>
+    <p>{{ 'email.account_created.line1' | trans({}, 'security', locale) }}</p>
+    <p>{{ 'email.account_created.line2' | trans({}, 'security', locale) }}</p>
     <code>{{ password }}</code>
 {% endblock %}

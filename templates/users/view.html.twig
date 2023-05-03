@@ -6,10 +6,10 @@
     <div v-cloak id="vue-user">
         <div data-id="{{ user.id }}">
             <tabs v-model="tab">
-                <tab id="profile" title="{{ 'user.profile' | trans([], 'users') }}">
+                <tab id="profile" title="{{ 'user.profile' | trans({}, 'users') }}">
                     <profile-tab data-id="{{ app.user.id }}"></profile-tab>
                 </tab>
-                <tab id="groups" title="{{ 'groups' | trans([], 'groups') }}" :counter="groupsStore.userGroups.length">
+                <tab id="groups" title="{{ 'groups' | trans({}, 'groups') }}" :counter="groupsStore.userGroups.length">
                     <groups-tab></groups-tab>
                 </tab>
             </tabs>

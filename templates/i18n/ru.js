@@ -9,30 +9,6 @@
 //
 //----------------------------------------------------------------------
 
-import buttons from '@translations/buttons/buttons.ru.yaml';
-import datatable from '@translations/datatable/datatable.ru.yaml';
-import fields from '@translations/fields/fields.ru.yaml';
-import groups from '@translations/groups/groups.ru.yaml';
-import issues from '@translations/issues/issues.ru.yaml';
-import messages from '@translations/messages/messages.ru.yaml';
-import passwords from '@translations/passwords/passwords.ru.yaml';
-import projects from '@translations/projects/projects.ru.yaml';
-import security from '@translations/security/security.ru.yaml';
-import states from '@translations/states/states.ru.yaml';
-import templates from '@translations/templates/templates.ru.yaml';
-import users from '@translations/users/users.ru.yaml';
+import translations from '@utilities/translations';
 
-window.i18n = {
-    ...buttons,
-    ...datatable,
-    ...fields,
-    ...groups,
-    ...issues,
-    ...messages,
-    ...passwords,
-    ...projects,
-    ...security,
-    ...states,
-    ...templates,
-    ...users
-};
+window.i18n = translations('ru');

@@ -2,6 +2,7 @@ module.exports = {
     collectCoverage: true,
     collectCoverageFrom: [
         '**/assets/scripts/**/*.js',
+        '!**/assets/scripts/translations.js',
         '!**/node_modules/**'
     ],
     coverageReporters: [

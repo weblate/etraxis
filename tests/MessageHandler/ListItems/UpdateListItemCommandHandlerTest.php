@@ -171,7 +171,7 @@ final class UpdateListItemCommandHandlerTest extends TransactionalTestCase
     public function testValueConflict(): void
     {
         $this->expectException(ConflictHttpException::class);
-        $this->expectExceptionMessage('Item with specified value already exists.');
+        $this->expectExceptionMessage('Item with entered value already exists.');
 
         $this->loginUser('admin@example.com');
 
@@ -186,7 +186,7 @@ final class UpdateListItemCommandHandlerTest extends TransactionalTestCase
     public function testTextConflict(): void
     {
         $this->expectException(ConflictHttpException::class);
-        $this->expectExceptionMessage('Item with specified text already exists.');
+        $this->expectExceptionMessage('Item with entered text already exists.');
 
         $this->loginUser('admin@example.com');
 

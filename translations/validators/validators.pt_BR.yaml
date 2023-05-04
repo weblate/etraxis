@@ -1,0 +1,6 @@
+field.conflict.name: 'O Campo escolhido já existe.'
+group.conflict.name: 'O grupo escolhido já existe.'
+project.conflict.name: 'O projeto escolhido já existe.'
+state.conflict.name: 'O estado escolhido já existe.'
+template.conflict.name: 'O template escolhido já existe.'
+template.conflict.prefix: 'O prefixo escolhido já existe.'

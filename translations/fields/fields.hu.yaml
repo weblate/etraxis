@@ -1,0 +1,3 @@
+field.error.default_value_range: 'Az alapértelmezett érték %minimum% és %maximum% közé kell, hogy essen.'
+field.error.min_max_values: 'A maximum értéknek nagyobbnak kell lennie, mint 1.'
+field.error.value_range: 'A(z) "%name%" értéke %minimum% és %maximum% közé kell, hogy essen.'

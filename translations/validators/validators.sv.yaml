@@ -1,0 +1,6 @@
+field.conflict.name: 'Fält med detta namnet finns redan.'
+group.conflict.name: 'Grupp med detta namnet finns redan.'
+project.conflict.name: 'Projekt med detta namnet finns redan.'
+state.conflict.name: 'Status med detta namnet finns redan.'
+template.conflict.name: 'Mall med detta namnet finns redan.'
+template.conflict.prefix: 'Mall med detta prefixet finns redan.'

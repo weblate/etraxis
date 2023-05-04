@@ -1,0 +1,3 @@
+field.error.default_value_range: 'デフォルトの値は %minimum% から %maximum% の範囲で指定できます。'
+field.error.min_max_values: 最大値は最小値よりも大きい必要があります。
+field.error.value_range: '値 %name% は、 %minimum% から %maximum% の範囲で指定できます。'

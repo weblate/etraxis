@@ -205,7 +205,7 @@ final class UpdateFieldCommandHandlerTest extends TransactionalTestCase
     public function testNameConflict(): void
     {
         $this->expectException(ConflictHttpException::class);
-        $this->expectExceptionMessage('Field with specified name already exists.');
+        $this->expectExceptionMessage('Field with entered name already exists.');
 
         $this->loginUser('admin@example.com');
 

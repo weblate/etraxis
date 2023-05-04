@@ -1,0 +1,6 @@
+field.conflict.name: 'Atribūts ar tādu nosaukumu jau eksistē.'
+group.conflict.name: 'Grupa ar tādu nosaukumu jau eksistē.'
+project.conflict.name: 'Projekts ar tādu nosaukumu jau eksistē.'
+state.conflict.name: 'Stāvoklis ar tādu nosaukumu jau eksistē.'
+template.conflict.name: 'Lekāls ar tādu nosaukumu jau eksistē.'
+template.conflict.prefix: 'Lekāls ar tādu priedēkli jau eksistē.'

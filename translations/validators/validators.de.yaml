@@ -1,0 +1,6 @@
+field.conflict.name: 'Ein Zusatz mit diesem Namen existiert bereits.'
+group.conflict.name: 'Eine Gruppe mit diesem Namen existiert bereits.'
+project.conflict.name: 'Ein Projekt mit diesem Namen existiert bereits.'
+state.conflict.name: 'Ein Status mit diesem Namen existiert bereits.'
+template.conflict.name: 'Eine Anfrageart mit diesem Namen existiert bereits.'
+template.conflict.prefix: 'Eine Anfrageart mit diesem Präfix existiert bereits.'

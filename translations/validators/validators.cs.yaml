@@ -1,0 +1,6 @@
+field.conflict.name: 'Pole se zadaným jménem již existuje.'
+group.conflict.name: 'Skupina se zadaným jménem již existuje.'
+project.conflict.name: 'Projekt se zadaným názvem již existuje.'
+state.conflict.name: 'Stav se zadaným jménem již existuje.'
+template.conflict.name: 'Šablona se zadaným jménem již existuje.'
+template.conflict.prefix: 'Šablona se zadaným předponou již existuje.'

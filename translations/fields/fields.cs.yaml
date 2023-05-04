@@ -1,0 +1,3 @@
+field.error.default_value_range: 'Výchozí hodnota musí být v rozmezí %minimum% až %maximum%.'
+field.error.min_max_values: 'Maximální hodnota musí být větší než minimální.'
+field.error.value_range: 'Hodnota "%name%" musí být v rozmezí %minimum% až %maximum%.'

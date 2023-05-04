@@ -182,7 +182,7 @@ final class UpdateGroupCommandHandlerTest extends TransactionalTestCase
     public function testLocalGroupConflict(): void
     {
         $this->expectException(ConflictHttpException::class);
-        $this->expectExceptionMessage('Group with specified name already exists.');
+        $this->expectExceptionMessage('Group with entered name already exists.');
 
         $this->loginUser('admin@example.com');
 
@@ -205,7 +205,7 @@ final class UpdateGroupCommandHandlerTest extends TransactionalTestCase
     public function testGlobalGroupConflict(): void
     {
         $this->expectException(ConflictHttpException::class);
-        $this->expectExceptionMessage('Group with specified name already exists.');
+        $this->expectExceptionMessage('Group with entered name already exists.');
 
         $this->loginUser('admin@example.com');
 

@@ -1,0 +1,3 @@
+field.error.default_value_range: 'Varsayılan değer, %minimum% ile %maximum% arasında olmalıdır.'
+field.error.min_max_values: 'En yüksek değer, en düşük değerden daha büyük olmalıdır.'
+field.error.value_range: '"%name%" değeri %minimum% ile %maximum% arasında olmalıdır.'

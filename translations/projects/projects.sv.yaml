@@ -1,0 +1,10 @@
+confirm.project.delete: 'Är du säker på att du vill ta bort detta projektet?'
+project: Projekt
+project.active: Aktiv
+project.description: Beskrivning
+project.name: 'Projekt namn'
+project.new: 'Nytt projekt'
+project.start_date: 'Start tid'
+project.status: Status
+project.suspended: Inaktiv
+projects: Projekt

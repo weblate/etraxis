@@ -1,0 +1,8 @@
+confirm.group.delete: グループを削除してよろしいですか？
+group.description: 詳細
+group.global: グローバル
+group.membership: メンバー
+group.name: グループ名
+group.new: 新規グループ
+groups: グループ
+groups.global: 'グローバル グループ'

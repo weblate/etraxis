@@ -388,7 +388,7 @@ final class CloneTemplateCommandHandlerTest extends TransactionalTestCase
     public function testNameConflict(): void
     {
         $this->expectException(ConflictHttpException::class);
-        $this->expectExceptionMessage('Template with specified name already exists.');
+        $this->expectExceptionMessage('Template with entered name already exists.');
 
         $this->loginUser('admin@example.com');
 
@@ -406,7 +406,7 @@ final class CloneTemplateCommandHandlerTest extends TransactionalTestCase
     public function testPrefixConflict(): void
     {
         $this->expectException(ConflictHttpException::class);
-        $this->expectExceptionMessage('Template with specified prefix already exists.');
+        $this->expectExceptionMessage('Template with entered prefix already exists.');
 
         $this->loginUser('admin@example.com');
 

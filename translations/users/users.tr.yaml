@@ -1,0 +1,13 @@
+confirm.user.delete: 'Bu hesabı silmek istediğinizden emin misiniz?'
+role.admin: Yönetici
+role.user: Kullanıcı
+user.appearance: Görünüm
+user.description: Tanım
+user.disabled: Etkisizleştirildi
+user.email: E-posta
+user.enabled: Etkinleştirildi
+user.fullname: 'Tam adı'
+user.language: Dil
+user.password: Parola
+user.theme: Tema
+user.timezone: 'Saat dilimi'

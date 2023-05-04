@@ -1,0 +1,4 @@
+field.conflict.name: 'Már létezik ilyen névvel ellátott mező.'
+group.conflict.name: 'Már létezik ilyen névvel ellátott csoport.'
+project.conflict.name: 'Már létezik ilyen névvel ellátott projekt.'
+template.conflict.name: 'Már létezik ilyen névvel ellátott sablon.'

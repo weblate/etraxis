@@ -1,0 +1,12 @@
+confirm.user.delete: 'Ben je zeker dat je deze account wilt verwijderen?'
+role.admin: Beheerder
+role.user: Gebruiker
+user.appearance: Uiterlijk
+user.description: Beschrijving
+user.disabled: Uitgeschakeld
+user.email: E-mail
+user.enabled: Ingeschakeld
+user.fullname: 'Volledige naam'
+user.language: Taal
+user.password: Wachtwoord
+user.theme: Thema

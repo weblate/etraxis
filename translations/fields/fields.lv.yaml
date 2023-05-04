@@ -1,0 +1,3 @@
+field.error.default_value_range: 'Noklusējuma nozīmei jąbūt no %minimum% līdz %maximum% apgabalā.'
+field.error.min_max_values: 'Maksimālajam lielumam jābūt lielākam par minimālo.'
+field.error.value_range: '"%name%" lauciņa lielumam jābūt no %minimum% līdz %maximum% apgabalā.'

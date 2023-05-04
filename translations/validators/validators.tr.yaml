@@ -1,0 +1,3 @@
+field.conflict.name: 'Girilen adda bir alan zaten var.'
+group.conflict.name: 'Girilen adda bir grup zaten var.'
+project.conflict.name: 'Girilen adda bir proje zaten var.'

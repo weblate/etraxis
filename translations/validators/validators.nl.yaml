@@ -1,0 +1,6 @@
+field.conflict.name: 'Veld met ingevoerde naam bestaat reeds.'
+group.conflict.name: 'Groep met ingevoerde naam bestaat reeds.'
+project.conflict.name: 'Project met ingevoerde naam bestaat reeds.'
+state.conflict.name: 'Status met ingevoerde naam bestaat reeds.'
+template.conflict.name: 'Sjabloon met ingevoerde naam bestaat reeds.'
+template.conflict.prefix: 'Sjabloon met ingevoerde voorvoegsel bestaat reeds.'

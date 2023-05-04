@@ -172,7 +172,7 @@ final class UpdateStateCommandHandlerTest extends TransactionalTestCase
     public function testNameConflict(): void
     {
         $this->expectException(ConflictHttpException::class);
-        $this->expectExceptionMessage('State with specified name already exists.');
+        $this->expectExceptionMessage('State with entered name already exists.');
 
         $this->loginUser('admin@example.com');
 

@@ -1,0 +1,3 @@
+field.error.default_value_range: 'Standaardwaarde moet in het bereik %minimum% tot %maximum% liggen.'
+field.error.min_max_values: 'Maximum waarde moet groter dan minimum waarde zijn.'
+field.error.value_range: 'Waarde "%name%" moet in het bereik %minimum% tot %maximum% liggen.'

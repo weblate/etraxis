@@ -1,0 +1,3 @@
+confirm.logout: 'Är du säker på att du vill avsluta?'
+security.login: 'Logga in'
+security.logout: 'Logga ut'

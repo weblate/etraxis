@@ -1,0 +1,7 @@
+confirm.group.delete: 'Biztos törölni szeretné a csoportot?'
+group.description: Leírás
+group.global: Globális
+group.membership: Tagság
+group.name: 'Csoport neve'
+group.new: 'Új csoport'
+groups: Csoportok

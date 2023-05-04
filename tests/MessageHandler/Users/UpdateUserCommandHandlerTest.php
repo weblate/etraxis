@@ -353,7 +353,7 @@ final class UpdateUserCommandHandlerTest extends TransactionalTestCase
     public function testUsernameConflict(): void
     {
         $this->expectException(ConflictHttpException::class);
-        $this->expectExceptionMessage('Account with specified email already exists.');
+        $this->expectExceptionMessage('Account with entered email already exists.');
 
         $this->loginUser('admin@example.com');
 

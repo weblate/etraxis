@@ -1,0 +1,10 @@
+confirm.project.delete: 'Biztos törölni szeretné a projektet?'
+project: Projekt
+project.active: Aktív
+project.description: Leírás
+project.name: 'Projekt neve'
+project.new: 'Új csoport'
+project.start_date: 'Kezdés ideje'
+project.status: Állapot
+project.suspended: Felfüggesztve
+projects: Projektek

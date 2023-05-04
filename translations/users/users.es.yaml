@@ -1,0 +1,13 @@
+confirm.user.delete: '¿Está seguro de eliminar esta cuenta?'
+role.admin: Administrador
+role.user: Usuario
+user.appearance: Apariencia
+user.description: Descripción
+user.disabled: Deshabilitado
+user.email: Email
+user.enabled: Habilitado
+user.fullname: 'Nombre completo'
+user.language: Idioma
+user.password: Contraseña
+user.theme: Tema
+user.timezone: 'Zona horaria'

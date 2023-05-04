@@ -1,0 +1,3 @@
+confirm.logout: 'Etes-vous sur de vouloir quitter?'
+security.login: 'Se connecter'
+security.logout: 'Se déconnecter'

@@ -1,0 +1,3 @@
+field.error.default_value_range: 'Il valore predefinito deve essere compreso tra %minimum% e %maximum%.'
+field.error.min_max_values: 'Il valore massimo deve essere maggiore del valore minimo.'
+field.error.value_range: 'Il valore "%name%" deve essere compreso tra %minimum% e %maximum%.'

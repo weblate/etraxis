@@ -1,0 +1,13 @@
+confirm.user.delete: 'Jste si jisti, že chcete smazat tento účet?'
+role.admin: Administrátor
+role.user: Uživatel
+user.appearance: Vzhled
+user.description: Popis
+user.disabled: Zakázáno
+user.email: E-mail
+user.enabled: Povoleno
+user.fullname: 'Celé jméno'
+user.language: Jazyk
+user.password: Heslo
+user.theme: Vzhled
+user.timezone: 'Časová zóna'

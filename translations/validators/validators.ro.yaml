@@ -1,0 +1,6 @@
+field.conflict.name: 'Numele campului deja exista.'
+group.conflict.name: 'Numele grupului exista deja.'
+project.conflict.name: 'Numele de proiect exista deja.'
+state.conflict.name: 'Numele starii deja exista.'
+template.conflict.name: 'Sablonul cu numele introdus exista deja.'
+template.conflict.prefix: 'Sablonul prefixul introdus exista deja.'

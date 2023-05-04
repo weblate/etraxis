@@ -1,0 +1,13 @@
+confirm.user.delete: 'Möchten Sie dieses Konto wirklich löschen?'
+role.admin: Administrator
+role.user: Benutzer
+user.appearance: Erscheinungsbild
+user.description: Beschreibung
+user.disabled: Deaktiviert
+user.email: Email-Adresse
+user.enabled: Aktiviert
+user.fullname: 'Vollständiger Name'
+user.language: Sprache
+user.password: Passwort
+user.theme: Aussehen
+user.timezone: Zeitzone

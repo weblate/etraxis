@@ -18,8 +18,23 @@ namespace App\Entity\Enums;
  */
 enum LocaleEnum: string
 {
-    case English = 'en';
-    case Russian = 'ru';
+    case Bulgarian        = 'bg';
+    case Czech            = 'cs';
+    case German           = 'de';
+    case English          = 'en';
+    case Spanish          = 'es';
+    case French           = 'fr';
+    case Hungarian        = 'hu';
+    case Italian          = 'it';
+    case Japanese         = 'ja';
+    case Latvian          = 'lv';
+    case Dutch            = 'nl';
+    case Polish           = 'pl';
+    case PortugueseBrazil = 'pt_BR';
+    case Romanian         = 'ro';
+    case Russian          = 'ru';
+    case Swedish          = 'sv';
+    case Turkish          = 'tr';
 
     public const FALLBACK = self::English;
 }

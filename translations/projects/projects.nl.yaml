@@ -1,0 +1,10 @@
+confirm.project.delete: 'Ben je zeker dat je dit project wilt verwijderen?'
+project: Project
+project.active: Actief
+project.description: Beschrijving
+project.name: 'Project naam'
+project.new: 'Nieuw project'
+project.start_date: Starttijd
+project.status: Status
+project.suspended: Geschorst
+projects: Projecten

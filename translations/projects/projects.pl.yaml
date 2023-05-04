@@ -1,0 +1,10 @@
+confirm.project.delete: 'Czy jesteś pewien, że chesz usunąć wybrany projekt?'
+project: Projekt
+project.active: Aktywny
+project.description: Opis
+project.name: 'Nazwa projektu'
+project.new: 'Nowy projekt'
+project.start_date: 'Data utworzenia'
+project.status: Status
+project.suspended: Zawieszony
+projects: Projekty

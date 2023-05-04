@@ -1,0 +1,13 @@
+confirm.user.delete: 'Etes-vous sur de vouloir effacer ce compte?'
+role.admin: Administrateur
+role.user: Utilisateur
+user.appearance: Apparence
+user.description: Description
+user.disabled: Désactivés
+user.email: Email
+user.enabled: Activés
+user.fullname: 'Nom complet'
+user.language: Langue
+user.password: 'Mot de passe'
+user.theme: Thème
+user.timezone: 'Fuseau horaire'

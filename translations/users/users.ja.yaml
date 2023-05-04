@@ -1,0 +1,13 @@
+confirm.user.delete: アカウントを削除してよろしいですか？
+role.admin: 管理者
+role.user: ユーザー
+user.appearance: 外観
+user.description: 詳細
+user.disabled: 無効
+user.email: Eメール
+user.enabled: 有効
+user.fullname: フルネーム
+user.language: 言語
+user.password: パスワード
+user.theme: テーマ
+user.timezone: タイムゾーン

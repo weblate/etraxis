@@ -1,0 +1,7 @@
+confirm.group.delete: 'Etes-vous sur de vouloir effacer ce groupe?'
+group.description: Description
+group.global: Global
+group.membership: Appartenance
+group.name: 'Nom du groupe'
+group.new: 'Nouveau groupe'
+groups: Groupes

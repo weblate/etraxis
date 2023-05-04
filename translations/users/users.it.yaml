@@ -1,0 +1,13 @@
+confirm.user.delete: 'Eliminare questo account?'
+role.admin: Amministratore
+role.user: Utente
+user.appearance: Aspetto
+user.description: Descrizione
+user.disabled: Disabilitato
+user.email: Email
+user.enabled: Abilitato
+user.fullname: 'Nome completo'
+user.language: Lingua
+user.password: Password
+user.theme: Tema
+user.timezone: 'Fuso Orario'

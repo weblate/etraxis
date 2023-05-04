@@ -1,0 +1,7 @@
+confirm.group.delete: '¿Está seguro de eliminar este grupo?'
+group.description: Descripción
+group.global: Global
+group.membership: Membresía
+group.name: 'Nombre del grupo'
+group.new: 'Nuevo grupo'
+groups: Grupos

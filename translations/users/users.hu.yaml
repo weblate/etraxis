@@ -1,0 +1,13 @@
+confirm.user.delete: 'Biztos törölni szeretné a felhasználót?'
+role.admin: Adminisztrátor
+role.user: Felhasználó
+user.appearance: Megjelenés
+user.description: Leírás
+user.disabled: Letiltott
+user.email: E-mail
+user.enabled: Engedélyezett
+user.fullname: 'Teljes név'
+user.language: Nyelv
+user.password: Jelszó
+user.theme: Téma
+user.timezone: Időzóna

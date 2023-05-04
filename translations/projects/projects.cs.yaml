@@ -1,0 +1,10 @@
+confirm.project.delete: 'Jste si jisti, že chcete smazat tento projekt?'
+project: Projekt
+project.active: Aktivní
+project.description: Popis
+project.name: 'Název projektu'
+project.new: 'Nový projekt'
+project.start_date: 'Datum a čas zahájení'
+project.status: Status
+project.suspended: Pozastaven
+projects: Projekty

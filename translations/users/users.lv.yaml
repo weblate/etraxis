@@ -1,0 +1,13 @@
+confirm.user.delete: 'Vai tiešām vēlaties dzēst šo kontu?'
+role.admin: Administrators
+role.user: Lietotājs
+user.appearance: Izskats
+user.description: Apraksts
+user.disabled: Izslēgts
+user.email: E-pasts
+user.enabled: Ieslēgts
+user.fullname: 'Pilns vārds'
+user.language: Valoda
+user.password: Parole
+user.theme: Motīvs
+user.timezone: 'Laika zona'

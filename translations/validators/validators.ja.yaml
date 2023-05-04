@@ -1,0 +1,3 @@
+field.conflict.name: 入力されたフィールドの名前は既に存在しています。
+group.conflict.name: 入力されたグループの名前は既に存在しています。
+project.conflict.name: 入力されたプロジェクトの名前は既に存在しています。

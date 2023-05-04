@@ -1,0 +1,3 @@
+field.error.default_value_range: 'Standardvärdet bör vara i intervallet från %minimum% till %maximum%.'
+field.error.min_max_values: 'Högsta värdet bör vara större än minimum en.'
+field.error.value_range: 'Värdet av "%name%" ska vara i intervallet från %minimum% till %maximum%.'

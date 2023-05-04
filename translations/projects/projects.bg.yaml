@@ -1,0 +1,10 @@
+confirm.project.delete: 'Сигурен ли сте че искате да изтриете този проект?'
+project: Проект
+project.active: Активен
+project.description: Описание
+project.name: 'Име на проекта'
+project.new: 'Нов проект'
+project.start_date: 'Начално време'
+project.status: Статус
+project.suspended: Преустановен
+projects: Проекти

@@ -1,0 +1,3 @@
+field.error.default_value_range: 'Wartość domyślna powinna być z przedziału od %minimum% do %maximum%.'
+field.error.min_max_values: 'Wartość maksymalna powinna być większa od wartości minimalnej.'
+field.error.value_range: 'Wartość "%name%" powinna być z przedziału od %minimum% do %maximum%.'

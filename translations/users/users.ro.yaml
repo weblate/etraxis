@@ -1,0 +1,13 @@
+confirm.user.delete: 'Sunteti sigur ca doriti sa stergeti acest cont?'
+role.admin: Administrator
+role.user: User
+user.appearance: 'Mod de prezentare'
+user.description: Descriere
+user.disabled: Dezactivate
+user.email: Email
+user.enabled: Activate
+user.fullname: 'Nume si prenume'
+user.language: Limba
+user.password: Parola
+user.theme: Tema
+user.timezone: 'Fus orar'

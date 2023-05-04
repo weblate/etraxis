@@ -1,0 +1,6 @@
+field.conflict.name: 'Nome campo già utilizzato.'
+group.conflict.name: 'Nome gruppo già utilizzato.'
+project.conflict.name: 'Nome progetto già utilizzato.'
+state.conflict.name: 'Uno stato con lo stesso nome è già utilizzato.'
+template.conflict.name: 'Un modello con lo stesso nome è già utilizzato.'
+template.conflict.prefix: 'Un modello con lo stesso prefisso è già utilizzato.'

@@ -1,0 +1,6 @@
+field.conflict.name: 'Ya existe un Campo con ese nombre.'
+group.conflict.name: 'Ya existe un Grupo con ese nombre.'
+project.conflict.name: 'Ya existe un Proyecto con ese nombre.'
+state.conflict.name: 'Ya existe un Estado con ese nombre.'
+template.conflict.name: 'Ya existe una Plantilla con ese nombre.'
+template.conflict.prefix: 'Ya existe una Plantilla con ese prefijo.'

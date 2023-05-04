@@ -168,7 +168,7 @@ final class UpdateProjectCommandHandlerTest extends TransactionalTestCase
     public function testNameConflict(): void
     {
         $this->expectException(ConflictHttpException::class);
-        $this->expectExceptionMessage('Project with specified name already exists.');
+        $this->expectExceptionMessage('Project with entered name already exists.');
 
         $this->loginUser('admin@example.com');
 

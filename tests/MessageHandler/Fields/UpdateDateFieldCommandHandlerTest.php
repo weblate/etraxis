@@ -134,7 +134,7 @@ final class UpdateDateFieldCommandHandlerTest extends TransactionalTestCase
         try {
             $this->commandBus->handle($command);
         } catch (ValidationFailedException $exception) {
-            self::assertSame('Maximum value should not be less then minimum one.', $exception->getViolations()->get(0)->getMessage());
+            self::assertSame('Maximum value should be greater then minimum one.', $exception->getViolations()->get(0)->getMessage());
 
             throw $exception;
         }

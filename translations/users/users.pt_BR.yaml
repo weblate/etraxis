@@ -1,0 +1,13 @@
+confirm.user.delete: 'Tem certeza que quer apagar esta conta?'
+role.admin: Administrador
+role.user: Usuário
+user.appearance: Aparência
+user.description: Descrição
+user.disabled: Desabilitado
+user.email: E-mail
+user.enabled: Habilitado
+user.fullname: 'Nome completo'
+user.language: Língua
+user.password: Senha
+user.theme: Tema
+user.timezone: 'Fuso horário'

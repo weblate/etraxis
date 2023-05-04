@@ -1,0 +1,10 @@
+confirm.project.delete: 'Bu projeyi silmek istediğinizden emin misiniz?'
+project: Proje
+project.active: Aktif
+project.description: Tanım
+project.name: 'Proje adı'
+project.new: 'Yeni proje'
+project.start_date: 'Başlama zamanı'
+project.status: Durum
+project.suspended: Askıda
+projects: Projeler

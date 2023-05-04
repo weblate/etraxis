@@ -1,0 +1,3 @@
+field.error.default_value_range: 'Valoarea implicita trebuie sa fie in intervalul %minimum% la %maximum%.'
+field.error.min_max_values: 'Valoarea maxima trebuie sa fie mai mare decat cea minima.'
+field.error.value_range: 'Valoarea "%name%" trebuie sa fie in intervalul %minimum% pana la %maximum%.'

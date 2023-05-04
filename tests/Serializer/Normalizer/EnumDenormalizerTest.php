@@ -13,7 +13,7 @@
 
 namespace App\Serializer\Normalizer;
 
-use App\Entity\Enums\LocaleEnum;
+use App\Entity\Enums\AccountProviderEnum;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
@@ -32,8 +32,8 @@ final class EnumDenormalizerTest extends TestCase
     {
         $denormalizer = new EnumDenormalizer();
 
-        self::assertSame(LocaleEnum::English, $denormalizer->denormalize('en', LocaleEnum::class));
-        self::assertSame(LocaleEnum::Russian, $denormalizer->denormalize('ru', LocaleEnum::class));
+        self::assertSame(AccountProviderEnum::eTraxis, $denormalizer->denormalize('etraxis', AccountProviderEnum::class));
+        self::assertSame(AccountProviderEnum::LDAP, $denormalizer->denormalize('ldap', AccountProviderEnum::class));
     }
 
     /**
@@ -46,7 +46,7 @@ final class EnumDenormalizerTest extends TestCase
 
         $denormalizer = new EnumDenormalizer();
 
-        $denormalizer->denormalize(LocaleEnum::English, EnumDenormalizer::class);
+        $denormalizer->denormalize(AccountProviderEnum::eTraxis, EnumDenormalizer::class);
     }
 
     /**
@@ -55,11 +55,11 @@ final class EnumDenormalizerTest extends TestCase
     public function testDenormalizeNotString(): void
     {
         $this->expectException(BadRequestHttpException::class);
-        $this->expectExceptionMessage('The value should be one of the following - [en, ru].');
+        $this->expectExceptionMessage('The value should be one of the following - [etraxis, ldap].');
 
         $denormalizer = new EnumDenormalizer();
 
-        $denormalizer->denormalize(123, LocaleEnum::class);
+        $denormalizer->denormalize(123, AccountProviderEnum::class);
     }
 
     /**
@@ -68,11 +68,11 @@ final class EnumDenormalizerTest extends TestCase
     public function testDenormalizeInvalidValue(): void
     {
         $this->expectException(BadRequestHttpException::class);
-        $this->expectExceptionMessage('The value should be one of the following - [en, ru].');
+        $this->expectExceptionMessage('The value should be one of the following - [etraxis, ldap].');
 
         $denormalizer = new EnumDenormalizer();
 
-        $denormalizer->denormalize('xx', LocaleEnum::class);
+        $denormalizer->denormalize('acme', AccountProviderEnum::class);
     }
 
     /**
@@ -82,7 +82,7 @@ final class EnumDenormalizerTest extends TestCase
     {
         $denormalizer = new EnumDenormalizer();
 
-        self::assertTrue($denormalizer->supportsDenormalization('en', LocaleEnum::class));
-        self::assertFalse($denormalizer->supportsDenormalization('en', 'string'));
+        self::assertTrue($denormalizer->supportsDenormalization('etraxis', AccountProviderEnum::class));
+        self::assertFalse($denormalizer->supportsDenormalization('etraxis', 'string'));
     }
 }

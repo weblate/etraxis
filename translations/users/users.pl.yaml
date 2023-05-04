@@ -1,0 +1,13 @@
+confirm.user.delete: 'Czy jesteś pewien, że chesz usunąć wybrane konto?'
+role.admin: Administrator
+role.user: Użytkownik
+user.appearance: Wygląd
+user.description: Opis
+user.disabled: Wyłączony
+user.email: E-mail
+user.enabled: Włączony
+user.fullname: 'Pełna nazwa'
+user.language: Języki
+user.password: Hasło
+user.theme: Motyw
+user.timezone: 'Strefa czasowa'

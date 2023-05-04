@@ -1,0 +1,10 @@
+confirm.project.delete: プロジェクトを削除してよろしいですか？
+project: プロジェクト
+project.active: アクティブ
+project.description: 詳細
+project.name: プロジェクト名
+project.new: 新規プロジェクト
+project.start_date: 開始日
+project.status: 状態
+project.suspended: 保留中
+projects: プロジェクト

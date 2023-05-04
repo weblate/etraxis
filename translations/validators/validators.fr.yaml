@@ -1,0 +1,6 @@
+field.conflict.name: 'Il existe déjà un champ portant ce nom.'
+group.conflict.name: 'Il existe déjà un groupe portant ce nom.'
+project.conflict.name: 'Il existe déjà un projet portant ce nom.'
+state.conflict.name: 'Il existe déjà un état portant ce nom.'
+template.conflict.name: 'Il existe déjà un modèle portant ce nom.'
+template.conflict.prefix: 'Il existe déjà un modèle portant ce un préfixe.'

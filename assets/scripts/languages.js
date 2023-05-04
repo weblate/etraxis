@@ -13,8 +13,23 @@
  * List of supported languages.
  */
 const languages = {
+    bg: 'Български', // Bulgarian
+    cs: 'Čeština', // Czech
+    de: 'Deutsch', // German
     en: 'English', // English
-    ru: 'Русский' // Russian
+    es: 'Español', // Spanish
+    fr: 'Français', // French
+    hu: 'Magyar', // Hungarian
+    it: 'Italiano', // Italian
+    ja: '日本語', // Japanese
+    lv: 'Latviešu', // Latvian
+    nl: 'Nederlands', // Dutch
+    pl: 'Polski', // Polish
+    pt_BR: 'Português do Brasil', // Portuguese (Brazil)
+    ro: 'Română', // Romanian
+    ru: 'Русский', // Russian
+    sv: 'Svenska', // Swedish
+    tr: 'Türkçe' // Turkish
 };
 
 /**

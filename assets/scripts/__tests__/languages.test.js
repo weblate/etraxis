@@ -15,7 +15,22 @@ import languages from '@utilities/languages';
 
 test('Languages are sorted', () => {
     expect(languages()).toStrictEqual({
+        bg: 'Български',
+        cs: 'Čeština',
+        de: 'Deutsch',
         en: 'English',
-        ru: 'Русский'
+        es: 'Español',
+        fr: 'Français',
+        hu: 'Magyar',
+        it: 'Italiano',
+        ja: '日本語',
+        lv: 'Latviešu',
+        nl: 'Nederlands',
+        pl: 'Polski',
+        pt_BR: 'Português do Brasil',
+        ro: 'Română',
+        ru: 'Русский',
+        sv: 'Svenska',
+        tr: 'Türkçe'
     });
 });

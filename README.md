@@ -6,6 +6,7 @@
 [![Build Status](https://travis-ci.com/etraxis/etraxis.svg?branch=master)](https://travis-ci.com/github/etraxis/etraxis)
 [![Code Coverage](https://scrutinizer-ci.com/g/etraxis/etraxis/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/etraxis/etraxis/?branch=master)
 [![Code Quality](https://scrutinizer-ci.com/g/etraxis/etraxis/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/etraxis/etraxis/?branch=master)
+[![Translation status](https://hosted.weblate.org/widgets/etraxis/-/svg-badge.svg)](https://hosted.weblate.org/engage/etraxis/)
 
 ## What is eTraxis
 

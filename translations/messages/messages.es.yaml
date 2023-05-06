@@ -2,3 +2,4 @@ settings: Ajustes
 text.changes_saved: 'Cambios guardados correctamente.'
 text.error: Error
 text.please_wait: 'Por favor espere...'
+text.required: Obligatorio

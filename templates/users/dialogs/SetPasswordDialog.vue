@@ -13,7 +13,7 @@
                                 :class="{ 'is-danger': errors['password'] }"
                                 type="password"
                                 :id="`${uid}-password`"
-                                placeholder="required"
+                                :placeholder="i18n['text.required']"
                                 v-model="password"
                             />
                         </div>
@@ -33,7 +33,7 @@
                                 :class="{ 'is-danger': errors['confirmation'] }"
                                 type="password"
                                 :id="`${uid}-confirmation`"
-                                placeholder="required"
+                                :placeholder="i18n['text.required']"
                                 v-model="confirmation"
                             />
                         </div>

@@ -13,7 +13,7 @@
                                 :class="{ 'is-danger': errors['name'] }"
                                 type="text"
                                 :id="`${uid}-name`"
-                                placeholder="required"
+                                :placeholder="i18n['text.required']"
                                 v-model="values.name"
                             />
                         </div>

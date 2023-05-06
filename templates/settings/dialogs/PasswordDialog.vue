@@ -13,7 +13,7 @@
                                 :class="{ 'is-danger': errors['current'] }"
                                 type="password"
                                 :id="`${uid}-current`"
-                                placeholder="required"
+                                :placeholder="i18n['text.required']"
                                 v-model="values.current"
                             />
                         </div>
@@ -33,7 +33,7 @@
                                 :class="{ 'is-danger': errors['password'] }"
                                 type="password"
                                 :id="`${uid}-new`"
-                                placeholder="required"
+                                :placeholder="i18n['text.required']"
                                 v-model="values.new"
                             />
                         </div>
@@ -53,7 +53,7 @@
                                 :class="{ 'is-danger': errors['confirmation'] }"
                                 type="password"
                                 :id="`${uid}-confirmation`"
-                                placeholder="required"
+                                :placeholder="i18n['text.required']"
                                 v-model="values.confirmation"
                             />
                         </div>

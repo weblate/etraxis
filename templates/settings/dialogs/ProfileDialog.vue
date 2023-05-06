@@ -14,7 +14,7 @@
                                 :class="{ 'is-danger': errors['fullname'] }"
                                 type="text"
                                 :id="`${uid}-fullname`"
-                                placeholder="required"
+                                :placeholder="i18n['text.required']"
                                 v-model="values.fullname"
                             />
                         </div>
@@ -34,7 +34,7 @@
                                 :class="{ 'is-danger': errors['email'] }"
                                 type="email"
                                 :id="`${uid}-email`"
-                                placeholder="required"
+                                :placeholder="i18n['text.required']"
                                 v-model="values.email"
                             />
                         </div>

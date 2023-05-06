@@ -3,3 +3,4 @@ settings: Настройки
 text.changes_saved: 'Ваши изменения успешно сохранены.'
 text.error: Ошибка
 text.please_wait: 'Пожалуйста, подождите...'
+text.required: обязательно

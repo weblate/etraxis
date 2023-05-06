@@ -14,7 +14,7 @@
                                 type="text"
                                 :id="`${uid}-fullname`"
                                 :readonly="isExternal"
-                                placeholder="required"
+                                :placeholder="i18n['text.required']"
                                 v-model="values.fullname"
                             />
                         </div>
@@ -35,7 +35,7 @@
                                 type="email"
                                 :id="`${uid}-email`"
                                 :readonly="isExternal"
-                                placeholder="required"
+                                :placeholder="i18n['text.required']"
                                 v-model="values.email"
                             />
                         </div>

@@ -1,12 +1,14 @@
-button.back: Atras
+button.add: Añadir
+button.back: Atrás
 button.cancel: Cancelar
 button.close: Cerrar
 button.create: Crear
 button.delete: Eliminar
 button.disable: Deshabilitar
+button.edit: Modificar
 button.enable: Habilitar
 button.no: 'No'
 button.ok: OK
 button.resume: Reanudar
 button.save: Guardar
-button.yes: Si
+button.yes: Sí

@@ -1,9 +1,11 @@
-button.back: Powrót
+button.add: Dodaj
+button.back: Wstecz
 button.cancel: Anuluj
 button.close: Zamknij
-button.create: Utwórz
+button.create: Stwórz
 button.delete: Usuń
 button.disable: Wyłącz
+button.edit: Edytuj
 button.enable: Włącz
 button.no: Nie
 button.ok: OK

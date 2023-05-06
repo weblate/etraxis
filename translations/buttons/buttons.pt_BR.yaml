@@ -1,9 +1,11 @@
+button.add: Adicionar
 button.back: Voltar
 button.cancel: Cancelar
 button.close: Fechar
 button.create: Criar
-button.delete: Remover
+button.delete: Excluir
 button.disable: Desabilitado
+button.edit: Editar
 button.enable: Habilitado
 button.no: Não
 button.ok: OK

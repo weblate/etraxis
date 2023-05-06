@@ -1,9 +1,11 @@
+button.add: Pievienot
 button.back: Atpakaļ
 button.cancel: Atcelt
 button.close: Aizvērt
 button.create: Izveidot
 button.delete: Dzēst
 button.disable: Izslēgt
+button.edit: Labot
 button.enable: Ieslēgt
 button.no: Nē
 button.ok: Labi

@@ -1,3 +1,4 @@
+button.add: 追加
 button.back: 戻る
 button.cancel: キャンセル
 button.close: クローズ
@@ -5,6 +6,7 @@ button.create: 作成
 button.delete: 削除
 button.disable: 無効
 button.enable: 有効
+button.edit: 編集
 button.no: いいえ
 button.ok: OK
 button.resume: 対応再開

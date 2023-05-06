@@ -1,8 +1,11 @@
+button.add: Toevoegen
 button.back: Terug
 button.cancel: Annuleren
+button.close: Sluiten
 button.create: Aanmaken
 button.delete: Verwijderen
 button.disable: Uitschakelen
+button.edit: Bewerken
 button.enable: Inschakelen
 button.no: Neen
 button.ok: OK

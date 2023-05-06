@@ -1,9 +1,11 @@
+button.add: 'Lägg till'
 button.back: Tillbaka
 button.cancel: Avbryt
 button.close: Stäng
 button.create: Skapa
 button.delete: 'Ta bort'
 button.disable: Inaktivera
+button.edit: Ändra
 button.enable: Aktivera
 button.no: Nej
 button.ok: OK

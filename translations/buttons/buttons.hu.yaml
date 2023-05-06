@@ -1,9 +1,11 @@
+button.add: Hozzáad
 button.back: Vissza
-button.cancel: Mégsem
+button.cancel: Mégse
 button.close: Bezárás
-button.create: Létrehozás
-button.delete: Törlés
+button.create: Létrehoz
+button.delete: Töröl
 button.disable: Letiltás
+button.edit: Szerkeszt
 button.enable: Engedélyezés
 button.no: Nem
 button.ok: OK

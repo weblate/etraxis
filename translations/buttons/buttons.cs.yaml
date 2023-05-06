@@ -1,9 +1,11 @@
+button.add: Přidat
 button.back: Zpět
 button.cancel: Zrušit
 button.close: Zavřít
 button.create: Vytvořit
 button.delete: Smazat
 button.disable: Zakázat
+button.edit: Upravit
 button.enable: Povolit
 button.no: Ne
 button.ok: OK

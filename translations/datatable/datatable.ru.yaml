@@ -3,7 +3,7 @@ page.last: 'Последняя страница'
 page.next: 'Следующая страница'
 page.previous: 'Предыдущая страница'
 table.clear_filters: 'Очистить поиск и фильтры'
-table.empty: 'Нет данных.'
+table.empty: 'Нет данных для отображения'
 table.pages: '%number% страниц(ы)'
 table.search: Поиск
 table.size: '%size% строк'

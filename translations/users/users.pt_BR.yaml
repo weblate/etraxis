@@ -1,13 +1,20 @@
 confirm.user.delete: 'Tem certeza que quer apagar esta conta?'
 role.admin: Administrador
 role.user: Usuário
+user.account: Conta
 user.appearance: Aparência
+user.authentication: Autenticação
 user.description: Descrição
 user.disabled: Desabilitado
 user.email: E-mail
 user.enabled: Habilitado
 user.fullname: 'Nome completo'
 user.language: Língua
+user.new: 'Novo usuário'
 user.password: Senha
+user.permissions: Permissões
+user.profile: Perfil
+user.status: Situação
 user.theme: Tema
 user.timezone: 'Fuso horário'
+users: Usuários

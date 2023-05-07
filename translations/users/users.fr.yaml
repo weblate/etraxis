@@ -1,13 +1,19 @@
 confirm.user.delete: 'Etes-vous sur de vouloir effacer ce compte?'
 role.admin: Administrateur
 role.user: Utilisateur
+user.account: Compte
 user.appearance: Apparence
+user.authentication: Authentification
 user.description: Description
 user.disabled: Désactivés
 user.email: Email
 user.enabled: Activés
 user.fullname: 'Nom complet'
 user.language: Langue
+user.new: 'Nouvel utilisateur'
 user.password: 'Mot de passe'
+user.profile: Profil
+user.status: Statut
 user.theme: Thème
 user.timezone: 'Fuseau horaire'
+users: Utilisateurs

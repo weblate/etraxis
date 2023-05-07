@@ -1,0 +1,12 @@
+role.user: Bruger
+user.account: Kode
+user.authentication: Sikkerhed
+user.description: Beskrivelse
+user.disabled: Deaktiveret
+user.language: Sprog
+user.new: 'Ny bruger'
+user.password: Kodeord
+user.permissions: Rettigheder
+user.profile: Profil
+user.theme: Tema
+users: Brugere

@@ -1,0 +1,15 @@
+role.admin: 管理员
+role.user: 用户
+user.account: 帐号
+user.authentication: 认证
+user.description: 描述
+user.disabled: 禁用
+user.email: 邮件地址
+user.language: 语言
+user.new: 新建用户
+user.password: 密码
+user.permissions: 权限
+user.profile: 简介
+user.status: 状态
+user.theme: 主题
+users: 用户

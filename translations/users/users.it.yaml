@@ -1,13 +1,20 @@
 confirm.user.delete: 'Eliminare questo account?'
 role.admin: Amministratore
 role.user: Utente
+user.account: Utente
 user.appearance: Aspetto
+user.authentication: Autenticazione
 user.description: Descrizione
 user.disabled: Disabilitato
 user.email: Email
 user.enabled: Abilitato
 user.fullname: 'Nome completo'
 user.language: Lingua
+user.new: 'Nuovo utente'
 user.password: Password
+user.permissions: Permessi
+user.profile: Profilo
+user.status: Stato
 user.theme: Tema
 user.timezone: 'Fuso Orario'
+users: Utenti

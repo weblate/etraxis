@@ -1,13 +1,20 @@
 confirm.user.delete: 'Jste si jisti, že chcete smazat tento účet?'
 role.admin: Administrátor
 role.user: Uživatel
+user.account: Účet
 user.appearance: Vzhled
+user.authentication: Autentifikace
 user.description: Popis
 user.disabled: Zakázáno
 user.email: E-mail
 user.enabled: Povoleno
 user.fullname: 'Celé jméno'
 user.language: Jazyk
+user.new: 'Nový uživatel'
 user.password: Heslo
+user.permissions: Práva
+user.profile: Profil
+user.status: Stav
 user.theme: Vzhled
 user.timezone: 'Časová zóna'
+users: Uživatelé

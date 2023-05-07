@@ -1,0 +1,15 @@
+role.admin: Administratorius
+role.user: Vartotojas
+user.account: Paskyra
+user.authentication: 'Autentiškumo nustatymas'
+user.description: Aprašas
+user.disabled: Išjungta(-as)
+user.email: 'El. paštas'
+user.language: Kalba
+user.new: 'Naujas vartotojas'
+user.password: Slaptažodis
+user.permissions: Leidimai
+user.profile: Profilis
+user.status: Būsena
+user.theme: Tema
+users: Vartotojai

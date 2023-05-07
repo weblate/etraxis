@@ -1,0 +1,13 @@
+role.admin: Διαχειριστής
+role.user: Χρήστης
+user.account: Λογαριασμός
+user.authentication: Πιστοποίηση
+user.description: Περιγραφή
+user.disabled: Απενεργοποιημένη
+user.language: Γλώσσα
+user.new: 'Νέος Χρήστης'
+user.password: 'Κωδικός πρόσβασης'
+user.permissions: Άδειες
+user.status: Κατάσταση
+user.theme: Θέμα
+users: Χρήστες

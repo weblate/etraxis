@@ -1,0 +1,14 @@
+role.admin: Ylläpitäjä
+role.user: Käyttäjä
+user.account: Tili
+user.authentication: Varmennus
+user.description: Kuvaus
+user.disabled: 'poistettu käytöstä'
+user.email: Sähköposti
+user.language: Kieli
+user.new: 'Uusi käyttäjä'
+user.password: Salasana
+user.permissions: Oikeudet
+user.status: Tila
+user.theme: Teema
+users: Käyttäjät

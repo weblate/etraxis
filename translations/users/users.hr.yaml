@@ -1,0 +1,12 @@
+role.user: Korisnik
+user.account: Racun
+user.authentication: Autentikacija
+user.description: Opis
+user.disabled: Isključen
+user.email: E-pošta
+user.language: 'Primarni jezik'
+user.new: 'Novi korisnik'
+user.password: Zaporka
+user.permissions: Dozvole
+user.theme: Tema
+users: Korisnici

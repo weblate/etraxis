@@ -1,0 +1,14 @@
+role.admin: ผู้บริหารจัดการ
+role.user: ผู้ใช้
+user.account: บัญชี
+user.authentication: การยืนยันตัวตน
+user.description: รายละเอียด
+user.disabled: ไม่ใช้งาน
+user.email: อีเมล์
+user.language: ภาษา
+user.new: ผู้ใช้ใหม่
+user.password: รหัสผ่าน
+user.permissions: สิทธิ
+user.status: สถานะ
+user.theme: ชุดรูปแบบ
+users: ผู้ใช้

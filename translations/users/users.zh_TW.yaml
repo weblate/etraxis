@@ -1,0 +1,15 @@
+role.admin: 管理者
+role.user: 用戶
+user.account: 帳戶
+user.authentication: 驗證
+user.description: 概述
+user.disabled: 關閉
+user.email: 電子郵件
+user.language: 語言
+user.new: 建立新用戶
+user.password: 密碼
+user.permissions: 權限
+user.profile: 配置概況
+user.status: 狀態
+user.theme: 畫面主題
+users: 用戶清單

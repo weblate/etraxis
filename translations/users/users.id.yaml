@@ -1,0 +1,11 @@
+role.user: Pengguna
+user.account: Akun
+user.authentication: Otentikasi
+user.description: Deskripsi
+user.disabled: 'Tidak diaktifkan'
+user.language: Bahasa
+user.new: 'Pengguna baru'
+user.password: 'Kata sandi'
+user.permissions: Perijinan
+user.theme: Tema
+users: Pengguna

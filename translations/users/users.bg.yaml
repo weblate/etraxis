@@ -1,13 +1,20 @@
 confirm.user.delete: 'Сигурен ли сте че искате да изтриете този акаунт?'
 role.admin: Администратор
 role.user: Потребител
+user.account: Профил
 user.appearance: Вид
+user.authentication: Удостоверяване
 user.description: Описание
 user.disabled: Изключи
-user.email: Имеил
+user.email: Имейл
 user.enabled: Разреши
 user.fullname: 'Пълно име'
 user.language: Език
+user.new: 'Нов потребител'
 user.password: Парола
+user.permissions: Права
+user.profile: Профил
+user.status: Състояние
 user.theme: Тема
 user.timezone: 'Времева зона'
+users: Потребители

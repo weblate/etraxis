@@ -1,0 +1,13 @@
+role.user: Bruker
+user.account: Konto
+user.authentication: Autentisering
+user.description: Beskrivelse
+user.disabled: Avslått
+user.email: E-post
+user.language: Språk
+user.new: 'Ny bruker'
+user.password: Passord
+user.permissions: Rettigheter
+user.profile: Profil
+user.theme: Tema
+users: Brukere

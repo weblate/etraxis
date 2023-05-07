@@ -1,0 +1,15 @@
+role.admin: Admin
+role.user: Kasutaja
+user.account: Konto
+user.authentication: Autentimine
+user.description: Kirjeldus
+user.disabled: 'Pole võimalik'
+user.email: E-post
+user.language: Keel
+user.new: 'Uus kasutaja'
+user.password: Parool
+user.permissions: Õigused
+user.profile: Profiil
+user.status: Olek
+user.theme: 'Visuaalne teema'
+users: Kasutajad

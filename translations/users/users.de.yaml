@@ -1,13 +1,19 @@
 confirm.user.delete: 'Möchten Sie dieses Konto wirklich löschen?'
 role.admin: Administrator
 role.user: Benutzer
+user.account: Konto
 user.appearance: Erscheinungsbild
+user.authentication: Authentifizierung
 user.description: Beschreibung
 user.disabled: Deaktiviert
 user.email: Email-Adresse
 user.enabled: Aktiviert
 user.fullname: 'Vollständiger Name'
 user.language: Sprache
+user.new: 'Neuer Benutzer'
 user.password: Passwort
+user.permissions: Berechtigungen
+user.profile: Profil
 user.theme: Aussehen
 user.timezone: Zeitzone
+users: Benutzer

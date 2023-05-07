@@ -1,0 +1,11 @@
+role.user: Korisnik
+user.account: 'Korisnički račun'
+user.authentication: Authentifikacija
+user.description: Opis
+user.disabled: Onemogućen
+user.language: Jezik
+user.new: 'Novi korisnik'
+user.password: Lozinka
+user.permissions: Dozvole
+user.theme: Tema
+users: Korisnici

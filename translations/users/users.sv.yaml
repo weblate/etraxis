@@ -1,13 +1,19 @@
 confirm.user.delete: 'Är du säker på att du vill ta bort detta kontot?'
 role.admin: Administratör
 role.user: Användare
+user.account: Konto
 user.appearance: Utseende
+user.authentication: Autentisering
 user.description: Beskrivning
 user.disabled: Inaktiverad
-user.email: Email
+user.email: Mail
 user.enabled: Aktiverad
 user.fullname: 'Fullständigt namn'
 user.language: Språk
+user.new: 'Ny användare'
 user.password: Lösenord
+user.permissions: Behörigheter
+user.profile: Profil
 user.theme: Tema
 user.timezone: Tidszon
+users: Användare

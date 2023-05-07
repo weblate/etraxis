@@ -1,0 +1,14 @@
+role.admin: İnzibatçı
+role.user: İstifasdəçi
+user.account: 'İstifadəçi hesabı'
+user.authentication: Autentifikasiya
+user.description: Təsvir
+user.disabled: Söndürülüb
+user.email: E-poçt
+user.language: Dil
+user.new: 'Yeni istifadəçi'
+user.password: Parol
+user.permissions: 'Giriş hüquqları'
+user.profile: Profil
+user.theme: Mövzu
+users: İstifadəçilər

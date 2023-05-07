@@ -1,0 +1,15 @@
+role.admin: Администратор
+role.user: Корисник
+user.account: 'Кориснички налог'
+user.authentication: 'Потврда идентитета'
+user.description: Опис
+user.disabled: Онемогућено
+user.email: Е-адреса
+user.language: Језик
+user.new: 'Нови корисник'
+user.password: Лозинка
+user.permissions: Дозволе
+user.profile: Профил
+user.status: Статус
+user.theme: Тема
+users: Корисници

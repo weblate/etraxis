@@ -1,0 +1,15 @@
+role.admin: Administrador
+role.user: Utilizador
+user.account: Conta
+user.authentication: Autenticação
+user.description: Descrição
+user.disabled: Desativado
+user.email: E-mail
+user.language: Língua
+user.new: 'Novo utilizador'
+user.password: Palavra-chave
+user.permissions: Permissões
+user.profile: Perfil
+user.status: Estado
+user.theme: Tema
+users: Utilizadores

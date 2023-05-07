@@ -1,0 +1,14 @@
+role.admin: Администратор
+role.user: Хэрэглэгч
+user.account: Данс
+user.authentication: Нэвтрэх
+user.description: Тайлбар
+user.disabled: 'Идэвхгүй болсон'
+user.email: Имэйл
+user.language: Хэл
+user.new: 'Шинэ хэрэглэгч'
+user.password: 'Нууц үг'
+user.permissions: Зөвшөөрлүүд
+user.status: Төлөв
+user.theme: 'Системийн Дизайн'
+users: Хэрэглэгчид

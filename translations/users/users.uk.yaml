@@ -1,0 +1,15 @@
+role.admin: Адміністратор
+role.user: Користувач
+user.account: 'Обліковий запис'
+user.authentication: Аутентифікація
+user.description: Опис
+user.disabled: Відключений
+user.email: 'Ел. пошта'
+user.language: Мова
+user.new: 'Новий користувач'
+user.password: Пароль
+user.permissions: 'Права доступу'
+user.profile: Профіль
+user.status: Статус
+user.theme: Тема
+users: Користувачі

@@ -1,13 +1,20 @@
 confirm.user.delete: 'Bu hesabı silmek istediğinizden emin misiniz?'
 role.admin: Yönetici
 role.user: Kullanıcı
+user.account: Hesap
 user.appearance: Görünüm
+user.authentication: 'Kimlik Denetimi'
 user.description: Tanım
 user.disabled: Etkisizleştirildi
 user.email: E-posta
 user.enabled: Etkinleştirildi
 user.fullname: 'Tam adı'
 user.language: Dil
+user.new: 'Yeni Kullanıcı'
 user.password: Parola
+user.permissions: İzinler
+user.profile: Profil
+user.status: Durum
 user.theme: Tema
 user.timezone: 'Saat dilimi'
+users: Kullanıcılar

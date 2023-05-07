@@ -1,0 +1,14 @@
+role.admin: Administrátor
+role.user: Požívateľ
+user.account: Účet
+user.authentication: Autentifikácia
+user.description: Popis
+user.disabled: Zakázané
+user.language: Jazyk
+user.new: 'Nový používateľ'
+user.password: Heslo
+user.permissions: Oprávnenia
+user.profile: Profil
+user.status: Stav
+user.theme: Téma
+users: Používatelia

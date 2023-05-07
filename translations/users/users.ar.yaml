@@ -1,0 +1,15 @@
+role.admin: المدير
+role.user: المستخدم
+user.account: الحساب
+user.authentication: المصادقة
+user.description: الوصف
+user.disabled: تعطيل
+user.email: 'البريد الالكتروني'
+user.language: لغة
+user.new: 'مستخدم جديد'
+user.password: 'كلمة المرور'
+user.permissions: صلاحيات
+user.profile: 'الملف الشخصي'
+user.status: الحالة
+user.theme: الموضوع
+users: المستخدمين

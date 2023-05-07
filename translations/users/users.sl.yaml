@@ -1,0 +1,13 @@
+role.user: Uporabnik
+user.account: Račun
+user.authentication: Overovitev
+user.description: Opis
+user.disabled: Onemogoči
+user.email: E-naslov
+user.language: Jezik
+user.new: 'Nov uporabnik'
+user.password: Geslo
+user.permissions: Dovoljenja
+user.profile: Profil
+user.theme: Tema
+users: Uporabniki

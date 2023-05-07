@@ -1,13 +1,20 @@
 confirm.user.delete: 'Biztos törölni szeretné a felhasználót?'
 role.admin: Adminisztrátor
 role.user: Felhasználó
+user.account: 'Felhasználói fiók'
 user.appearance: Megjelenés
+user.authentication: Azonosítás
 user.description: Leírás
 user.disabled: Letiltott
 user.email: E-mail
 user.enabled: Engedélyezett
 user.fullname: 'Teljes név'
 user.language: Nyelv
+user.new: 'Új felhasználó'
 user.password: Jelszó
+user.permissions: Jogosultságok
+user.profile: Profil
+user.status: Státusz
 user.theme: Téma
 user.timezone: Időzóna
+users: Felhasználók

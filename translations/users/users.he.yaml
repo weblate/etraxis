@@ -1,0 +1,15 @@
+role.admin: ניהול
+role.user: משתמש
+user.account: חשבון
+user.authentication: הזדהות
+user.description: תיאור
+user.disabled: מבוטל
+user.email: דוא"ל
+user.language: שפה
+user.new: 'משתמש חדש'
+user.password: סיסמה
+user.permissions: הרשאות
+user.profile: פרופיל
+user.status: מצב
+user.theme: 'ערכת נושא'
+users: משתמשים

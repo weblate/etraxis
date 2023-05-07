@@ -20,6 +20,14 @@ export default {
         modelValue: {
             type: String,
             required: false
+        },
+
+        /**
+         * @property {boolean} simplified Whether to show simplified UI
+         */
+        simplified: {
+            type: Boolean,
+            default: false
         }
     },
 

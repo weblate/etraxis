@@ -1,5 +1,5 @@
 <template>
-    <div class="tabs">
+    <div class="tabs" :class="{ simplified }">
         <ul>
             <li v-for="tab in tabs" :key="tab.props.id" :id="tab.props.id" :class="{ 'is-active': tab.props.id === modelValue }">
                 <a @click="$emit('update:modelValue', tab.props.id)">

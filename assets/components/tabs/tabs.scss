@@ -95,6 +95,24 @@ $tabs-boxed-link-active-background-color: $scheme-main-bis;
             }
         }
     }
+
+    &.simplified {
+        background-image: initial;
+        border: none;
+
+        html.dark & {
+            background-image: initial;
+        }
+
+        > ul {
+            border: none;
+
+            li {
+                border-bottom: 1px solid $tabs-border-bottom-color;
+                margin: 0;
+            }
+        }
+    }
 }
 
 .tab {
@@ -104,4 +122,10 @@ $tabs-boxed-link-active-background-color: $scheme-main-bis;
     border-left: 1px solid $tabs-border-bottom-color;
     border-right: 1px solid $tabs-border-bottom-color;
     padding: 1rem;
+}
+
+.tabs.simplified ~ .tab {
+    border-top: 1px solid $tabs-border-bottom-color;
+    border-top-right-radius: $tabs-boxed-link-radius;
+    margin-top: -1px;
 }

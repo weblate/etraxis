@@ -1,7 +1,8 @@
 confirm.group.delete: 'Är du säker på att du vill ta bort denna gruppen?'
+group: Grupp
 group.description: Beskrivning
 group.global: Globala
 group.membership: Medlemskap
 group.name: 'Grupp namn'
-group.new: 'Ny Grupp'
+group.new: 'Ny grupp'
 groups: Grupper

@@ -1,4 +1,5 @@
 confirm.group.delete: 'Biztos törölni szeretné a csoportot?'
+group: Csoport
 group.description: Leírás
 group.global: Globális
 group.membership: Tagság

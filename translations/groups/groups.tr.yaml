@@ -1,4 +1,5 @@
 confirm.group.delete: 'Bu grubu silek istediğinizden emin misiniz?'
+group: Grup
 group.description: Tanım
 group.global: Global
 group.membership: Üyelik

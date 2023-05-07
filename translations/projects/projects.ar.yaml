@@ -1,0 +1,6 @@
+project: مشروع
+project.description: الوصف
+project.new: 'مشروع جديد'
+project.start_date: 'تاريخ البداية'
+project.status: الحالة
+projects: مشاريع

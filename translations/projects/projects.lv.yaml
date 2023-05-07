@@ -4,7 +4,7 @@ project.active: Aktīvs
 project.description: Apraksts
 project.name: 'Projekta nosaukums'
 project.new: 'Jauns projekts'
-project.start_date: 'Sākuma laiks'
+project.start_date: 'Sākuma datums'
 project.status: Statuss
 project.suspended: Atlikts
 projects: Projekti

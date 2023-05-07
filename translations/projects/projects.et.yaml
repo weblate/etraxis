@@ -1,0 +1,7 @@
+project: Projekt
+project.active: Aktiivne
+project.description: Kirjeldus
+project.new: 'Uus projekt'
+project.start_date: Alguskuupäev
+project.status: Olek
+projects: Projektid

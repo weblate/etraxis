@@ -1,0 +1,7 @@
+project: 프로젝트
+project.active: 사용중
+project.description: 설명
+project.new: '새 프로젝트'
+project.start_date: 시작시간
+project.status: 상태
+projects: 프로젝트

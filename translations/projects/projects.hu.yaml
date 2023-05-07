@@ -3,8 +3,8 @@ project: Projekt
 project.active: Aktív
 project.description: Leírás
 project.name: 'Projekt neve'
-project.new: 'Új csoport'
-project.start_date: 'Kezdés ideje'
+project.new: 'Új projekt'
+project.start_date: 'Kezdés dátuma'
 project.status: Állapot
 project.suspended: Felfüggesztve
 projects: Projektek

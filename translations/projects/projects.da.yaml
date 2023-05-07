@@ -1,0 +1,5 @@
+project: Projekt
+project.description: Beskrivelse
+project.new: 'Nyt projekt'
+project.start_date: 'Start dato'
+projects: Projekter

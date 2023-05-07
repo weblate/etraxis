@@ -1,0 +1,7 @@
+project: Projekt
+project.active: Aktívny
+project.description: Popis
+project.new: 'Nový projekt'
+project.start_date: 'Počiatočný dátum'
+project.status: Stav
+projects: Projekty

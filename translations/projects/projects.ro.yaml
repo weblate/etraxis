@@ -4,7 +4,7 @@ project.active: Activ
 project.description: Descriere
 project.name: 'Numele proiectului'
 project.new: 'Proiect nou'
-project.start_date: 'Data de start'
+project.start_date: 'Data începerii'
 project.status: Stare
 project.suspended: Suspendat
 projects: Proiecte

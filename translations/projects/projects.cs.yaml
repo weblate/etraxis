@@ -4,7 +4,7 @@ project.active: Aktivní
 project.description: Popis
 project.name: 'Název projektu'
 project.new: 'Nový projekt'
-project.start_date: 'Datum a čas zahájení'
-project.status: Status
+project.start_date: Začátek
+project.status: Stav
 project.suspended: Pozastaven
 projects: Projekty

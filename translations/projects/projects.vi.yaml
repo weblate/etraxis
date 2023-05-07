@@ -1,0 +1,7 @@
+project: 'Dự án'
+project.active: 'Kích hoạt'
+project.description: 'Mô tả'
+project.new: 'Dự án mới'
+project.start_date: 'Bắt đầu'
+project.status: 'Trạng thái'
+projects: 'Dự án'

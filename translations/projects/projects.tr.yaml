@@ -4,7 +4,7 @@ project.active: Aktif
 project.description: Tanım
 project.name: 'Proje adı'
 project.new: 'Yeni proje'
-project.start_date: 'Başlama zamanı'
+project.start_date: 'Başlangıç Tarihi'
 project.status: Durum
 project.suspended: Askıda
 projects: Projeler

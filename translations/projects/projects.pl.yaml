@@ -4,7 +4,7 @@ project.active: Aktywny
 project.description: Opis
 project.name: 'Nazwa projektu'
 project.new: 'Nowy projekt'
-project.start_date: 'Data utworzenia'
+project.start_date: 'Data rozpoczęcia'
 project.status: Status
 project.suspended: Zawieszony
 projects: Projekty

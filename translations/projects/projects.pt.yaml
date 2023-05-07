@@ -1,0 +1,7 @@
+project: Projeto
+project.active: Ativo
+project.description: Descrição
+project.new: 'Novo projeto'
+project.start_date: 'Data de início'
+project.status: Estado
+projects: Projetos

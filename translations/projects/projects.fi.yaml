@@ -1,0 +1,6 @@
+project: Projekti
+project.description: Kuvaus
+project.new: 'Uusi projekti'
+project.start_date: Alku
+project.status: Tila
+projects: Projektit

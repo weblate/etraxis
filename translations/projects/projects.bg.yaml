@@ -4,7 +4,7 @@ project.active: Активен
 project.description: Описание
 project.name: 'Име на проекта'
 project.new: 'Нов проект'
-project.start_date: 'Начално време'
-project.status: Статус
+project.start_date: 'Начална дата'
+project.status: Състояние
 project.suspended: Преустановен
 projects: Проекти

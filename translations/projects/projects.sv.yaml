@@ -4,7 +4,7 @@ project.active: Aktiv
 project.description: Beskrivning
 project.name: 'Projekt namn'
 project.new: 'Nytt projekt'
-project.start_date: 'Start tid'
+project.start_date: Startdatum
 project.status: Status
 project.suspended: Inaktiv
 projects: Projekt

@@ -82,6 +82,25 @@ label.disabled {
     }
 }
 
+select {
+    option {
+        padding: 0.5em 1em;
+
+        &.delimiter {
+            background-color: $border;
+            font-size: 0;
+            height: 1px;
+            margin: 0.5rem 0;
+            padding: 0;
+        }
+    }
+}
+
+.is-multiple select:not([multiple]) {
+    height: auto;
+    padding: 0;
+}
+
 .checkbox,
 .radio {
     @extend .is-inline-flex;

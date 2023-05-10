@@ -21,3 +21,8 @@ dialog.blockui {
     min-width: 240px;
     padding: $block-spacing;
 }
+
+dialog.blockui::backdrop,
+dialog.blockui + .backdrop {
+    background: initial;
+}

@@ -37,6 +37,8 @@ export default {
 
     emits: {
         /**
+         * :The dialog is submitted.
+         *
          * @param {string} value Submitted form value
          */
         submit: (value) => typeof value === 'string'

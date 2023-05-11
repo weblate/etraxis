@@ -87,7 +87,7 @@ export const useGroupsStore = defineStore('groups', {
          */
         async loadAllGroups() {
             ui.block();
-            this.allGroups = await loadAll(url('/api/groups'));
+            this.allGroups = await loadAll(url('/api/groups'), null, { global: 'desc', project: 'asc', name: 'asc' });
             ui.unblock();
         }
     }

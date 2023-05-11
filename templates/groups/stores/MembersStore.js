@@ -86,7 +86,7 @@ export const useMembersStore = defineStore('members', {
          */
         async loadAllUsers() {
             ui.block();
-            this.allUsers = await loadAll(url('/api/users'));
+            this.allUsers = await loadAll(url('/api/users'), null, { fullname: 'asc', email: 'asc' });
             ui.unblock();
         }
     }

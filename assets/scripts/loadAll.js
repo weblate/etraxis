@@ -14,13 +14,26 @@ import axios from 'axios';
 /**
  * Loads all existing resources from specified API endpoint.
  *
- * @param {string} url Absolute URL of the endpoint
+ * @param {string} url     Absolute URL of the endpoint
+ * @param {Object} filters Column filters ({ "column id": value })
+ * @param {Object} order   Sorting order ({ "column id": "asc"|"desc" })
  *
  * @return {Array} List of loaded resources
  */
-export default async (url) => {
+export default async (url, filters = null, order = null) => {
+    // Default query parameters.
+    const params = {};
+
+    if (filters) {
+        params.filters = JSON.stringify(filters);
+    }
+
+    if (order) {
+        params.order = JSON.stringify(order);
+    }
+
     // Make initial request.
-    const response = await axios.get(url);
+    const response = await axios.get(url, { params });
 
     // We've got all the resources at once.
     if (response.data.items.length === response.data.total) {
@@ -37,7 +50,7 @@ export default async (url) => {
     const promises = [];
 
     for (let i = 1; i < count; i++) {
-        promises.push(axios.get(url, { params: { offset: i * limit } }));
+        promises.push(axios.get(url, { params: { offset: i * limit, ...params } }));
     }
 
     // Send the remaining requests.

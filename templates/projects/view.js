@@ -18,6 +18,7 @@ import Tab from '@components/tabs/tab.vue';
 import { useProjectStore } from './stores/ProjectStore';
 
 import ProjectTab from './tabs/ProjectTab.vue';
+import GroupsTab from './tabs/GroupsTab.vue';
 
 /**
  * "View project" page.
@@ -41,6 +42,7 @@ const app = createApp({
         const projectId = Number(this.$el.dataset.id);
 
         this.projectStore.loadProject(projectId);
+        this.projectStore.loadAllProjectGroups(projectId);
     }
 });
 
@@ -49,6 +51,7 @@ const pinia = createPinia();
 app.component('tabs', Tabs);
 app.component('tab', Tab);
 app.component('project-tab', ProjectTab);
+app.component('groups-tab', GroupsTab);
 
 app.use(pinia);
 app.mount('#vue-project');

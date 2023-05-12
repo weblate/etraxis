@@ -15,6 +15,7 @@ import axios from 'axios';
 
 import * as ui from '@utilities/blockui';
 import { date } from '@utilities/epoch';
+import loadAll from '@utilities/loadAll';
 import parseErrors from '@utilities/parseErrors';
 import url from '@utilities/url';
 
@@ -38,7 +39,17 @@ export const useProjectStore = defineStore('project', {
                 suspend: false,
                 resume: false
             }
-        }
+        },
+
+        /**
+         * @property {Array<Object>} projectGroups List of all project groups
+         */
+        projectGroups: [],
+
+        /**
+         * @property {Array<Object>} globalGroups List of all global groups
+         */
+        globalGroups: []
     }),
 
     getters: {
@@ -114,6 +125,26 @@ export const useProjectStore = defineStore('project', {
             } finally {
                 ui.unblock();
             }
+        },
+
+        /**
+         * Loads all existing project groups.
+         *
+         * @param {null|number} id Project ID
+         */
+        async loadAllProjectGroups(id = null) {
+            ui.block();
+            this.projectGroups = await loadAll(url('/api/groups'), { project: id || this.project.id }, { name: 'asc' });
+            ui.unblock();
+        },
+
+        /**
+         * Loads all existing global groups.
+         */
+        async loadAllGlobalGroups() {
+            ui.block();
+            this.globalGroups = await loadAll(url('/api/groups'), { global: true }, { name: 'asc' });
+            ui.unblock();
         }
     }
 });

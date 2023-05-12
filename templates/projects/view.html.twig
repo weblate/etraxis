@@ -9,6 +9,9 @@
                 <tab id="project" title="{{ 'project' | trans({}, 'projects') }}">
                     <project-tab></project-tab>
                 </tab>
+                <tab id="groups" title="{{ 'groups' | trans({}, 'groups') }}" :counter="projectStore.projectGroups.length + projectStore.globalGroups.length">
+                    <groups-tab></groups-tab>
+                </tab>
             </tabs>
         </div>
     </div>
@@ -16,4 +19,8 @@
 
 {% block scripts %}
     {{ encore_entry_script_tags('projects/view') }}
+{% endblock %}
+
+{% block styles %}
+    {{ encore_entry_link_tags('groups/view') }}
 {% endblock %}

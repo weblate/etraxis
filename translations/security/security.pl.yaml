@@ -1,11 +1,9 @@
 confirm.logout: 'Czy jesteś pewien, że chesz wyjść?'
+email.account_created.line1: 'Utworzono dla Ciebie nowe konto w eTraxis.'
+email.account_created.line2: 'Aby się zalogować, proszę użyć poniżej swojego adresu e-mail i hasła.'
+email.account_created.subject: 'Twoje nowe konto w eTraxis'
+email.login_changed.line1: 'Adres e-mail Twojego konta eTraxis został zmieniony na %email%.'
+email.login_changed.subject: 'Twoje konto eTraxis zostało zmienione'
 security.login: Logowanie
 security.logout: Wyloguj
-email.account_created.line1: Utworzono dla Ciebie nowe konto w eTraxis.
-email.account_created.line2: Aby się zalogować, proszę użyć poniżej swojego adresu
-  e-mail i hasła.
-email.account_created.subject: Twoje nowe konto w eTraxis
-email.login_changed.line1: Adres e-mail Twojego konta eTraxis został zmieniony na
-  %email%.
-email.login_changed.subject: Twoje konto eTraxis zostało zmienione
-security.remember_me: Zapamiętaj mnie
+security.remember_me: 'Zapamiętaj mnie'

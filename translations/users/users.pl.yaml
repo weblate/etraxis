@@ -4,24 +4,24 @@ role.user: Użytkownik
 user.account: Konto
 user.appearance: Wygląd
 user.authentication: Uwierzytelnianie
+user.city: Miasto
+user.country: Kraj
 user.description: Opis
 user.disabled: Wyłączony
+user.edit: 'Edytuj użytkownika'
 user.email: E-mail
 user.enabled: Włączony
 user.fullname: 'Pełna nazwa'
+user.groups: 'Grupy użytkownika'
+user.impersonate: 'Podszywanie się pod kogoś'
 user.language: Język
 user.new: 'Nowy użytkownik'
+user.other_groups: 'Inne grupy'
 user.password: Hasło
 user.permissions: Uprawnienia
 user.profile: Profil
+user.status: Stan
+user.successfully_created: 'Nowy użytkownik został pomyślnie utworzony.'
 user.theme: Motyw
 user.timezone: 'Strefa czasowa'
 users: Użytkownicy
-user.city: Miasto
-user.country: Kraj
-user.edit: Edytuj użytkownika
-user.groups: Grupy użytkownika
-user.impersonate: Podszywanie się pod kogoś
-user.other_groups: Inne grupy
-user.status: Stan
-user.successfully_created: Nowy użytkownik został pomyślnie utworzony.

@@ -2,11 +2,11 @@ confirm.project.delete: 'Czy jesteś pewien, że chesz usunąć wybrany projekt?
 project: Projekt
 project.active: Aktywny
 project.description: Opis
+project.edit: 'Edytuj projekt'
 project.name: 'Nazwa projektu'
 project.new: 'Nowy projekt'
 project.start_date: 'Data rozpoczęcia'
 project.status: Status
+project.successfully_created: 'Nowy projekt został pomyślnie utworzony.'
 project.suspended: Zawieszony
 projects: Projekty
-project.edit: Edytuj projekt
-project.successfully_created: Nowy projekt został pomyślnie utworzony.

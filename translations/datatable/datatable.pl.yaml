@@ -1,2 +1,10 @@
 table.empty: 'Brak danych do pokazania'
 table.search: Szukaj
+page.first: Pierwsza strona
+page.last: Ostatnia strona
+page.next: Następna strona
+page.previous: Poprzednia strona
+table.clear_filters: Wyczyść wyszukiwanie i filtry
+table.pages: '%number% stron'
+table.size: '%size% rzędów'
+table.status: Pokazanie %from% do %to% z %total% wierszy

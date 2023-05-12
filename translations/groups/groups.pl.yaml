@@ -6,3 +6,7 @@ group.membership: Członkowie
 group.name: 'Nazwa grupy'
 group.new: 'Nowa grupa'
 groups: Grupy
+group.edit: Edytuj grupę
+group.members: Członkowie grupy
+group.other_users: Inni użytkownicy
+group.successfully_created: Nowa grupa została pomyślnie utworzona.

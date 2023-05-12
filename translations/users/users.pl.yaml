@@ -17,3 +17,11 @@ user.profile: Profil
 user.theme: Motyw
 user.timezone: 'Strefa czasowa'
 users: Użytkownicy
+user.city: Miasto
+user.country: Kraj
+user.edit: Edytuj użytkownika
+user.groups: Grupy użytkownika
+user.impersonate: Podszywanie się pod kogoś
+user.other_groups: Inne grupy
+user.status: Stan
+user.successfully_created: Nowy użytkownik został pomyślnie utworzony.

@@ -8,3 +8,5 @@ project.start_date: 'Data rozpoczęcia'
 project.status: Status
 project.suspended: Zawieszony
 projects: Projekty
+project.edit: Edytuj projekt
+project.successfully_created: Nowy projekt został pomyślnie utworzony.

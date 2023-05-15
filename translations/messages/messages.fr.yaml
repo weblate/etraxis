@@ -2,3 +2,5 @@ settings: Paramètres
 text.error: Erreur
 text.please_wait: 'Veuillez patienter…'
 text.required: obligatoire
+administration: Administration
+text.changes_saved: Vos modifications ont été enregistrées avec succès.

@@ -1,4 +1,4 @@
-confirm.user.delete: 'Etes-vous sur de vouloir effacer ce compte?'
+confirm.user.delete: 'Êtes-vous sûr·e de vouloir supprimer cet utilisateur&nbsp;?'
 role.admin: Administrateur
 role.user: Utilisateur
 user.account: Compte
@@ -17,3 +17,11 @@ user.status: Statut
 user.theme: Thème
 user.timezone: 'Fuseau horaire'
 users: Utilisateurs
+user.city: Ville
+user.country: Pays
+user.edit: Modifier l'utilisateur
+user.groups: Groupes d'utilisateurs
+user.impersonate: Usurper
+user.other_groups: Autres groupes
+user.permissions: Autorisations
+user.successfully_created: Le nouvel utilisateur a été créé avec succès.

@@ -1,3 +1,11 @@
-confirm.logout: 'Etes-vous sur de vouloir quitter?'
+confirm.logout: 'Êtes-vous sûr·e de vouloir sortir&nbsp;?'
 security.login: 'Se connecter'
 security.logout: 'Se déconnecter'
+email.account_created.line1: Un nouveau compte a été créé pour vous dans eTraxis.
+email.account_created.line2: Veuillez utiliser votre adresse électronique et le mot
+  de passe ci-dessous pour vous connecter.
+email.account_created.subject: Votre nouveau compte dans eTraxis
+email.login_changed.line1: L'adresse électronique de votre compte eTraxis a été modifiée
+  en %email%.
+email.login_changed.subject: Votre compte eTraxis a été modifié
+security.remember_me: Se souvenir de moi

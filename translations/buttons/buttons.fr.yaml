@@ -12,3 +12,5 @@ button.ok: OK
 button.resume: Reprendre
 button.save: Sauver
 button.yes: Oui
+button.remove: Retirer
+button.suspend: Suspendre

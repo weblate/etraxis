@@ -1,12 +1,12 @@
-confirm.group.delete: 'Êtes-vous sûr·e de vouloir supprimer ce groupe&nbsp;?'
+confirm.group.delete: 'Êtes-vous sûr·e de vouloir supprimer ce groupe?'
 group: Groupe
 group.description: Description
+group.edit: 'Modifier le groupe'
 group.global: Global
+group.members: 'Membres du groupe'
 group.membership: Appartenance
 group.name: 'Nom du groupe'
 group.new: 'Nouveau groupe'
+group.other_users: 'Autres utilisateurs'
+group.successfully_created: 'Le nouveau groupe a été créé avec succès.'
 groups: Groupes
-group.edit: Modifier le groupe
-group.members: Membres du groupe
-group.other_users: Autres utilisateurs
-group.successfully_created: Le nouveau groupe a été créé avec succès.

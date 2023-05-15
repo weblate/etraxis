@@ -1,12 +1,12 @@
-confirm.project.delete: 'Êtes-vous sûr·e de vouloir supprimer ce projet&nbsp;?'
+confirm.project.delete: 'Êtes-vous sûr·e de vouloir supprimer ce projet?'
 project: Projet
 project.active: Actif
 project.description: Description
+project.edit: 'Modifier le projet'
 project.name: 'Nom du projet'
 project.new: 'Nouveau projet'
 project.start_date: Début
 project.status: Statut
+project.successfully_created: 'Le nouveau projet a été créé avec succès.'
 project.suspended: Suspendu
 projects: Projets
-project.edit: Modifier le projet
-project.successfully_created: Le nouveau projet a été créé avec succès.

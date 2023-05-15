@@ -1,27 +1,27 @@
-confirm.user.delete: 'Êtes-vous sûr·e de vouloir supprimer cet utilisateur&nbsp;?'
+confirm.user.delete: 'Êtes-vous sûr·e de vouloir supprimer cet utilisateur?'
 role.admin: Administrateur
 role.user: Utilisateur
 user.account: Compte
 user.appearance: Apparence
 user.authentication: Authentification
+user.city: Ville
+user.country: Pays
 user.description: Description
 user.disabled: Désactivés
+user.edit: "Modifier l'utilisateur"
 user.email: Email
 user.enabled: Activés
 user.fullname: 'Nom complet'
+user.groups: "Groupes d'utilisateurs"
+user.impersonate: Usurper
 user.language: Langue
 user.new: 'Nouvel utilisateur'
+user.other_groups: 'Autres groupes'
 user.password: 'Mot de passe'
+user.permissions: Autorisations
 user.profile: Profil
 user.status: Statut
+user.successfully_created: 'Le nouvel utilisateur a été créé avec succès.'
 user.theme: Thème
 user.timezone: 'Fuseau horaire'
 users: Utilisateurs
-user.city: Ville
-user.country: Pays
-user.edit: Modifier l'utilisateur
-user.groups: Groupes d'utilisateurs
-user.impersonate: Usurper
-user.other_groups: Autres groupes
-user.permissions: Autorisations
-user.successfully_created: Le nouvel utilisateur a été créé avec succès.

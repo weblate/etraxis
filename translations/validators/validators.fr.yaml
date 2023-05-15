@@ -1,9 +1,9 @@
 field.conflict.name: 'Il existe déjà un champ portant ce nom.'
 group.conflict.name: 'Il existe déjà un groupe portant ce nom.'
+listitem.conflict.text: "L'élément dont le texte a été saisi existe déjà."
+listitem.conflict.value: "L'élément avec la valeur saisie existe déjà."
 project.conflict.name: 'Il existe déjà un projet portant ce nom.'
 state.conflict.name: 'Il existe déjà un état portant ce nom.'
 template.conflict.name: 'Il existe déjà un modèle portant ce nom.'
 template.conflict.prefix: 'Il existe déjà un modèle portant ce un préfixe.'
-listitem.conflict.text: L'élément dont le texte a été saisi existe déjà.
-listitem.conflict.value: L'élément avec la valeur saisie existe déjà.
-user.conflict.email: Le compte dont l'adresse électronique a été saisie existe déjà.
+user.conflict.email: "Le compte dont l'adresse électronique a été saisie existe déjà."

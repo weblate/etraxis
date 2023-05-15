@@ -9,18 +9,25 @@
 //
 //----------------------------------------------------------------------
 
-@import "bulma";
-@import "typography";
-@import "layout";
-@import "navbar";
-@import "button";
-@import "form";
-@import "dialog";
-@import "blockui";
-@import "messagebox";
+import TreeNode from './treenode.vue';
 
-@import "../components/datatable/datatable";
-@import "../components/dropdown/dropdown";
-@import "../components/modal/modal";
-@import "../components/tabs/tabs";
-@import "../components/tree/tree";
+/**
+ * Tree.
+ */
+export default {
+    props: {
+        /**
+         * @property {Array<Object>} nodes List of nodes
+         */
+        nodes: {
+            type: Array,
+            required: true
+        }
+    },
+
+    emits: ['node-click', 'node-expand', 'node-collapse'],
+
+    components: {
+        'tree-node': TreeNode
+    }
+};

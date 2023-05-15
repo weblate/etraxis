@@ -1,0 +1,68 @@
+//----------------------------------------------------------------------
+//
+//  Copyright (C) 2017-2023 Artem Rodygin
+//
+//  This file is part of eTraxis.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with eTraxis. If not, see <https://www.gnu.org/licenses/>.
+//
+//----------------------------------------------------------------------
+
+@import "bulma/sass/utilities/initial-variables";
+@import "bulma/sass/utilities/derived-variables";
+
+@import "bulma/sass/helpers/color";
+
+@import "bulma/sass/form/shared";
+
+div.tree {
+    background-color: $input-background-color;
+    border: 1px solid $border;
+    border-radius: $radius;
+    max-height: calc(100vh - 200px);
+    overflow: auto;
+
+    ul > li {
+        display: block;
+        padding-left: 1em;
+
+        &.is-collapsed > ul {
+            display: none;
+        }
+
+        span.toggle {
+            cursor: pointer;
+            display: inline-block;
+            width: 1em;
+        }
+
+        span.title {
+            cursor: pointer;
+            display: inline-block;
+            margin: 0.1em 0;
+            padding: 0.25em;
+            width: calc(100% - 1em);
+
+            &:hover {
+                background-color: $scheme-main-ter;
+            }
+        }
+
+        &.disabled {
+            span {
+                @extend .has-text-grey;
+                cursor: initial;
+
+                &:hover {
+                    background-color: inherit;
+                }
+            }
+        }
+    }
+
+    > ul > li {
+        padding-left: 0.75em;
+        padding-right: 0.5em;
+    }
+}

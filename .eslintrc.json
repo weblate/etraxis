@@ -41,7 +41,9 @@
                 "dropdown",
                 "modal",
                 "tab",
-                "tabs"
+                "tabs",
+                "tree",
+                "treenode"
             ]
         }]
     }

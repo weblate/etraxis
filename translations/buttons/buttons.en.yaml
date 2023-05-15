@@ -2,11 +2,13 @@ button.add: Add
 button.back: Back
 button.cancel: Cancel
 button.close: Close
+button.collapse: Collapse
 button.create: Create
 button.delete: Delete
 button.disable: Disable
 button.edit: Edit
 button.enable: Enable
+button.expand: Expand
 button.no: 'No'
 button.ok: OK
 button.remove: Remove

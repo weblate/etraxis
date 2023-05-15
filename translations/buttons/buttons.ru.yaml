@@ -2,11 +2,13 @@ button.add: Добавить
 button.back: Назад
 button.cancel: Отмена
 button.close: Закрыть
+button.collapse: Свернуть
 button.create: Создать
 button.delete: Удалить
 button.disable: Заблокировать
 button.edit: Редактировать
 button.enable: Разблокировать
+button.expand: Развернуть
 button.no: Нет
 button.ok: ОК
 button.remove: Убрать

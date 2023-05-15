@@ -48,17 +48,6 @@ div.tree {
                 background-color: $scheme-main-ter;
             }
         }
-
-        &.disabled {
-            span {
-                @extend .has-text-grey;
-                cursor: initial;
-
-                &:hover {
-                    background-color: inherit;
-                }
-            }
-        }
     }
 
     > ul > li {

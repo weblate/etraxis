@@ -1,7 +1,7 @@
 <template>
     <li :class="nodeClass" @click.stop="onNodeClick">
         <span class="toggle" :title="toggleTitle" @click.stop="toggleNode">{{ toggleSymbol }}</span>
-        <span class="title">{{ title }}</span>
+        <span class="title" :class="classes">{{ title }}</span>
         <ul>
             <tree-node v-for="node in nodes"
                        :key="node.id"

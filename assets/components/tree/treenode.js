@@ -33,11 +33,11 @@ export default {
         },
 
         /**
-         * @property {boolean} enabled Whether the node is enabled
+         * @property {Array<string>} classes List of CSS classes to apply
          */
-        enabled: {
-            type: Boolean,
-            default: true
+        classes: {
+            type: Array,
+            default: () => []
         },
 
         /**
@@ -76,7 +76,6 @@ export default {
          */
         nodeClass() {
             return {
-                disabled: !this.enabled,
                 'is-expanded': this.hasChildren && this.isExpanded,
                 'is-collapsed': this.hasChildren && !this.isExpanded
             };
@@ -95,7 +94,7 @@ export default {
          * @property {string} toggleTitle A hint to show for expand/collapse action
          */
         toggleTitle() {
-            return this.enabled && this.hasChildren
+            return this.hasChildren
                 ? this.i18n[this.isExpanded ? 'button.collapse' : 'button.expand']
                 : '';
         }
@@ -106,7 +105,7 @@ export default {
          * Toggles expansion state of the node.
          */
         toggleNode() {
-            if (this.enabled && this.hasChildren) {
+            if (this.hasChildren) {
                 this.isExpanded = !this.isExpanded;
                 this.$emit(this.isExpanded ? 'node-expand' : 'node-collapse', this.id);
             }
@@ -116,12 +115,10 @@ export default {
          * The node is clicked.
          */
         onNodeClick() {
-            if (this.enabled) {
-                this.$emit('node-click', this.id);
+            this.$emit('node-click', this.id);
 
-                if (!this.isExpanded) {
-                    this.toggleNode();
-                }
+            if (!this.isExpanded) {
+                this.toggleNode();
             }
         }
     }

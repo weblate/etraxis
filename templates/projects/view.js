@@ -19,6 +19,7 @@ import { useProjectStore } from './stores/ProjectStore';
 
 import ProjectTab from './tabs/ProjectTab.vue';
 import GroupsTab from './tabs/GroupsTab.vue';
+import TemplatesTab from './tabs/TemplatesTab.vue';
 
 /**
  * "View project" page.
@@ -43,6 +44,7 @@ const app = createApp({
 
         this.projectStore.loadProject(projectId);
         this.projectStore.loadAllProjectGroups(projectId);
+        this.projectStore.loadAllProjectTemplates(projectId);
     }
 });
 
@@ -52,6 +54,7 @@ app.component('tabs', Tabs);
 app.component('tab', Tab);
 app.component('project-tab', ProjectTab);
 app.component('groups-tab', GroupsTab);
+app.component('templates-tab', TemplatesTab);
 
 app.use(pinia);
 app.mount('#vue-project');

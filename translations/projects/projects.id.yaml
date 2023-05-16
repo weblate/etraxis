@@ -1,6 +1,6 @@
+confirm.project.delete: 'Apakah Anda yakin ingin menghapus proyek ini?'
 project: Proyek
 project.description: Deskripsi
 project.new: 'Proyek baru'
 project.start_date: Mulai
 projects: Proyek
-confirm.project.delete: Apakah Anda yakin ingin menghapus proyek ini?

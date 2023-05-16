@@ -1,3 +1,4 @@
+role.admin: Administrator
 role.user: Pengguna
 user.account: Akun
 user.authentication: Otentikasi
@@ -9,4 +10,3 @@ user.password: 'Kata sandi'
 user.permissions: Perijinan
 user.theme: Tema
 users: Pengguna
-role.admin: Administrator

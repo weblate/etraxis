@@ -9,3 +9,4 @@ user.password: 'Kata sandi'
 user.permissions: Perijinan
 user.theme: Tema
 users: Pengguna
+role.admin: Administrator

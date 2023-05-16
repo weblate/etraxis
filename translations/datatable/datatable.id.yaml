@@ -1,2 +1,5 @@
 table.empty: 'Tidak ada data untuk ditampilkan'
 table.search: Cari
+page.first: Halaman pertama
+page.last: Halaman terakhir
+page.next: Halaman berikutnya

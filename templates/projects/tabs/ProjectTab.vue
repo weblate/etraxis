@@ -12,7 +12,7 @@
                 <fieldset class="fieldset">
                     <div class="field is-horizontal">
                         <div class="field-label">
-                            <p class="label">{{ i18n["project.name"] }}:</p>
+                            <p class="label">{{ i18n['project.name'] }}:</p>
                         </div>
                         <div class="field-body">
                             <div class="content">
@@ -22,7 +22,7 @@
                     </div>
                     <div class="field is-horizontal">
                         <div class="field-label">
-                            <p class="label">{{ i18n["project.start_date"] }}:</p>
+                            <p class="label">{{ i18n['project.start_date'] }}:</p>
                         </div>
                         <div class="field-body">
                             <div class="content">
@@ -32,23 +32,23 @@
                     </div>
                     <div class="field is-horizontal">
                         <div class="field-label">
-                            <p class="label">{{ i18n["project.status"] }}:</p>
+                            <p class="label">{{ i18n['project.status'] }}:</p>
                         </div>
                         <div class="field-body">
                             <div class="content">
                                 <p :class="{ 'has-text-danger': projectStore.isSuspended }">
-                                    {{ projectStore.isSuspended ? i18n["project.suspended"] : i18n["project.active"] }}
+                                    {{ projectStore.isSuspended ? i18n['project.suspended'] : i18n['project.active'] }}
                                 </p>
                             </div>
                         </div>
                     </div>
                     <div class="field is-horizontal">
                         <div class="field-label">
-                            <p class="label">{{ i18n["project.description"] }}:</p>
+                            <p class="label">{{ i18n['project.description'] }}:</p>
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ projectStore.description || "&mdash;" }}</p>
+                                <p>{{ projectStore.description || '&mdash;' }}</p>
                             </div>
                         </div>
                     </div>

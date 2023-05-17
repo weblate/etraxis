@@ -12,7 +12,7 @@
                 <tab id="groups" title="{{ 'groups' | trans({}, 'groups') }}" :counter="projectStore.projectGroups.length + projectStore.globalGroups.length">
                     <groups-tab></groups-tab>
                 </tab>
-                <tab id="templates" title="{{ 'templates' | trans({}, 'templates') }}" :counter="projectStore.treeOfTemplates.length">
+                <tab id="templates" title="{{ 'templates' | trans({}, 'templates') }}" :counter="projectStore.getProjectTemplates.length">
                     <templates-tab></templates-tab>
                 </tab>
             </tabs>

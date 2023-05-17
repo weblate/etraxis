@@ -19,8 +19,6 @@ import loadAll from '@utilities/loadAll';
 import parseErrors from '@utilities/parseErrors';
 import url from '@utilities/url';
 
-import TreeNode from '@components/tree/node';
-
 /**
  * Store for project data.
  */
@@ -131,55 +129,30 @@ export const useProjectStore = defineStore('project', {
          * @property {Array<Object>} getTemplateStates List of all states of the specified template
          * @param {Object} state
          */
-        getTemplateStates: (state) => {
-            return (templateId) => {
-                const states = new Map(
-                    state.projectFields
-                        .filter((field) => field.state.template.id === templateId)
-                        .map((field) => [field.state.id, field.state])
-                );
+        getTemplateStates: (state) => (templateId) => {
+            const states = new Map(
+                state.projectFields
+                    .filter((field) => field.state.template.id === templateId)
+                    .map((field) => [field.state.id, field.state])
+            );
 
-                return Array.from(states.values())
-                    .sort((template1, template2) => template1.name.localeCompare(template2.name));
-            };
+            return Array.from(states.values())
+                .sort((template1, template2) => template1.name.localeCompare(template2.name));
         },
 
         /**
          * @property {Array<Object>} getStateFields List of all fields of the specified state
          * @param {Object} state
          */
-        getStateFields: (state) => {
-            return (stateId) => {
-                const fields = new Map(
-                    state.projectFields
-                        .filter((field) => field.state.id === stateId)
-                        .map((field) => [field.id, field])
-                );
+        getStateFields: (state) => (stateId) => {
+            const fields = new Map(
+                state.projectFields
+                    .filter((field) => field.state.id === stateId)
+                    .map((field) => [field.id, field])
+            );
 
-                return Array.from(fields.values())
-                    .sort((field1, field2) => field1.position - field2.position);
-            };
-        },
-
-        /**
-         * @property {Array<Object>} treeOfTemplates Tree of templates with states and fields
-         * @param {Object} state
-         */
-        treeOfTemplates: (state) => {
-            return state.getProjectTemplates.map((t) => new TreeNode(
-                `template-${t.id}`,
-                t.name,
-                t.locked ? ['has-text-grey'] : [],
-                state.getTemplateStates(t.id).map((s) => new TreeNode(
-                    `state-${s.id}`,
-                    s.name,
-                    [],
-                    state.getStateFields(s.id).map((f) => new TreeNode(
-                        `field-${f.id}`,
-                        f.name
-                    ))
-                ))
-            ));
+            return Array.from(fields.values())
+                .sort((field1, field2) => field1.position - field2.position);
         }
     },
 

@@ -12,6 +12,7 @@
 import { mapStores } from 'pinia';
 
 import Tree from '@components/tree/tree.vue';
+import TreeNode from '@components/tree/node';
 
 import { useProjectStore } from '../stores/ProjectStore';
 
@@ -27,6 +28,26 @@ export default {
         /**
          * @property {Object} projectStore Store for project data
          */
-        ...mapStores(useProjectStore)
+        ...mapStores(useProjectStore),
+
+        /**
+         * @property {Array<Object>} nodes Tree of templates with states and fields
+         */
+        nodes() {
+            return this.projectStore.getProjectTemplates.map((template) => new TreeNode(
+                `template-${template.id}`,
+                template.name,
+                [],
+                this.projectStore.getTemplateStates(template.id).map((state) => new TreeNode(
+                    `state-${state.id}`,
+                    state.name,
+                    [],
+                    this.projectStore.getStateFields(state.id).map((field) => new TreeNode(
+                        `field-${field.id}`,
+                        field.name
+                    ))
+                ))
+            ));
+        }
     }
 };

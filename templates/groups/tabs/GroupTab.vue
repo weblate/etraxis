@@ -10,7 +10,7 @@
                 <fieldset class="fieldset">
                     <div class="field is-horizontal">
                         <div class="field-label">
-                            <p class="label">{{ i18n["group.name"] }}:</p>
+                            <p class="label">{{ i18n['group.name'] }}:</p>
                         </div>
                         <div class="field-body">
                             <div class="content">
@@ -20,21 +20,21 @@
                     </div>
                     <div class="field is-horizontal">
                         <div class="field-label">
-                            <p class="label">{{ i18n["project"] }}:</p>
+                            <p class="label">{{ i18n['project'] }}:</p>
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ groupStore.projectName || "&mdash;" }}</p>
+                                <p>{{ groupStore.projectName || '&mdash;' }}</p>
                             </div>
                         </div>
                     </div>
                     <div class="field is-horizontal">
                         <div class="field-label">
-                            <p class="label">{{ i18n["group.description"] }}:</p>
+                            <p class="label">{{ i18n['group.description'] }}:</p>
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ groupStore.description || "&mdash;" }}</p>
+                                <p>{{ groupStore.description || '&mdash;' }}</p>
                             </div>
                         </div>
                     </div>

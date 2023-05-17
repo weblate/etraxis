@@ -5,11 +5,11 @@
             <button class="button is-danger" type="button" :disabled="!groupStore.canDelete" @click="deleteGroup">{{ i18n['button.delete'] }}</button>
         </div>
         <div class="columns">
-            <div class="column is-half-tablet">
+            <div class="column is-two-thirds-desktop">
                 <fieldset class="fieldset">
                     <div class="field is-horizontal">
                         <div class="field-label">
-                            <p class="label">{{ i18n["group.name"] }}:</p>
+                            <p class="label">{{ i18n['group.name'] }}:</p>
                         </div>
                         <div class="field-body">
                             <div class="content">
@@ -19,11 +19,11 @@
                     </div>
                     <div class="field is-horizontal">
                         <div class="field-label">
-                            <p class="label">{{ i18n["group.description"] }}:</p>
+                            <p class="label">{{ i18n['group.description'] }}:</p>
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ groupStore.description || "&mdash;" }}</p>
+                                <p>{{ groupStore.description || '&mdash;' }}</p>
                             </div>
                         </div>
                     </div>

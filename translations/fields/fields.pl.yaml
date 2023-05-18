@@ -1,3 +1,21 @@
+field.checkbox: Checkbox
+field.date: Data
+field.decimal: Dziesiętna
+field.default_value: 'Warość domyślna'
+field.description: Opis
+field.duration: Czas
 field.error.default_value_range: 'Wartość domyślna powinna być z przedziału od %minimum% do %maximum%.'
 field.error.min_max_values: 'Wartość maksymalna powinna być większa od wartości minimalnej.'
 field.error.value_range: 'Wartość "%name%" powinna być z przedziału od %minimum% do %maximum%.'
+field.issue: Zagadnienie
+field.list: Lista
+field.max_length: 'Maksymalna długość'
+field.max_value: 'Maksymalna wartość'
+field.min_value: 'Minimalna wartość'
+field.name: 'Nazwa pola'
+field.number: Liczba
+field.required: Wymagany
+field.string: Tekst
+field.text: 'Pole tekstowe'
+field.type: 'Typ pola'
+fields: Pola

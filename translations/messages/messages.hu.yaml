@@ -2,5 +2,7 @@ administration: Adminisztráció
 settings: Beállítások
 text.changes_saved: 'A módosítások sikeresen elmentve.'
 text.error: Hiba
+text.off: Kikapcsolva
+text.on: Bekapcsolva
 text.please_wait: 'Kérem várjon…'
 text.required: kötelező

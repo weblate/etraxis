@@ -1,1 +1,10 @@
+template: Assunto
+template.active: Ativo
+template.critical_age: 'Idade crítica'
+template.description: Descrição
+template.frozen_time: 'Tempo de congelamento'
+template.locked: Travado
+template.name: 'Nome do template'
+template.prefix: Prefixo
+template.status: Situação
 templates: Templates

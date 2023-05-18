@@ -1,1 +1,10 @@
+template: Lekāls
+template.active: Aktīvs
+template.critical_age: 'Kritisks vecums'
+template.description: Apraksts
+template.frozen_time: 'Atlikšanas laiks'
+template.locked: Bloķēts
+template.name: 'Lekāla nosaukums'
+template.prefix: Priedēklis
+template.status: Statuss
 templates: Lekāli

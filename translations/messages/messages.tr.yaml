@@ -1,5 +1,7 @@
 administration: Yönetim
 settings: Ayarlar
 text.error: Hata
+text.off: Kapalı
+text.on: Açık
 text.please_wait: 'Lütfen bekleyin…'
 text.required: gerekli

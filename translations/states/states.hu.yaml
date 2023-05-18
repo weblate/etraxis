@@ -1,0 +1,11 @@
+state: Állapot
+state.final: Végső
+state.initial: Kezdeti
+state.intermediate: Köztes
+state.name: 'Állapot neve'
+state.responsible: Felelős
+state.responsible.assign: Hozzárendelés
+state.responsible.keep: Változatlan
+state.responsible.remove: Eltávolítás
+state.type: 'Állapot típusa'
+states: Állapotok

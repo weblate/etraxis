@@ -1,0 +1,11 @@
+state: Status
+state.final: Endstatus
+state.initial: Startstatus
+state.intermediate: Zwischenstatus
+state.name: Statusname
+state.responsible: Bearbeiter(in)
+state.responsible.assign: Zuordnen
+state.responsible.keep: Beibehalten
+state.responsible.remove: Abziehen
+state.type: Statusart
+states: Status

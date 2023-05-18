@@ -1,0 +1,11 @@
+state: Stare
+state.final: Final
+state.initial: Initial
+state.intermediate: Intermediar
+state.name: Stare
+state.responsible: Responsabil
+state.responsible.assign: Asigneaza
+state.responsible.keep: 'Nu modifica'
+state.responsible.remove: Sterge
+state.type: 'Tipul starii'
+states: Stare

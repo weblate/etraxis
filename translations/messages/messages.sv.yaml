@@ -1,4 +1,6 @@
 settings: Inställningar
 text.error: Fel
+text.off: Av
+text.on: På
 text.please_wait: 'Var god vänta…'
 text.required: obligatorisk

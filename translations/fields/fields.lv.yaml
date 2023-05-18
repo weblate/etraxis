@@ -1,3 +1,21 @@
+field.checkbox: 'Atlases šūna'
+field.date: Datums
+field.decimal: Decimāls
+field.default_value: 'Noklusējuma nozīme'
+field.description: Apraksts
+field.duration: Ilgums
 field.error.default_value_range: 'Noklusējuma nozīmei jąbūt no %minimum% līdz %maximum% apgabalā.'
 field.error.min_max_values: 'Maksimālajam lielumam jābūt lielākam par minimālo.'
 field.error.value_range: '"%name%" lauciņa lielumam jābūt no %minimum% līdz %maximum% apgabalā.'
+field.issue: Uzdevums
+field.list: Saraksts
+field.max_length: 'Maksimālais garums'
+field.max_value: 'Maksimālā vērtība'
+field.min_value: 'Minimālā vērtība'
+field.name: 'Atribūta nosaukums'
+field.number: Skaitlis
+field.required: Obligāts
+field.string: Rinda
+field.text: 'Daudzrindu teksts'
+field.type: 'Atribūta tips'
+fields: Atribūti

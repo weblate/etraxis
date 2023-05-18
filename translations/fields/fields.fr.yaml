@@ -1,3 +1,21 @@
+field.checkbox: 'Case à cocher'
+field.date: Date
+field.decimal: Décimal
+field.default_value: 'Valeur par défaut'
+field.description: Description
+field.duration: Duree
 field.error.default_value_range: 'La valeur par défaut doit être comprise entre %minimum% et %maximum%.'
 field.error.min_max_values: 'Le maximum doit être superieur au minimum.'
 field.error.value_range: 'La valeur de "%name%" doit être comprise entre %minimum% et %maximum%.'
+field.issue: Demande
+field.list: Liste
+field.max_length: 'Longueur maximale'
+field.max_value: 'Valeur maximum'
+field.min_value: 'Valeur minimum'
+field.name: 'Nom du champ'
+field.number: Nombre
+field.required: Requis
+field.string: Chaîne
+field.text: 'Texte multiligne'
+field.type: 'Type du champ'
+fields: Champs

@@ -1,1 +1,10 @@
+template: Szablon
+template.active: Aktywny
+template.critical_age: 'Czas krytyczny'
+template.description: Opis
+template.frozen_time: 'Czas zamrożenia'
+template.locked: Zablokowany
+template.name: 'Nazwa szablonu'
+template.prefix: Prefix
+template.status: Status
 templates: Szablony

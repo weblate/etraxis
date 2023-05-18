@@ -2,5 +2,7 @@ administration: Administracja
 settings: Ustawienia
 text.changes_saved: 'Zmiany zostały zapisane.'
 text.error: Błąd
+text.off: Wyłączony
+text.on: Włączony
 text.please_wait: 'Proszę czekać…'
 text.required: wymagane

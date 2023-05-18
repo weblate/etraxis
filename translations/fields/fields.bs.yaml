@@ -1,0 +1,5 @@
+field.date: Datum
+field.default_value: 'Podrazumjevana vrijednost'
+field.issue: Aktivnost
+field.list: Lista
+field.max_length: 'Maksimalna veličina'

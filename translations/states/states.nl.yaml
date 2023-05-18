@@ -1,0 +1,11 @@
+state: Status
+state.final: Eindstatus
+state.initial: Beginstatus
+state.intermediate: Tussenstatus
+state.name: Statusnaam
+state.responsible: Verantwoordelijkheid
+state.responsible.assign: Toekennen
+state.responsible.keep: 'Blijft ongewijzigd'
+state.responsible.remove: Verwijderen
+state.type: Statustype
+states: Statussen

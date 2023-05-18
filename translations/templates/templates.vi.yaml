@@ -1,0 +1,4 @@
+template.active: 'Đang hoạt động'
+template.description: 'Mô tả'
+template.locked: 'Đã khóa'
+template.status: 'Trạng thái'

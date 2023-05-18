@@ -1,1 +1,10 @@
+template: Šablona
+template.active: Aktivní
+template.critical_age: 'Kritické stáří'
+template.description: Popis
+template.frozen_time: 'Čas zmrazení'
+template.locked: Zamčený
+template.name: 'Název šablony'
+template.prefix: Prefix
+template.status: Stav
 templates: Šablony

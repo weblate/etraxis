@@ -1,0 +1,11 @@
+state: Durum
+state.final: Son
+state.initial: Ilk
+state.intermediate: Orta
+state.name: 'Durum adı'
+state.responsible: Sorumlu
+state.responsible.assign: Ata
+state.responsible.keep: 'Değişmeden kalan'
+state.responsible.remove: Kaldır
+state.type: 'Durum tipi'
+states: Durumlar

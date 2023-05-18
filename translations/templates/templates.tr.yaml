@@ -1,1 +1,10 @@
+template: Şablon
+template.active: Aktif
+template.critical_age: 'Kritik dönem'
+template.description: Tanım
+template.frozen_time: 'Dondurulmuş zaman'
+template.locked: Kilitli
+template.name: 'Şablon adı'
+template.prefix: 'Ön ek'
+template.status: Durum
 templates: Şablonlar

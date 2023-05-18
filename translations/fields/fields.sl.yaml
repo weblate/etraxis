@@ -1,0 +1,5 @@
+field.date: Datum
+field.default_value: 'Privzeta vrednost'
+field.issue: Zahtevek
+field.list: Seznam
+field.max_length: 'Maksimalna dolžina'

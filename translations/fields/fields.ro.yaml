@@ -1,3 +1,21 @@
+field.checkbox: Bifa
+field.date: Dată
+field.decimal: Zecimal
+field.default_value: 'Valoare implicita'
+field.description: Descriere
+field.duration: Durata
 field.error.default_value_range: 'Valoarea implicita trebuie sa fie in intervalul %minimum% la %maximum%.'
 field.error.min_max_values: 'Valoarea maxima trebuie sa fie mai mare decat cea minima.'
 field.error.value_range: 'Valoarea "%name%" trebuie sa fie in intervalul %minimum% pana la %maximum%.'
+field.issue: Tichet
+field.list: Listă
+field.max_length: 'Lungime maximă'
+field.max_value: 'Valoare maximă'
+field.min_value: 'Valoare minima'
+field.name: 'Numele campului'
+field.number: Numar
+field.required: Obligatoriu
+field.string: Text
+field.text: 'Text cu mai multe linii'
+field.type: 'Tipul campului'
+fields: Campuri

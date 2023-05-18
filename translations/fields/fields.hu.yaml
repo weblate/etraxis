@@ -1,3 +1,21 @@
+field.checkbox: 'Jelölő négyzet'
+field.date: Dátum
+field.decimal: Tizedes
+field.default_value: 'Alapértelmezett érték'
+field.description: Leírás
+field.duration: Időtartam
 field.error.default_value_range: 'Az alapértelmezett érték %minimum% és %maximum% közé kell, hogy essen.'
 field.error.min_max_values: 'A maximum értéknek nagyobbnak kell lennie, mint 1.'
 field.error.value_range: 'A(z) "%name%" értéke %minimum% és %maximum% közé kell, hogy essen.'
+field.issue: Feladat
+field.list: Lista
+field.max_length: 'Maximális hossz'
+field.max_value: 'Maximális érték'
+field.min_value: 'Minimális érték'
+field.name: 'Mező neve'
+field.number: Szám
+field.required: Kötelező
+field.string: Szöveg
+field.text: 'Többsoros szöveg'
+field.type: 'Mező típusa'
+fields: Mezők

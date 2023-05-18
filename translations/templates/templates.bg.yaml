@@ -1,1 +1,10 @@
+template: Темплейт
+template.active: Активен
+template.critical_age: 'Критическа възраст'
+template.description: Описание
+template.frozen_time: 'Замръзено време'
+template.locked: Заключен
+template.name: 'Име на темплейт'
+template.prefix: Представка
+template.status: Състояние
 templates: Темплейти

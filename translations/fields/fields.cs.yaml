@@ -1,3 +1,21 @@
+field.checkbox: 'Zaškrtávací pole'
+field.date: Datum
+field.decimal: 'Desetinné číslo'
+field.default_value: 'Výchozí hodnota'
+field.description: Popis
+field.duration: 'Doba trvání'
 field.error.default_value_range: 'Výchozí hodnota musí být v rozmezí %minimum% až %maximum%.'
 field.error.min_max_values: 'Maximální hodnota musí být větší než minimální.'
 field.error.value_range: 'Hodnota "%name%" musí být v rozmezí %minimum% až %maximum%.'
+field.issue: Úkol
+field.list: Seznam
+field.max_length: 'Maximální délka'
+field.max_value: 'Maximální hodnota'
+field.min_value: 'Minimální hodnota'
+field.name: 'Název pole'
+field.number: Číslo
+field.required: Povinný
+field.string: Text
+field.text: 'Víceřádkový text'
+field.type: 'Typ pole'
+fields: Pole

@@ -1,5 +1,7 @@
 administration: Administrace
 settings: Nastavení
 text.error: Chyba
+text.off: Vypnuto
+text.on: Zapnuto
 text.please_wait: 'Vyčkejte prosím…'
 text.required: povinné

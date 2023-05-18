@@ -1,0 +1,11 @@
+state: Estado
+state.final: Final
+state.initial: Inicial
+state.intermediate: Intermedio
+state.name: 'Nombre de estado'
+state.responsible: Responsable
+state.responsible.assign: Asignar
+state.responsible.keep: 'Dejar sin cambios'
+state.responsible.remove: Eliminar
+state.type: 'Tipo de estado'
+states: Estados

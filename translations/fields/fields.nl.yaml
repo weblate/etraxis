@@ -1,3 +1,20 @@
+field.checkbox: Aankruisen
+field.date: Datum
+field.default_value: Standaardwaarde
+field.description: Beschrijving
+field.duration: Tijdsduur
 field.error.default_value_range: 'Standaardwaarde moet in het bereik %minimum% tot %maximum% liggen.'
 field.error.min_max_values: 'Maximum waarde moet groter dan minimum waarde zijn.'
 field.error.value_range: 'Waarde "%name%" moet in het bereik %minimum% tot %maximum% liggen.'
+field.issue: Issue
+field.list: Lijst
+field.max_length: 'Maximale lengte'
+field.max_value: 'Maximale waarde'
+field.min_value: 'Minimale waarde'
+field.name: Veldnaam
+field.number: Aantal
+field.required: Vereist
+field.string: Tekst
+field.text: 'Meerdere lijnentekst'
+field.type: Veldtype
+fields: Velden

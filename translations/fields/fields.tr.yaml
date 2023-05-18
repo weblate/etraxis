@@ -1,3 +1,21 @@
+field.checkbox: 'onay kutusu'
+field.date: Tarih
+field.decimal: Ondalık
+field.default_value: 'Varsayılan değer'
+field.description: Tanım
+field.duration: Süre
 field.error.default_value_range: 'Varsayılan değer, %minimum% ile %maximum% arasında olmalıdır.'
 field.error.min_max_values: 'En yüksek değer, en düşük değerden daha büyük olmalıdır.'
 field.error.value_range: '"%name%" değeri %minimum% ile %maximum% arasında olmalıdır.'
+field.issue: İş
+field.list: Liste
+field.max_length: 'Maksimum uzunluk'
+field.max_value: 'Maksimum değer'
+field.min_value: 'En az değer'
+field.name: 'Alan adı'
+field.number: Numara
+field.required: Gerekli
+field.string: Dizge
+field.text: 'çok satırlı metin'
+field.type: 'Alan tipi'
+fields: Alanlar

@@ -1,1 +1,10 @@
+template: Modello
+template.active: Attivo
+template.critical_age: 'Età critica'
+template.description: Descrizione
+template.frozen_time: 'Tempo di congelamento'
+template.locked: Bloccato
+template.name: 'Nome del modello'
+template.prefix: Prefisso
+template.status: Stato
 templates: Modelli

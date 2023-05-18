@@ -1,0 +1,11 @@
+state: Stav
+state.final: Koncový
+state.initial: Počáteční
+state.intermediate: Standardní
+state.name: 'Název stavu'
+state.responsible: Odpovědnost
+state.responsible.assign: Přiřadit
+state.responsible.keep: Zachovat
+state.responsible.remove: Odstranit
+state.type: 'Typ stavu'
+states: Stavy

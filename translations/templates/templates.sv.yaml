@@ -1,1 +1,10 @@
+template: Mall
+template.active: Aktiv
+template.critical_age: 'Kritisk ålder'
+template.description: Beskrivning
+template.frozen_time: 'Fryst tid'
+template.locked: Låst
+template.name: 'Mall namn'
+template.prefix: Prefix
+template.status: Status
 templates: Mallar

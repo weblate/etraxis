@@ -1,0 +1,5 @@
+field.date: Tanggal
+field.default_value: 'Nilai default'
+field.issue: Masalah
+field.list: Daftar
+field.max_length: 'Panjang maksimum'

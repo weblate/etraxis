@@ -1,0 +1,11 @@
+state: Stāvoklis
+state.final: Beigu
+state.initial: Sākotnējs
+state.intermediate: Vidus
+state.name: 'Stāvokļa nosaukums'
+state.responsible: Atbildīgais
+state.responsible.assign: Adresēt
+state.responsible.keep: 'Atstāt neizmainītu'
+state.responsible.remove: Noņemt
+state.type: 'Stāvokļa tips'
+states: Stāvokļi

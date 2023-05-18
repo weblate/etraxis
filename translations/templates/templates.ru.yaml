@@ -1,1 +1,10 @@
+template: Шаблон
+template.active: Активный
+template.critical_age: 'Критичный возраст'
+template.description: Описание
+template.frozen_time: 'Время "заморозки"'
+template.locked: Заблокирован
+template.name: 'Название шаблона'
+template.prefix: Префикс
+template.status: Статус
 templates: Шаблоны

@@ -1,1 +1,10 @@
+template: Sjabloon
+template.active: Actief
+template.critical_age: 'Kritische leeftijd'
+template.description: Beschrijving
+template.frozen_time: 'Bevroren tijd'
+template.locked: Geblokkeerd
+template.name: Sjabloonsnaam
+template.prefix: Voorvoegsel
+template.status: Status
 templates: Sjablonen

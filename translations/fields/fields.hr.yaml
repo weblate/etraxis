@@ -1,0 +1,5 @@
+field.date: Datum
+field.default_value: 'Zadana vrijednost'
+field.issue: Predmet
+field.list: Liste
+field.max_length: 'Maksimalna dužina'

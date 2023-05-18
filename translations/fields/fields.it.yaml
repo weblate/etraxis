@@ -1,3 +1,21 @@
+field.checkbox: Checkbox
+field.date: Data
+field.decimal: Decimale
+field.default_value: 'Valore predefinito'
+field.description: Descrizione
+field.duration: Durata
 field.error.default_value_range: 'Il valore predefinito deve essere compreso tra %minimum% e %maximum%.'
 field.error.min_max_values: 'Il valore massimo deve essere maggiore del valore minimo.'
 field.error.value_range: 'Il valore "%name%" deve essere compreso tra %minimum% e %maximum%.'
+field.issue: Segnalazione
+field.list: Lista
+field.max_length: 'Lunghezza massima'
+field.max_value: 'Valore massimo'
+field.min_value: 'Valore minimo'
+field.name: 'Nome del campo'
+field.number: Numerico
+field.required: Obbligatorio
+field.string: Testuale
+field.text: 'Casella di testo'
+field.type: 'Tipo del campo'
+fields: Campi

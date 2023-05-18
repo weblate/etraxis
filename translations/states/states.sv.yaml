@@ -1,0 +1,11 @@
+state: Status
+state.final: Slutlig
+state.initial: Första
+state.intermediate: Mellanliggande
+state.name: 'Status namn'
+state.responsible: Ansvarig
+state.responsible.assign: Tilldela
+state.responsible.keep: 'Behåll oförändrad'
+state.responsible.remove: 'Ta bort'
+state.type: 'Status typ'
+states: Status

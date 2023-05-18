@@ -1,3 +1,21 @@
+field.checkbox: チェックボックス
+field.date: 日付
+field.decimal: 数値
+field.default_value: デフォルトの値
+field.description: 詳細
+field.duration: 期間
 field.error.default_value_range: 'デフォルトの値は %minimum% から %maximum% の範囲で指定できます。'
 field.error.min_max_values: 最大値は最小値よりも大きい必要があります。
 field.error.value_range: '値 %name% は、 %minimum% から %maximum% の範囲で指定できます。'
+field.issue: チケット
+field.list: リスト
+field.max_length: 最大文字長
+field.max_value: 最大値
+field.min_value: 最小値
+field.name: フィールド名
+field.number: 数値
+field.required: 必須？
+field.string: 文字列
+field.text: 複数行テキスト
+field.type: フィールド形式
+fields: フィールド

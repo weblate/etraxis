@@ -1,0 +1,11 @@
+state: Etat
+state.final: Final
+state.initial: Initial
+state.intermediate: Intermédiaire
+state.name: "Nom de l'état"
+state.responsible: Responsable
+state.responsible.assign: Affecter
+state.responsible.keep: 'Rester inchangé'
+state.responsible.remove: Enlever
+state.type: "Type de l'état"
+states: Etats

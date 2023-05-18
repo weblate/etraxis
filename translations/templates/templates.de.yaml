@@ -1,1 +1,10 @@
+template: 'Art der Anfrage'
+template.active: Aktiv
+template.critical_age: 'Kritisches Alter'
+template.description: Beschreibung
+template.frozen_time: 'Einfrieren nach Ende'
+template.locked: Gesperrt
+template.name: 'Name der Anfrageart'
+template.prefix: Präfix
+template.status: Status
 templates: Anfragearten

@@ -1,0 +1,5 @@
+field.date: Data
+field.default_value: 'Valor por omissão'
+field.issue: Tarefa
+field.list: Lista
+field.max_length: 'Tamanho máximo'

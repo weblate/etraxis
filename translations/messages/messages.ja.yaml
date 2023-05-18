@@ -1,5 +1,7 @@
 administration: 管理
 settings: 設定
 text.error: エラー
+text.off: オフ
+text.on: オン
 text.please_wait: お待ちください…
 text.required: 必須

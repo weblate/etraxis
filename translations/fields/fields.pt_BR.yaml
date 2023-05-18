@@ -1,3 +1,21 @@
+field.checkbox: 'Check box'
+field.date: Data
+field.decimal: Decimal
+field.default_value: 'Valor padrão'
+field.description: Descrição
+field.duration: Duração
 field.error.default_value_range: 'O valor padrão deve conter valores entre %minimum% e %maximum%.'
 field.error.min_max_values: 'O valor máximo deve ser maior do que o mínimo.'
 field.error.value_range: 'O Valor de "%name%" deve estar entre %minimum% e %maximum%.'
+field.issue: Tarefa
+field.list: Lista
+field.max_length: 'Tamanho máximo'
+field.max_value: 'Valor máximo'
+field.min_value: 'Valor mínimo'
+field.name: 'Nome do campo'
+field.number: Número
+field.required: Obrigatório
+field.string: 'Cadeia de caracteres'
+field.text: 'Texto multilinhas'
+field.type: 'Tipo do campo'
+fields: Campos

@@ -1,5 +1,7 @@
 administration: Administrācija
 settings: Iestatījumi
 text.error: Kļūda
+text.off: Izsl.
+text.on: Iesl.
 text.please_wait: 'Lūdzu uzgaidiet…'
 text.required: obligāts

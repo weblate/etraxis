@@ -2,5 +2,7 @@ administration: Administration
 settings: Settings
 text.changes_saved: 'Your changes were successfully saved.'
 text.error: Error
+text.off: Off
+text.on: On
 text.please_wait: 'Please wait…'
 text.required: required

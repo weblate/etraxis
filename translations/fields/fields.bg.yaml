@@ -1,3 +1,21 @@
+field.checkbox: 'Check box'
+field.date: Дата
+field.decimal: Десетичен
+field.default_value: 'Стойност по подразбиране'
+field.description: Описание
+field.duration: Времетраене
 field.error.default_value_range: 'Стойностите по подразбиране трябва да са в порядъка на  %minimum% до %maximum%.'
 field.error.min_max_values: 'Mаксималната стойност трябва да е по-голяма от минималната.'
 field.error.value_range: 'Стойност от  "%name%" трябва да бъде в подръдъка от  %minimum% до %maximum%.'
+field.issue: Задача
+field.list: Списък
+field.max_length: 'Maximum value дължина'
+field.max_value: 'Максимална стойност'
+field.min_value: 'Минимална стойност'
+field.name: 'Име на поле'
+field.number: Номер
+field.required: Изискван
+field.string: Стринг
+field.text: 'Многоредов текст'
+field.type: 'Тип на поле'
+fields: Полета

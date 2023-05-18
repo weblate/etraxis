@@ -1,1 +1,10 @@
+template: Sablon
+template.active: Activ
+template.critical_age: 'Vechimea critica'
+template.description: Descriere
+template.frozen_time: 'Timp de suspendare'
+template.locked: Blocat
+template.name: 'Numele sablonului'
+template.prefix: Prefix
+template.status: Stare
 templates: Sabloane

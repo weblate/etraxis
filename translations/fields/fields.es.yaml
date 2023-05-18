@@ -1,3 +1,21 @@
+field.checkbox: 'Casilla de verificación'
+field.date: Fecha
+field.decimal: Decimal
+field.default_value: 'Valor predeterminado'
+field.description: Descripción
+field.duration: Duración
 field.error.default_value_range: 'El valor predeterminado debe estar comprendido entre %minimum% y %maximum%.'
 field.error.min_max_values: 'El valor máximo debe ser mayor que el mínimo.'
 field.error.value_range: 'El valor de "%name%" debe estar comprendido entre %minimum% y %maximum%.'
+field.issue: Petición
+field.list: Lista
+field.max_length: 'Longitud máxima'
+field.max_value: 'Valor máximo'
+field.min_value: 'Valor mínimo'
+field.name: 'Nombre de campo'
+field.number: Número
+field.required: Obligatorio
+field.string: Cadena
+field.text: 'Texto multilínea'
+field.type: 'Tipo de campo'
+fields: Campos

@@ -1,5 +1,7 @@
 administration: Administrare
 settings: Setări
 text.error: Eroare
+text.off: Oprit
+text.on: Pornit
 text.please_wait: 'Va rugam asteptati…'
 text.required: obligatoriu

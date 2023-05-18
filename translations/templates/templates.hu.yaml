@@ -1,1 +1,10 @@
+template: Sablon
+template.active: Aktív
+template.critical_age: 'Kritikus határidő'
+template.description: Leírás
+template.frozen_time: 'Zárás után meddig módosítható'
+template.locked: Zárolt
+template.name: 'Sablon neve'
+template.prefix: Prefix
+template.status: Állapot
 templates: Sablonok

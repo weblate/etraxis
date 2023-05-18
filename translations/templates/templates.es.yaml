@@ -1,1 +1,10 @@
+template: Plantilla
+template.active: Activo
+template.critical_age: 'Auto expiración'
+template.description: Descripción
+template.frozen_time: 'Tiempo congelado'
+template.locked: Bloqueado
+template.name: 'Nombre de plantilla'
+template.prefix: Prefijo
+template.status: Estado
 templates: Plantillas

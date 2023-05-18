@@ -1,1 +1,10 @@
+template: テンプレート
+template.active: アクティブ
+template.critical_age: 必須対応日数
+template.description: 詳細
+template.frozen_time: クローズ後編集凍結日数
+template.locked: ロック済み
+template.name: テンプレート名
+template.prefix: 接頭辞
+template.status: 状態
 templates: テンプレート

@@ -1,0 +1,11 @@
+state: Условие
+state.final: Краен
+state.initial: Начален
+state.intermediate: Междинен
+state.name: 'Име на условие'
+state.responsible: Отговорен
+state.responsible.assign: Определи
+state.responsible.keep: 'Остави непроменено'
+state.responsible.remove: Премахни
+state.type: 'Тип на условие'
+states: Условия

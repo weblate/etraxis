@@ -1,0 +1,11 @@
+state: 状態
+state.final: 最終状態
+state.initial: 初期状態
+state.intermediate: 中間状態
+state.name: ステータス名
+state.responsible: 対応者
+state.responsible.assign: アサイン
+state.responsible.keep: 変更しない
+state.responsible.remove: 除去
+state.type: ステータス形式
+states: ステータス

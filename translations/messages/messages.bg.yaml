@@ -1,5 +1,7 @@
 administration: Администрация
 settings: Настройки
 text.error: Грешка
+text.off: Изключено
+text.on: Включено
 text.please_wait: 'Моля изчакайте…'
 text.required: задължително

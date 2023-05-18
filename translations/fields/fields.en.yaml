@@ -1,5 +1,24 @@
+field: Field
+field.checkbox: 'Check box'
+field.date: Date
+field.decimal: Decimal
+field.default_value: 'Default value'
+field.description: Description
+field.duration: Duration
 field.error.default_value_length: 'Default value should not be longer than %maximum% characters.'
 field.error.default_value_range: 'Default value should be in range from %minimum% to %maximum%.'
 field.error.min_max_values: 'Maximum value should be greater then minimum one.'
 field.error.value_boolean: "'%name%' should be 'false' or 'true'."
 field.error.value_range: "'%name%' should be in range from %minimum% to %maximum%."
+field.issue: Issue
+field.list: List
+field.max_length: 'Maximum length'
+field.max_value: 'Maximum value'
+field.min_value: 'Minimum value'
+field.name: 'Field name'
+field.number: Number
+field.required: Required
+field.string: String
+field.text: 'Multilined text'
+field.type: 'Field type'
+fields: Fields

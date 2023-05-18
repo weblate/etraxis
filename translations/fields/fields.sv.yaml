@@ -1,3 +1,21 @@
+field.checkbox: Kryssruta
+field.date: Datum
+field.decimal: Decimal
+field.default_value: Standardvärde
+field.description: Beskrivning
+field.duration: Varaktighet
 field.error.default_value_range: 'Standardvärdet bör vara i intervallet från %minimum% till %maximum%.'
 field.error.min_max_values: 'Högsta värdet bör vara större än minimum en.'
 field.error.value_range: 'Värdet av "%name%" ska vara i intervallet från %minimum% till %maximum%.'
+field.issue: Ärende
+field.list: Lista
+field.max_length: Maxlängd
+field.max_value: 'Maximalt värde'
+field.min_value: 'Minsta värde'
+field.name: 'Fält namn'
+field.number: Nummer
+field.required: Obligatorisk
+field.string: Sträng
+field.text: 'flerraders text'
+field.type: 'Fält typ'
+fields: Fält

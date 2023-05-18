@@ -1,0 +1,5 @@
+field.date: 날짜
+field.default_value: 기본값
+field.issue: 일감
+field.list: 목록
+field.max_length: '최대 길이'

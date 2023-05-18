@@ -1,3 +1,21 @@
+field.checkbox: Ankreuzfeld
+field.date: Datum
+field.decimal: Dezimal
+field.default_value: Vorgabewert
+field.description: Beschreibung
+field.duration: Bearbeitungsdauer
 field.error.default_value_range: 'Der vorgegebene Wert muss im Bereich von %minimum% bis %maximum% liegen.'
 field.error.min_max_values: 'Das Maximum muss größer als das Minimum sein.'
 field.error.value_range: 'Der Wert von "%name%" muss im Bereich von %minimum% bis %maximum% liegen.'
+field.issue: Ticket
+field.list: Auswahlliste
+field.max_length: 'Maximale Länge'
+field.max_value: 'Max. Wert'
+field.min_value: 'Min. Wert'
+field.name: Zusatzname
+field.number: Zahl
+field.required: Erforderlich
+field.string: Text
+field.text: 'Mehrzeiliger Text'
+field.type: Zusatzart
+fields: Zusätze

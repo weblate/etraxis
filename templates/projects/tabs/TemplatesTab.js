@@ -109,6 +109,11 @@ export default {
     },
 
     methods: {
+        /**
+         * A node in the templates tree is clicked.
+         *
+         * @param {string} event ID associated with the node
+         */
         async onNodeClick(event) {
             const [type, id] = event.split('-');
 

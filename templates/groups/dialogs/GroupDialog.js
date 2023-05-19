@@ -14,7 +14,7 @@ import Modal from '@components/modal/modal.vue';
 import generateUid from '@utilities/uid';
 
 /**
- * "Edit group" dialog.
+ * Group dialog.
  */
 export default {
     props: {

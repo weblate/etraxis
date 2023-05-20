@@ -7,8 +7,10 @@ button.delete: 削除
 button.disable: 無効
 button.enable: 有効
 button.edit: 編集
+button.lock: ロック(編集モード)
 button.no: いいえ
 button.ok: OK
 button.resume: 対応再開
 button.save: 保存
+button.unlock: ロック解除
 button.yes: はい

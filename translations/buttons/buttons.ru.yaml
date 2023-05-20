@@ -9,10 +9,12 @@ button.disable: Заблокировать
 button.edit: Редактировать
 button.enable: Разблокировать
 button.expand: Развернуть
+button.lock: Заблокировать
 button.no: Нет
 button.ok: ОК
 button.remove: Убрать
 button.resume: Возобновить
 button.save: Сохранить
 button.suspend: Остановить
+button.unlock: Разблокировать
 button.yes: Да

@@ -7,8 +7,10 @@ button.delete: Verwijderen
 button.disable: Uitschakelen
 button.edit: Bewerken
 button.enable: Inschakelen
+button.lock: Vergrendel
 button.no: Neen
 button.ok: OK
 button.resume: Hervatten
 button.save: Opslaan
+button.unlock: Ontgrendel
 button.yes: Ja

@@ -121,6 +121,22 @@ export default {
         },
 
         /**
+         * Toggles the template's status.
+         */
+        async toggleStatus() {
+            ui.block();
+
+            try {
+                await axios.post(url(`/api/templates/${this.templateStore.templateId}/${this.templateStore.isLocked ? 'unlock' : 'lock'}`));
+                await this.templateStore.loadTemplate();
+            } catch (exception) {
+                parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
+        },
+
+        /**
          * Deletes the template.
          */
         deleteTemplate() {

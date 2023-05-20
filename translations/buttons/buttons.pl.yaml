@@ -7,10 +7,12 @@ button.delete: Usuń
 button.disable: Wyłącz
 button.edit: Edytuj
 button.enable: Włącz
+button.lock: Zablokuj
 button.no: Nie
 button.ok: OK
 button.remove: Usuń
 button.resume: Wznów
 button.save: Zapisz
 button.suspend: Wstrzymaj
+button.unlock: Odblokuj
 button.yes: Tak

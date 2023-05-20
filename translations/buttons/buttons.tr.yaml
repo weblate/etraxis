@@ -7,8 +7,10 @@ button.delete: Sil
 button.disable: 'Devre dışı bırak'
 button.edit: Düzenle
 button.enable: Etkinleştir
+button.lock: Kilitle
 button.no: Hayır
 button.ok: Tamam
 button.resume: 'Devam Ettir'
 button.save: Kaydet
+button.unlock: 'Kilidi Aç'
 button.yes: Evet

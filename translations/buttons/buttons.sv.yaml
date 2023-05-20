@@ -7,8 +7,10 @@ button.delete: 'Ta bort'
 button.disable: Inaktivera
 button.edit: Ändra
 button.enable: Aktivera
+button.lock: Lås
 button.no: Nej
 button.ok: OK
 button.resume: Återuppta
 button.save: Spara
+button.unlock: 'Lås upp'
 button.yes: Ja

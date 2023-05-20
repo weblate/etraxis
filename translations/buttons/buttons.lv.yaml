@@ -7,8 +7,10 @@ button.delete: Dzēst
 button.disable: Izslēgt
 button.edit: Labot
 button.enable: Ieslēgt
+button.lock: Bloķēt
 button.no: Nē
 button.ok: Labi
 button.resume: Atsākt
 button.save: Saglabāt
+button.unlock: Atbloķēt
 button.yes: Jā

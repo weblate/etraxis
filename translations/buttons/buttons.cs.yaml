@@ -7,8 +7,10 @@ button.delete: Smazat
 button.disable: Zakázat
 button.edit: Upravit
 button.enable: Povolit
+button.lock: Uzamknout
 button.no: Ne
 button.ok: OK
 button.resume: Pokračovat
 button.save: Uložit
+button.unlock: Odemknout
 button.yes: Ano

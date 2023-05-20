@@ -7,8 +7,10 @@ button.delete: Șterge
 button.disable: Dezactiveaza
 button.edit: Editează
 button.enable: Activeaza
+button.lock: Incuie
 button.no: Nu
 button.ok: OK
 button.resume: Restarteaza
 button.save: Salvează
+button.unlock: Descuie
 button.yes: Da

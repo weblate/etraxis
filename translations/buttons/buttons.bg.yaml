@@ -6,8 +6,10 @@ button.create: Създай
 button.delete: Изтрий
 button.disable: Забрани
 button.enable: Разреши
+button.lock: Заключено
 button.no: Не
 button.ok: OK
 button.resume: Въстанови
 button.save: Съхрани
+button.unlock: Отключено
 button.yes: Да

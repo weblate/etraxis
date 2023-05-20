@@ -9,10 +9,12 @@ button.disable: Disable
 button.edit: Edit
 button.enable: Enable
 button.expand: Expand
+button.lock: Lock
 button.no: 'No'
 button.ok: OK
 button.remove: Remove
 button.resume: Resume
 button.save: Save
 button.suspend: Suspend
+button.unlock: Unlock
 button.yes: 'Yes'

@@ -2,6 +2,8 @@
     <section>
         <div class="buttons">
             <button class="button" type="button" :disabled="!templateStore.canUpdate" @click="openEditTemplateDialog">{{ i18n['button.edit'] }}</button>
+            <button v-show="!templateStore.isLocked" class="button" type="button" :disabled="!templateStore.canLock" @click="toggleStatus">{{ i18n['button.lock'] }}</button>
+            <button v-show="templateStore.isLocked" class="button" type="button" :disabled="!templateStore.canUnlock" @click="toggleStatus">{{ i18n['button.unlock'] }}</button>
             <button class="button is-danger" type="button" :disabled="!templateStore.canDelete" @click="deleteTemplate">{{ i18n['button.delete'] }}</button>
         </div>
         <div class="columns">

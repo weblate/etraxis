@@ -7,8 +7,10 @@ button.delete: Töröl
 button.disable: Letiltás
 button.edit: Szerkeszt
 button.enable: Engedélyezés
+button.lock: Zárol
 button.no: Nem
 button.ok: OK
 button.resume: Folytatás
 button.save: Mentés
+button.unlock: Felnyit
 button.yes: Igen

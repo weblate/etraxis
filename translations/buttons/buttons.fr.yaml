@@ -7,10 +7,12 @@ button.delete: Supprimer
 button.disable: Désactiver
 button.edit: Modifier
 button.enable: Activer
+button.lock: Verrouller
 button.no: Non
 button.ok: OK
 button.remove: Retirer
 button.resume: Reprendre
 button.save: Sauver
 button.suspend: Suspendre
+button.unlock: Déverrouiller
 button.yes: Oui

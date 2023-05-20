@@ -12,15 +12,17 @@
 /**
  * A tree node.
  *
- * @property {number|string} id      Unique ID
- * @property {string}        title   Title
- * @property {Array<string>} classes List of CSS classes to apply
- * @property {Array}         nodes   List of children
+ * @property {number|string} id         Unique ID
+ * @property {string}        title      Title
+ * @property {boolean}       expandable Whether the node can be expanded
+ * @property {Array<string>} classes    List of CSS classes to apply
+ * @property {Array}         nodes      List of children
  */
 export default class {
-    constructor(id, title, classes = [], nodes = []) {
+    constructor(id, title, expandable = true, classes = [], nodes = []) {
         this.id = id;
         this.title = title;
+        this.expandable = expandable;
         this.classes = classes;
         this.nodes = nodes;
     }

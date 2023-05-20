@@ -3,7 +3,7 @@
         <div class="columns">
             <div class="column is-one-third-tablet is-one-quarter-desktop">
                 <fieldset class="fieldset">
-                    <tree :nodes="nodes" @node-click="onNodeClick"></tree>
+                    <tree :nodes="nodes" @node-expand="onNodeExpand" @node-click="onNodeClick"></tree>
                 </fieldset>
             </div>
             <div class="column is-two-thirds-tablet is-three-quarters-desktop">

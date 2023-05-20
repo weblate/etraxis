@@ -52,9 +52,19 @@ export const useProjectStore = defineStore('project', {
         globalGroups: [],
 
         /**
-         * @property {Array<Object>} projectFields List of all project fields with templates and states
+         * @property {Array<Object>} projectTemplates List of all project templates
          */
-        projectFields: []
+        projectTemplates: [],
+
+        /**
+         * @property {Map} templateStates Map of all project states (key - template ID, value - array of template states)
+         */
+        templateStates: new Map(),
+
+        /**
+         * @property {Map} stateFields Map of all project fields (key - state ID, value - array of state fields)
+         */
+        stateFields: new Map()
     }),
 
     getters: {
@@ -116,28 +126,16 @@ export const useProjectStore = defineStore('project', {
          * @property {Array<Object>} getProjectTemplates List of all project templates
          * @param {Object} state
          */
-        getProjectTemplates: (state) => {
-            const templates = new Map(
-                state.projectFields.map((field) => [field.state.template.id, field.state.template])
-            );
-
-            return Array.from(templates.values())
-                .sort((project1, project2) => project1.name.localeCompare(project2.name));
-        },
+        getProjectTemplates: (state) => state.projectTemplates,
 
         /**
          * @property {Array<Object>} getTemplateStates List of all states of the specified template
          * @param {Object} state
          */
         getTemplateStates: (state) => (templateId) => {
-            const states = new Map(
-                state.projectFields
-                    .filter((field) => field.state.template.id === templateId)
-                    .map((field) => [field.state.id, field.state])
-            );
-
-            return Array.from(states.values())
-                .sort((template1, template2) => template1.name.localeCompare(template2.name));
+            return state.templateStates.has(templateId)
+                ? state.templateStates.get(templateId)
+                : [];
         },
 
         /**
@@ -145,14 +143,9 @@ export const useProjectStore = defineStore('project', {
          * @param {Object} state
          */
         getStateFields: (state) => (stateId) => {
-            const fields = new Map(
-                state.projectFields
-                    .filter((field) => field.state.id === stateId)
-                    .map((field) => [field.id, field])
-            );
-
-            return Array.from(fields.values())
-                .sort((field1, field2) => field1.position - field2.position);
+            return state.stateFields.has(stateId)
+                ? state.stateFields.get(stateId)
+                : [];
         }
     },
 
@@ -196,13 +189,37 @@ export const useProjectStore = defineStore('project', {
         },
 
         /**
-         * Loads all existing project templates with states and fields.
+         * Loads all existing project templates.
          *
          * @param {null|number} id Project ID
          */
         async loadAllProjectTemplates(id = null) {
             ui.block();
-            this.projectFields = await loadAll(url('/api/fields'), { project: id || this.project.id });
+            this.projectTemplates = await loadAll(url('/api/templates'), { project: id || this.project.id }, { name: 'asc' });
+            ui.unblock();
+        },
+
+        /**
+         * Loads all states of the specified template.
+         *
+         * @param {number} id Template ID
+         */
+        async loadTemplateStates(id) {
+            ui.block();
+            const states = await loadAll(url('/api/states'), { template: id }, { name: 'asc' });
+            this.templateStates.set(id, states);
+            ui.unblock();
+        },
+
+        /**
+         * Loads all fields of the specified state.
+         *
+         * @param {number} id State ID
+         */
+        async loadStateFields(id) {
+            ui.block();
+            const fields = await loadAll(url('/api/fields'), { state: id }, { name: 'asc' });
+            this.stateFields.set(id, fields);
             ui.unblock();
         }
     }

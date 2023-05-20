@@ -93,14 +93,17 @@ export default {
             return this.projectStore.getProjectTemplates.map((template) => new TreeNode(
                 `template-${template.id}`,
                 template.name,
+                true,
                 template.id === this.templateId ? [current] : [],
                 this.projectStore.getTemplateStates(template.id).map((state) => new TreeNode(
                     `state-${state.id}`,
                     state.name,
+                    true,
                     state.id === this.stateId ? [current] : [],
                     this.projectStore.getStateFields(state.id).map((field) => new TreeNode(
                         `field-${field.id}`,
                         field.name,
+                        false,
                         field.id === this.fieldId ? [current] : []
                     ))
                 ))
@@ -109,6 +112,22 @@ export default {
     },
 
     methods: {
+        /**
+         * A node in the templates tree is expanded.
+         *
+         * @param {string} event ID associated with the node
+         */
+        onNodeExpand(event) {
+            const [type, sid] = event.split('-');
+            const id = parseInt(sid);
+
+            if (type === NODE_TEMPLATE && !this.projectStore.templateStates.has(id)) {
+                this.projectStore.loadTemplateStates(id);
+            } else if (type === NODE_STATE && !this.projectStore.stateFields.has(id)) {
+                this.projectStore.loadStateFields(id);
+            }
+        },
+
         /**
          * A node in the templates tree is clicked.
          *

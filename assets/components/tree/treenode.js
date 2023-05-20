@@ -33,6 +33,14 @@ export default {
         },
 
         /**
+         * @property {boolean} expandable Whether the node can be expanded
+         */
+        expandable: {
+            type: Boolean,
+            default: true
+        },
+
+        /**
          * @property {Array<string>} classes List of CSS classes to apply
          */
         classes: {
@@ -65,19 +73,12 @@ export default {
         i18n: () => window.i18n,
 
         /**
-         * @property {boolean} hasChildren Whether this node has children
-         */
-        hasChildren() {
-            return this.nodes.length !== 0;
-        },
-
-        /**
          * @property {Object} nodeClass List of CSS classes for the node
          */
         nodeClass() {
             return {
-                'is-expanded': this.hasChildren && this.isExpanded,
-                'is-collapsed': this.hasChildren && !this.isExpanded
+                'is-expanded': this.expandable && this.isExpanded,
+                'is-collapsed': this.expandable && !this.isExpanded
             };
         },
 
@@ -85,7 +86,7 @@ export default {
          * @property {string} toggleSymbol A symbol to show for expand/collapse action
          */
         toggleSymbol() {
-            return this.hasChildren
+            return this.expandable
                 ? (this.isExpanded ? '\u229F' : '\u229E')
                 : '';
         },
@@ -94,7 +95,7 @@ export default {
          * @property {string} toggleTitle A hint to show for expand/collapse action
          */
         toggleTitle() {
-            return this.hasChildren
+            return this.expandable
                 ? this.i18n[this.isExpanded ? 'button.collapse' : 'button.expand']
                 : '';
         }
@@ -105,7 +106,7 @@ export default {
          * Toggles expansion state of the node.
          */
         toggleNode() {
-            if (this.hasChildren) {
+            if (this.expandable) {
                 this.isExpanded = !this.isExpanded;
                 this.$emit(this.isExpanded ? 'node-expand' : 'node-collapse', this.id);
             }

@@ -5,6 +5,7 @@ template.description: Tanım
 template.frozen_time: 'Dondurulmuş zaman'
 template.locked: Kilitli
 template.name: 'Şablon adı'
+template.new: 'Yeni şablon'
 template.prefix: 'Ön ek'
 template.status: Durum
 templates: Şablonlar

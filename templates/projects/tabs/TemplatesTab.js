@@ -11,6 +11,13 @@
 
 import { mapStores } from 'pinia';
 
+import axios from 'axios';
+
+import * as ui from '@utilities/blockui';
+import * as msg from '@utilities/messagebox';
+import parseErrors from '@utilities/parseErrors';
+import url from '@utilities/url';
+
 import Tree from '@components/tree/tree.vue';
 import TreeNode from '@components/tree/node';
 
@@ -22,6 +29,8 @@ import { useFieldStore } from '../stores/FieldStore';
 import TemplateTab from '../embedded-tabs/TemplateTab.vue';
 import StateTab from '../embedded-tabs/StateTab.vue';
 import FieldTab from '../embedded-tabs/FieldTab.vue';
+
+import TemplateDialog from '../dialogs/TemplateDialog.vue';
 
 const NODE_TEMPLATE = 'template';
 const NODE_STATE = 'state';
@@ -35,7 +44,8 @@ export default {
         tree: Tree,
         'template-tab': TemplateTab,
         'state-tab': StateTab,
-        'field-tab': FieldTab
+        'field-tab': FieldTab,
+        'new-template-dialog': TemplateDialog
     },
 
     data: () => ({
@@ -67,7 +77,12 @@ export default {
         /**
          * @property {number} fieldId ID of the selected field
          */
-        fieldId: null
+        fieldId: null,
+
+        /**
+         * @property {Object} errors Dialog errors
+         */
+        errors: {}
     }),
 
     computed: {
@@ -85,29 +100,39 @@ export default {
         i18n: () => window.i18n,
 
         /**
+         * @property {Object} newTemplateDialog "New template" dialog instance
+         */
+        newTemplateDialog() {
+            return this.$refs.dlgNewTemplate;
+        },
+
+        /**
          * @property {Array<Object>} nodes Tree of templates with states and fields
          */
         nodes() {
             const current = 'has-text-weight-bold';
 
-            return this.projectStore.getProjectTemplates.map((template) => new TreeNode(
-                `template-${template.id}`,
-                template.name,
-                true,
-                template.id === this.templateId ? [current] : [],
-                this.projectStore.getTemplateStates(template.id).map((state) => new TreeNode(
-                    `state-${state.id}`,
-                    state.name,
+            return [
+                ...this.projectStore.getProjectTemplates.map((template) => new TreeNode(
+                    `template-${template.id}`,
+                    template.name,
                     true,
-                    state.id === this.stateId ? [current] : [],
-                    this.projectStore.getStateFields(state.id).map((field) => new TreeNode(
-                        `field-${field.id}`,
-                        field.name,
-                        false,
-                        field.id === this.fieldId ? [current] : []
+                    template.id === this.templateId ? [current] : [],
+                    this.projectStore.getTemplateStates(template.id).map((state) => new TreeNode(
+                        `state-${state.id}`,
+                        state.name,
+                        true,
+                        state.id === this.stateId ? [current] : [],
+                        this.projectStore.getStateFields(state.id).map((field) => new TreeNode(
+                            `field-${field.id}`,
+                            field.name,
+                            false,
+                            field.id === this.fieldId ? [current] : []
+                        ))
                     ))
-                ))
-            ));
+                )),
+                new TreeNode('template-new', this.i18n['template.new'], false, ['has-text-primary'])
+            ];
         }
     },
 
@@ -138,10 +163,14 @@ export default {
 
             switch (type) {
                 case NODE_TEMPLATE:
-                    await this.templateStore.loadTemplate(parseInt(id));
-                    this.fieldId = null;
-                    this.stateId = null;
-                    this.templateId = this.templateStore.templateId;
+                    if (id === 'new') {
+                        this.openNewTemplateDialog();
+                    } else {
+                        await this.templateStore.loadTemplate(parseInt(id));
+                        this.fieldId = null;
+                        this.stateId = null;
+                        this.templateId = this.templateStore.templateId;
+                    }
                     break;
 
                 case NODE_STATE:
@@ -162,6 +191,55 @@ export default {
                     this.fieldId = null;
                     this.stateId = null;
                     this.templateId = null;
+            }
+        },
+
+        /**
+         * Opens "New template" dialog.
+         */
+        openNewTemplateDialog() {
+            const defaults = {
+                name: '',
+                prefix: '',
+                description: '',
+                criticalAge: null,
+                frozenTime: null
+            };
+
+            this.errors = {};
+
+            this.newTemplateDialog.open(defaults);
+        },
+
+        /**
+         * Creates new template.
+         *
+         * @param {Object} event Submitted values
+         */
+        async createTemplate(event) {
+            const data = {
+                project: this.projectStore.projectId,
+                name: event.name,
+                prefix: event.prefix,
+                description: event.description || null,
+                criticalAge: event.criticalAge || null,
+                frozenTime: event.frozenTime || null
+            };
+
+            ui.block();
+
+            try {
+                const response = await axios.post(url('/api/templates'), data);
+
+                msg.info(this.i18n['template.successfully_created'], async () => {
+                    this.newTemplateDialog.close();
+                    await this.projectStore.loadAllProjectTemplates();
+                    await this.onNodeClick(`template-${response.data.id}`);
+                });
+            } catch (exception) {
+                this.errors = parseErrors(exception);
+            } finally {
+                ui.unblock();
             }
         }
     }

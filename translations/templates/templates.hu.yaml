@@ -5,6 +5,7 @@ template.description: Leírás
 template.frozen_time: 'Zárás után meddig módosítható'
 template.locked: Zárolt
 template.name: 'Sablon neve'
+template.new: 'Új sablon'
 template.prefix: Prefix
 template.status: Állapot
 templates: Sablonok

@@ -5,6 +5,7 @@ template.description: Popis
 template.frozen_time: 'Čas zmrazení'
 template.locked: Zamčený
 template.name: 'Název šablony'
+template.new: 'Nová šablona'
 template.prefix: Prefix
 template.status: Stav
 templates: Šablony

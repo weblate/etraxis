@@ -5,6 +5,7 @@ template.description: Descriere
 template.frozen_time: 'Timp de suspendare'
 template.locked: Blocat
 template.name: 'Numele sablonului'
+template.new: 'Sablon nou'
 template.prefix: Prefix
 template.status: Stare
 templates: Sabloane

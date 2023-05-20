@@ -5,6 +5,7 @@ template.description: Beskrivning
 template.frozen_time: 'Fryst tid'
 template.locked: Låst
 template.name: 'Mall namn'
+template.new: 'Ny mall'
 template.prefix: Prefix
 template.status: Status
 templates: Mallar

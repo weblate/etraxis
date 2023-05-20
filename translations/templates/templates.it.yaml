@@ -5,6 +5,7 @@ template.description: Descrizione
 template.frozen_time: 'Tempo di congelamento'
 template.locked: Bloccato
 template.name: 'Nome del modello'
+template.new: 'Nuovo modello'
 template.prefix: Prefisso
 template.status: Stato
 templates: Modelli

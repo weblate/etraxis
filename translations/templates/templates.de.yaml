@@ -5,6 +5,7 @@ template.description: Beschreibung
 template.frozen_time: 'Einfrieren nach Ende'
 template.locked: Gesperrt
 template.name: 'Name der Anfrageart'
+template.new: 'Neue Anfrageart'
 template.prefix: Präfix
 template.status: Status
 templates: Anfragearten

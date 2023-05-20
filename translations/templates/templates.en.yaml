@@ -5,6 +5,8 @@ template.description: Description
 template.frozen_time: 'Frozen time'
 template.locked: Locked
 template.name: 'Template name'
+template.new: 'New template'
 template.prefix: Prefix
 template.status: Status
+template.successfully_created: 'New template was successfully created.'
 templates: Templates

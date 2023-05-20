@@ -5,6 +5,7 @@ template.description: Apraksts
 template.frozen_time: 'Atlikšanas laiks'
 template.locked: Bloķēts
 template.name: 'Lekāla nosaukums'
+template.new: 'Jauns lekāls'
 template.prefix: Priedēklis
 template.status: Statuss
 templates: Lekāli

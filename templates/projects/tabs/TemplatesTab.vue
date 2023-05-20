@@ -5,6 +5,7 @@
                 <fieldset class="fieldset">
                     <tree :nodes="nodes" @node-expand="onNodeExpand" @node-click="onNodeClick"></tree>
                 </fieldset>
+                <new-template-dialog ref="dlgNewTemplate" :header="i18n['template.new']" :errors="errors" @submit="createTemplate"></new-template-dialog>
             </div>
             <div class="column is-two-thirds-tablet is-three-quarters-desktop">
                 <tabs v-if="fieldId" simplified v-model="fieldTab">

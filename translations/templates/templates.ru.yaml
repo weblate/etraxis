@@ -5,6 +5,8 @@ template.description: Описание
 template.frozen_time: 'Время "заморозки"'
 template.locked: Заблокирован
 template.name: 'Название шаблона'
+template.new: 'Новый шаблон'
 template.prefix: Префикс
 template.status: Статус
+template.successfully_created: 'Новый шаблон успешно создан.'
 templates: Шаблоны

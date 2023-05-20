@@ -1,3 +1,4 @@
+confirm.template.delete: 'Tem certeza que quer apagar este template?'
 template: Assunto
 template.active: Ativo
 template.critical_age: 'Idade crítica'

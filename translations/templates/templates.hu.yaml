@@ -1,3 +1,4 @@
+confirm.template.delete: 'Biztos törölni szeretné a sablont?'
 template: Sablon
 template.active: Aktív
 template.critical_age: 'Kritikus határidő'

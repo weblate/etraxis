@@ -1,3 +1,4 @@
+confirm.template.delete: 'Ben je zeker dat je dit sjabloon wilt verwijderen?'
 template: Sjabloon
 template.active: Actief
 template.critical_age: 'Kritische leeftijd'

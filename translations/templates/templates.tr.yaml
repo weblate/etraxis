@@ -1,3 +1,4 @@
+confirm.template.delete: 'Bu şablonu silmek istediğinizden emin misiniz?'
 template: Şablon
 template.active: Aktif
 template.critical_age: 'Kritik dönem'

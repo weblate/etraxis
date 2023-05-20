@@ -1,3 +1,4 @@
+confirm.template.delete: 'Sunteti sigur ca doriti sa stergeti acest sablon?'
 template: Sablon
 template.active: Activ
 template.critical_age: 'Vechimea critica'

@@ -1,3 +1,4 @@
+confirm.template.delete: テンプレートを削除してよろしいですか？
 template: テンプレート
 template.active: アクティブ
 template.critical_age: 必須対応日数

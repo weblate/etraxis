@@ -1,3 +1,4 @@
+confirm.template.delete: 'Jste si jisti, že chcete smazat tuto šablonu?'
 template: Šablona
 template.active: Aktivní
 template.critical_age: 'Kritické stáří'

@@ -1,3 +1,4 @@
+confirm.template.delete: 'Are you sure you want delete this template?'
 template: Template
 template.active: Active
 template.critical_age: 'Critical age'

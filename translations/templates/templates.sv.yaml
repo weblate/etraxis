@@ -1,3 +1,4 @@
+confirm.template.delete: 'Är du säker på att du vill ta bort den här mallen?'
 template: Mall
 template.active: Aktiv
 template.critical_age: 'Kritisk ålder'

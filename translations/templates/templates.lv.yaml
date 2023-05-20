@@ -1,3 +1,4 @@
+confirm.template.delete: 'Vai tiešām vēlaties dzēst šo lekālu?'
 template: Lekāls
 template.active: Aktīvs
 template.critical_age: 'Kritisks vecums'

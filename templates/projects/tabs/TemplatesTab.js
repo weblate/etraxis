@@ -258,6 +258,21 @@ export default {
             }
 
             await Promise.all(promises);
+        },
+
+        /**
+         * One of the templates is deleted.
+         *
+         * @param {number} id Template ID
+         */
+        async onTemplateDeleted(id) {
+            if (id === this.templateId) {
+                this.fieldId = null;
+                this.stateId = null;
+                this.templateId = null;
+            }
+
+            await this.projectStore.loadAllProjectTemplates();
         }
     }
 };

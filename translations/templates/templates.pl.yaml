@@ -1,3 +1,4 @@
+confirm.template.delete: 'Czy jesteś pewien, że chesz usunąć wybrany szablon?'
 template: Szablon
 template.active: Aktywny
 template.critical_age: 'Czas krytyczny'

@@ -1,3 +1,4 @@
+confirm.template.delete: 'Сигурен ли сте че искате да изтриете този темплейт?'
 template: Темплейт
 template.active: Активен
 template.critical_age: 'Критическа възраст'

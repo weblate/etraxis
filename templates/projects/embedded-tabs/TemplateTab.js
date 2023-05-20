@@ -32,7 +32,14 @@ export default {
          *
          * @param {number} id Template ID
          */
-        update: (id) => typeof id === 'number'
+        update: (id) => typeof id === 'number',
+
+        /**
+         * The template is deleted.
+         *
+         * @param {number} id Template ID
+         */
+        delete: (id) => typeof id === 'number'
     },
 
     components: {
@@ -111,6 +118,25 @@ export default {
             } finally {
                 ui.unblock();
             }
+        },
+
+        /**
+         * Deletes the template.
+         */
+        deleteTemplate() {
+            msg.confirm(this.i18n['confirm.template.delete'], async () => {
+                ui.block();
+
+                try {
+                    await axios.delete(url(`/api/templates/${this.templateStore.templateId}`));
+
+                    this.$emit('delete', this.templateStore.templateId);
+                } catch (exception) {
+                    parseErrors(exception);
+                } finally {
+                    ui.unblock();
+                }
+            });
         }
     }
 };

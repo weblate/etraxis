@@ -1,3 +1,4 @@
+confirm.template.delete: '¿Está seguro de eliminar esta plantilla?'
 template: Plantilla
 template.active: Activo
 template.critical_age: 'Auto expiración'

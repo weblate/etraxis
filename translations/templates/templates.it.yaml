@@ -1,3 +1,4 @@
+confirm.template.delete: 'Eliminare questo modello?'
 template: Modello
 template.active: Attivo
 template.critical_age: 'Età critica'

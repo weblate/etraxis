@@ -20,7 +20,7 @@
                 </tabs>
                 <tabs v-else-if="templateId" simplified v-model="templateTab">
                     <tab id="template" :title="i18n['template']">
-                        <template-tab></template-tab>
+                        <template-tab @update="onTemplateUpdated"></template-tab>
                     </tab>
                 </tabs>
             </div>

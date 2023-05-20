@@ -61,7 +61,10 @@ export default {
          */
         values: {
             name: null,
-            description: null
+            prefix: null,
+            description: null,
+            criticalAge: null,
+            frozenTime: null
         }
     }),
 

@@ -241,6 +241,23 @@ export default {
             } finally {
                 ui.unblock();
             }
+        },
+
+        /**
+         * One of the templates is updated.
+         *
+         * @param {number} id Template ID
+         */
+        async onTemplateUpdated(id) {
+            const promises = [
+                this.projectStore.loadAllProjectTemplates()
+            ];
+
+            if (id === this.templateId) {
+                promises.push(this.templateStore.loadTemplate());
+            }
+
+            await Promise.all(promises);
         }
     }
 };

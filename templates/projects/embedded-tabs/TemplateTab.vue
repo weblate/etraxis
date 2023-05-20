@@ -1,5 +1,8 @@
 <template>
     <section>
+        <div class="buttons">
+            <button class="button" type="button" :disabled="!templateStore.canUpdate" @click="openEditTemplateDialog">{{ i18n['button.edit'] }}</button>
+        </div>
         <div class="columns">
             <div class="column is-two-thirds-desktop">
                 <fieldset class="fieldset">
@@ -65,6 +68,12 @@
                     </div>
                 </fieldset>
             </div>
+            <edit-template-dialog
+                ref="dlgEditTemplate"
+                :header="i18n['template.edit']"
+                :errors="errors"
+                @submit="updateTemplate"
+            ></edit-template-dialog>
         </div>
     </section>
 </template>

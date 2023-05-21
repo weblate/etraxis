@@ -35,6 +35,7 @@ import TemplateDialog from '../dialogs/TemplateDialog.vue';
 const NODE_TEMPLATE = 'template';
 const NODE_STATE = 'state';
 const NODE_FIELD = 'field';
+const NODE_NEW_TEMPLATE = 'newtemplate';
 
 /**
  * "Templates" tab.
@@ -114,24 +115,24 @@ export default {
 
             return [
                 ...this.projectStore.getProjectTemplates.map((template) => new TreeNode(
-                    `template-${template.id}`,
+                    `${NODE_TEMPLATE}-${template.id}`,
                     template.name,
                     true,
                     template.id === this.templateId ? [current] : [],
                     this.projectStore.getTemplateStates(template.id).map((state) => new TreeNode(
-                        `state-${state.id}`,
+                        `${NODE_STATE}-${state.id}`,
                         state.name,
                         true,
                         state.id === this.stateId ? [current] : [],
                         this.projectStore.getStateFields(state.id).map((field) => new TreeNode(
-                            `field-${field.id}`,
+                            `${NODE_FIELD}-${field.id}`,
                             field.name,
                             false,
                             field.id === this.fieldId ? [current] : []
                         ))
                     ))
                 )),
-                new TreeNode('template-new', this.i18n['template.new'], false, ['has-text-primary'])
+                new TreeNode(`${NODE_NEW_TEMPLATE}-${this.projectStore.projectId}`, this.i18n['template.new'], false, ['has-text-primary'])
             ];
         }
     },
@@ -159,29 +160,30 @@ export default {
          * @param {string} event ID associated with the node
          */
         async onNodeClick(event) {
-            const [type, id] = event.split('-');
+            const [type, sid] = event.split('-');
+            const id = parseInt(sid);
 
             switch (type) {
                 case NODE_TEMPLATE:
-                    if (id === 'new') {
-                        this.openNewTemplateDialog();
-                    } else {
-                        await this.templateStore.loadTemplate(parseInt(id));
-                        this.fieldId = null;
-                        this.stateId = null;
-                        this.templateId = this.templateStore.templateId;
-                    }
+                    await this.templateStore.loadTemplate(id);
+                    this.fieldId = null;
+                    this.stateId = null;
+                    this.templateId = this.templateStore.templateId;
+                    break;
+
+                case NODE_NEW_TEMPLATE:
+                    this.openNewTemplateDialog(id);
                     break;
 
                 case NODE_STATE:
-                    await this.stateStore.loadState(parseInt(id));
+                    await this.stateStore.loadState(id);
                     this.fieldId = null;
                     this.stateId = this.stateStore.stateId;
                     this.templateId = this.stateStore.template.id;
                     break;
 
                 case NODE_FIELD:
-                    await this.fieldStore.loadField(parseInt(id));
+                    await this.fieldStore.loadField(id);
                     this.fieldId = this.fieldStore.fieldId;
                     this.stateId = this.fieldStore.state.id;
                     this.templateId = this.fieldStore.template.id;
@@ -196,9 +198,12 @@ export default {
 
         /**
          * Opens "New template" dialog.
+         *
+         * @param {number} id Proejct ID
          */
-        openNewTemplateDialog() {
+        openNewTemplateDialog(id) {
             const defaults = {
+                project: id,
                 name: '',
                 prefix: '',
                 description: '',
@@ -218,7 +223,7 @@ export default {
          */
         async createTemplate(event) {
             const data = {
-                project: this.projectStore.projectId,
+                project: event.project,
                 name: event.name,
                 prefix: event.prefix,
                 description: event.description || null,
@@ -234,7 +239,7 @@ export default {
                 msg.info(this.i18n['template.successfully_created'], async () => {
                     this.newTemplateDialog.close();
                     await this.projectStore.loadAllProjectTemplates();
-                    await this.onNodeClick(`template-${response.data.id}`);
+                    await this.onNodeClick(`${NODE_TEMPLATE}-${response.data.id}`);
                 });
             } catch (exception) {
                 this.errors = parseErrors(exception);
@@ -267,7 +272,7 @@ export default {
          */
         async onTemplateCloned(id) {
             await this.projectStore.loadAllProjectTemplates();
-            await this.onNodeClick(`template-${id}`);
+            await this.onNodeClick(`${NODE_TEMPLATE}-${id}`);
         },
 
         /**

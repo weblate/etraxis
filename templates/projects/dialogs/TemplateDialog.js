@@ -68,6 +68,7 @@ export default {
          * @property {Object} values Form values
          */
         values: {
+            project: null,
             name: null,
             prefix: null,
             description: null,

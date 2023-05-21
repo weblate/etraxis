@@ -1,6 +1,7 @@
 button.add: 追加
 button.back: 戻る
 button.cancel: キャンセル
+button.clone: コピー(転送)
 button.close: クローズ
 button.create: 作成
 button.delete: 削除

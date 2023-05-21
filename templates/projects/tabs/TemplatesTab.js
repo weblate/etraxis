@@ -261,6 +261,16 @@ export default {
         },
 
         /**
+         * One of the templates is cloned.
+         *
+         * @param {number} id New template ID
+         */
+        async onTemplateCloned(id) {
+            await this.projectStore.loadAllProjectTemplates();
+            await this.onNodeClick(`template-${id}`);
+        },
+
+        /**
          * One of the templates is deleted.
          *
          * @param {number} id Template ID

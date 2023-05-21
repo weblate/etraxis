@@ -1,6 +1,7 @@
 confirm.template.delete: 'Вы уверены, что хотите удалить этот шаблон?'
 template: Шаблон
 template.active: Активный
+template.clone: 'Клонирование шаблона'
 template.critical_age: 'Критичный возраст'
 template.description: Описание
 template.edit: 'Редактирование шаблона'

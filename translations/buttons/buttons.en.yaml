@@ -1,6 +1,7 @@
 button.add: Add
 button.back: Back
 button.cancel: Cancel
+button.clone: Clone
 button.close: Close
 button.collapse: Collapse
 button.create: Create

@@ -32,6 +32,14 @@ export default {
         errors: {
             type: Object,
             required: true
+        },
+
+        /**
+         * @property {Array<Object>} projects Projects to select from
+         */
+        projects: {
+            type: Array,
+            default: () => []
         }
     },
 

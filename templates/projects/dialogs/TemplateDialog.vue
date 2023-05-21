@@ -1,6 +1,23 @@
 <template>
     <modal ref="modal" :header="header" auto-close @submit="submit">
         <fieldset class="fieldset">
+            <div v-if="projects.length !== 0" class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" :for="`${uid}-project`">{{ i18n['project'] }}:</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <div class="select is-fullwidth" :class="{ 'is-danger': errors['project'] }">
+                                <select :id="`${uid}-project`" v-model="values.project">
+                                    <option v-for="project in projects" :key="project.id" :value="project.id">{{ project.name }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <p class="help is-danger">{{ errors['project'] }}</p>
+                    </div>
+                </div>
+            </div>
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
                     <label class="label" :for="`${uid}-name`">{{ i18n['template.name'] }}:</label>

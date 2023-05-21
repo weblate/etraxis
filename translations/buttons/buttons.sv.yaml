@@ -1,6 +1,7 @@
 button.add: 'Lägg till'
 button.back: Tillbaka
 button.cancel: Avbryt
+button.clone: Klon
 button.close: Stäng
 button.create: Skapa
 button.delete: 'Ta bort'

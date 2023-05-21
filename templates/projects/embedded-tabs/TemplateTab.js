@@ -15,6 +15,7 @@ import axios from 'axios';
 
 import * as ui from '@utilities/blockui';
 import * as msg from '@utilities/messagebox';
+import loadAll from '@utilities/loadAll';
 import parseErrors from '@utilities/parseErrors';
 import url from '@utilities/url';
 
@@ -35,6 +36,13 @@ export default {
         update: (id) => typeof id === 'number',
 
         /**
+         * The template is cloned.
+         *
+         * @param {number} id New template ID
+         */
+        clone: (id) => typeof id === 'number',
+
+        /**
          * The template is deleted.
          *
          * @param {number} id Template ID
@@ -43,10 +51,16 @@ export default {
     },
 
     components: {
-        'edit-template-dialog': TemplateDialog
+        'edit-template-dialog': TemplateDialog,
+        'clone-template-dialog': TemplateDialog
     },
 
     data: () => ({
+        /**
+         * @property {Array<Object>} projects All existing projects
+         */
+        projects: [],
+
         /**
          * @property {Object} errors Dialog errors
          */
@@ -69,6 +83,13 @@ export default {
          */
         editTemplateDialog() {
             return this.$refs.dlgEditTemplate;
+        },
+
+        /**
+         * @property {Object} cloneTemplateDialog "Clone template" dialog instance
+         */
+        cloneTemplateDialog() {
+            return this.$refs.dlgCloneTemplate;
         }
     },
 
@@ -112,6 +133,62 @@ export default {
 
                 msg.info(this.i18n['text.changes_saved'], () => {
                     this.editTemplateDialog.close();
+                });
+            } catch (exception) {
+                this.errors = parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
+        },
+
+        /**
+         * Opens "Clone template" dialog.
+         */
+        async openCloneTemplateDialog() {
+            const defaults = {
+                project: this.templateStore.project.id,
+                name: this.templateStore.name,
+                prefix: this.templateStore.prefix,
+                description: this.templateStore.description,
+                criticalAge: this.templateStore.criticalAge,
+                frozenTime: this.templateStore.frozenTime
+            };
+
+            this.errors = {};
+
+            if (this.projects.length === 0) {
+                this.projects = await loadAll(url('/api/projects'), {}, { name: 'asc' });
+            }
+
+            this.cloneTemplateDialog.open(defaults);
+        },
+
+        /**
+         * Clones template.
+         *
+         * @param {Object} event Submitted values
+         */
+        async cloneTemplate(event) {
+            const data = {
+                project: event.project,
+                name: event.name,
+                prefix: event.prefix,
+                description: event.description || null,
+                criticalAge: event.criticalAge || null,
+                frozenTime: event.frozenTime || null
+            };
+
+            ui.block();
+
+            try {
+                const response = await axios.post(url(`/api/templates/${this.templateStore.templateId}`), data);
+
+                if (data.project === this.templateStore.project.id) {
+                    this.$emit('clone', response.data.id);
+                }
+
+                msg.info(this.i18n['template.successfully_created'], () => {
+                    this.cloneTemplateDialog.close();
                 });
             } catch (exception) {
                 this.errors = parseErrors(exception);

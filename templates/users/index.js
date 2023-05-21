@@ -13,7 +13,7 @@ import { createApp } from 'vue';
 
 import axios from 'axios';
 
-import AccountProviderEnum from '@enums/accountprovider';
+import AccountProviderEnum from '@enums/accountProvider';
 
 import * as ui from '@utilities/blockui';
 import * as msg from '@utilities/messagebox';

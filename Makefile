@@ -28,9 +28,7 @@ build:
 	./bin/console doctrine:database:create
 	./bin/console doctrine:migrations:migrate -n
 	./bin/console doctrine:fixtures:load --group=prod -n
-	./bin/console etraxis:export-enums
 	npm install
-	npx eslint --fix ./assets/enums
 	npm run dev
 
 run:
@@ -58,6 +56,4 @@ update:
 	composer update "symfony/*" --with-all-dependencies
 
 watch:
-	./bin/console etraxis:export-enums
-	npx eslint --fix ./assets/enums
 	npm run watch

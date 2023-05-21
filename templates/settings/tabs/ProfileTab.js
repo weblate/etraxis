@@ -11,7 +11,7 @@
 
 import axios from 'axios';
 
-import AccountProviderEnum from '@enums/accountprovider';
+import AccountProviderEnum from '@enums/accountProvider';
 import ThemeEnum from '@enums/theme';
 
 import * as ui from '@utilities/blockui';

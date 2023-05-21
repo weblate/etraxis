@@ -31,11 +31,13 @@ import StateTab from '../embedded-tabs/StateTab.vue';
 import FieldTab from '../embedded-tabs/FieldTab.vue';
 
 import TemplateDialog from '../dialogs/TemplateDialog.vue';
+import StateDialog from '../dialogs/StateDialog.vue';
 
 const NODE_TEMPLATE = 'template';
 const NODE_STATE = 'state';
 const NODE_FIELD = 'field';
 const NODE_NEW_TEMPLATE = 'newtemplate';
+const NODE_NEW_STATE = 'newstate';
 
 /**
  * "Templates" tab.
@@ -46,7 +48,8 @@ export default {
         'template-tab': TemplateTab,
         'state-tab': StateTab,
         'field-tab': FieldTab,
-        'new-template-dialog': TemplateDialog
+        'new-template-dialog': TemplateDialog,
+        'new-state-dialog': StateDialog
     },
 
     data: () => ({
@@ -108,6 +111,13 @@ export default {
         },
 
         /**
+         * @property {Object} newStateDialog "New state" dialog instance
+         */
+        newStateDialog() {
+            return this.$refs.dlgNewState;
+        },
+
+        /**
          * @property {Array<Object>} nodes Tree of templates with states and fields
          */
         nodes() {
@@ -119,18 +129,21 @@ export default {
                     template.name,
                     true,
                     template.id === this.templateId ? [current] : [],
-                    this.projectStore.getTemplateStates(template.id).map((state) => new TreeNode(
-                        `${NODE_STATE}-${state.id}`,
-                        state.name,
-                        true,
-                        state.id === this.stateId ? [current] : [],
-                        this.projectStore.getStateFields(state.id).map((field) => new TreeNode(
-                            `${NODE_FIELD}-${field.id}`,
-                            field.name,
-                            false,
-                            field.id === this.fieldId ? [current] : []
-                        ))
-                    ))
+                    [
+                        ...this.projectStore.getTemplateStates(template.id).map((state) => new TreeNode(
+                            `${NODE_STATE}-${state.id}`,
+                            state.name,
+                            true,
+                            state.id === this.stateId ? [current] : [],
+                            this.projectStore.getStateFields(state.id).map((field) => new TreeNode(
+                                `${NODE_FIELD}-${field.id}`,
+                                field.name,
+                                false,
+                                field.id === this.fieldId ? [current] : []
+                            ))
+                        )),
+                        new TreeNode(`${NODE_NEW_STATE}-${template.id}`, this.i18n['state.new'], false, ['has-text-primary'])
+                    ]
                 )),
                 new TreeNode(`${NODE_NEW_TEMPLATE}-${this.projectStore.projectId}`, this.i18n['template.new'], false, ['has-text-primary'])
             ];
@@ -180,6 +193,14 @@ export default {
                     this.fieldId = null;
                     this.stateId = this.stateStore.stateId;
                     this.templateId = this.stateStore.template.id;
+                    break;
+
+                case NODE_NEW_STATE:
+                    if (this.projectStore.isTemplateLocked(id)) {
+                        this.openNewStateDialog(id);
+                    } else {
+                        msg.warning(this.i18n['template.error.must_be_locked']);
+                    }
                     break;
 
                 case NODE_FIELD:
@@ -288,6 +309,54 @@ export default {
             }
 
             await this.projectStore.loadAllProjectTemplates();
+        },
+
+        /**
+         * Opens "New state" dialog.
+         *
+         * @param {number} id Template ID
+         */
+        openNewStateDialog(id) {
+            const defaults = {
+                template: id,
+                name: '',
+                type: 'intermediate',
+                responsible: 'keep'
+            };
+
+            this.errors = {};
+
+            this.newStateDialog.open(defaults);
+        },
+
+        /**
+         * Creates new state.
+         *
+         * @param {Object} event Submitted values
+         */
+        async createState(event) {
+            const data = {
+                template: event.template,
+                name: event.name,
+                type: event.type,
+                responsible: event.responsible
+            };
+
+            ui.block();
+
+            try {
+                const response = await axios.post(url('/api/states'), data);
+
+                msg.info(this.i18n['state.successfully_created'], async () => {
+                    this.newStateDialog.close();
+                    await this.projectStore.loadTemplateStates(event.template);
+                    await this.onNodeClick(`${NODE_STATE}-${response.data.id}`);
+                });
+            } catch (exception) {
+                this.errors = parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
         }
     }
 };

@@ -3,6 +3,7 @@ state.final: Eindstatus
 state.initial: Beginstatus
 state.intermediate: Tussenstatus
 state.name: Statusnaam
+state.new: 'Nieuwe status'
 state.responsible: Verantwoordelijkheid
 state.responsible.assign: Toekennen
 state.responsible.keep: 'Blijft ongewijzigd'

@@ -3,6 +3,7 @@ state.final: Slutlig
 state.initial: Första
 state.intermediate: Mellanliggande
 state.name: 'Status namn'
+state.new: 'Ny status'
 state.responsible: Ansvarig
 state.responsible.assign: Tilldela
 state.responsible.keep: 'Behåll oförändrad'

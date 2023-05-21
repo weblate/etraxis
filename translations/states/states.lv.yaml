@@ -3,6 +3,7 @@ state.final: Beigu
 state.initial: Sākotnējs
 state.intermediate: Vidus
 state.name: 'Stāvokļa nosaukums'
+state.new: 'Jauns stāvoklis'
 state.responsible: Atbildīgais
 state.responsible.assign: Adresēt
 state.responsible.keep: 'Atstāt neizmainītu'

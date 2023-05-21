@@ -5,6 +5,7 @@ template.clone: 'Clone template'
 template.critical_age: 'Critical age'
 template.description: Description
 template.edit: 'Edit template'
+template.error.must_be_locked: 'Template must be locked.'
 template.frozen_time: 'Frozen time'
 template.locked: Locked
 template.name: 'Template name'

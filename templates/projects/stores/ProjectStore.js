@@ -146,6 +146,14 @@ export const useProjectStore = defineStore('project', {
             return state.stateFields.has(stateId)
                 ? state.stateFields.get(stateId)
                 : [];
+        },
+
+        /**
+         * @property {boolean} isTemplateLocked Whether the specified template is locked
+         * @param {Object} state
+         */
+        isTemplateLocked: (state) => (templateId) => {
+            return state.projectTemplates.find((template) => template.id === templateId).locked;
         }
     },
 

@@ -3,6 +3,7 @@ state.final: Краен
 state.initial: Начален
 state.intermediate: Междинен
 state.name: 'Име на условие'
+state.new: 'Ново условие'
 state.responsible: Отговорен
 state.responsible.assign: Определи
 state.responsible.keep: 'Остави непроменено'

@@ -3,6 +3,7 @@ state.final: Koncový
 state.initial: Počáteční
 state.intermediate: Standardní
 state.name: 'Název stavu'
+state.new: 'Nový stav'
 state.responsible: Odpovědnost
 state.responsible.assign: Přiřadit
 state.responsible.keep: Zachovat

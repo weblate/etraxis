@@ -6,6 +6,7 @@
                     <tree :nodes="nodes" @node-expand="onNodeExpand" @node-click="onNodeClick"></tree>
                 </fieldset>
                 <new-template-dialog ref="dlgNewTemplate" :header="i18n['template.new']" :errors="errors" @submit="createTemplate"></new-template-dialog>
+                <new-state-dialog ref="dlgNewState" :header="i18n['state.new']" :errors="errors" @submit="createState"></new-state-dialog>
             </div>
             <div class="column is-two-thirds-tablet is-three-quarters-desktop">
                 <tabs v-if="fieldId" simplified v-model="fieldTab">

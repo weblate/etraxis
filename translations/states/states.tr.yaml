@@ -3,6 +3,7 @@ state.final: Son
 state.initial: Ilk
 state.intermediate: Orta
 state.name: 'Durum adı'
+state.new: 'Yeni durum'
 state.responsible: Sorumlu
 state.responsible.assign: Ata
 state.responsible.keep: 'Değişmeden kalan'

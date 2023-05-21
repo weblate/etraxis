@@ -5,6 +5,7 @@ template.clone: 'Клонирование шаблона'
 template.critical_age: 'Критичный возраст'
 template.description: Описание
 template.edit: 'Редактирование шаблона'
+template.error.must_be_locked: 'Шаблон должен быть заблокирован.'
 template.frozen_time: 'Время "заморозки"'
 template.locked: Заблокирован
 template.name: 'Название шаблона'

@@ -3,6 +3,7 @@ state.final: Végső
 state.initial: Kezdeti
 state.intermediate: Köztes
 state.name: 'Állapot neve'
+state.new: 'Új állapot'
 state.responsible: Felelős
 state.responsible.assign: Hozzárendelés
 state.responsible.keep: Változatlan

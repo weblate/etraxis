@@ -3,6 +3,7 @@ state.final: Final
 state.initial: Inicial
 state.intermediate: Intermedio
 state.name: 'Nombre de estado'
+state.new: 'Nuevo estado'
 state.responsible: Responsable
 state.responsible.assign: Asignar
 state.responsible.keep: 'Dejar sin cambios'

@@ -3,9 +3,11 @@ state.final: Final
 state.initial: Initial
 state.intermediate: Intermediate
 state.name: 'State name'
+state.new: 'New state'
 state.responsible: Responsible
 state.responsible.assign: Assign
 state.responsible.keep: 'Keep unchanged'
 state.responsible.remove: Remove
+state.successfully_created: 'New state was successfully created.'
 state.type: 'State type'
 states: States

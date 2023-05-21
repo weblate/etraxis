@@ -3,6 +3,7 @@ state.final: Endstatus
 state.initial: Startstatus
 state.intermediate: Zwischenstatus
 state.name: Statusname
+state.new: 'Neuer Status'
 state.responsible: Bearbeiter(in)
 state.responsible.assign: Zuordnen
 state.responsible.keep: Beibehalten

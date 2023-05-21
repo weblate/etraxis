@@ -3,9 +3,11 @@ state.final: Финальное
 state.initial: Начальное
 state.intermediate: Промежуточное
 state.name: 'Название состояния'
+state.new: 'Новое состояние'
 state.responsible: Ответственный
 state.responsible.assign: Назначить
 state.responsible.keep: 'Оставить без изменений'
 state.responsible.remove: Убрать
+state.successfully_created: 'Новое состояние успешно создано.'
 state.type: 'Тип состояния'
 states: Состояния

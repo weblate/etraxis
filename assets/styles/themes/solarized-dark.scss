@@ -14,6 +14,7 @@
 $dark-mode: true;
 
 $primary: desaturate($cyan, 20%);
+$warning: desaturate($yellow, 20%);
 $danger: desaturate($red, 20%);
 
 $black: darken($base03, 3%);

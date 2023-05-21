@@ -20,6 +20,14 @@ import generateUid from '@utilities/uid';
 export const alert = (message, callback = null) => messageBox(window.i18n['text.error'], message, callback, 'fa-times-circle', 'has-text-danger', true);
 
 /**
+ * Displays warning message box (alternative to JavaScript "alert").
+ *
+ * @param {string}   message  Warning message
+ * @param {function} callback Optional callback to execute when the message box is closed
+ */
+export const warning = (message, callback = null) => messageBox('eTraxis', message, callback, 'fa-exclamation-circle', 'has-text-warning', true);
+
+/**
  * Displays informational message box (alternative to JavaScript "alert").
  *
  * @param {string}   message  Informational message

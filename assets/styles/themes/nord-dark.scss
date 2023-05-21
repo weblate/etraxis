@@ -14,6 +14,7 @@
 $dark-mode: true;
 
 $primary: $nord10;
+$warning: desaturate($nord13, 20%);
 $danger: $nord11;
 
 $black: hsl(0, 0%, 13%);

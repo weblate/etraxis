@@ -40,7 +40,6 @@ export const block = (message = null) => {
         const modal = document.getElementById(dialogId);
 
         modal.addEventListener('cancel', (event) => event.preventDefault());
-        modal.addEventListener('close', () => modal.parentNode.removeChild(modal));
 
         modal.showModal();
         modal.blur();
@@ -60,6 +59,7 @@ export const unblock = () => {
         // This was a last block.
         const modal = document.getElementById(dialogId);
         modal.close();
+        modal.parentNode.removeChild(modal);
     } else {
         // There is a previous block there - restore its message from the stack.
         const element = document.querySelector(`#${dialogId} p`);

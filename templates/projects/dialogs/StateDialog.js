@@ -35,6 +35,14 @@ export default {
         errors: {
             type: Object,
             required: true
+        },
+
+        /**
+         * @property {boolean} noType Whether to allow editing the state type
+         */
+        noType: {
+            type: Boolean,
+            default: false
         }
     },
 

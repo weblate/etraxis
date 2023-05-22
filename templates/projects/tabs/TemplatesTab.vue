@@ -16,7 +16,7 @@
                 </tabs>
                 <tabs v-else-if="stateId" simplified v-model="stateTab">
                     <tab id="state" :title="i18n['state']">
-                        <state-tab></state-tab>
+                        <state-tab @update="onStateUpdated"></state-tab>
                     </tab>
                 </tabs>
                 <tabs v-else-if="templateId" simplified v-model="templateTab">

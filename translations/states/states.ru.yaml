@@ -1,4 +1,5 @@
 state: Состояние
+state.edit: 'Редактирование состояния'
 state.final: Финальное
 state.initial: Начальное
 state.intermediate: Промежуточное

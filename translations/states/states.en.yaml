@@ -1,4 +1,5 @@
 state: State
+state.edit: 'Edit state'
 state.final: Final
 state.initial: Initial
 state.intermediate: Intermediate

@@ -23,13 +23,16 @@
             </div>
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" :for="`${uid}-type`">{{ i18n['state.type'] }}:</label>
+                    <label class="label" :class="{ disabled: noType }" :for="`${uid}-type`">{{ i18n['state.type'] }}:</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
                             <div class="select is-fullwidth" :class="{ 'is-danger': errors['type'] }">
-                                <select :id="`${uid}-type`" v-model="values.type">
+                                <select v-if="noType" :id="`${uid}-type`" disabled v-model="values.type">
+                                    <option :value="values.type">{{ i18n[stateTypes[values.type]] }}</option>
+                                </select>
+                                <select v-else :id="`${uid}-type`" v-model="values.type">
                                     <option v-for="(value, key) in stateTypes" :key="key" :value="key">{{ i18n[value] }}</option>
                                 </select>
                             </div>

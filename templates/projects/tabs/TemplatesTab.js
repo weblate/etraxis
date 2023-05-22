@@ -357,6 +357,23 @@ export default {
             } finally {
                 ui.unblock();
             }
+        },
+
+        /**
+         * One of the states is updated.
+         *
+         * @param {number} id State ID
+         */
+        async onStateUpdated(id) {
+            const promises = [
+                this.projectStore.loadTemplateStates(this.stateStore.template.id)
+            ];
+
+            if (id === this.stateId) {
+                promises.push(this.stateStore.loadState());
+            }
+
+            await Promise.all(promises);
         }
     }
 };

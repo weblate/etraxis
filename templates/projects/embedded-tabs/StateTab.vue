@@ -2,6 +2,7 @@
     <section>
         <div class="buttons">
             <button class="button" type="button" :disabled="!stateStore.canUpdate" @click="openEditStateDialog">{{ i18n['button.edit'] }}</button>
+            <button v-if="!stateStore.isInitial" class="button" type="button" @click="makeStateInitial">{{ i18n['state.make_initial'] }}</button>
             <button class="button is-danger" type="button" :disabled="!stateStore.canDelete" @click="deleteState">{{ i18n['button.delete'] }}</button>
         </div>
         <div class="columns">

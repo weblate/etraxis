@@ -4,6 +4,7 @@ state.edit: 'Edit state'
 state.final: Final
 state.initial: Initial
 state.intermediate: Intermediate
+state.make_initial: 'Make initial'
 state.name: 'State name'
 state.new: 'New state'
 state.responsible: Responsible

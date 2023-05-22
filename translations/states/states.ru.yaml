@@ -4,6 +4,7 @@ state.edit: 'Редактирование состояния'
 state.final: Финальное
 state.initial: Начальное
 state.intermediate: Промежуточное
+state.make_initial: 'Сделать начальным'
 state.name: 'Название состояния'
 state.new: 'Новое состояние'
 state.responsible: Ответственный

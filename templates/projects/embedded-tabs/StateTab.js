@@ -134,6 +134,22 @@ export default {
         },
 
         /**
+         * Makes the state initial one.
+         */
+        async makeStateInitial() {
+            ui.block();
+
+            try {
+                await axios.post(url(`/api/states/${this.stateStore.stateId}/initial`));
+                await this.stateStore.loadState();
+            } catch (exception) {
+                parseErrors(exception);
+            } finally {
+                ui.unblock();
+            }
+        },
+
+        /**
          * Deletes the state.
          */
         deleteState() {

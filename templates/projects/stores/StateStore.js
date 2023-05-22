@@ -79,6 +79,12 @@ export const useStateStore = defineStore('state', {
         template: (state) => state.state.template,
 
         /**
+         * @property {boolean} isInitial Whether the state is initial.
+         * @param {Object} state
+         */
+        isInitial: (state) => state.state.type === 'initial',
+
+        /**
          * @property {boolean} canUpdate Whether the state can be updated
          * @param {Object} state
          */

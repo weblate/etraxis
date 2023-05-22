@@ -93,6 +93,9 @@ export default {
          */
         stateResponsibles: () => StateResponsibleEnum,
 
+        /**
+         * @property {boolean} isFinal Whether the state is final
+         */
         isFinal() {
             return this.values.type === 'final';
         }

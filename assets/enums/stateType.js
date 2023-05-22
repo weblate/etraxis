@@ -10,7 +10,7 @@
 //----------------------------------------------------------------------
 
 /**
- * List of alowed state types.
+ * List of allowed state types.
  */
 export default {
     initial: 'state.initial',

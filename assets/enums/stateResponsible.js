@@ -10,7 +10,7 @@
 //----------------------------------------------------------------------
 
 /**
- * List of alowed state responsibility values.
+ * List of allowed state responsibility values.
  */
 export default {
     keep: 'state.responsible.keep',

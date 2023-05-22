@@ -1,3 +1,4 @@
+confirm.state.delete: 'Ben je zeker dat je deze status wilt verwijderen?'
 state: Status
 state.final: Eindstatus
 state.initial: Beginstatus

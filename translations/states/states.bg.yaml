@@ -1,3 +1,4 @@
+confirm.state.delete: 'Сигурен ли сте че искате да изтриете това условие?'
 state: Условие
 state.final: Краен
 state.initial: Начален

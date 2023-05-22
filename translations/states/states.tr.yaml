@@ -1,3 +1,4 @@
+confirm.state.delete: 'Bu durumu silmek istediğinizden emin misiniz?'
 state: Durum
 state.final: Son
 state.initial: Ilk

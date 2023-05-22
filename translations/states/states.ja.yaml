@@ -1,3 +1,4 @@
+confirm.state.delete: ステータスを削除してよろしいですか？
 state: 状態
 state.final: 最終状態
 state.initial: 初期状態

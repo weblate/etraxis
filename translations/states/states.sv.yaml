@@ -1,3 +1,4 @@
+confirm.state.delete: 'Är du säker på att du vill ta bort den här statusen?'
 state: Status
 state.final: Slutlig
 state.initial: Första

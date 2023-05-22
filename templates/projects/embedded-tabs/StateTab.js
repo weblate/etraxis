@@ -32,7 +32,14 @@ export default {
          *
          * @param {number} id State ID
          */
-        update: (id) => typeof id === 'number'
+        update: (id) => typeof id === 'number',
+
+        /**
+         * The state is deleted.
+         *
+         * @param {number} id State ID
+         */
+        delete: (id) => typeof id === 'number'
     },
 
     components: {
@@ -124,6 +131,25 @@ export default {
             } finally {
                 ui.unblock();
             }
+        },
+
+        /**
+         * Deletes the state.
+         */
+        deleteState() {
+            msg.confirm(this.i18n['confirm.state.delete'], async () => {
+                ui.block();
+
+                try {
+                    await axios.delete(url(`/api/states/${this.stateStore.stateId}`));
+
+                    this.$emit('delete', this.stateStore.stateId);
+                } catch (exception) {
+                    parseErrors(exception);
+                } finally {
+                    ui.unblock();
+                }
+            });
         }
     }
 };

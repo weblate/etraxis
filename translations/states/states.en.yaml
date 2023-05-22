@@ -1,3 +1,4 @@
+confirm.state.delete: 'Are you sure you want delete this state?'
 state: State
 state.edit: 'Edit state'
 state.final: Final

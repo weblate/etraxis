@@ -1,3 +1,4 @@
+confirm.state.delete: 'Sunteti sigur ca doriti sa stergeti aceasta stare?'
 state: Stare
 state.final: Final
 state.initial: Initial

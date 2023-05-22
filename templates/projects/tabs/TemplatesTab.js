@@ -374,6 +374,20 @@ export default {
             }
 
             await Promise.all(promises);
+        },
+
+        /**
+         * One of the states is deleted.
+         *
+         * @param {number} id State ID
+         */
+        async onStateDeleted(id) {
+            if (id === this.stateId) {
+                this.fieldId = null;
+                this.stateId = null;
+            }
+
+            await this.projectStore.loadTemplateStates(this.templateId);
         }
     }
 };

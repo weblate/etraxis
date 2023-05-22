@@ -1,3 +1,4 @@
+confirm.state.delete: 'Czy jesteś pewien, że chesz usunąć wybrany status?'
 state: Stan
 state.final: Końcowy
 state.initial: Początkowy

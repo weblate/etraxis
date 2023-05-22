@@ -2,6 +2,7 @@
     <section>
         <div class="buttons">
             <button class="button" type="button" :disabled="!stateStore.canUpdate" @click="openEditStateDialog">{{ i18n['button.edit'] }}</button>
+            <button class="button is-danger" type="button" :disabled="!stateStore.canDelete" @click="deleteState">{{ i18n['button.delete'] }}</button>
         </div>
         <div class="columns">
             <div class="column is-two-thirds-desktop">

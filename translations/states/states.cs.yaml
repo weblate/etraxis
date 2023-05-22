@@ -1,3 +1,4 @@
+confirm.state.delete: 'Jste si jisti, že chcete smazat tento stav?'
 state: Stav
 state.final: Koncový
 state.initial: Počáteční

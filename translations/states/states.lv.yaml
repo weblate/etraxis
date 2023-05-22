@@ -1,3 +1,4 @@
+confirm.state.delete: 'Vai tiešām vēlaties dzēst šo stāvokli?'
 state: Stāvoklis
 state.final: Beigu
 state.initial: Sākotnējs

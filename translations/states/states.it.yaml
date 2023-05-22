@@ -1,3 +1,4 @@
+confirm.state.delete: 'Eliminare questo stato?'
 state: Stato
 state.final: Finale
 state.initial: Iniziale

@@ -1,3 +1,4 @@
+confirm.state.delete: 'Biztos törölni szeretné az állapotot?'
 state: Állapot
 state.final: Végső
 state.initial: Kezdeti

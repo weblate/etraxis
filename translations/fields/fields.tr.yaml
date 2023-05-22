@@ -13,6 +13,7 @@ field.max_length: 'Maksimum uzunluk'
 field.max_value: 'Maksimum değer'
 field.min_value: 'En az değer'
 field.name: 'Alan adı'
+field.new: 'Yeni alan'
 field.number: Numara
 field.required: Gerekli
 field.string: Dizge

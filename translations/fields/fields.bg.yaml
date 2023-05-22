@@ -13,6 +13,7 @@ field.max_length: 'Maximum value дължина'
 field.max_value: 'Максимална стойност'
 field.min_value: 'Минимална стойност'
 field.name: 'Име на поле'
+field.new: 'Ново поле'
 field.number: Номер
 field.required: Изискван
 field.string: Стринг

@@ -13,6 +13,7 @@ field.max_length: 'Tamanho máximo'
 field.max_value: 'Valor máximo'
 field.min_value: 'Valor mínimo'
 field.name: 'Nome do campo'
+field.new: 'Novo campo'
 field.number: Número
 field.required: Obrigatório
 field.string: 'Cadeia de caracteres'

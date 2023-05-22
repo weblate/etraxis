@@ -7,6 +7,7 @@
                 </fieldset>
                 <new-template-dialog ref="dlgNewTemplate" :header="i18n['template.new']" :errors="errors" @submit="createTemplate"></new-template-dialog>
                 <new-state-dialog ref="dlgNewState" :header="i18n['state.new']" :errors="errors" @submit="createState"></new-state-dialog>
+                <new-field-dialog ref="dlgNewField" :header="i18n['field.new']" :errors="errors" @submit="createField"></new-field-dialog>
             </div>
             <div class="column is-two-thirds-tablet is-three-quarters-desktop">
                 <tabs v-if="fieldId" simplified v-model="fieldTab">

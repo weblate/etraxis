@@ -149,11 +149,31 @@ export const useProjectStore = defineStore('project', {
         },
 
         /**
-         * @property {boolean} isTemplateLocked Whether the specified template is locked
+         * @property {Object} getTemplate Finds the specified template
          * @param {Object} state
          */
-        isTemplateLocked: (state) => (templateId) => {
-            return state.projectTemplates.find((template) => template.id === templateId).locked;
+        getTemplate: (state) => (templateId) => {
+            return state.projectTemplates.find((template) => template.id === templateId);
+        },
+
+        /**
+         * @property {Object} getState Finds the specified state
+         * @param {Object} state
+         */
+        getState: (state) => (stateId) => {
+            return Array.from(state.templateStates.values())
+                .flat()
+                .find((state) => state.id === stateId);
+        },
+
+        /**
+         * @property {Object} getField Finds the specified field
+         * @param {Object} state
+         */
+        getField: (state) => (fieldId) => {
+            return Array.from(state.stateFields.values())
+                .flat()
+                .find((field) => field.id === fieldId);
         }
     },
 

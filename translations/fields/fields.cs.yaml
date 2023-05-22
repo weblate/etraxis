@@ -13,6 +13,7 @@ field.max_length: 'Maximální délka'
 field.max_value: 'Maximální hodnota'
 field.min_value: 'Minimální hodnota'
 field.name: 'Název pole'
+field.new: 'Nové pole'
 field.number: Číslo
 field.required: Povinný
 field.string: Text

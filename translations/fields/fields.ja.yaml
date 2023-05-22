@@ -13,6 +13,7 @@ field.max_length: 最大文字長
 field.max_value: 最大値
 field.min_value: 最小値
 field.name: フィールド名
+field.new: 新規フィールド
 field.number: 数値
 field.required: 必須？
 field.string: 文字列

@@ -13,6 +13,7 @@ field.max_length: 'Lungime maximă'
 field.max_value: 'Valoare maximă'
 field.min_value: 'Valoare minima'
 field.name: 'Numele campului'
+field.new: 'Camp nou'
 field.number: Numar
 field.required: Obligatoriu
 field.string: Text

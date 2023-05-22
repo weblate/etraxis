@@ -13,6 +13,7 @@ field.max_length: 'Longueur maximale'
 field.max_value: 'Valeur maximum'
 field.min_value: 'Valeur minimum'
 field.name: 'Nom du champ'
+field.new: 'Nouveau champ'
 field.number: Nombre
 field.required: Requis
 field.string: Chaîne

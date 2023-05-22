@@ -13,6 +13,7 @@ field.max_length: Maxlängd
 field.max_value: 'Maximalt värde'
 field.min_value: 'Minsta värde'
 field.name: 'Fält namn'
+field.new: 'Nytt fält'
 field.number: Nummer
 field.required: Obligatorisk
 field.string: Sträng

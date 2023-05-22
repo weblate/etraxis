@@ -1,5 +1,5 @@
 field: Поле
-field.checkbox: '"Флаг"'
+field.checkbox: 'Чекбокс'
 field.date: Дата
 field.decimal: 'Вещественное число'
 field.default_value: 'Значение по умолчанию'
@@ -16,9 +16,11 @@ field.max_length: 'Максимальная длина'
 field.max_value: 'Максимальное значение'
 field.min_value: 'Минимальное значение'
 field.name: 'Название атрибута'
+field.new: 'Новое поле'
 field.number: 'Целое число'
 field.required: Обязательный
 field.string: Строка
+field.successfully_created: 'Новое поле успешно создано.'
 field.text: 'Многострочный текст'
 field.type: 'Тип атрибута'
 fields: Атрибуты

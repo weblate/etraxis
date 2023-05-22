@@ -12,6 +12,7 @@ field.max_length: 'Maximale lengte'
 field.max_value: 'Maximale waarde'
 field.min_value: 'Minimale waarde'
 field.name: Veldnaam
+field.new: 'Nieuw veld'
 field.number: Aantal
 field.required: Vereist
 field.string: Tekst

@@ -13,6 +13,7 @@ field.max_length: 'Lunghezza massima'
 field.max_value: 'Valore massimo'
 field.min_value: 'Valore minimo'
 field.name: 'Nome del campo'
+field.new: 'Nuovo campo'
 field.number: Numerico
 field.required: Obbligatorio
 field.string: Testuale

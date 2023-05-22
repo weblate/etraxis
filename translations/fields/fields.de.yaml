@@ -13,6 +13,7 @@ field.max_length: 'Maximale Länge'
 field.max_value: 'Max. Wert'
 field.min_value: 'Min. Wert'
 field.name: Zusatzname
+field.new: 'Neuer Zusatz'
 field.number: Zahl
 field.required: Erforderlich
 field.string: Text

@@ -13,6 +13,7 @@ field.max_length: 'Maksymalna długość'
 field.max_value: 'Maksymalna wartość'
 field.min_value: 'Minimalna wartość'
 field.name: 'Nazwa pola'
+field.new: 'Nowe pole'
 field.number: Liczba
 field.required: Wymagany
 field.string: Tekst

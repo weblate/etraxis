@@ -16,9 +16,11 @@ field.max_length: 'Maximum length'
 field.max_value: 'Maximum value'
 field.min_value: 'Minimum value'
 field.name: 'Field name'
+field.new: 'New field'
 field.number: Number
 field.required: Required
 field.string: String
+field.successfully_created: 'New field was successfully created.'
 field.text: 'Multilined text'
 field.type: 'Field type'
 fields: Fields

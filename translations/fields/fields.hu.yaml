@@ -13,6 +13,7 @@ field.max_length: 'Maximális hossz'
 field.max_value: 'Maximális érték'
 field.min_value: 'Minimális érték'
 field.name: 'Mező neve'
+field.new: 'Új mező'
 field.number: Szám
 field.required: Kötelező
 field.string: Szöveg

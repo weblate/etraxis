@@ -43,13 +43,13 @@
             </div>
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" :for="`${uid}-responsible`">{{ i18n['state.responsible'] }}:</label>
+                    <label class="label" :class="{ disabled: isFinal }" :for="`${uid}-responsible`">{{ i18n['state.responsible'] }}:</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
                             <div class="select is-fullwidth" :class="{ 'is-danger': errors['responsible'] }">
-                                <select :id="`${uid}-responsible`" v-model="values.responsible">
+                                <select :id="`${uid}-responsible`" :disabled="isFinal" v-model="values.responsible">
                                     <option v-for="(value, key) in stateResponsibles" :key="key" :value="key">{{ i18n[value] }}</option>
                                 </select>
                             </div>

@@ -91,7 +91,11 @@ export default {
         /**
          * @property {Object} stateResponsibles Available state responsibility values
          */
-        stateResponsibles: () => StateResponsibleEnum
+        stateResponsibles: () => StateResponsibleEnum,
+
+        isFinal() {
+            return this.values.type === 'final';
+        }
     },
 
     methods: {

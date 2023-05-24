@@ -11,6 +11,10 @@
 
 import { mapStores } from 'pinia';
 
+import * as FIELD_TYPE from '@const/fieldType';
+
+import FieldTypeEnum from '@enums/fieldType';
+
 import { useFieldStore } from '../stores/FieldStore';
 
 /**
@@ -31,16 +35,62 @@ export default {
         /**
          * @property {Object} fieldTypes List of possible field types
          */
-        fieldTypes: () => ({
-            checkbox: window.i18n['field.checkbox'],
-            date: window.i18n['field.date'],
-            decimal: window.i18n['field.decimal'],
-            duration: window.i18n['field.duration'],
-            issue: window.i18n['field.issue'],
-            list: window.i18n['field.list'],
-            number: window.i18n['field.number'],
-            string: window.i18n['field.string'],
-            text: window.i18n['field.text']
-        })
+        fieldTypes: () => FieldTypeEnum,
+
+        /**
+         * @property {boolean} isCheckbox Whether the current field type is a checkbox
+         */
+        isCheckbox() {
+            return this.fieldStore.type === FIELD_TYPE.CHECKBOX;
+        },
+
+        /**
+         * @property {boolean} isDate Whether the current field type is a date
+         */
+        isDate() {
+            return this.fieldStore.type === FIELD_TYPE.DATE;
+        },
+
+        /**
+         * @property {boolean} isDecimal Whether the current field type is a decimal
+         */
+        isDecimal() {
+            return this.fieldStore.type === FIELD_TYPE.DECIMAL;
+        },
+
+        /**
+         * @property {boolean} isDuration Whether the current field type is a duration
+         */
+        isDuration() {
+            return this.fieldStore.type === FIELD_TYPE.DURATION;
+        },
+
+        /**
+         * @property {boolean} isList Whether the current field type is a list
+         */
+        isList() {
+            return this.fieldStore.type === FIELD_TYPE.LIST;
+        },
+
+        /**
+         * @property {boolean} isNumber Whether the current field type is a number
+         */
+        isNumber() {
+            return this.fieldStore.type === FIELD_TYPE.NUMBER;
+        },
+
+        /**
+         * @property {boolean} isString Whether the current field type is a string
+         */
+        isString() {
+            return this.fieldStore.type === FIELD_TYPE.STRING;
+        },
+
+        /**
+         * @property {boolean} isText Whether the current field type is a text
+         */
+        isText() {
+            return this.fieldStore.type === FIELD_TYPE.TEXT;
+        }
     }
 };

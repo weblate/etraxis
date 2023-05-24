@@ -19,7 +19,7 @@
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ fieldTypes[fieldStore.type] }}</p>
+                                <p>{{ i18n[fieldTypes[fieldStore.type]] }}</p>
                             </div>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                             </div>
                         </div>
                     </div>
-                    <div v-if="['string', 'text'].includes(fieldStore.type)" class="field is-horizontal">
+                    <div v-if="isString || isText" class="field is-horizontal">
                         <div class="field-label">
                             <p class="label">{{ i18n['field.max_length'] }}:</p>
                         </div>
@@ -53,7 +53,7 @@
                             </div>
                         </div>
                     </div>
-                    <div v-if="['date', 'decimal', 'duration', 'number'].includes(fieldStore.type)" class="field is-horizontal">
+                    <div v-if="isDate || isDecimal || isDuration || isNumber" class="field is-horizontal">
                         <div class="field-label">
                             <p class="label">{{ i18n['field.min_value'] }}:</p>
                         </div>
@@ -63,7 +63,7 @@
                             </div>
                         </div>
                     </div>
-                    <div v-if="['date', 'decimal', 'duration', 'number'].includes(fieldStore.type)" class="field is-horizontal">
+                    <div v-if="isDate || isDecimal || isDuration || isNumber" class="field is-horizontal">
                         <div class="field-label">
                             <p class="label">{{ i18n['field.max_value'] }}:</p>
                         </div>
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                     </div>
-                    <div v-if="['date', 'decimal', 'duration', 'list', 'number', 'string', 'text'].includes(fieldStore.type)" class="field is-horizontal">
+                    <div v-if="isDate || isDecimal || isDuration || isList || isNumber || isString || isText" class="field is-horizontal">
                         <div class="field-label">
                             <p class="label">{{ i18n['field.default_value'] }}:</p>
                         </div>
@@ -83,7 +83,7 @@
                             </div>
                         </div>
                     </div>
-                    <div v-if="['checkbox'].includes(fieldStore.type)" class="field is-horizontal">
+                    <div v-if="isCheckbox" class="field is-horizontal">
                         <div class="field-label">
                             <p class="label">{{ i18n['field.default_value'] }}:</p>
                         </div>

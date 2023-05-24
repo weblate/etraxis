@@ -11,6 +11,8 @@
 
 import axios from 'axios';
 
+import * as ACCOUNT_PROVIDER from '@const/accountProvider';
+
 import AccountProviderEnum from '@enums/accountProvider';
 import ThemeEnum from '@enums/theme';
 
@@ -95,7 +97,7 @@ export default {
          * @property {boolean} isExternal Whether the user's account is external
          */
         isExternal() {
-            return this.profile.accountProvider !== 'etraxis';
+            return this.profile.accountProvider !== ACCOUNT_PROVIDER.ETRAXIS;
         }
     },
 

@@ -13,6 +13,8 @@ import { defineStore } from 'pinia';
 
 import axios from 'axios';
 
+import * as STATE_TYPE from '@const/stateType';
+
 import * as ui from '@utilities/blockui';
 import parseErrors from '@utilities/parseErrors';
 import url from '@utilities/url';
@@ -82,7 +84,7 @@ export const useStateStore = defineStore('state', {
          * @property {boolean} isInitial Whether the state is initial.
          * @param {Object} state
          */
-        isInitial: (state) => state.state.type === 'initial',
+        isInitial: (state) => state.state.type === STATE_TYPE.INITIAL,
 
         /**
          * @property {boolean} canUpdate Whether the state can be updated

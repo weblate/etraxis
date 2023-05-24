@@ -13,6 +13,9 @@ import { mapStores } from 'pinia';
 
 import axios from 'axios';
 
+import * as STATE_RESPONSIBLE from '@const/stateResponsible';
+import * as STATE_TYPE from '@const/stateType';
+
 import * as ui from '@utilities/blockui';
 import * as msg from '@utilities/messagebox';
 import parseErrors from '@utilities/parseErrors';
@@ -342,8 +345,8 @@ export default {
             const defaults = {
                 template: id,
                 name: '',
-                type: 'intermediate',
-                responsible: 'keep'
+                type: STATE_TYPE.INTERMEDIATE,
+                responsible: STATE_RESPONSIBLE.KEEP
             };
 
             this.errors = {};

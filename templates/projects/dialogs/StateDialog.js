@@ -11,6 +11,8 @@
 
 import Modal from '@components/modal/modal.vue';
 
+import * as STATE_TYPE from '@const/stateType';
+
 import StateTypeEnum from '@enums/stateType';
 import StateResponsibleEnum from '@enums/stateResponsible';
 
@@ -97,7 +99,7 @@ export default {
          * @property {boolean} isFinal Whether the state is final
          */
         isFinal() {
-            return this.values.type === 'final';
+            return this.values.type === STATE_TYPE.FINAL;
         }
     },
 

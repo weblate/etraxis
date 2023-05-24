@@ -13,6 +13,8 @@ import { defineStore } from 'pinia';
 
 import axios from 'axios';
 
+import * as ACCOUNT_PROVIDER from '@const/accountProvider';
+
 import * as ui from '@utilities/blockui';
 import parseErrors from '@utilities/parseErrors';
 import url from '@utilities/url';
@@ -103,7 +105,7 @@ export const useProfileStore = defineStore('profile', {
          * @property {boolean} isExternalUser Whether the user is an external
          * @param {Object} state
          */
-        isExternalUser: (state) => state.profile.accountProvider !== 'etraxis',
+        isExternalUser: (state) => state.profile.accountProvider !== ACCOUNT_PROVIDER.ETRAXIS,
 
         /**
          * @property {boolean} canUpdate Whether the user can be updated

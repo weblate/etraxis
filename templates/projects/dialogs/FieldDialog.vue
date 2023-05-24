@@ -57,7 +57,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="['date', 'decimal', 'duration', 'number'].includes(values.type)" class="field is-horizontal">
+            <div v-if="isDate || isDecimal || isDuration || isNumber" class="field is-horizontal">
                 <div class="field-label is-normal">
                     <label class="label" :for="`${uid}-minimum`">{{ i18n['field.min_value'] }}:</label>
                 </div>
@@ -77,7 +77,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="['date', 'decimal', 'duration', 'number'].includes(values.type)" class="field is-horizontal">
+            <div v-if="isDate || isDecimal || isDuration || isNumber" class="field is-horizontal">
                 <div class="field-label is-normal">
                     <label class="label" :for="`${uid}-maximum`">{{ i18n['field.max_value'] }}:</label>
                 </div>
@@ -97,7 +97,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="['string', 'text'].includes(values.type)" class="field is-horizontal">
+            <div v-if="isString || isText" class="field is-horizontal">
                 <div class="field-label is-normal">
                     <label class="label" :for="`${uid}-length`">{{ i18n['field.max_length'] }}:</label>
                 </div>
@@ -117,7 +117,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="['date', 'decimal', 'duration', 'number', 'string', 'text'].includes(values.type)" class="field is-horizontal">
+            <div v-if="isDate || isDecimal || isDuration || isNumber || isString || isText" class="field is-horizontal">
                 <div class="field-label is-normal">
                     <label class="label" :for="`${uid}-default`">{{ i18n['field.default_value'] }}:</label>
                 </div>
@@ -136,7 +136,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="['checkbox'].includes(values.type)" class="field is-horizontal">
+            <div v-if="isCheckbox" class="field is-horizontal">
                 <div class="field-label is-normal">
                     <label class="label" :for="`${uid}-default`">{{ i18n['field.default_value'] }}:</label>
                 </div>

@@ -13,6 +13,9 @@ import { mapStores } from 'pinia';
 
 import axios from 'axios';
 
+import StateResponsibleEnum from '@enums/stateResponsible';
+import StateTypeEnum from '@enums/stateType';
+
 import * as ui from '@utilities/blockui';
 import * as msg from '@utilities/messagebox';
 import parseErrors from '@utilities/parseErrors';
@@ -67,20 +70,12 @@ export default {
         /**
          * @property {Object} stateTypes List of possible state types
          */
-        stateTypes: () => ({
-            initial: window.i18n['state.initial'],
-            intermediate: window.i18n['state.intermediate'],
-            final: window.i18n['state.final']
-        }),
+        stateTypes: () => StateTypeEnum,
 
         /**
          * @property {Object} stateResponsibles List of possible state responsibility values
          */
-        stateResponsibles: () => ({
-            assign: window.i18n['state.responsible.assign'],
-            keep: window.i18n['state.responsible.keep'],
-            remove: window.i18n['state.responsible.remove']
-        }),
+        stateResponsibles: () => StateResponsibleEnum,
 
         /**
          * @property {Object} editStateDialog "Edit state" dialog instance

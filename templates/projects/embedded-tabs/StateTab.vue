@@ -24,7 +24,7 @@
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ stateTypes[stateStore.type] }}</p>
+                                <p>{{ i18n[stateTypes[stateStore.type]] }}</p>
                             </div>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ stateResponsibles[stateStore.responsible] }}</p>
+                                <p>{{ i18n[stateResponsibles[stateStore.responsible]] }}</p>
                             </div>
                         </div>
                     </div>

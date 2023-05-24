@@ -13,6 +13,8 @@ import { createApp } from 'vue';
 
 import axios from 'axios';
 
+import * as ACCOUNT_PROVIDER from '@const/accountProvider';
+
 import AccountProviderEnum from '@enums/accountProvider';
 
 import * as ui from '@utilities/blockui';
@@ -280,7 +282,7 @@ const app = createApp({
                 const response = await axios.get(url(`/api/users/${id}`));
 
                 this.errors = {};
-                this.editUserDialog.open(id === this.currentUser, response.data.accountProvider !== 'etraxis', response.data);
+                this.editUserDialog.open(id === this.currentUser, response.data.accountProvider !== ACCOUNT_PROVIDER.ETRAXIS, response.data);
             } catch (exception) {
                 parseErrors(exception);
             } finally {

@@ -11,6 +11,8 @@
 
 import Modal from '@components/modal/modal.vue';
 
+import * as FIELD_TYPE from '@const/fieldType';
+
 import FieldTypeEnum from '@enums/fieldType';
 
 import generateUid from '@utilities/uid';
@@ -88,15 +90,71 @@ export default {
                 .sort((x1, x2) => x1[1].localeCompare(x2[1]))
         ),
 
+        /**
+         * @property {boolean} isCheckbox Whether the current field type is a checkbox
+         */
+        isCheckbox() {
+            return this.values.type === FIELD_TYPE.CHECKBOX;
+        },
+
+        /**
+         * @property {boolean} isDate Whether the current field type is a date
+         */
+        isDate() {
+            return this.values.type === FIELD_TYPE.DATE;
+        },
+
+        /**
+         * @property {boolean} isDecimal Whether the current field type is a decimal
+         */
+        isDecimal() {
+            return this.values.type === FIELD_TYPE.DECIMAL;
+        },
+
+        /**
+         * @property {boolean} isDuration Whether the current field type is a duration
+         */
+        isDuration() {
+            return this.values.type === FIELD_TYPE.DURATION;
+        },
+
+        /**
+         * @property {boolean} isList Whether the current field type is a list
+         */
+        isList() {
+            return this.values.type === FIELD_TYPE.LIST;
+        },
+
+        /**
+         * @property {boolean} isNumber Whether the current field type is a number
+         */
+        isNumber() {
+            return this.values.type === FIELD_TYPE.NUMBER;
+        },
+
+        /**
+         * @property {boolean} isString Whether the current field type is a string
+         */
+        isString() {
+            return this.values.type === FIELD_TYPE.STRING;
+        },
+
+        /**
+         * @property {boolean} isText Whether the current field type is a text
+         */
+        isText() {
+            return this.values.type === FIELD_TYPE.TEXT;
+        },
+
         fieldTypeMinimumPlaceholder() {
             switch (this.values.type) {
-                case 'date':
+                case FIELD_TYPE.DATE:
                     return '-1000000000';
-                case 'decimal':
+                case FIELD_TYPE.DECIMAL:
                     return '-9999999999.9999999999';
-                case 'duration':
+                case FIELD_TYPE.DURATION:
                     return '0:00';
-                case 'number':
+                case FIELD_TYPE.NUMBER:
                     return '-1000000000';
             }
 
@@ -105,13 +163,13 @@ export default {
 
         fieldTypeMaximumPlaceholder() {
             switch (this.values.type) {
-                case 'date':
+                case FIELD_TYPE.DATE:
                     return '+1000000000';
-                case 'decimal':
+                case FIELD_TYPE.DECIMAL:
                     return '+9999999999.9999999999';
-                case 'duration':
+                case FIELD_TYPE.DURATION:
                     return '999999:59';
-                case 'number':
+                case FIELD_TYPE.NUMBER:
                     return '+1000000000';
             }
 
@@ -144,33 +202,36 @@ export default {
          * Submits the dialog's form.
          */
         submit() {
-            let parameters = {};
+            const parameters = {};
 
-            if (['date', 'number'].includes(this.values.type)) {
-                parameters = {
-                    minimum: this.values.minimum ?? null,
-                    maximum: this.values.maximum ?? null,
-                    default: this.values.default ?? null
-                };
-            } else if (['decimal', 'duration'].includes(this.values.type)) {
-                parameters = {
-                    minimum: this.values.minimum || null,
-                    maximum: this.values.maximum || null,
-                    default: this.values.default || null
-                };
-            } else if (['string', 'text'].includes(this.values.type)) {
-                parameters = {
-                    length: this.values.length ?? null,
-                    default: this.values.default || null
-                };
-            } else if (['checkbox'].includes(this.values.type)) {
-                parameters = {
-                    default: !!this.values.default
-                };
-            } else if (['list'].includes(this.values.type)) {
-                parameters = {
-                    default: this.values.default ?? null
-                };
+            switch (this.values.type) {
+                case FIELD_TYPE.DATE:
+                case FIELD_TYPE.NUMBER:
+                    parameters.minimum = this.values.minimum ?? null;
+                    parameters.maximum = this.values.maximum ?? null;
+                    parameters.default = this.values.default ?? null;
+                    break;
+
+                case FIELD_TYPE.DECIMAL:
+                case FIELD_TYPE.DURATION:
+                    parameters.minimum = this.values.minimum || null;
+                    parameters.maximum = this.values.maximum || null;
+                    parameters.default = this.values.default || null;
+                    break;
+
+                case FIELD_TYPE.STRING:
+                case FIELD_TYPE.TEXT:
+                    parameters.length = this.values.length ?? null;
+                    parameters.default = this.values.default || null;
+                    break;
+
+                case FIELD_TYPE.CHECKBOX:
+                    parameters.default = !!this.values.default;
+                    break;
+
+                case FIELD_TYPE.LIST:
+                    parameters.default = this.values.default ?? null;
+                    break;
             }
 
             const values = {

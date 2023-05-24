@@ -16,6 +16,7 @@ namespace App\Serializer\Normalizer;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Denormalizer for backed enums.
@@ -23,12 +24,19 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 class EnumDenormalizer implements DenormalizerInterface
 {
     /**
+     * @codeCoverageIgnore Dependency Injection constructor
+     */
+    public function __construct(protected readonly TranslatorInterface $translator)
+    {
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): \BackedEnum
     {
         if (!is_subclass_of($type, \BackedEnum::class)) {
-            throw new InvalidArgumentException('The data must belong to a backed enumeration.');
+            throw new InvalidArgumentException($this->translator->trans('This value is not valid.', domain: 'validators'));
         }
 
         $value = null;
@@ -38,12 +46,7 @@ class EnumDenormalizer implements DenormalizerInterface
         }
 
         if (null === $value) {
-            throw new BadRequestHttpException(
-                sprintf(
-                    'The value should be one of the following - [%s].',
-                    implode(', ', array_map(fn (\BackedEnum $case) => $case->value, $type::cases()))
-                )
-            );
+            throw new BadRequestHttpException($this->translator->trans('The value you selected is not a valid choice.', domain: 'validators'));
         }
 
         return $value;

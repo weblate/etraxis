@@ -148,7 +148,7 @@ export default {
 
             this.$refs.modal.open();
 
-            this.$nextTick(() => document.getElementById(`${this.uid}-fullname`).focus());
+            this.$nextTick(() => document.getElementById(this.isExternal ? `${this.uid}-locale` : `${this.uid}-fullname`).focus());
         },
 
         /**

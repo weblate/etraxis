@@ -28,7 +28,7 @@ export default (exception) => {
     if (typeof exception.response.data === 'object') {
         /** @var {{ property: string, message: string }} entry */
         for (const entry of exception.response.data) {
-            errors[entry.property] = entry.message;
+            errors[entry.property.replace(/\[|\]/g, '')] = entry.message;
         }
     } else {
         alert(exception.response.data);

@@ -94,8 +94,8 @@ final class CreateDateFieldCommandHandlerTest extends TransactionalTestCase
         self::assertSame(FieldTypeEnum::Date, $field->getType());
 
         $strategy = $field->getStrategy();
-        self::assertSame(-2147483648, $strategy->getParameter(Field::MINIMUM));
-        self::assertSame(2147483647, $strategy->getParameter(Field::MAXIMUM));
+        self::assertSame(-1000000000, $strategy->getParameter(Field::MINIMUM));
+        self::assertSame(1000000000, $strategy->getParameter(Field::MAXIMUM));
         self::assertNull($strategy->getParameter(Field::DEFAULT));
     }
 

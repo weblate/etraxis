@@ -24,13 +24,16 @@
             </div>
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" :for="`${uid}-type`">{{ i18n['field.type'] }}:</label>
+                    <label class="label" :class="{ disabled: noType }" :for="`${uid}-type`">{{ i18n['field.type'] }}:</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
                             <div class="select is-fullwidth" :class="{ 'is-danger': errors['type'] }">
-                                <select :id="`${uid}-type`" v-model="values.type">
+                                <select v-if="noType" :id="`${uid}-type`" disabled v-model="values.type">
+                                    <option :value="values.type">{{ fieldTypes[values.type] }}</option>
+                                </select>
+                                <select v-else :id="`${uid}-type`" v-model="values.type">
                                     <option v-for="(value, key) in fieldTypes" :key="key" :value="key">{{ value }}</option>
                                 </select>
                             </div>
@@ -171,8 +174,8 @@
                         <div class="control">
                             <div class="select is-fullwidth" :class="{ 'is-danger': errors['default'] }">
                                 <select :id="`${uid}-default`" v-model="values.default">
-                                    <option value="1">{{ i18n['text.on'] }}</option>
-                                    <option value="0">{{ i18n['text.off'] }}</option>
+                                    <option :value="true">{{ i18n['text.on'] }}</option>
+                                    <option :value="false">{{ i18n['text.off'] }}</option>
                                 </select>
                             </div>
                         </div>

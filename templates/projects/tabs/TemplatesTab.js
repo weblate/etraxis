@@ -465,6 +465,23 @@ export default {
             } finally {
                 ui.unblock();
             }
+        },
+
+        /**
+         * One of the fields is updated.
+         *
+         * @param {number} id Field ID
+         */
+        async onFieldUpdated(id) {
+            const promises = [
+                this.projectStore.loadStateFields(this.fieldStore.state.id)
+            ];
+
+            if (id === this.fieldId) {
+                promises.push(this.fieldStore.loadField());
+            }
+
+            await Promise.all(promises);
         }
     }
 };

@@ -38,6 +38,14 @@ export default {
         errors: {
             type: Object,
             required: true
+        },
+
+        /**
+         * @property {boolean} noType Whether to allow editing the field type
+         */
+        noType: {
+            type: Boolean,
+            default: false
         }
     },
 
@@ -267,10 +275,7 @@ export default {
                 type: this.values.type,
                 description: this.values.description || null,
                 required: this.values.required,
-                parameters: Object.fromEntries(
-                    Object.entries(parameters)
-                        .filter((x) => x[1] !== null)
-                )
+                parameters
             };
 
             this.$emit('submit', values);
@@ -282,10 +287,12 @@ export default {
          * Resets field parameters if the field type is changed.
          */
         'values.type'() {
-            this.values.length = null;
-            this.values.minimum = null;
-            this.values.maximum = null;
-            this.values.default = null;
+            if (!this.noType) {
+                this.values.length = null;
+                this.values.minimum = null;
+                this.values.maximum = null;
+                this.values.default = null;
+            }
         }
     }
 };

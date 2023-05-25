@@ -56,7 +56,7 @@
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ templateStore.criticalAge || '&mdash;' }}</p>
+                                <p>{{ templateStore.criticalAge ?? '&mdash;' }}</p>
                             </div>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ templateStore.frozenTime || '&mdash;' }}</p>
+                                <p>{{ templateStore.frozenTime ?? '&mdash;' }}</p>
                             </div>
                         </div>
                     </div>

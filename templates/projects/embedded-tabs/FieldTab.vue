@@ -49,7 +49,7 @@
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ fieldStore.parameters.length || '&mdash;' }}</p>
+                                <p>{{ fieldStore.parameters.length ?? '&mdash;' }}</p>
                             </div>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ fieldStore.parameters.minimum || '&mdash;' }}</p>
+                                <p>{{ fieldStore.parameters.minimum ?? '&mdash;' }}</p>
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ fieldStore.parameters.maximum || '&mdash;' }}</p>
+                                <p>{{ fieldStore.parameters.maximum ?? '&mdash;' }}</p>
                             </div>
                         </div>
                     </div>
@@ -79,7 +79,7 @@
                         </div>
                         <div class="field-body">
                             <div class="content">
-                                <p>{{ fieldStore.parameters.default || '&mdash;' }}</p>
+                                <p>{{ fieldStore.parameters.default ?? '&mdash;' }}</p>
                             </div>
                         </div>
                     </div>

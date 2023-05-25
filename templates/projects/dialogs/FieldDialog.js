@@ -15,6 +15,7 @@ import * as FIELD_TYPE from '@const/fieldType';
 
 import FieldTypeEnum from '@enums/fieldType';
 
+import * as convert from '@utilities/convert';
 import generateUid from '@utilities/uid';
 
 /**
@@ -207,30 +208,30 @@ export default {
             switch (this.values.type) {
                 case FIELD_TYPE.DATE:
                 case FIELD_TYPE.NUMBER:
-                    parameters.minimum = this.values.minimum ?? null;
-                    parameters.maximum = this.values.maximum ?? null;
-                    parameters.default = this.values.default ?? null;
+                    parameters.minimum = convert.toNumber(this.values.minimum);
+                    parameters.maximum = convert.toNumber(this.values.maximum);
+                    parameters.default = convert.toNumber(this.values.default);
                     break;
 
                 case FIELD_TYPE.DECIMAL:
                 case FIELD_TYPE.DURATION:
-                    parameters.minimum = this.values.minimum || null;
-                    parameters.maximum = this.values.maximum || null;
-                    parameters.default = this.values.default || null;
+                    parameters.minimum = convert.toString(this.values.minimum);
+                    parameters.maximum = convert.toString(this.values.maximum);
+                    parameters.default = convert.toString(this.values.default);
                     break;
 
                 case FIELD_TYPE.STRING:
                 case FIELD_TYPE.TEXT:
-                    parameters.length = this.values.length ?? null;
-                    parameters.default = this.values.default || null;
+                    parameters.length = convert.toNumber(this.values.length);
+                    parameters.default = convert.toString(this.values.default);
                     break;
 
                 case FIELD_TYPE.CHECKBOX:
-                    parameters.default = !!this.values.default;
+                    parameters.default = convert.toBoolean(this.values.default);
                     break;
 
                 case FIELD_TYPE.LIST:
-                    parameters.default = this.values.default ?? null;
+                    parameters.default = convert.toNumber(this.values.default);
                     break;
             }
 

@@ -13,6 +13,7 @@
                                 :class="{ 'is-danger': errors['fullname'] }"
                                 type="text"
                                 :id="`${uid}-fullname`"
+                                :maxlength="MAX_FULLNAME"
                                 :placeholder="i18n['text.required']"
                                 v-model="values.fullname"
                             />
@@ -33,6 +34,7 @@
                                 :class="{ 'is-danger': errors['email'] }"
                                 type="email"
                                 :id="`${uid}-email`"
+                                :maxlength="MAX_EMAIL"
                                 :placeholder="i18n['text.required']"
                                 v-model="values.email"
                             />
@@ -53,6 +55,7 @@
                                 :class="{ 'is-danger': errors['description'] }"
                                 type="text"
                                 :id="`${uid}-description`"
+                                :maxlength="MAX_DESCRIPTION"
                                 v-model="values.description"
                             />
                         </div>
@@ -72,6 +75,7 @@
                                 :class="{ 'is-danger': errors['password'] }"
                                 type="password"
                                 :id="`${uid}-password`"
+                                :maxlength="MAX_PASSWORD"
                                 :placeholder="i18n['text.required']"
                                 v-model="values.password"
                             />
@@ -92,6 +96,7 @@
                                 :class="{ 'is-danger': errors['confirmation'] }"
                                 type="password"
                                 :id="`${uid}-confirmation`"
+                                :maxlength="MAX_PASSWORD"
                                 :placeholder="i18n['text.required']"
                                 v-model="confirmation"
                             />

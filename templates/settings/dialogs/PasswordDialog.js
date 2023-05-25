@@ -11,6 +11,8 @@
 
 import Modal from '@components/modal/modal.vue';
 
+import * as USER from '@const/user';
+
 import generateUid from '@utilities/uid';
 
 /**
@@ -70,7 +72,12 @@ export default {
         /**
          * @property {Object} i18n Translation resources
          */
-        i18n: () => window.i18n
+        i18n: () => window.i18n,
+
+        /**
+         * @property {number} MAX_PASSWORD Input constraint
+         */
+        MAX_PASSWORD: () => USER.MAX_PASSWORD
     },
 
     methods: {

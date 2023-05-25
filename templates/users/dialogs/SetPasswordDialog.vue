@@ -13,6 +13,7 @@
                                 :class="{ 'is-danger': errors['password'] }"
                                 type="password"
                                 :id="`${uid}-password`"
+                                :maxlength="MAX_PASSWORD"
                                 :placeholder="i18n['text.required']"
                                 v-model="password"
                             />
@@ -33,6 +34,7 @@
                                 :class="{ 'is-danger': errors['confirmation'] }"
                                 type="password"
                                 :id="`${uid}-confirmation`"
+                                :maxlength="MAX_PASSWORD"
                                 :placeholder="i18n['text.required']"
                                 v-model="confirmation"
                             />

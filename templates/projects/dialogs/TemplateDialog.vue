@@ -30,6 +30,7 @@
                                 :class="{ 'is-danger': errors['name'] }"
                                 type="text"
                                 :id="`${uid}-name`"
+                                :maxlength="MAX_NAME"
                                 :placeholder="i18n['text.required']"
                                 v-model="values.name"
                             />
@@ -50,6 +51,7 @@
                                 :class="{ 'is-danger': errors['prefix'] }"
                                 type="text"
                                 :id="`${uid}-prefix`"
+                                :maxlength="MAX_PREFIX"
                                 :placeholder="i18n['text.required']"
                                 v-model="values.prefix"
                             />
@@ -70,6 +72,7 @@
                                 :class="{ 'is-danger': errors['description'] }"
                                 type="text"
                                 :id="`${uid}-description`"
+                                :maxlength="MAX_DESCRIPTION"
                                 v-model="values.description"
                             />
                         </div>
@@ -88,7 +91,7 @@
                                 class="input"
                                 :class="{ 'is-danger': errors['criticalAge'] }"
                                 type="number"
-                                min="1"
+                                :min="MIN_CRITICAL_AGE"
                                 :id="`${uid}-critical-age`"
                                 v-model="values.criticalAge"
                             />
@@ -108,7 +111,7 @@
                                 class="input"
                                 :class="{ 'is-danger': errors['frozenTime'] }"
                                 type="number"
-                                min="1"
+                                :min="MIN_FROZEN_TIME"
                                 :id="`${uid}-frozen-time`"
                                 v-model="values.frozenTime"
                             />

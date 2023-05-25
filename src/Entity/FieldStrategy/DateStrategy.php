@@ -28,8 +28,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final class DateStrategy extends AbstractFieldStrategy
 {
     // Constraints.
-    public const MIN_VALUE = -0x80000000;
-    public const MAX_VALUE = 0x7FFFFFFF;
+    public const MIN_VALUE = -1000000000;
+    public const MAX_VALUE = 1000000000;
 
     #[Groups('api')]
     #[API\Property(type: OpenApiInterface::TYPE_INTEGER, minimum: self::MIN_VALUE, maximum: self::MAX_VALUE, description: 'Minimum allowed value.')]

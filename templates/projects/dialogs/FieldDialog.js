@@ -11,6 +11,7 @@
 
 import Modal from '@components/modal/modal.vue';
 
+import * as FIELD from '@const/field';
 import * as FIELD_TYPE from '@const/fieldType';
 
 import FieldTypeEnum from '@enums/fieldType';
@@ -81,6 +82,31 @@ export default {
          * @property {Object} i18n Translation resources
          */
         i18n: () => window.i18n,
+
+        /**
+         * @property {number} MAX_NAME Input constraint
+         */
+        MAX_NAME: () => FIELD.MAX_NAME,
+
+        /**
+         * @property {number} MAX_DESCRIPTION Input constraint
+         */
+        MAX_DESCRIPTION: () => FIELD.MAX_DESCRIPTION,
+
+        /**
+         * @property {number} MAX_PARAMETER Input constraint
+         */
+        MAX_PARAMETER: () => FIELD.MAX_PARAMETER,
+
+        /**
+         * @property {number} MAX_STRING_LENGTH Input constraint
+         */
+        MAX_STRING_LENGTH: () => FIELD.MAX_STRING_LENGTH,
+
+        /**
+         * @property {number} MAX_TEXT_LENGTH Input constraint
+         */
+        MAX_TEXT_LENGTH: () => FIELD.MAX_TEXT_LENGTH,
 
         /**
          * @property {Object} fieldTypes Available field types

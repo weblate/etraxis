@@ -6,6 +6,7 @@
                     <input
                         class="input"
                         type="password"
+                        :maxlength="MAX_PASSWORD"
                         :placeholder="i18n['password.new']"
                         required
                         autocomplete="new-password"
@@ -19,6 +20,7 @@
                     <input
                         class="input"
                         type="password"
+                        :maxlength="MAX_PASSWORD"
                         :placeholder="i18n['password.confirmation']"
                         required
                         autocomplete="new-password"

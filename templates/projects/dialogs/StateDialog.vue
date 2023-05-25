@@ -13,6 +13,7 @@
                                 :class="{ 'is-danger': errors['name'] }"
                                 type="text"
                                 :id="`${uid}-name`"
+                                :maxlength="MAX_NAME"
                                 :placeholder="i18n['text.required']"
                                 v-model="values.name"
                             />

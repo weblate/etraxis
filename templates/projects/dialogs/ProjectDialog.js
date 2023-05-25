@@ -11,6 +11,8 @@
 
 import Modal from '@components/modal/modal.vue';
 
+import * as PROJECT from '@const/project';
+
 import generateUid from '@utilities/uid';
 
 /**
@@ -69,7 +71,17 @@ export default {
         /**
          * @property {Object} i18n Translation resources
          */
-        i18n: () => window.i18n
+        i18n: () => window.i18n,
+
+        /**
+         * @property {number} MAX_NAME Input constraint
+         */
+        MAX_NAME: () => PROJECT.MAX_NAME,
+
+        /**
+         * @property {number} MAX_DESCRIPTION Input constraint
+         */
+        MAX_DESCRIPTION: () => PROJECT.MAX_DESCRIPTION
     },
 
     methods: {

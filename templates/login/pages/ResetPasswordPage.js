@@ -11,6 +11,8 @@
 
 import axios from 'axios';
 
+import * as USER from '@const/user';
+
 import * as ui from '@utilities/blockui';
 import * as msg from '@utilities/messagebox';
 import url from '@utilities/url';
@@ -29,7 +31,12 @@ export default {
         /**
          * @property {Object} i18n Translation resources
          */
-        i18n: () => window.i18n
+        i18n: () => window.i18n,
+
+        /**
+         * @property {number} MAX_PASSWORD Input constraint
+         */
+        MAX_PASSWORD: () => USER.MAX_PASSWORD
     },
 
     methods: {

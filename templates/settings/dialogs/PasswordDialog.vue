@@ -13,6 +13,7 @@
                                 :class="{ 'is-danger': errors['current'] }"
                                 type="password"
                                 :id="`${uid}-current`"
+                                :maxlength="MAX_PASSWORD"
                                 :placeholder="i18n['text.required']"
                                 v-model="values.current"
                             />
@@ -33,6 +34,7 @@
                                 :class="{ 'is-danger': errors['password'] }"
                                 type="password"
                                 :id="`${uid}-new`"
+                                :maxlength="MAX_PASSWORD"
                                 :placeholder="i18n['text.required']"
                                 v-model="values.new"
                             />
@@ -53,6 +55,7 @@
                                 :class="{ 'is-danger': errors['confirmation'] }"
                                 type="password"
                                 :id="`${uid}-confirmation`"
+                                :maxlength="MAX_PASSWORD"
                                 :placeholder="i18n['text.required']"
                                 v-model="values.confirmation"
                             />

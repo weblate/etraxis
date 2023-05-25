@@ -14,6 +14,7 @@
                                 :class="{ 'is-danger': errors['fullname'] }"
                                 type="text"
                                 :id="`${uid}-fullname`"
+                                :maxlength="MAX_FULLNAME"
                                 :placeholder="i18n['text.required']"
                                 v-model="values.fullname"
                             />
@@ -34,6 +35,7 @@
                                 :class="{ 'is-danger': errors['email'] }"
                                 type="email"
                                 :id="`${uid}-email`"
+                                :maxlength="MAX_EMAIL"
                                 :placeholder="i18n['text.required']"
                                 v-model="values.email"
                             />

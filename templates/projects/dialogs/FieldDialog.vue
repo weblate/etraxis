@@ -13,6 +13,7 @@
                                 :class="{ 'is-danger': errors['name'] }"
                                 type="text"
                                 :id="`${uid}-name`"
+                                :maxlength="MAX_NAME"
                                 :placeholder="i18n['text.required']"
                                 v-model="values.name"
                             />
@@ -50,6 +51,7 @@
                                 :class="{ 'is-danger': errors['description'] }"
                                 type="text"
                                 :id="`${uid}-description`"
+                                :maxlength="MAX_DESCRIPTION"
                                 v-model="values.description"
                             />
                         </div>
@@ -69,6 +71,7 @@
                                 :class="{ 'is-danger': errors['minimum'] }"
                                 type="text"
                                 :id="`${uid}-minimum`"
+                                :maxlength="MAX_PARAMETER"
                                 :placeholder="fieldTypeMinimumPlaceholder"
                                 v-model="values.minimum"
                             />
@@ -89,6 +92,7 @@
                                 :class="{ 'is-danger': errors['maximum'] }"
                                 type="text"
                                 :id="`${uid}-maximum`"
+                                :maxlength="MAX_PARAMETER"
                                 :placeholder="fieldTypeMaximumPlaceholder"
                                 v-model="values.maximum"
                             />
@@ -109,7 +113,9 @@
                                 :class="{ 'is-danger': errors['length'] }"
                                 type="number"
                                 min="1"
+                                :max="isString ? MAX_STRING_LENGTH : MAX_TEXT_LENGTH"
                                 :id="`${uid}-length`"
+                                :placeholder="isString ? MAX_STRING_LENGTH : MAX_TEXT_LENGTH"
                                 v-model="values.length"
                             />
                         </div>
@@ -117,7 +123,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="isDate || isDecimal || isDuration || isNumber || isString || isText" class="field is-horizontal">
+            <div v-if="isDate || isDecimal || isDuration || isNumber || isString" class="field is-horizontal">
                 <div class="field-label is-normal">
                     <label class="label" :for="`${uid}-default`">{{ i18n['field.default_value'] }}:</label>
                 </div>
@@ -129,8 +135,28 @@
                                 :class="{ 'is-danger': errors['default'] }"
                                 type="text"
                                 :id="`${uid}-default`"
+                                :maxlength="isString ? MAX_STRING_LENGTH : MAX_PARAMETER"
                                 v-model="values.default"
                             />
+                        </div>
+                        <p class="help is-danger">{{ errors['default'] }}</p>
+                    </div>
+                </div>
+            </div>
+            <div v-if="isText" class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" :for="`${uid}-default`">{{ i18n['field.default_value'] }}:</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <textarea
+                                class="textarea"
+                                :class="{ 'is-danger': errors['default'] }"
+                                :id="`${uid}-default`"
+                                :maxlength="MAX_TEXT_LENGTH"
+                                v-model="values.default"
+                            ></textarea>
                         </div>
                         <p class="help is-danger">{{ errors['default'] }}</p>
                     </div>

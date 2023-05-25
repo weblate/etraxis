@@ -3,12 +3,12 @@
         <form @submit.prevent="login">
             <div class="field">
                 <div class="control">
-                    <input class="input" type="email" :placeholder="i18n['user.email']" required autofocus v-model="email" />
+                    <input class="input" type="email" :maxlength="MAX_EMAIL" :placeholder="i18n['user.email']" required autofocus v-model="email" />
                 </div>
             </div>
             <div class="field">
                 <div class="control">
-                    <input class="input" type="password" :placeholder="i18n['user.password']" required v-model="password" />
+                    <input class="input" type="password" :maxlength="MAX_PASSWORD" :placeholder="i18n['user.password']" required v-model="password" />
                 </div>
             </div>
             <div class="field">

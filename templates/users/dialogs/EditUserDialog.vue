@@ -14,6 +14,7 @@
                                 type="text"
                                 :id="`${uid}-fullname`"
                                 :readonly="isExternal"
+                                :maxlength="MAX_FULLNAME"
                                 :placeholder="i18n['text.required']"
                                 v-model="values.fullname"
                             />
@@ -35,6 +36,7 @@
                                 type="email"
                                 :id="`${uid}-email`"
                                 :readonly="isExternal"
+                                :maxlength="MAX_EMAIL"
                                 :placeholder="i18n['text.required']"
                                 v-model="values.email"
                             />
@@ -55,6 +57,7 @@
                                 :class="{ 'is-danger': errors['description'] }"
                                 type="text"
                                 :id="`${uid}-description`"
+                                :maxlength="MAX_DESCRIPTION"
                                 v-model="values.description"
                             />
                         </div>

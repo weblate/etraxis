@@ -11,6 +11,7 @@
 
 import Modal from '@components/modal/modal.vue';
 
+import * as STATE from '@const/state';
 import * as STATE_TYPE from '@const/stateType';
 
 import StateTypeEnum from '@enums/stateType';
@@ -84,6 +85,11 @@ export default {
          * @property {Object} i18n Translation resources
          */
         i18n: () => window.i18n,
+
+        /**
+         * @property {number} MAX_NAME Input constraint
+         */
+        MAX_NAME: () => STATE.MAX_NAME,
 
         /**
          * @property {Object} stateTypes Available state types

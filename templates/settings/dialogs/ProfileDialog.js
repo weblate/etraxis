@@ -11,6 +11,8 @@
 
 import Modal from '@components/modal/modal.vue';
 
+import * as USER from '@const/user';
+
 import ThemeEnum from '@enums/theme';
 
 import languages from '@utilities/languages';
@@ -102,6 +104,16 @@ export default {
          * @property {Object} i18n Translation resources
          */
         i18n: () => window.i18n,
+
+        /**
+         * @property {number} MAX_FULLNAME Input constraint
+         */
+        MAX_FULLNAME: () => USER.MAX_FULLNAME,
+
+        /**
+         * @property {number} MAX_EMAIL Input constraint
+         */
+        MAX_EMAIL: () => USER.MAX_EMAIL,
 
         /**
          * @property {Object} languages Available languages

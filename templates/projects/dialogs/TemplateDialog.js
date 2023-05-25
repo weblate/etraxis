@@ -11,6 +11,8 @@
 
 import Modal from '@components/modal/modal.vue';
 
+import * as TEMPLATE from '@const/template';
+
 import generateUid from '@utilities/uid';
 
 /**
@@ -81,7 +83,32 @@ export default {
         /**
          * @property {Object} i18n Translation resources
          */
-        i18n: () => window.i18n
+        i18n: () => window.i18n,
+
+        /**
+         * @property {number} MAX_NAME Input constraint
+         */
+        MAX_NAME: () => TEMPLATE.MAX_NAME,
+
+        /**
+         * @property {number} MAX_PREFIX Input constraint
+         */
+        MAX_PREFIX: () => TEMPLATE.MAX_PREFIX,
+
+        /**
+         * @property {number} MAX_DESCRIPTION Input constraint
+         */
+        MAX_DESCRIPTION: () => TEMPLATE.MAX_DESCRIPTION,
+
+        /**
+         * @property {number} MIN_CRITICAL_AGE Input constraint
+         */
+        MIN_CRITICAL_AGE: () => TEMPLATE.MIN_CRITICAL_AGE,
+
+        /**
+         * @property {number} MIN_FROZEN_TIME Input constraint
+         */
+        MIN_FROZEN_TIME: () => TEMPLATE.MIN_FROZEN_TIME
     },
 
     methods: {

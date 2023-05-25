@@ -13,6 +13,7 @@ import { mapStores } from 'pinia';
 
 import axios from 'axios';
 
+import * as convert from '@utilities/convert';
 import * as ui from '@utilities/blockui';
 import * as msg from '@utilities/messagebox';
 import loadAll from '@utilities/loadAll';
@@ -120,8 +121,8 @@ export default {
                 name: event.name,
                 prefix: event.prefix,
                 description: event.description || null,
-                criticalAge: event.criticalAge || null,
-                frozenTime: event.frozenTime || null
+                criticalAge: convert.toNumber(event.criticalAge),
+                frozenTime: convert.toNumber(event.frozenTime)
             };
 
             ui.block();
@@ -174,8 +175,8 @@ export default {
                 name: event.name,
                 prefix: event.prefix,
                 description: event.description || null,
-                criticalAge: event.criticalAge || null,
-                frozenTime: event.frozenTime || null
+                criticalAge: convert.toNumber(event.criticalAge),
+                frozenTime: convert.toNumber(event.frozenTime)
             };
 
             ui.block();

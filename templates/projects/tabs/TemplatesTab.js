@@ -16,6 +16,7 @@ import axios from 'axios';
 import * as STATE_RESPONSIBLE from '@const/stateResponsible';
 import * as STATE_TYPE from '@const/stateType';
 
+import * as convert from '@utilities/convert';
 import * as ui from '@utilities/blockui';
 import * as msg from '@utilities/messagebox';
 import parseErrors from '@utilities/parseErrors';
@@ -273,8 +274,8 @@ export default {
                 name: event.name,
                 prefix: event.prefix,
                 description: event.description || null,
-                criticalAge: event.criticalAge || null,
-                frozenTime: event.frozenTime || null
+                criticalAge: convert.toNumber(event.criticalAge),
+                frozenTime: convert.toNumber(event.frozenTime)
             };
 
             ui.block();

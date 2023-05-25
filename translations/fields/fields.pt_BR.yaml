@@ -1,3 +1,4 @@
+confirm.field.delete: 'Tem certeza que quer apagar este campo?'
 field.checkbox: 'Check box'
 field.date: Data
 field.decimal: Decimal

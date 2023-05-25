@@ -36,7 +36,14 @@ export default {
          *
          * @param {number} id Field ID
          */
-        update: (id) => typeof id === 'number'
+        update: (id) => typeof id === 'number',
+
+        /**
+         * The field is deleted.
+         *
+         * @param {number} id Field ID
+         */
+        delete: (id) => typeof id === 'number'
     },
 
     components: {
@@ -178,6 +185,25 @@ export default {
             } finally {
                 ui.unblock();
             }
+        },
+
+        /**
+         * Deletes the field.
+         */
+        deleteField() {
+            msg.confirm(this.i18n['confirm.field.delete'], async () => {
+                ui.block();
+
+                try {
+                    await axios.delete(url(`/api/fields/${this.fieldStore.fieldId}`));
+
+                    this.$emit('delete', this.fieldStore.fieldId);
+                } catch (exception) {
+                    parseErrors(exception);
+                } finally {
+                    ui.unblock();
+                }
+            });
         }
     }
 };

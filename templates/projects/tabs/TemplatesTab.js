@@ -482,6 +482,19 @@ export default {
             }
 
             await Promise.all(promises);
+        },
+
+        /**
+         * One of the fields is deleted.
+         *
+         * @param {number} id Field ID
+         */
+        async onFieldDeleted(id) {
+            if (id === this.fieldId) {
+                this.fieldId = null;
+            }
+
+            await this.projectStore.loadStateFields(this.stateId);
         }
     }
 };

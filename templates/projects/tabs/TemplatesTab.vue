@@ -12,7 +12,7 @@
             <div class="column is-two-thirds-tablet is-three-quarters-desktop">
                 <tabs v-if="fieldId" simplified v-model="fieldTab">
                     <tab id="field" :title="i18n['field']">
-                        <field-tab @update="onFieldUpdated"></field-tab>
+                        <field-tab @update="onFieldUpdated" @delete="onFieldDeleted"></field-tab>
                     </tab>
                 </tabs>
                 <tabs v-else-if="stateId" simplified v-model="stateTab">

@@ -1,3 +1,4 @@
+confirm.field.delete: 'Jste si jisti, že chcete smazat toto pole?'
 field.checkbox: 'Zaškrtávací pole'
 field.date: Datum
 field.decimal: 'Desetinné číslo'

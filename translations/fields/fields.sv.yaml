@@ -1,3 +1,4 @@
+confirm.field.delete: 'Är du säker på att du vill ta bort detta fältet?'
 field.checkbox: Kryssruta
 field.date: Datum
 field.decimal: Decimal

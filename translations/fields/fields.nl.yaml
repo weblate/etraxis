@@ -1,3 +1,4 @@
+confirm.field.delete: 'Ben je zeker dat je dit veld wilt verwijderen?'
 field.checkbox: Aankruisen
 field.date: Datum
 field.default_value: Standaardwaarde

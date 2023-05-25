@@ -1,3 +1,4 @@
+confirm.field.delete: 'Вы уверены, что хотите удалить это поле?'
 field: Поле
 field.checkbox: 'Чекбокс'
 field.date: Дата

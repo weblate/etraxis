@@ -1,3 +1,4 @@
+confirm.field.delete: '¿Está seguro de eliminar este campo?'
 field.checkbox: 'Casilla de verificación'
 field.date: Fecha
 field.decimal: Decimal

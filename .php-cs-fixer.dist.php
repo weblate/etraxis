@@ -17,20 +17,20 @@ return (new PhpCsFixer\Config())
         //--------------------------------------------------------------
         //  Rule sets
         //--------------------------------------------------------------
-        '@Symfony'                    => true,
-        '@Symfony:risky'              => true,
-        '@PhpCsFixer'                 => true,
-        '@PhpCsFixer:risky'           => true,
-        '@DoctrineAnnotation'         => true,
-        '@PHP80Migration'             => true,
-        '@PHP80Migration:risky'       => true,
-        '@PHP81Migration'             => true,
-        '@PHPUnit84Migration:risky'   => true,
+        '@Symfony'                        => true,
+        '@Symfony:risky'                  => true,
+        '@PhpCsFixer'                     => true,
+        '@PhpCsFixer:risky'               => true,
+        '@DoctrineAnnotation'             => true,
+        '@PHP80Migration'                 => true,
+        '@PHP80Migration:risky'           => true,
+        '@PHP81Migration'                 => true,
+        '@PHPUnit84Migration:risky'       => true,
 
         //--------------------------------------------------------------
         //  Rules override
         //--------------------------------------------------------------
-        'binary_operator_spaces'      => [
+        'binary_operator_spaces'          => [
             'default'   => null,
             'operators' => [
                 '='   => 'align',

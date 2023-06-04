@@ -16,7 +16,7 @@ field.min_value: 最小値
 field.name: フィールド名
 field.new: 新規フィールド
 field.number: 数値
-field.required: 必須？
+field.required: 必須
 field.string: 文字列
 field.text: 複数行テキスト
 field.type: フィールド形式

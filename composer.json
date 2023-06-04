@@ -20,7 +20,7 @@
         "doctrine/doctrine-bundle": "^2.9",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "doctrine/doctrine-migrations-bundle": "^3.2",
-        "doctrine/orm": "^2.14",
+        "doctrine/orm": "^2.15",
         "firebase/php-jwt": "^6.3",
         "league/iso3166": "^4.1",
         "symfony/asset": "6.2.*",

@@ -53,6 +53,7 @@ abstract class TransactionalTestCase extends WebTestCase
 
         /** @var \Doctrine\ORM\EntityManagerInterface $manager */
         $manager = $this->doctrine->getManager();
+        $manager->getConnection()->setNestTransactionsWithSavepoints(true);
         $manager->beginTransaction();
     }
 

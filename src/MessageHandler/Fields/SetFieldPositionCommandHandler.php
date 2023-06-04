@@ -86,13 +86,13 @@ final class SetFieldPositionCommandHandler implements CommandHandlerInterface
      */
     private function setPosition(Field $field, int $position): void
     {
-        $query = $this->manager->createQuery('
-            UPDATE App:Field f
-            SET f.position = :position
-            WHERE f.id = :field
-        ');
+        $sql = '
+            UPDATE fields
+            SET position = :position
+            WHERE id = :field
+        ';
 
-        $query->execute([
+        $this->manager->getConnection()->executeStatement($sql, [
             'field'    => $field->getId(),
             'position' => $position,
         ]);

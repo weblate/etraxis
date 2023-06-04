@@ -44,7 +44,7 @@ final class GreatestFunctionTest extends WebTestCase
                 GREATEST(5, 4, 3) AS first,
                 GREATEST(4, 5, 3) AS middle,
                 GREATEST(3, 4, -5) AS negative
-            FROM App:User u
+            FROM App\Entity\User u
         ');
 
         $expected = [

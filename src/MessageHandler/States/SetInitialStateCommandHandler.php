@@ -60,16 +60,16 @@ final class SetInitialStateCommandHandler implements CommandHandlerInterface
 
         if (StateTypeEnum::Initial !== $state->getType()) {
             // Only one initial state is allowed per template.
-            $query = $this->manager->createQuery('
-                UPDATE App:State state
-                SET state.type = :intermediate
-                WHERE state.template = :template AND state.type = :initial
-            ');
+            $sql = '
+                UPDATE states
+                SET type = :intermediate
+                WHERE template_id = :template AND type = :initial
+            ';
 
-            $query->execute([
-                'template'     => $state->getTemplate(),
-                'initial'      => StateTypeEnum::Initial,
-                'intermediate' => StateTypeEnum::Intermediate,
+            $this->manager->getConnection()->executeStatement($sql, [
+                'template'     => $state->getTemplate()->getId(),
+                'initial'      => StateTypeEnum::Initial->value,
+                'intermediate' => StateTypeEnum::Intermediate->value,
             ]);
 
             $reflection = new \ReflectionProperty(State::class, 'type');

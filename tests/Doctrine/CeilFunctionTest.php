@@ -45,7 +45,7 @@ final class CeilFunctionTest extends WebTestCase
                 CEIL(-3) as negInt,
                 CEIL(-3.1) as negLittle,
                 CEIL(-3.9) as negBig
-            FROM App:User u
+            FROM App\Entity\User u
         ');
 
         $expected = [

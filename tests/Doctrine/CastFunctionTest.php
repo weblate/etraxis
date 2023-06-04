@@ -40,7 +40,7 @@ final class CastFunctionTest extends WebTestCase
             SELECT DISTINCT
                 CAST(3.14159 AS CHAR(2)) AS string,
                 CAST(3.14159 AS DECIMAL(5,4)) AS decimal
-            FROM App:User u
+            FROM App\Entity\User u
         ');
 
         $expected = [

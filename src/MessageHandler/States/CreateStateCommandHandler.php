@@ -79,16 +79,16 @@ final class CreateStateCommandHandler implements CommandHandlerInterface
 
         // Only one initial state is allowed per template.
         if (StateTypeEnum::Initial === $command->getType()) {
-            $query = $this->manager->createQuery('
-                UPDATE App:State state
-                SET state.type = :intermediate
-                WHERE state.template = :template AND state.type = :initial
-            ');
+            $sql = '
+                UPDATE states
+                SET type = :intermediate
+                WHERE template_id = :template AND type = :initial
+            ';
 
-            $query->execute([
-                'template'     => $template,
-                'initial'      => StateTypeEnum::Initial,
-                'intermediate' => StateTypeEnum::Intermediate,
+            $this->manager->getConnection()->executeStatement($sql, [
+                'template'     => $template->getId(),
+                'initial'      => StateTypeEnum::Initial->value,
+                'intermediate' => StateTypeEnum::Intermediate->value,
             ]);
         }
 

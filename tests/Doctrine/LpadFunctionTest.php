@@ -43,7 +43,7 @@ final class LpadFunctionTest extends WebTestCase
                 LPAD('', 0, '*') AS emptyToZero,
                 LPAD('123', 5, '0') AS numberToLonger,
                 LPAD('123', 2, '0') AS numberToShorter
-            FROM App:User u
+            FROM App\\Entity\\User u
         ");
 
         $expected = [

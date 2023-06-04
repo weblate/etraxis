@@ -56,7 +56,7 @@ class RelatedIssueRepository extends ServiceEntityRepository implements Contract
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\RelatedIssueRepositoryInterface::findAllByIssue
      */
     public function findAllByIssue(Issue $issue): array
     {

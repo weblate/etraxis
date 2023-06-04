@@ -32,7 +32,7 @@ final class GreatestFunction extends FunctionNode
     private array $values = [];
 
     /**
-     * {@inheritDoc}
+     * @see FunctionNode::parse
      */
     public function parse(Parser $parser): void
     {
@@ -51,7 +51,7 @@ final class GreatestFunction extends FunctionNode
     }
 
     /**
-     * {@inheritDoc}
+     * @see FunctionNode::getSql
      */
     public function getSql(SqlWalker $sqlWalker): string
     {

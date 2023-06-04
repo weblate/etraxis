@@ -56,7 +56,7 @@ class StringValueRepository extends AbstractCacheableRepository implements Contr
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\StringValueRepositoryInterface::get
      */
     public function get(string $value): StringValue
     {

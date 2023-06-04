@@ -30,7 +30,7 @@ final class CastFunction extends FunctionNode
     private string $castingTypeExpression;
 
     /**
-     * {@inheritDoc}
+     * @see FunctionNode::parse
      */
     public function parse(Parser $parser): void
     {
@@ -66,7 +66,7 @@ final class CastFunction extends FunctionNode
     }
 
     /**
-     * {@inheritDoc}
+     * @see FunctionNode::getSql
      */
     public function getSql(SqlWalker $sqlWalker): string
     {

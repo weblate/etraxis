@@ -38,7 +38,7 @@ final class ListStrategy extends AbstractFieldStrategy
     }
 
     /**
-     * {@inheritDoc}
+     * @see FieldStrategyInterface::getParameter
      */
     public function getParameter(string $parameter): null|bool|int|string
     {
@@ -50,7 +50,7 @@ final class ListStrategy extends AbstractFieldStrategy
     }
 
     /**
-     * {@inheritDoc}
+     * @see FieldStrategyInterface::setParameter
      */
     public function setParameter(string $parameter, null|bool|int|string $value): self
     {
@@ -62,7 +62,7 @@ final class ListStrategy extends AbstractFieldStrategy
     }
 
     /**
-     * {@inheritDoc}
+     * @see FieldStrategyInterface::getValueValidationConstraints
      */
     public function getValueValidationConstraints(TranslatorInterface $translator, array $context = []): array
     {

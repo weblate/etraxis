@@ -34,7 +34,7 @@ class UnhandledExceptionSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see EventSubscriberInterface::getSubscribedEvents
      */
     public static function getSubscribedEvents(): array
     {

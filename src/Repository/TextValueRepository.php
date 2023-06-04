@@ -56,7 +56,7 @@ class TextValueRepository extends AbstractCacheableRepository implements Contrac
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\TextValueRepositoryInterface::get
      */
     public function get(string $value): TextValue
     {

@@ -78,7 +78,7 @@ class LdapService implements LdapInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see LdapInterface::findUser
      */
     public function findUser(string $email, ?string &$dn, ?string &$fullname): bool
     {
@@ -127,7 +127,7 @@ class LdapService implements LdapInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see LdapInterface::checkCredentials
      */
     public function checkCredentials(string $dn, string $password): bool
     {

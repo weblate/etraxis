@@ -143,7 +143,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see UserInterface::getRoles
      */
     public function getRoles(): array
     {
@@ -153,7 +153,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see UserInterface::eraseCredentials
      *
      * @codeCoverageIgnore Empty implementation
      */
@@ -162,7 +162,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see UserInterface::getUserIdentifier
      */
     public function getUserIdentifier(): string
     {
@@ -208,7 +208,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Property getter.
      *
-     * {@inheritDoc}
+     * @see PasswordAuthenticatedUserInterface::getPassword
      */
     #[Groups('login')]
     public function getPassword(): ?string

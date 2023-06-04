@@ -47,7 +47,7 @@ class CommandValueResolver implements ValueResolverInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see ValueResolverInterface::resolve
      */
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {

@@ -55,7 +55,7 @@ class FieldRepository extends ServiceEntityRepository implements Contracts\Field
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\FieldRepositoryInterface::findOneByName
      */
     public function findOneByName(int $state, string $name): ?Field
     {

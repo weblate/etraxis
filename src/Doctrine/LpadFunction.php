@@ -29,7 +29,7 @@ final class LpadFunction extends FunctionNode
     private Node $padstring;
 
     /**
-     * {@inheritDoc}
+     * @see FunctionNode::parse
      */
     public function parse(Parser $parser): void
     {
@@ -44,7 +44,7 @@ final class LpadFunction extends FunctionNode
     }
 
     /**
-     * {@inheritDoc}
+     * @see FunctionNode::getSql
      */
     public function getSql(SqlWalker $sqlWalker): string
     {

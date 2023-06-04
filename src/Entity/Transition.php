@@ -83,7 +83,7 @@ class Transition implements \Stringable
     }
 
     /**
-     * {@inheritDoc}
+     * @see \Stringable::__toString
      */
     public function __toString(): string
     {

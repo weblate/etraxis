@@ -73,7 +73,7 @@ class FieldValueRepository extends ServiceEntityRepository implements Contracts\
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\FieldValueRepositoryInterface::findAllByIssue
      */
     public function findAllByIssue(Issue $issue, User $user, FieldPermissionEnum $access = FieldPermissionEnum::ReadOnly): array
     {
@@ -134,7 +134,7 @@ class FieldValueRepository extends ServiceEntityRepository implements Contracts\
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\FieldValueRepositoryInterface::getLatestValues
      */
     public function getLatestValues(Issue $issue, User $user): array
     {
@@ -155,7 +155,7 @@ class FieldValueRepository extends ServiceEntityRepository implements Contracts\
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\FieldValueRepositoryInterface::validateFieldValues
      */
     public function validateFieldValues(array $fields, array $values, array $context = []): ConstraintViolationListInterface
     {
@@ -177,7 +177,7 @@ class FieldValueRepository extends ServiceEntityRepository implements Contracts\
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\FieldValueRepositoryInterface::getFieldValue
      */
     public function getFieldValue(FieldTypeEnum $type, ?int $value): null|bool|int|string|ListItem
     {
@@ -198,7 +198,7 @@ class FieldValueRepository extends ServiceEntityRepository implements Contracts\
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\FieldValueRepositoryInterface::setFieldValue
      */
     public function setFieldValue(FieldValue $fieldValue, null|bool|int|string|ListItem $value): bool
     {

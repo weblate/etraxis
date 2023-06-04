@@ -56,7 +56,7 @@ class CommentRepository extends ServiceEntityRepository implements Contracts\Com
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\CommentRepositoryInterface::findAllByIssue
      */
     public function findAllByIssue(Issue $issue, bool $hidePrivateComments): array
     {

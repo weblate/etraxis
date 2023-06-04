@@ -56,7 +56,7 @@ class DecimalValueRepository extends AbstractCacheableRepository implements Cont
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\DecimalValueRepositoryInterface::get
      */
     public function get(string $value): DecimalValue
     {

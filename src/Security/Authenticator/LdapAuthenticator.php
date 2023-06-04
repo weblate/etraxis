@@ -45,7 +45,7 @@ class LdapAuthenticator extends AbstractAuthenticator implements AuthenticatorIn
     }
 
     /**
-     * {@inheritDoc}
+     * @see AuthenticatorInterface::supports
      */
     public function supports(Request $request): ?bool
     {
@@ -60,7 +60,7 @@ class LdapAuthenticator extends AbstractAuthenticator implements AuthenticatorIn
     }
 
     /**
-     * {@inheritDoc}
+     * @see AuthenticatorInterface::authenticate
      */
     public function authenticate(Request $request): Passport
     {
@@ -90,7 +90,7 @@ class LdapAuthenticator extends AbstractAuthenticator implements AuthenticatorIn
     }
 
     /**
-     * {@inheritDoc}
+     * @see AuthenticatorInterface::onAuthenticationSuccess
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
@@ -100,7 +100,7 @@ class LdapAuthenticator extends AbstractAuthenticator implements AuthenticatorIn
     }
 
     /**
-     * {@inheritDoc}
+     * @see AuthenticatorInterface::onAuthenticationFailure
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {

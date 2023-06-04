@@ -29,7 +29,7 @@ class CommandBus implements Contracts\CommandBusInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\CommandBusInterface::handle
      */
     public function handle(object $command): void
     {
@@ -37,7 +37,7 @@ class CommandBus implements Contracts\CommandBusInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\CommandBusInterface::handleWithResult
      */
     public function handleWithResult(object $command): mixed
     {

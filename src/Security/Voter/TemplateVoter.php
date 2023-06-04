@@ -43,7 +43,7 @@ class TemplateVoter extends Voter implements VoterInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see Voter::supports
      */
     protected function supports(string $attribute, mixed $subject): bool
     {
@@ -62,7 +62,7 @@ class TemplateVoter extends Voter implements VoterInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see Voter::voteOnAttribute
      */
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {

@@ -26,7 +26,7 @@ use Doctrine\Persistence\ObjectManager;
 class ListItemFixtures extends Fixture implements FixtureInterface, DependentFixtureInterface
 {
     /**
-     * {@inheritDoc}
+     * @see DependentFixtureInterface::getDependencies
      */
     public function getDependencies(): array
     {
@@ -36,7 +36,7 @@ class ListItemFixtures extends Fixture implements FixtureInterface, DependentFix
     }
 
     /**
-     * {@inheritDoc}
+     * @see FixtureInterface::load
      */
     public function load(ObjectManager $manager): void
     {

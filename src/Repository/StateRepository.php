@@ -55,7 +55,7 @@ class StateRepository extends ServiceEntityRepository implements Contracts\State
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\StateRepositoryInterface::findOneByName
      */
     public function findOneByName(int $template, string $name): ?State
     {

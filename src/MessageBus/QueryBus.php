@@ -29,7 +29,7 @@ class QueryBus implements Contracts\QueryBusInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\QueryBusInterface::execute
      */
     public function execute(object $query): mixed
     {

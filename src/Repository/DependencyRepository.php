@@ -56,7 +56,7 @@ class DependencyRepository extends ServiceEntityRepository implements Contracts\
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\DependencyRepositoryInterface::findAllByIssue
      */
     public function findAllByIssue(Issue $issue): array
     {

@@ -65,7 +65,7 @@ class UserRepository extends ServiceEntityRepository implements Contracts\UserRe
     }
 
     /**
-     * {@inheritDoc}
+     * @see \Symfony\Component\Security\Core\User\PasswordUpgraderInterface::upgradePassword
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
@@ -76,7 +76,7 @@ class UserRepository extends ServiceEntityRepository implements Contracts\UserRe
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\UserRepositoryInterface::findOneByEmail
      */
     public function findOneByEmail(string $email): ?User
     {
@@ -86,7 +86,7 @@ class UserRepository extends ServiceEntityRepository implements Contracts\UserRe
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\UserRepositoryInterface::findOneByResetToken
      */
     public function findOneByResetToken(string $token): ?User
     {
@@ -96,7 +96,7 @@ class UserRepository extends ServiceEntityRepository implements Contracts\UserRe
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\UserRepositoryInterface::findOneByProviderUid
      */
     public function findOneByProviderUid(AccountProviderEnum $provider, string $uid): ?User
     {

@@ -76,7 +76,7 @@ class IssueRepository extends AbstractCacheableRepository implements Contracts\I
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\IssueRepositoryInterface::hasOpenedDependencies
      */
     public function hasOpenedDependencies(Issue $issue): bool
     {
@@ -98,7 +98,7 @@ class IssueRepository extends AbstractCacheableRepository implements Contracts\I
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\IssueRepositoryInterface::getTransitionsByUser
      */
     public function getTransitionsByUser(Issue $issue, User $user): array
     {
@@ -174,7 +174,7 @@ class IssueRepository extends AbstractCacheableRepository implements Contracts\I
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\IssueRepositoryInterface::getResponsiblesByState
      */
     public function getResponsiblesByState(State $state): array
     {
@@ -195,7 +195,7 @@ class IssueRepository extends AbstractCacheableRepository implements Contracts\I
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\IssueRepositoryInterface::reduceByUser
      */
     public function reduceByUser(User $user, array $issues): array
     {
@@ -235,7 +235,7 @@ class IssueRepository extends AbstractCacheableRepository implements Contracts\I
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\IssueRepositoryInterface::assignIssue
      */
     public function assignIssue(User $user, Issue $issue, User $responsible): bool
     {
@@ -254,7 +254,7 @@ class IssueRepository extends AbstractCacheableRepository implements Contracts\I
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\IssueRepositoryInterface::reassignIssue
      */
     public function reassignIssue(User $user, Issue $issue, User $responsible): bool
     {

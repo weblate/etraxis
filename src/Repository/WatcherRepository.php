@@ -56,7 +56,7 @@ class WatcherRepository extends ServiceEntityRepository implements Contracts\Wat
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\WatcherRepositoryInterface::findAllByIssue
      */
     public function findAllByIssue(Issue $issue): array
     {

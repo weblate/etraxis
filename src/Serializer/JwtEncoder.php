@@ -33,7 +33,7 @@ class JwtEncoder implements EncoderInterface, DecoderInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see EncoderInterface::encode
      */
     public function encode(mixed $data, string $format, array $context = []): string
     {
@@ -41,7 +41,7 @@ class JwtEncoder implements EncoderInterface, DecoderInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see EncoderInterface::supportsEncoding
      */
     public function supportsEncoding(string $format): bool
     {
@@ -49,7 +49,7 @@ class JwtEncoder implements EncoderInterface, DecoderInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see DecoderInterface::decode
      */
     public function decode(string $data, string $format, array $context = []): array
     {
@@ -59,7 +59,7 @@ class JwtEncoder implements EncoderInterface, DecoderInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see DecoderInterface::supportsDecoding
      */
     public function supportsDecoding(string $format): bool
     {

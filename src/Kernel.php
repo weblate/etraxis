@@ -24,7 +24,7 @@ class Kernel extends BaseKernel
     use MicroKernelTrait;
 
     /**
-     * {@inheritDoc}
+     * @see \Symfony\Component\HttpKernel\KernelInterface::boot
      */
     public function boot(): void
     {

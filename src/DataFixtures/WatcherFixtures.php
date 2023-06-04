@@ -25,7 +25,7 @@ use Doctrine\Persistence\ObjectManager;
 class WatcherFixtures extends Fixture implements FixtureInterface, DependentFixtureInterface
 {
     /**
-     * {@inheritDoc}
+     * @see DependentFixtureInterface::getDependencies
      */
     public function getDependencies(): array
     {
@@ -36,7 +36,7 @@ class WatcherFixtures extends Fixture implements FixtureInterface, DependentFixt
     }
 
     /**
-     * {@inheritDoc}
+     * @see FixtureInterface::load
      */
     public function load(ObjectManager $manager): void
     {

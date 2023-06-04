@@ -28,7 +28,7 @@ class Sha1PasswordHasher implements PasswordHasherInterface
     use CheckPasswordLengthTrait;
 
     /**
-     * {@inheritDoc}
+     * @see PasswordHasherInterface::hash
      */
     public function hash(string $plainPassword): string
     {
@@ -40,7 +40,7 @@ class Sha1PasswordHasher implements PasswordHasherInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see PasswordHasherInterface::verify
      */
     public function verify(string $hashedPassword, string $plainPassword): bool
     {
@@ -48,7 +48,7 @@ class Sha1PasswordHasher implements PasswordHasherInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see PasswordHasherInterface::needsRehash
      */
     public function needsRehash(string $hashedPassword): bool
     {

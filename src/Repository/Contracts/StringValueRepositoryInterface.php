@@ -23,12 +23,12 @@ use Doctrine\Persistence\ObjectRepository;
 interface StringValueRepositoryInterface extends ObjectRepository, Selectable, CacheableRepositoryInterface
 {
     /**
-     * @see \Doctrine\Persistence\ObjectManager::persist()
+     * @see \Doctrine\Persistence\ObjectManager::persist
      */
     public function persist(StringValue $entity, bool $flush = false): void;
 
     /**
-     * @see \Doctrine\Persistence\ObjectManager::remove()
+     * @see \Doctrine\Persistence\ObjectManager::remove
      */
     public function remove(StringValue $entity, bool $flush = false): void;
 

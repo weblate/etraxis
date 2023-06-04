@@ -31,7 +31,7 @@ class EnumDenormalizer implements DenormalizerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see DenormalizerInterface::denormalize
      */
     public function denormalize(mixed $data, string $type, string $format = null, array $context = []): \BackedEnum
     {
@@ -53,7 +53,7 @@ class EnumDenormalizer implements DenormalizerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see DenormalizerInterface::supportsDenormalization
      */
     public function supportsDenormalization(mixed $data, string $type, string $format = null, array $context = []): bool
     {

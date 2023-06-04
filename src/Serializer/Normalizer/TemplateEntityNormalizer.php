@@ -37,7 +37,7 @@ class TemplateEntityNormalizer implements NormalizerInterface, NormalizerAwareIn
     }
 
     /**
-     * {@inheritDoc}
+     * @see NormalizerInterface::normalize
      */
     public function normalize(mixed $object, string $format = null, array $context = []): array
     {
@@ -60,7 +60,7 @@ class TemplateEntityNormalizer implements NormalizerInterface, NormalizerAwareIn
     }
 
     /**
-     * {@inheritDoc}
+     * @see NormalizerInterface::supportsNormalization
      */
     public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
     {

@@ -30,7 +30,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class FakeWebpackCommand extends Command
 {
     /**
-     * {@inheritDoc}
+     * @see Command::execute
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {

@@ -25,17 +25,17 @@ use Doctrine\Persistence\ObjectRepository;
 interface IssueRepositoryInterface extends ObjectRepository, Selectable, CacheableRepositoryInterface
 {
     /**
-     * @see \Doctrine\Persistence\ObjectManager::persist()
+     * @see \Doctrine\Persistence\ObjectManager::persist
      */
     public function persist(Issue $entity, bool $flush = false): void;
 
     /**
-     * @see \Doctrine\Persistence\ObjectManager::remove()
+     * @see \Doctrine\Persistence\ObjectManager::remove
      */
     public function remove(Issue $entity, bool $flush = false): void;
 
     /**
-     * @see \Doctrine\Persistence\ObjectManager::refresh()
+     * @see \Doctrine\Persistence\ObjectManager::refresh
      */
     public function refresh(Issue $entity): void;
 

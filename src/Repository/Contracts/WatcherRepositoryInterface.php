@@ -25,12 +25,12 @@ use Doctrine\Persistence\ObjectRepository;
 interface WatcherRepositoryInterface extends ObjectRepository, Selectable
 {
     /**
-     * @see \Doctrine\Persistence\ObjectManager::persist()
+     * @see \Doctrine\Persistence\ObjectManager::persist
      */
     public function persist(Watcher $entity, bool $flush = false): void;
 
     /**
-     * @see \Doctrine\Persistence\ObjectManager::remove()
+     * @see \Doctrine\Persistence\ObjectManager::remove
      */
     public function remove(Watcher $entity, bool $flush = false): void;
 

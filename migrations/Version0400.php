@@ -24,7 +24,7 @@ use Doctrine\DBAL\Schema\Schema;
 final class Version0400 extends AbstractExtendedMigration
 {
     /**
-     * {@inheritDoc}
+     * @see \Doctrine\Migrations\AbstractMigration::preUp
      */
     public function preUp(Schema $schema): void
     {
@@ -35,7 +35,7 @@ final class Version0400 extends AbstractExtendedMigration
     }
 
     /**
-     * {@inheritDoc}
+     * @see \Doctrine\Migrations\AbstractMigration::postUp
      */
     public function postUp(Schema $schema): void
     {
@@ -43,7 +43,7 @@ final class Version0400 extends AbstractExtendedMigration
     }
 
     /**
-     * {@inheritDoc}
+     * @see AbstractExtendedMigration::getVersion
      */
     protected function getVersion(): string
     {
@@ -51,7 +51,7 @@ final class Version0400 extends AbstractExtendedMigration
     }
 
     /**
-     * {@inheritDoc}
+     * @see AbstractExtendedMigration::upMariaDB
      */
     protected function upMariaDB(Schema $schema): void
     {
@@ -130,7 +130,7 @@ final class Version0400 extends AbstractExtendedMigration
     }
 
     /**
-     * {@inheritDoc}
+     * @see AbstractExtendedMigration::upMySQL
      */
     protected function upMySQL(Schema $schema): void
     {
@@ -209,7 +209,7 @@ final class Version0400 extends AbstractExtendedMigration
     }
 
     /**
-     * {@inheritDoc}
+     * @see AbstractExtendedMigration::upPostgreSQL
      */
     protected function upPostgreSQL(Schema $schema): void
     {
@@ -369,7 +369,7 @@ final class Version0400 extends AbstractExtendedMigration
     }
 
     /**
-     * {@inheritDoc}
+     * @see AbstractExtendedMigration::downMariaDB
      */
     protected function downMariaDB(Schema $schema): void
     {
@@ -377,7 +377,7 @@ final class Version0400 extends AbstractExtendedMigration
     }
 
     /**
-     * {@inheritDoc}
+     * @see AbstractExtendedMigration::downMySQL
      */
     protected function downMySQL(Schema $schema): void
     {
@@ -385,7 +385,7 @@ final class Version0400 extends AbstractExtendedMigration
     }
 
     /**
-     * {@inheritDoc}
+     * @see AbstractExtendedMigration::downPostgreSQL
      */
     protected function downPostgreSQL(Schema $schema): void
     {

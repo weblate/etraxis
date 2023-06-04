@@ -23,12 +23,12 @@ use Doctrine\Persistence\ObjectRepository;
 interface FieldRepositoryInterface extends ObjectRepository, Selectable
 {
     /**
-     * @see \Doctrine\Persistence\ObjectManager::persist()
+     * @see \Doctrine\Persistence\ObjectManager::persist
      */
     public function persist(Field $entity, bool $flush = false): void;
 
     /**
-     * @see \Doctrine\Persistence\ObjectManager::remove()
+     * @see \Doctrine\Persistence\ObjectManager::remove
      */
     public function remove(Field $entity, bool $flush = false): void;
 

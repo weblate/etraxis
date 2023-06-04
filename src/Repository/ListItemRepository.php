@@ -57,7 +57,7 @@ class ListItemRepository extends AbstractCacheableRepository implements Contract
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\ListItemRepositoryInterface::findAllByField
      */
     public function findAllByField(Field $field): array
     {
@@ -69,7 +69,7 @@ class ListItemRepository extends AbstractCacheableRepository implements Contract
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\ListItemRepositoryInterface::findOneByValue
      */
     public function findOneByValue(Field $field, int $value): ?ListItem
     {

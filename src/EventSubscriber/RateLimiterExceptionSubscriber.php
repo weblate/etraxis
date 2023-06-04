@@ -25,7 +25,7 @@ use Symfony\Component\RateLimiter\Exception\RateLimitExceededException;
 class RateLimiterExceptionSubscriber implements EventSubscriberInterface
 {
     /**
-     * {@inheritDoc}
+     * @see EventSubscriberInterface::getSubscribedEvents
      */
     public static function getSubscribedEvents(): array
     {

@@ -41,7 +41,7 @@ class SerializerExceptionSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @see EventSubscriberInterface
+     * @see EventSubscriberInterface::getSubscribedEvents
      */
     public static function getSubscribedEvents(): array
     {

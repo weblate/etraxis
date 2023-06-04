@@ -57,7 +57,7 @@ class EventRepository extends ServiceEntityRepository implements Contracts\Event
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\EventRepositoryInterface::findAllByIssue
      */
     public function findAllByIssue(Issue $issue, bool $hidePrivateComments): array
     {

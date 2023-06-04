@@ -23,12 +23,12 @@ use Doctrine\Persistence\ObjectRepository;
 interface GroupRepositoryInterface extends ObjectRepository, Selectable
 {
     /**
-     * @see \Doctrine\Persistence\ObjectManager::persist()
+     * @see \Doctrine\Persistence\ObjectManager::persist
      */
     public function persist(Group $entity, bool $flush = false): void;
 
     /**
-     * @see \Doctrine\Persistence\ObjectManager::remove()
+     * @see \Doctrine\Persistence\ObjectManager::remove
      */
     public function remove(Group $entity, bool $flush = false): void;
 }

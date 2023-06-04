@@ -25,17 +25,17 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 interface UserRepositoryInterface extends ObjectRepository, Selectable, PasswordUpgraderInterface
 {
     /**
-     * @see \Doctrine\Persistence\ObjectManager::persist()
+     * @see \Doctrine\Persistence\ObjectManager::persist
      */
     public function persist(User $entity, bool $flush = false): void;
 
     /**
-     * @see \Doctrine\Persistence\ObjectManager::remove()
+     * @see \Doctrine\Persistence\ObjectManager::remove
      */
     public function remove(User $entity, bool $flush = false): void;
 
     /**
-     * @see \Doctrine\Persistence\ObjectManager::refresh()
+     * @see \Doctrine\Persistence\ObjectManager::refresh
      */
     public function refresh(User $entity): void;
 

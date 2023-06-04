@@ -27,7 +27,7 @@ class ProjectFixtures extends Fixture implements FixtureInterface
     use ReflectionTrait;
 
     /**
-     * {@inheritDoc}
+     * @see FixtureInterface::load
      */
     public function load(ObjectManager $manager): void
     {

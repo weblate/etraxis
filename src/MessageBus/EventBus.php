@@ -30,7 +30,7 @@ class EventBus implements Contracts\EventBusInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\EventBusInterface::send
      */
     public function send(object $event): void
     {
@@ -41,7 +41,7 @@ class EventBus implements Contracts\EventBusInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\EventBusInterface::sendAsync
      */
     public function sendAsync(object $event): void
     {

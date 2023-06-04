@@ -43,7 +43,7 @@ class JwtAuthenticator extends AbstractAuthenticator implements AuthenticatorInt
     }
 
     /**
-     * {@inheritDoc}
+     * @see AuthenticatorInterface::supports
      */
     public function supports(Request $request): ?bool
     {
@@ -52,7 +52,7 @@ class JwtAuthenticator extends AbstractAuthenticator implements AuthenticatorInt
     }
 
     /**
-     * {@inheritDoc}
+     * @see AuthenticatorInterface::authenticate
      */
     public function authenticate(Request $request): Passport
     {
@@ -76,7 +76,7 @@ class JwtAuthenticator extends AbstractAuthenticator implements AuthenticatorInt
     }
 
     /**
-     * {@inheritDoc}
+     * @see AuthenticatorInterface::onAuthenticationSuccess
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
@@ -84,7 +84,7 @@ class JwtAuthenticator extends AbstractAuthenticator implements AuthenticatorInt
     }
 
     /**
-     * {@inheritDoc}
+     * @see AuthenticatorInterface::onAuthenticationFailure
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {

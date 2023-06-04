@@ -34,7 +34,7 @@ class UserFixtures extends Fixture implements FixtureInterface, DependentFixture
     }
 
     /**
-     * {@inheritDoc}
+     * @see DependentFixtureInterface::getDependencies
      */
     public function getDependencies(): array
     {
@@ -44,7 +44,7 @@ class UserFixtures extends Fixture implements FixtureInterface, DependentFixture
     }
 
     /**
-     * {@inheritDoc}
+     * @see FixtureInterface::load
      */
     public function load(ObjectManager $manager): void
     {

@@ -41,7 +41,7 @@ class PasswordAuthenticator extends AbstractAuthenticator implements Authenticat
     }
 
     /**
-     * {@inheritDoc}
+     * @see AuthenticatorInterface::supports
      */
     public function supports(Request $request): ?bool
     {
@@ -56,7 +56,7 @@ class PasswordAuthenticator extends AbstractAuthenticator implements Authenticat
     }
 
     /**
-     * {@inheritDoc}
+     * @see AuthenticatorInterface::authenticate
      */
     public function authenticate(Request $request): Passport
     {
@@ -86,7 +86,7 @@ class PasswordAuthenticator extends AbstractAuthenticator implements Authenticat
     }
 
     /**
-     * {@inheritDoc}
+     * @see AuthenticatorInterface::onAuthenticationSuccess
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
@@ -96,7 +96,7 @@ class PasswordAuthenticator extends AbstractAuthenticator implements Authenticat
     }
 
     /**
-     * {@inheritDoc}
+     * @see AuthenticatorInterface::onAuthenticationFailure
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {

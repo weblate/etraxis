@@ -41,7 +41,7 @@ class UserVoter extends Voter
     }
 
     /**
-     * {@inheritDoc}
+     * @see Voter::supports
      */
     protected function supports(string $attribute, mixed $subject): bool
     {
@@ -60,7 +60,7 @@ class UserVoter extends Voter
     }
 
     /**
-     * {@inheritDoc}
+     * @see Voter::voteOnAttribute
      */
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {

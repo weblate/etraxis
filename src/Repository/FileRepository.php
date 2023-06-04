@@ -60,7 +60,7 @@ class FileRepository extends ServiceEntityRepository implements Contracts\FileRe
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\FileRepositoryInterface::findAllByIssue
      */
     public function findAllByIssue(Issue $issue): array
     {
@@ -79,7 +79,7 @@ class FileRepository extends ServiceEntityRepository implements Contracts\FileRe
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\FileRepositoryInterface::findOneByUid
      */
     public function findOneByUid(string $uid): ?File
     {
@@ -90,7 +90,7 @@ class FileRepository extends ServiceEntityRepository implements Contracts\FileRe
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\FileRepositoryInterface::getFullPath
      */
     public function getFullPath(File $file): string
     {

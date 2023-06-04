@@ -60,7 +60,7 @@ class ChangeRepository extends ServiceEntityRepository implements Contracts\Chan
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\ChangeRepositoryInterface::findAllByIssue
      */
     public function findAllByIssue(Issue $issue, User $user): array
     {

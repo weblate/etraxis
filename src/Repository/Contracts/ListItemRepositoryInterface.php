@@ -24,12 +24,12 @@ use Doctrine\Persistence\ObjectRepository;
 interface ListItemRepositoryInterface extends ObjectRepository, Selectable, CacheableRepositoryInterface
 {
     /**
-     * @see \Doctrine\Persistence\ObjectManager::persist()
+     * @see \Doctrine\Persistence\ObjectManager::persist
      */
     public function persist(ListItem $entity, bool $flush = false): void;
 
     /**
-     * @see \Doctrine\Persistence\ObjectManager::remove()
+     * @see \Doctrine\Persistence\ObjectManager::remove
      */
     public function remove(ListItem $entity, bool $flush = false): void;
 

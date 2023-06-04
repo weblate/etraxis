@@ -27,7 +27,7 @@ use Doctrine\Persistence\ObjectManager;
 class CommentFixtures extends Fixture implements FixtureInterface, DependentFixtureInterface
 {
     /**
-     * {@inheritDoc}
+     * @see DependentFixtureInterface::getDependencies
      */
     public function getDependencies(): array
     {
@@ -38,7 +38,7 @@ class CommentFixtures extends Fixture implements FixtureInterface, DependentFixt
     }
 
     /**
-     * {@inheritDoc}
+     * @see FixtureInterface::load
      */
     public function load(ObjectManager $manager): void
     {

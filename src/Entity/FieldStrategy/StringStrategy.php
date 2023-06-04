@@ -70,7 +70,7 @@ final class StringStrategy extends AbstractFieldStrategy
     }
 
     /**
-     * {@inheritDoc}
+     * @see FieldStrategyInterface::getParameter
      */
     public function getParameter(string $parameter): null|bool|int|string
     {
@@ -85,7 +85,7 @@ final class StringStrategy extends AbstractFieldStrategy
     }
 
     /**
-     * {@inheritDoc}
+     * @see FieldStrategyInterface::setParameter
      */
     public function setParameter(string $parameter, null|bool|int|string $value): self
     {
@@ -112,7 +112,7 @@ final class StringStrategy extends AbstractFieldStrategy
     }
 
     /**
-     * {@inheritDoc}
+     * @see FieldStrategyInterface::getParametersValidationConstraints
      */
     public function getParametersValidationConstraints(TranslatorInterface $translator): array
     {
@@ -129,7 +129,7 @@ final class StringStrategy extends AbstractFieldStrategy
     }
 
     /**
-     * {@inheritDoc}
+     * @see FieldStrategyInterface::getValueValidationConstraints
      */
     public function getValueValidationConstraints(TranslatorInterface $translator, array $context = []): array
     {

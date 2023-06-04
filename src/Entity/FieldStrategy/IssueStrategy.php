@@ -22,7 +22,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final class IssueStrategy extends AbstractFieldStrategy
 {
     /**
-     * {@inheritDoc}
+     * @see FieldStrategyInterface::getValueValidationConstraints
      */
     public function getValueValidationConstraints(TranslatorInterface $translator, array $context = []): array
     {

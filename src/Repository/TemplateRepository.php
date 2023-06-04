@@ -55,7 +55,7 @@ class TemplateRepository extends ServiceEntityRepository implements Contracts\Te
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\TemplateRepositoryInterface::findOneByName
      */
     public function findOneByName(int $project, string $name): ?Template
     {

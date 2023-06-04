@@ -23,7 +23,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 class CollectionQueryDenormalizer implements DenormalizerInterface
 {
     /**
-     * {@inheritDoc}
+     * @see DenormalizerInterface::denormalize
      *
      * @param Request $data
      */
@@ -46,7 +46,7 @@ class CollectionQueryDenormalizer implements DenormalizerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see DenormalizerInterface::supportsDenormalization
      */
     public function supportsDenormalization(mixed $data, string $type, string $format = null, array $context = []): bool
     {

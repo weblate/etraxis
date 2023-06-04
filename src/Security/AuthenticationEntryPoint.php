@@ -34,7 +34,7 @@ class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @see AuthenticationEntryPointInterface::start
      */
     public function start(Request $request, AuthenticationException $authException = null): Response
     {

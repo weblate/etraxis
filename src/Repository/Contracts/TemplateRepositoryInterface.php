@@ -23,12 +23,12 @@ use Doctrine\Persistence\ObjectRepository;
 interface TemplateRepositoryInterface extends ObjectRepository, Selectable
 {
     /**
-     * @see \Doctrine\Persistence\ObjectManager::persist()
+     * @see \Doctrine\Persistence\ObjectManager::persist
      */
     public function persist(Template $entity, bool $flush = false): void;
 
     /**
-     * @see \Doctrine\Persistence\ObjectManager::remove()
+     * @see \Doctrine\Persistence\ObjectManager::remove
      */
     public function remove(Template $entity, bool $flush = false): void;
 

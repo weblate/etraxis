@@ -23,7 +23,11 @@ abstract class AbstractCacheableRepository extends ServiceEntityRepository imple
     protected array $cache = [];
 
     /**
-     * {@inheritDoc}
+     * @see \Doctrine\ORM\EntityRepository::find
+     *
+     * @param mixed    $id
+     * @param null|int $lockMode
+     * @param null|int $lockVersion
      */
     public function find($id, $lockMode = null, $lockVersion = null): ?object
     {
@@ -43,7 +47,7 @@ abstract class AbstractCacheableRepository extends ServiceEntityRepository imple
     }
 
     /**
-     * {@inheritDoc}
+     * @see Contracts\CacheableRepositoryInterface::warmup
      */
     public function warmup(array $ids): int
     {

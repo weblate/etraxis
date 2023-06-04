@@ -24,12 +24,12 @@ use Doctrine\Persistence\ObjectRepository;
 interface RelatedIssueRepositoryInterface extends ObjectRepository, Selectable
 {
     /**
-     * @see \Doctrine\Persistence\ObjectManager::persist()
+     * @see \Doctrine\Persistence\ObjectManager::persist
      */
     public function persist(RelatedIssue $entity, bool $flush = false): void;
 
     /**
-     * @see \Doctrine\Persistence\ObjectManager::remove()
+     * @see \Doctrine\Persistence\ObjectManager::remove
      */
     public function remove(RelatedIssue $entity, bool $flush = false): void;
 

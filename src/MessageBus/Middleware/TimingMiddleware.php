@@ -32,7 +32,7 @@ final class TimingMiddleware implements MiddlewareInterface
     }
 
     /**
-     * @see MiddlewareInterface::handle()
+     * @see MiddlewareInterface::handle
      */
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {

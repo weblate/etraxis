@@ -36,7 +36,7 @@ class FieldValueFixtures extends Fixture implements FixtureInterface, DependentF
     use ReflectionTrait;
 
     /**
-     * {@inheritDoc}
+     * @see DependentFixtureInterface::getDependencies
      */
     public function getDependencies(): array
     {
@@ -49,7 +49,7 @@ class FieldValueFixtures extends Fixture implements FixtureInterface, DependentF
     }
 
     /**
-     * {@inheritDoc}
+     * @see FixtureInterface::load
      */
     public function load(ObjectManager $manager): void
     {

@@ -42,7 +42,7 @@ final class CastFunction extends FunctionNode
         $parser->match(Lexer::T_AS);
         $parser->match(Lexer::T_IDENTIFIER);
 
-        $type = $parser->getLexer()->token['value'];
+        $type = $parser->getLexer()->token->value;
 
         if ($parser->getLexer()->isNextToken(Lexer::T_OPEN_PARENTHESIS)) {
             $parser->match(Lexer::T_OPEN_PARENTHESIS);

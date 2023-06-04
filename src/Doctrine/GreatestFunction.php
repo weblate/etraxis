@@ -42,7 +42,7 @@ final class GreatestFunction extends FunctionNode
 
         $lexer = $parser->getLexer();
 
-        while (count($this->values) < 1 || Lexer::T_CLOSE_PARENTHESIS !== $lexer->lookahead['type']) {
+        while (count($this->values) < 1 || Lexer::T_CLOSE_PARENTHESIS !== $lexer->lookahead->type) {
             $parser->match(Lexer::T_COMMA);
             $this->values[] = $parser->ArithmeticExpression();
         }

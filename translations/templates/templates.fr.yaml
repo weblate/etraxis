@@ -1,4 +1,4 @@
-confirm.template.delete: 'Etes-vous sur de vouloir effacer ce modèle?'
+confirm.template.delete: 'Etes-vous sur de vouloir effacer ce modèle ?'
 template: Modèle
 template.active: Actif
 template.critical_age: 'Age critique'
